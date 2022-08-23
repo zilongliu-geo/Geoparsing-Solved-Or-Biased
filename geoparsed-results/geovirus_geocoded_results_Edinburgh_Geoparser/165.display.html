@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Marburg virus is still spreading in <span onClick="goto_name('Angola')" class="loc">Angola</span>, and 180 are now dead, according to recent information from the World Health Organisation (WHO). The disease is similar to the Ebola Haemorrhagic Fever (EHF) virus in its symptoms, though less deadly and slower to spread — which has lead to more deaths overall. Because <span onClick="goto_name('Marburg')" class="loc">Marburg</span> kills more slowly, a victim has more time to make contact with potential hosts. The incurable, though not always fatal, disease is passed on by contact with bodily fluids, including spit and blood. Victims bleed to death. As of yesterday, 205 cases had been identified, with at least 180 fatalities. The disease is now present in seven of <span onClick="goto_name('Angola')" class="loc">Angola</span>'s provinces, the latest outbreak occurring in <span onClick="goto_name('Zaire')" class="loc">Zaire</span> province with six cases. The proportion of deaths in this outbreak was unusually high. According to the WHO, "The dramatic symptoms of <span onClick="goto_name('Marburg')" class="loc">Marburg</span> haemorrhagic fever and its frequent fatality are resulting in a high level of fear, which is further aggravated by a lack of public understanding of the disease." Mobile surveillance teams in <span onClick="goto_name('Uige')" class="loc">Uige</span>, where the majority of cases have been located, were unable to investigate several reported deaths, or to ensure the still-contagious bodies were appropriately dealt with, after transportation vehicles were attacked and damaged by local residents. Said the WHO through a press release, "Because the disease has no cure, hospitalization is not associated with a favourable outcome, and confidence in the medical care system has been eroded. "WHO is familiar with such reactions, which have been seen during previous outbreaks of the closely related <span onClick="goto_name('Ebola')" class="loc">Ebola</span> haemorrhagic fever. Two medical anthropologists are already in <span onClick="goto_name('Uige')" class="loc">Uige</span> and will be joined shortly by experts in social mobilization from <span onClick="goto_name('Angola')" class="loc">Angola</span>, the Democratic Republic of <span onClick="goto_name('Congo')" class="loc">Congo</span>, and <span onClick="goto_name('Mozambique')" class="loc">Mozambique</span>. Public compliance with control measures is not expected to improve in the absence of intense campaigns to educate the public about the disease." Provincial authorities were being engaged in an attempt to urgently find solutions. WHO was appealing, via the United Nations (UN), for funding. The UN health body currently needs US$2.4 million to support the Ministry of Health, Angola. Some 50 international experts were deployed in <span onClick="goto_name('Angola')" class="loc">Angola</span>, a country where 27 years of civil war has left health systems and staff unable to cope with a major epidemic, according to Mike Ryan, director of WHO's alert and response operations. "The situation right now in <span onClick="goto_name('Angola')" class="loc">Angola</span> is not under control yet...This is still a health crisis at the national level and requires a profound commitment both from national authorities and the international community in order to contain this disease," he said. Two deaths had been confirmed in <span onClick="goto_name('Luanda')" class="loc">Luanda</span>, <span onClick="goto_name('Angola')" class="loc">Angola</span>'s capital of 4 million, and six more cases were being investigated there.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Angola</th>
+      </tr>
+      <tr>
+       <th>Marburg</th>
+      </tr>
+      <tr>
+       <th>Zaire</th>
+      </tr>
+      <tr>
+       <th>Uige</th>
+      </tr>
+      <tr>
+       <th>Ebola</th>
+      </tr>
+      <tr>
+       <th>Congo</th>
+      </tr>
+      <tr>
+       <th>Mozambique</th>
+      </tr>
+      <tr>
+       <th>Luanda</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>The World Health Organization (WHO) yesterday began simultaneous immunization campaigns, in 112 countries and territories across its <span onClick="goto_name('Americas')" class="loc">Americas</span>, Eastern Mediterranean, and European regions. The unprecedented vaccination drive will last for a week. This is the first time the World Health Organization has launched such an event across multiple regions at once. WHO officials say their goal is to expand immunization coverage and raise awareness of the importance of vaccines, and that such cross-border activities can prevent disease and save lives. WHO spokesman Daniel Epstein says that many countries are working to eliminate measles, adding that says countries in the European region are very concerned that they have stalled in their goal of eliminating measles and rubella this year. "In European countries, in many of them, immunization coverage is below the 95 percent recommended level. And, there have been ongoing measles outbreaks in some of these countries. Measles cases have also been imported to the <span onClick="goto_name('US')" class="loc">US</span> and <span onClick="goto_name('Canada')" class="loc">Canada</span> and the <span onClick="goto_name('Americas')" class="loc">Americas</span> from European countries," said Epstein. The agency says an important goal of the immunization campaigns is to reach those who have been excluded up to now. It notes that every year, in the countries of the Eastern Mediterranean, 25 percent of deaths among children under age five are attributed to vaccine preventable diseases. 2.1 million children in <span onClick="goto_name('the Middle East')" class="loc">the Middle East</span> hadn't received a shot against tetanus, whooping cough, or diphteria in 2009, according to the WHO. In <span onClick="goto_name('the Americas')" class="loc">the Americas</span>, WHO says special regional events are being held in border areas of <span onClick="goto_name('Nicaragua')" class="loc">Nicaragua</span>, between <span onClick="goto_name('Suriname')" class="loc">Suriname</span> and <span onClick="goto_name('French Guiana')" class="loc">French Guiana</span>, and between <span onClick="goto_name('Haiti')" class="loc">Haiti</span> and the <span onClick="goto_name('Dominican Republic')" class="loc">Dominican Republic</span>. It says many young children, pregnant women, elderly and indigenous peoples live in isolated areas where vaccine coverage is low. In all three regions, Epstein said the vaccination campaigns will be accompanied by health information campaigns. "The biggest obstacle to reaching our goals of vaccination are lack of awareness, lack of information and people being ignorant that they should be vaccinated, and thus not having enough vaccinators, money, trucks, bicycles, etc. to get to these remote regions," he said. WHO also began a large polio immunization campaign across sixteen countries in central and <span onClick="goto_name('West Africa')" class="loc">West Africa</span> on Saturday. It says 78 million children under five will be vaccinated to stop a major outbreak of the disease.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Americas</th>
+      </tr>
+      <tr>
+       <th>US</th>
+      </tr>
+      <tr>
+       <th>Canada</th>
+      </tr>
+      <tr>
+       <th>the Middle East</th>
+      </tr>
+      <tr>
+       <th>the Americas</th>
+      </tr>
+      <tr>
+       <th>Nicaragua</th>
+      </tr>
+      <tr>
+       <th>Suriname</th>
+      </tr>
+      <tr>
+       <th>French Guiana</th>
+      </tr>
+      <tr>
+       <th>Haiti</th>
+      </tr>
+      <tr>
+       <th>Dominican Republic</th>
+      </tr>
+      <tr>
+       <th>West Africa</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

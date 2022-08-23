@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Bangor')" class="loc">Bangor</span> is a town in <span onClick="goto_name('Franklin County')" class="loc">Franklin County</span>, <span onClick="goto_name('New York')" class="loc">New York</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 2,224 at the 2010 census. The town is named after <span onClick="goto_name('Bangor')" class="loc">Bangor</span> in <span onClick="goto_name('Wales')" class="loc">Wales</span>. The Town of <span onClick="goto_name('Bangor')" class="loc">Bangor</span> is an interior town of the county, located west of the Village of <span onClick="goto_name('Malone')" class="loc">Malone</span>. Settlement commenced around 1806. The Town of <span onClick="goto_name('Bangor')" class="loc">Bangor</span> was organized from the Town of <span onClick="goto_name('Dickinson')" class="loc">Dickinson</span> in 1812. The town lost some territory upon the later foundation of the Town of Brandon in 1828. Baconville – A former community in the southwest part of the town. <span onClick="goto_name('Bangor')" class="loc">Bangor</span> – The hamlet of <span onClick="goto_name('Bangor')" class="loc">Bangor</span> is in the south part of the town at the junction of NY-11B and <span onClick="goto_name('County')" class="loc">County</span> Road 13. <span onClick="goto_name('Bangor')" class="loc">Bangor</span> Station – A location northwest of <span onClick="goto_name('North Bangor')" class="loc">North Bangor</span>, located on <span onClick="goto_name('County')" class="loc">County</span> Road 11. Cooks Corners – A hamlet near the north town line at the junction of <span onClick="goto_name('County')" class="loc">County</span> Roads 3 and 32. <span onClick="goto_name('North Bangor')" class="loc">North Bangor</span> – <span onClick="goto_name('North Bangor')" class="loc">North Bangor</span> was incorporated as a village in 1914, but later abandoned that status. It is located on US-11 at <span onClick="goto_name('County')" class="loc">County</span> Road 53. On the way to <span onClick="goto_name('North Bangor')" class="loc">North Bangor</span>, the <span onClick="goto_name('Saint Lawrence Seaway')" class="loc">Saint Lawrence Seaway</span> can be seen, along with <span onClick="goto_name('Canada')" class="loc">Canada</span> on the other side.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Bangor</th>
+      </tr>
+      <tr>
+       <th>Franklin County</th>
+      </tr>
+      <tr>
+       <th>New York</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Wales</th>
+      </tr>
+      <tr>
+       <th>Malone</th>
+      </tr>
+      <tr>
+       <th>Dickinson</th>
+      </tr>
+      <tr>
+       <th>County</th>
+      </tr>
+      <tr>
+       <th>North Bangor</th>
+      </tr>
+      <tr>
+       <th>Saint Lawrence Seaway</th>
+      </tr>
+      <tr>
+       <th>Canada</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

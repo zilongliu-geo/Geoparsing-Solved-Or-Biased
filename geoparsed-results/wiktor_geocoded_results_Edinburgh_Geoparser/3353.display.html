@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([43.19337,-100.71841], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([43.19337,-100.71841],
+			  {
+			      title: "Todd",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Todd County"] = marker;
+  
+    var marker = L.marker([36.83556,-87.17915],
+			  {
+			      title: "Todd",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Todd County"] = marker;
+  
+    var marker = L.marker([46.07062,-94.8976],
+			  {
+			      title: "Todd",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Todd County"] = marker;
+  
+    var marker = L.marker([44.50026,-100.25069],
+			  {
+			      title: "South Dakota",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["South Dakota"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([43.29436,-100.65598],
+			  {
+			      title: "Rosebud Indian Reservation",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Rosebud Indian Reservation"] = marker;
+  
+    var marker = L.marker([8.33131,5.24614],
+			  {
+			      title: "Oyate",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Oyate"] = marker;
+  
+    var marker = L.marker([13.49318,-86.74081],
+			  {
+			      title: "Oyoto",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Oyate"] = marker;
+  
+    var marker = L.marker([8.53479,4.11201],
+			  {
+			      title: "Oyate",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Oyate"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Mission is a city in <span onClick="goto_name('Todd County')" class="loc">Todd County</span>, <span onClick="goto_name('South Dakota')" class="loc">South Dakota</span>, <span onClick="goto_name('United States')" class="loc">United States</span>, and the <span onClick="goto_name('Rosebud Indian Reservation')" class="loc">Rosebud Indian Reservation</span>. The population was 1,182 at the 2010 census. Mission is home of the Sinte Gleska University. It is the largest incorporated community in the county, but is smaller than the unincorporated community of Rosebud, which is the capital of the Rosebud Sioux Tribe. It is named for one of the many missions established by religious groups in the late 19th century to assist the Sicangu Lakota (Rosebud Sioux) and other Native American people. The major economical center of the county, it is located at the junction of US-83 and US-18 (the <span onClick="goto_name('Oyate')" class="loc">Oyate</span> Trail, the home of <span onClick="goto_name('Todd County')" class="loc">Todd County</span> School District, <span onClick="goto_name('Cherry-Todd Rural')" class="loc">Cherry-Todd Rural</span> Electric Cooperative, and various federal/tribal agencies). On episodes of The Price Is Right, the host Bob Barker — who is 1/8 Sioux — noted that Mission was the town in which he spent his childhood while his mother worked as a teacher on the Indian reservation. According to the <span onClick="goto_name('United States')" class="loc">United States</span> Census Bureau, the city has a total area of 0.59 square miles (1.53 km2), all of it land.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Todd County</th>
+       <td best="true">
+        <a onClick="goto(43.19337,-100.71841)">
+         <span style="white-space:nowrap">43.193,-100.718</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.83556,-87.17915)">
+         <span style="white-space:nowrap">36.836,-87.179</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.07062,-94.8976)">
+         <span style="white-space:nowrap">46.071,-94.898</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>South Dakota</th>
+       <td best="true">
+        <a onClick="goto(44.50026,-100.25069)">
+         <span style="white-space:nowrap">44.500,-100.251</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Rosebud Indian Reservation</th>
+       <td best="true">
+        <a onClick="goto(43.29436,-100.65598)">
+         <span style="white-space:nowrap">43.294,-100.656</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Oyate</th>
+       <td best="true">
+        <a onClick="goto(8.33131,5.24614)">
+         <span style="white-space:nowrap">8.331,5.246</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.49318,-86.74081)">
+         <span style="white-space:nowrap">13.493,-86.741</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.53479,4.11201)">
+         <span style="white-space:nowrap">8.535,4.112</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cherry-Todd Rural</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

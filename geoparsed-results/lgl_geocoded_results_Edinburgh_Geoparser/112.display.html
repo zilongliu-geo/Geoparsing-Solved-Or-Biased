@@ -1,0 +1,1279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([38.36843,-81.69957], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([38.36843,-81.69957],
+			  {
+			      title: "South Charleston",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["SOUTH CHARLESTON"] = marker;
+  
+    var marker = L.marker([39.82534,-83.63437],
+			  {
+			      title: "South Charleston",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["SOUTH CHARLESTON"] = marker;
+  
+    var marker = L.marker([38.50038,-80.50009],
+			  {
+			      title: "West Virginia",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["W.Va"] = marker;
+  
+    var marker = L.marker([47.51548,-92.57018],
+			  {
+			      title: "West Virginia",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["W.Va"] = marker;
+  
+    var marker = L.marker([38.36843,-81.69957],
+			  {
+			      title: "South Charleston",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["South Charleston"] = marker;
+  
+    var marker = L.marker([39.82534,-83.63437],
+			  {
+			      title: "South Charleston",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["South Charleston"] = marker;
+  
+    var marker = L.marker([38.50038,-80.50009],
+			  {
+			      title: "West Virginia",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["West Virginia Division"] = marker;
+  
+    var marker = L.marker([47.51548,-92.57018],
+			  {
+			      title: "West Virginia",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["West Virginia Division"] = marker;
+  
+    var marker = L.marker([38.50038,-80.50009],
+			  {
+			      title: "West Virginia",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["West Virginia"] = marker;
+  
+    var marker = L.marker([47.51548,-92.57018],
+			  {
+			      title: "West Virginia",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["West Virginia"] = marker;
+  
+    var marker = L.marker([22.59801,-80.31392],
+			  {
+			      title: "George Washington",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["George Washington"] = marker;
+  
+    var marker = L.marker([22.6,-80.31667],
+			  {
+			      title: "George Washington",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["George Washington"] = marker;
+  
+    var marker = L.marker([38.4203,-82.24172],
+			  {
+			      title: "Cabell",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cabell County"] = marker;
+  
+    var marker = L.marker([37.26984,-81.22232],
+			  {
+			      title: "Bluefield",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([37.25262,-81.27121],
+			  {
+			      title: "Bluefield",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([34.52489,-78.60196],
+			  {
+			      title: "Bluefield",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([35.9384,-86.55555],
+			  {
+			      title: "Bluefield",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([27.20005,-80.58728],
+			  {
+			      title: "Bluefield",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([7.0528,80.7004],
+			  {
+			      title: "Bluefields",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Bluefield"] = marker;
+  
+    var marker = L.marker([38.38565,-81.83624],
+			  {
+			      title: "Saint Albans",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([38.57922,-90.77513],
+			  {
+			      title: "Saint Albans",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([-37.74496,144.80049],
+			  {
+			      title: "St. Albans",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([40.71661,-111.95549],
+			  {
+			      title: "Saint Albans",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([51.75,-0.33333],
+			  {
+			      title: "St Albans",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([-29.3468,151.10014],
+			  {
+			      title: "St Albans",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([-33.40405,146.40429],
+			  {
+			      title: "St Albans",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["St. Albans"] = marker;
+  
+    var marker = L.marker([38.38565,-81.83624],
+			  {
+			      title: "Saint Albans",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kanawha City"] = marker;
+  
+    var marker = L.marker([38.32149,-81.58207],
+			  {
+			      title: "Kanawha City",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kanawha City"] = marker;
+  
+    var marker = L.marker([39.04167,-94.72024],
+			  {
+			      title: "Shawnee",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([35.32729,-96.9253],
+			  {
+			      title: "Shawnee",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([39.60479,-82.21154],
+			  {
+			      title: "Shawnee",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([35.67791,-80.99341],
+			  {
+			      title: "Long Island",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([40.58369,-77.52277],
+			  {
+			      title: "Shawnee",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([39.62538,-76.34274],
+			  {
+			      title: "Shawnee",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([35.49536,-90.11676],
+			  {
+			      title: "Shawnee",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([38.88984,-75.45659],
+			  {
+			      title: "Shawnee",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([32.47574,-81.40816],
+			  {
+			      title: "Shawnee",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([43.12811,-78.83781],
+			  {
+			      title: "Shawnee",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([47.95527,-97.7512],
+			  {
+			      title: "Shawnee",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([31.99376,-87.20693],
+			  {
+			      title: "Shawnee",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([26.77729,-80.96506],
+			  {
+			      title: "Shawnee",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([33.81899,-96.55583],
+			  {
+			      title: "Shawnee",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([31.2138,-94.49909],
+			  {
+			      title: "Shawnee",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([42.74775,-105.00969],
+			  {
+			      title: "Shawnee",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([46.82405,-117.27129],
+			  {
+			      title: "Shawnee",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([34.93505,-107.13726],
+			  {
+			      title: "Suwanee",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([39.4211,-105.55417],
+			  {
+			      title: "Shawnee",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([47.38426,-122.48068],
+			  {
+			      title: "Shawnee",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Shawnee"] = marker;
+  
+    var marker = L.marker([37.58317,-81.38038],
+			  {
+			      title: "Mullens",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([37.34509,-84.22716],
+			  {
+			      title: "Mullins",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([34.20572,-79.25449],
+			  {
+			      title: "Mullins",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([35.1537,-89.85203],
+			  {
+			      title: "Shelby Farms",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([31.17712,-85.39854],
+			  {
+			      title: "Mullins",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([13.23579,-59.64289],
+			  {
+			      title: "Mullins",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([17.10508,-88.30072],
+			  {
+			      title: "Mullins River",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([17.10356,-88.28939],
+			  {
+			      title: "Mullins River",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Mullins"] = marker;
+  
+    var marker = L.marker([38.34982,-81.63262],
+			  {
+			      title: "Charleston",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([38.33657,-81.52812],
+			  {
+			      title: "Kanawha",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([39.19897,-81.46012],
+			  {
+			      title: "Kanawha",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([42.93774,-93.79327],
+			  {
+			      title: "Kanawha",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([33.8615,-95.25301],
+			  {
+			      title: "Kanawha",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([42.9333,-93.79244],
+			  {
+			      title: "Kanawha",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kanawha"] = marker;
+  
+    var marker = L.marker([38.88872,-77.02581],
+			  {
+			      title: "Smithsonian Institution",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Smithsonian Institution"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Mound Center set to open in S.C. today. <span onClick="goto_name('SOUTH CHARLESTON')" class="loc">SOUTH CHARLESTON</span>, <span onClick="goto_name('W.Va')" class="loc">W.Va</span>. -- Photographs of artifacts taken from the Creel Burial Mound in <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> now have a permanent home at the new Mound Interpretive Center next to the LaBelle Theater in <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span>. The new center will open to the public at 11 a.m. today after nearly five years of work and research by <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> officials and community leaders. "Joe Mays was on city council and did the ground work to get this going," said Ben Paul, chairman of the center committee. The completion of the center was made possible through a $300,000-plus grant from the <span onClick="goto_name('West Virginia Division')" class="loc">West Virginia Division</span> of Highways, and the city added $80,000. The city-owned building was renovated by the public works department and designed by designminds, which planned and created the interpretive displays in the center. Along with the mound display and Native American artifacts, a portion of the center is devoted to the Midland Trail. Alice Hypes, executive director of the Midland Trail National Scenic Highway, represents the 180 miles of the trail in <span onClick="goto_name('West Virginia')" class="loc">West Virginia</span>. "We're very excited about the exhibit," she said. "Folks that come into the center can push a button and find out about the whole trail, which is one of the oldest in the country." In fact, Hypes said <span onClick="goto_name('George Washington')" class="loc">George Washington</span> designed the original trail from Virginia Beach, Va., to Cedar Grove in 1790. Visitors to the center can discover the interesting points along the trail from <span onClick="goto_name('Cabell County')" class="loc">Cabell County</span> to <span onClick="goto_name('Bluefield')" class="loc">Bluefield</span> by selecting one of nine buttons that initiates an audio interpretation of a specific area along the trail. In addition to the Mound and Midland Trail sections of the center, there are displays of Blenko Glass and items from Union Carbide when it was in its heyday. The mound portion of the center focuses on the Adena Culture that built the mounds in the area. At one time there were more than 50 earthen mounds built by these Native Americans in our area from <span onClick="goto_name('St. Albans')" class="loc">St. Albans</span> to <span onClick="goto_name('Kanawha City')" class="loc">Kanawha City</span>. Today, only three remain. One is located behind Sunset Memorial Park in <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> while another is at <span onClick="goto_name('Shawnee')" class="loc">Shawnee</span> Park in Institute. The largest remaining one is the <span onClick="goto_name('South Charleston Mound')" class="loc">South Charleston Mound</span>, which is estimated to have been built between 250 and 100 B.C. "This is the first time in 125 years that people can see what artifacts were discovered in the mound," said Mayor Mullins. "We hope this center provides the public with a good image of the history of our area." <span onClick="goto_name('Mullins')" class="loc">Mullins</span> also said he wants school groups to be a part of the center's programs by visiting and taking part in activities planned for the future. "We want this center to be open to all, from individuals to schools, seniors, church groups and college students," he said. "We hope that anyone who's interested in the history of the area will find the center exciting, enjoyable and educational." A large relief map of the three mounds still in the <span onClick="goto_name('Kanawha')" class="loc">Kanawha</span> Valley along with a wall map marked to indicate their location is also audio equipped. The display also shows a half-portion of a mound where visitors to the center can see what the Adena people buried in their mounds. A back hallway of the center is lined with pictures of the artifacts excavated in the 1800s by the <span onClick="goto_name('Smithsonian Institution')" class="loc">Smithsonian Institution</span>. Darla Spencer, a member of the West Virginia Council for Archaeology as well as the Native American History Council, took the pictures. The photos show necklaces of ocean shells that were made by the Adena people and fish darts, arrowheads, mussel shells, projectile points, stone disks and more. The Adena people were the first in this region to settle down in small villages, cultivate crops, use pottery vessels, acquire exotic raw materials, such as copper and marine shells to make ornaments and jewelry and to bury their honored dead in burial mounds. The period of the Adena's existence is estimated from 500 BC to 1000 AD. Mary Ann Wade and Gloria Shirkey will be operating the center and be available to answer any questions visitors might have. "At least we hope so," said Wade. "We also have a video or sound library of 13 CDs of historical artifacts of the city of <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> that we can play for visitors too." When the center opens Friday, there will be a group of school children from <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> among the first visitors. "We hope that kids will utilize the center at every opportunity," said Mayor Mullins. "It's the community's place now and we hope folks will visit often." The Mound Interpretive Center is on D Street in <span onClick="goto_name('South Charleston')" class="loc">South Charleston</span> and will be open to the public from 10 a.m. to 5 p.m. Monday through Friday and from 10 a.m. to 4 p.m. Saturday.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>SOUTH CHARLESTON</th>
+       <td best="true">
+        <a onClick="goto(38.36843,-81.69957)">
+         <span style="white-space:nowrap">38.368,-81.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.82534,-83.63437)">
+         <span style="white-space:nowrap">39.825,-83.634</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>W.Va</th>
+       <td best="true">
+        <a onClick="goto(38.50038,-80.50009)">
+         <span style="white-space:nowrap">38.500,-80.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.51548,-92.57018)">
+         <span style="white-space:nowrap">47.515,-92.570</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>South Charleston</th>
+       <td best="true">
+        <a onClick="goto(38.36843,-81.69957)">
+         <span style="white-space:nowrap">38.368,-81.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.82534,-83.63437)">
+         <span style="white-space:nowrap">39.825,-83.634</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>West Virginia Division</th>
+       <td best="true">
+        <a onClick="goto(38.50038,-80.50009)">
+         <span style="white-space:nowrap">38.500,-80.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.51548,-92.57018)">
+         <span style="white-space:nowrap">47.515,-92.570</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>West Virginia</th>
+       <td best="true">
+        <a onClick="goto(38.50038,-80.50009)">
+         <span style="white-space:nowrap">38.500,-80.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.51548,-92.57018)">
+         <span style="white-space:nowrap">47.515,-92.570</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>George Washington</th>
+       <td best="true">
+        <a onClick="goto(22.59801,-80.31392)">
+         <span style="white-space:nowrap">22.598,-80.314</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.6,-80.31667)">
+         <span style="white-space:nowrap">22.600,-80.317</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cabell County</th>
+       <td best="true">
+        <a onClick="goto(38.4203,-82.24172)">
+         <span style="white-space:nowrap">38.420,-82.242</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bluefield</th>
+       <td best="true">
+        <a onClick="goto(37.26984,-81.22232)">
+         <span style="white-space:nowrap">37.270,-81.222</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.25262,-81.27121)">
+         <span style="white-space:nowrap">37.253,-81.271</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.52489,-78.60196)">
+         <span style="white-space:nowrap">34.525,-78.602</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.9384,-86.55555)">
+         <span style="white-space:nowrap">35.938,-86.556</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(27.20005,-80.58728)">
+         <span style="white-space:nowrap">27.200,-80.587</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.0528,80.7004)">
+         <span style="white-space:nowrap">7.053,80.700</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>St. Albans</th>
+       <td best="true">
+        <a onClick="goto(38.38565,-81.83624)">
+         <span style="white-space:nowrap">38.386,-81.836</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.57922,-90.77513)">
+         <span style="white-space:nowrap">38.579,-90.775</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.74496,144.80049)">
+         <span style="white-space:nowrap">-37.745,144.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.71661,-111.95549)">
+         <span style="white-space:nowrap">40.717,-111.955</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.75,-0.33333)">
+         <span style="white-space:nowrap">51.750,-0.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.3468,151.10014)">
+         <span style="white-space:nowrap">-29.347,151.100</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.40405,146.40429)">
+         <span style="white-space:nowrap">-33.404,146.404</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kanawha City</th>
+       <td best="true">
+        <a onClick="goto(38.38565,-81.83624)">
+         <span style="white-space:nowrap">38.386,-81.836</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.32149,-81.58207)">
+         <span style="white-space:nowrap">38.321,-81.582</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Shawnee</th>
+       <td best="true">
+        <a onClick="goto(39.04167,-94.72024)">
+         <span style="white-space:nowrap">39.042,-94.720</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.32729,-96.9253)">
+         <span style="white-space:nowrap">35.327,-96.925</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.60479,-82.21154)">
+         <span style="white-space:nowrap">39.605,-82.212</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.67791,-80.99341)">
+         <span style="white-space:nowrap">35.678,-80.993</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.58369,-77.52277)">
+         <span style="white-space:nowrap">40.584,-77.523</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.62538,-76.34274)">
+         <span style="white-space:nowrap">39.625,-76.343</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.49536,-90.11676)">
+         <span style="white-space:nowrap">35.495,-90.117</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.88984,-75.45659)">
+         <span style="white-space:nowrap">38.890,-75.457</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.47574,-81.40816)">
+         <span style="white-space:nowrap">32.476,-81.408</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.12811,-78.83781)">
+         <span style="white-space:nowrap">43.128,-78.838</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.95527,-97.7512)">
+         <span style="white-space:nowrap">47.955,-97.751</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.99376,-87.20693)">
+         <span style="white-space:nowrap">31.994,-87.207</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(26.77729,-80.96506)">
+         <span style="white-space:nowrap">26.777,-80.965</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.81899,-96.55583)">
+         <span style="white-space:nowrap">33.819,-96.556</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.2138,-94.49909)">
+         <span style="white-space:nowrap">31.214,-94.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.74775,-105.00969)">
+         <span style="white-space:nowrap">42.748,-105.010</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.82405,-117.27129)">
+         <span style="white-space:nowrap">46.824,-117.271</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.93505,-107.13726)">
+         <span style="white-space:nowrap">34.935,-107.137</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.4211,-105.55417)">
+         <span style="white-space:nowrap">39.421,-105.554</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.38426,-122.48068)">
+         <span style="white-space:nowrap">47.384,-122.481</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>South Charleston Mound</th>
+      </tr>
+      <tr>
+       <th>Mullins</th>
+       <td best="true">
+        <a onClick="goto(37.58317,-81.38038)">
+         <span style="white-space:nowrap">37.583,-81.380</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.34509,-84.22716)">
+         <span style="white-space:nowrap">37.345,-84.227</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.20572,-79.25449)">
+         <span style="white-space:nowrap">34.206,-79.254</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.1537,-89.85203)">
+         <span style="white-space:nowrap">35.154,-89.852</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.17712,-85.39854)">
+         <span style="white-space:nowrap">31.177,-85.399</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.23579,-59.64289)">
+         <span style="white-space:nowrap">13.236,-59.643</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.10508,-88.30072)">
+         <span style="white-space:nowrap">17.105,-88.301</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.10356,-88.28939)">
+         <span style="white-space:nowrap">17.104,-88.289</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kanawha</th>
+       <td best="true">
+        <a onClick="goto(38.34982,-81.63262)">
+         <span style="white-space:nowrap">38.350,-81.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.33657,-81.52812)">
+         <span style="white-space:nowrap">38.337,-81.528</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.19897,-81.46012)">
+         <span style="white-space:nowrap">39.199,-81.460</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.93774,-93.79327)">
+         <span style="white-space:nowrap">42.938,-93.793</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.8615,-95.25301)">
+         <span style="white-space:nowrap">33.861,-95.253</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.9333,-93.79244)">
+         <span style="white-space:nowrap">42.933,-93.792</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Smithsonian Institution</th>
+       <td best="true">
+        <a onClick="goto(38.88872,-77.02581)">
+         <span style="white-space:nowrap">38.889,-77.026</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

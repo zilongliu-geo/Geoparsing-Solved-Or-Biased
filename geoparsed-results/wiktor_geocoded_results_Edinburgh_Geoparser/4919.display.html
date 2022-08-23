@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Nampong')" class="loc">Nampong</span> is a census town in the <span onClick="goto_name('Changlang District')" class="loc">Changlang District</span> in the Indian state of Arunachal Pradesh. It is located close to the <span onClick="goto_name('Pangsau Pass')" class="loc">Pangsau Pass</span>, being the last town on the Indian side, at an elevation of 308 metres. <span onClick="goto_name('Nampong')" class="loc">Nampong</span> was one of the towns on the infamous Ledo Road, known also as "Stilwell Road" after general Joseph Stilwell, and a bridge was built over the river. Owing to frequent landslides and harsh working conditions the pass was nicknamed "<span onClick="goto_name('Hell')" class="loc">Hell</span> Pass" during the war and a place known as "<span onClick="goto_name('Hell Gate')" class="loc">Hell Gate</span>" is located in the town. The <span onClick="goto_name('Tangsa')" class="loc">Tangsa</span>'s are the inhabitants of <span onClick="goto_name('Nampong')" class="loc">Nampong</span>. It is also the last town in eastern Corner of <span onClick="goto_name('India')" class="loc">India</span> which shares boundary with <span onClick="goto_name('Myanmar')" class="loc">Myanmar</span>. Every month people are allowed to visit <span onClick="goto_name('Myanmar')" class="loc">Myanmar</span> through a pass named as "<span onClick="goto_name('Pangsau Pass')" class="loc">Pangsau Pass</span>" which was known as "<span onClick="goto_name('Hell')" class="loc">Hell</span> Pass". Every 10, 20 and 30 of the month, the people are allowed to visit <span onClick="goto_name('Myanmar')" class="loc">Myanmar</span>. PEOPLE The Tangsas are dominant tribe of <span onClick="goto_name('Nampong')" class="loc">Nampong</span> which is one of the major tribe of Arunachal Pradesh. There are different sub tribes within the <span onClick="goto_name('Tangsa')" class="loc">Tangsa</span>, namely Tikhak, Muklom, <span onClick="goto_name('Havi')" class="loc">Havi</span>, <span onClick="goto_name('Longchang')" class="loc">Longchang</span>, <span onClick="goto_name('Mossang')" class="loc">Mossang</span>, <span onClick="goto_name('Jugli')" class="loc">Jugli</span>, Kimsing, Ronrang, Mungrey, Longphi, <span onClick="goto_name('Longri')" class="loc">Longri</span>, Ponthai, <span onClick="goto_name('Sangwal')" class="loc">Sangwal</span>, Yongkuk, Sakieng, Thamphang etc. They are of Mongoloid decent. According to the legends, The Tangsas originated in a hill called Masoi Sinarupam, (<span onClick="goto_name('Myanmar')" class="loc">Myanmar</span>). They migrated to <span onClick="goto_name('India')" class="loc">India</span> in the 1740s from the north of <span onClick="goto_name('Myanmar')" class="loc">Myanmar</span> and migrated to the present habitat only in the early 18th century. Traditionally, they are believer of Bon Faith which is portrayed by spirit and ceremonial animal slaughters. Nonetheless over the years many have converted to Buddhism and Christianity. The Tangsas are laborious and peace-loving community. They are experts in handicrafts particularly in woodcarving. The major populations of the <span onClick="goto_name('Tangsa')" class="loc">Tangsa</span> are agriculturist by occupation. Lifestyle is uncomplicated. Survival is simple. Their warm smiles compel to forget the freezing temperature of January and the hospitality for the guest are the best in the world.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Nampong</th>
+      </tr>
+      <tr>
+       <th>Changlang District</th>
+      </tr>
+      <tr>
+       <th>Pangsau Pass</th>
+      </tr>
+      <tr>
+       <th>Hell</th>
+      </tr>
+      <tr>
+       <th>Hell Gate</th>
+      </tr>
+      <tr>
+       <th>Tangsa</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Myanmar</th>
+      </tr>
+      <tr>
+       <th>Havi</th>
+      </tr>
+      <tr>
+       <th>Longchang</th>
+      </tr>
+      <tr>
+       <th>Mossang</th>
+      </tr>
+      <tr>
+       <th>Jugli</th>
+      </tr>
+      <tr>
+       <th>Longri</th>
+      </tr>
+      <tr>
+       <th>Sangwal</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

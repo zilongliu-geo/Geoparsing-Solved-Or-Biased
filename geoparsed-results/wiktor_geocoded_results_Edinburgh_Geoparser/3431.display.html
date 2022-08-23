@@ -1,0 +1,504 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([38.46037,-91.86184], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([38.46037,-91.86184],
+			  {
+			      title: "Osage",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Osage County"] = marker;
+  
+    var marker = L.marker([38.65233,-95.72695],
+			  {
+			      title: "Osage",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Osage County"] = marker;
+  
+    var marker = L.marker([36.62919,-96.39849],
+			  {
+			      title: "Osage",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Osage County"] = marker;
+  
+    var marker = L.marker([38.25031,-92.50046],
+			  {
+			      title: "Missouri",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([31.94766,-85.70522],
+			  {
+			      title: "Perote",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([45.67965,-111.03856],
+			  {
+			      title: "Bozeman",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([44.42634,-76.48767],
+			  {
+			      title: "Missouri",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([-30.21981,120.9539],
+			  {
+			      title: "Missouri",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([14.62179,121.11342],
+			  {
+			      title: "Missouri",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([38.5767,-92.17352],
+			  {
+			      title: "Jefferson City",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([38.37866,-89.0434],
+			  {
+			      title: "Jefferson City",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([36.12231,-83.4924],
+			  {
+			      title: "Jefferson City",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([41.20312,-79.55505],
+			  {
+			      title: "Jefferson",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([30.08605,-94.10185],
+			  {
+			      title: "Beaumont",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([46.38826,-112.0275],
+			  {
+			      title: "Jefferson City",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([46.38826,-112.0275],
+			  {
+			      title: "Jefferson (historical)",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Jefferson City"] = marker;
+  
+    var marker = L.marker([38.33893,-92.13851],
+			  {
+			      title: "Babbtown",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["city of Babbtown"] = marker;
+  
+    var marker = L.marker([34.62318,-82.20317],
+			  {
+			      title: "Green Pond",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["city of Babbtown"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Meta is a city in <span onClick="goto_name('Osage County')" class="loc">Osage County</span>, <span onClick="goto_name('Missouri')" class="loc">Missouri</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 229 at the 2010 census. It is part of the <span onClick="goto_name('Jefferson City')" class="loc">Jefferson City</span>, <span onClick="goto_name('Missouri')" class="loc">Missouri</span> Metropolitan Statistical Area and is also the world headquarters of Diamond Pet Foods. Meta is located at 38°18′45″N 92°10′5″W (38.312471, -92.167999). According to the <span onClick="goto_name('United States')" class="loc">United States</span> Census Bureau, the city has a total area of 0.35 square miles (0.91 km2), all of it land. The Following information is about the <span onClick="goto_name('city of Babbtown')" class="loc">city of Babbtown</span> and what effect the Rock Island Railroad had on the town of Meta. This area of <span onClick="goto_name('Osage County')" class="loc">Osage County</span> was settled by German Lutherans in the 1860s, and a small catholic church, St. John's Lutheran Church, at <span onClick="goto_name('Babbtown')" class="loc">Babbtown</span> was built in 1871. The congregation still meets in the original building, which was constructed in 1873. When termites were discovered in the hewn log sills in the 1990s, congregation members rebuilt the foundation by jacking up the walls section-by-section and cutting out and replacing the termite-riddled timbers and wall structure. By the late 19th century, the neighboring <span onClick="goto_name('city of Babbtown')" class="loc">city of Babbtown</span> had developed into a prominent town in the area, with a general store and post office across from the church, a blacksmith shop, and a Lutheran school, which was built in the late 1890s and held classes from 1900-1930. The old schoolhouse was expanded in the 1970s and again in the 1990s, and is now used as a parish building. Around 1900, however, the Rock Island Railroad was built through what is today the town of Meta, and as that town grew, <span onClick="goto_name('Babbtown')" class="loc">Babbtown</span> dwindled away. The town of Meta was named after Meta Rowan, the wife of Nathan J. Rowan.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Osage County</th>
+       <td best="true">
+        <a onClick="goto(38.46037,-91.86184)">
+         <span style="white-space:nowrap">38.460,-91.862</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.65233,-95.72695)">
+         <span style="white-space:nowrap">38.652,-95.727</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.62919,-96.39849)">
+         <span style="white-space:nowrap">36.629,-96.398</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Missouri</th>
+       <td best="true">
+        <a onClick="goto(38.25031,-92.50046)">
+         <span style="white-space:nowrap">38.250,-92.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.94766,-85.70522)">
+         <span style="white-space:nowrap">31.948,-85.705</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.67965,-111.03856)">
+         <span style="white-space:nowrap">45.680,-111.039</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.42634,-76.48767)">
+         <span style="white-space:nowrap">44.426,-76.488</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.21981,120.9539)">
+         <span style="white-space:nowrap">-30.220,120.954</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.62179,121.11342)">
+         <span style="white-space:nowrap">14.622,121.113</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Jefferson City</th>
+       <td best="true">
+        <a onClick="goto(38.5767,-92.17352)">
+         <span style="white-space:nowrap">38.577,-92.174</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.37866,-89.0434)">
+         <span style="white-space:nowrap">38.379,-89.043</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.12231,-83.4924)">
+         <span style="white-space:nowrap">36.122,-83.492</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.20312,-79.55505)">
+         <span style="white-space:nowrap">41.203,-79.555</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.08605,-94.10185)">
+         <span style="white-space:nowrap">30.086,-94.102</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.38826,-112.0275)">
+         <span style="white-space:nowrap">46.388,-112.028</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.38826,-112.0275)">
+         <span style="white-space:nowrap">46.388,-112.028</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>city of Babbtown</th>
+       <td best="true">
+        <a onClick="goto(38.33893,-92.13851)">
+         <span style="white-space:nowrap">38.339,-92.139</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.62318,-82.20317)">
+         <span style="white-space:nowrap">34.623,-82.203</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Babbtown</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

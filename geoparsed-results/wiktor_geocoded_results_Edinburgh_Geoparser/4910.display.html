@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Calhoun County')" class="loc">Calhoun County</span> is a county in the <span onClick="goto_name('U.S.')" class="loc">U.S.</span> state of <span onClick="goto_name('Alabama')" class="loc">Alabama</span>. As of the 2010 census, the population was 118,572. <span onClick="goto_name('Its county')" class="loc">Its county</span> seat is <span onClick="goto_name('Anniston')" class="loc">Anniston</span>. Its name is in honor of John C. Calhoun, famous member of the <span onClick="goto_name('United States')" class="loc">United States</span> Senate from <span onClick="goto_name('South Carolina')" class="loc">South Carolina</span>. <span onClick="goto_name('Calhoun County')" class="loc">Calhoun County</span> is included in the <span onClick="goto_name('Anniston-Oxford Metropolitan')" class="loc">Anniston-Oxford Metropolitan</span> Statistical Area. <span onClick="goto_name('Benton County')" class="loc">Benton County</span> was established on December 18, 1832, named for Thomas Hart Benton, a member of the <span onClick="goto_name('United States')" class="loc">United States</span> Senate from <span onClick="goto_name('Missouri')" class="loc">Missouri</span>, with its county seat at <span onClick="goto_name('Jacksonville')" class="loc">Jacksonville</span>. Benton, a slave owner, was a political ally of John C. Calhoun, another slaveholder and a <span onClick="goto_name('U.S.')" class="loc">U.S.</span> senator from <span onClick="goto_name('South Carolina')" class="loc">South Carolina</span>. Through the 1820s-1840s, however, Benton's and Calhoun's political interests diverged, with Calhoun increasingly using secession as a weapon to maintain and expand slavery throughout the <span onClick="goto_name('United States')" class="loc">United States</span>. Benton, on the other hand, was slowly coming to the conclusion that slavery was wrong and that preservation of the union was paramount. On January 29, 1858, Alabama supporters of slavery, objecting to Benton's change of heart, renamed <span onClick="goto_name('Benton County')" class="loc">Benton County</span> as <span onClick="goto_name('Calhoun County')" class="loc">Calhoun County</span>. The county seat was moved to <span onClick="goto_name('Anniston')" class="loc">Anniston</span> after years of controversy and a State <span onClick="goto_name('Supreme Court')" class="loc">Supreme Court</span> ruling in June 1900. An F4 tornado struck here on Palm Sunday March 27, 1994. It destroyed Piedmont's Goshen United Methodist Church twelve minutes after the National Weather Service of <span onClick="goto_name('Birmingham')" class="loc">Birmingham</span> issued a tornado warning for northern <span onClick="goto_name('Calhoun')" class="loc">Calhoun</span>, southeastern <span onClick="goto_name('Etowah')" class="loc">Etowah</span>, and southern <span onClick="goto_name('Cherokee')" class="loc">Cherokee</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Calhoun County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>Alabama</th>
+      </tr>
+      <tr>
+       <th>Its county</th>
+      </tr>
+      <tr>
+       <th>Anniston</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>South Carolina</th>
+      </tr>
+      <tr>
+       <th>Anniston-Oxford Metropolitan</th>
+      </tr>
+      <tr>
+       <th>Benton County</th>
+      </tr>
+      <tr>
+       <th>Missouri</th>
+      </tr>
+      <tr>
+       <th>Jacksonville</th>
+      </tr>
+      <tr>
+       <th>Supreme Court</th>
+      </tr>
+      <tr>
+       <th>Birmingham</th>
+      </tr>
+      <tr>
+       <th>Calhoun</th>
+      </tr>
+      <tr>
+       <th>Etowah</th>
+      </tr>
+      <tr>
+       <th>Cherokee</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

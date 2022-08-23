@@ -1,0 +1,841 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([-45.09758,170.97087], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([-45.09758,170.97087],
+			  {
+			      title: "Oamaru",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Oamaru"] = marker;
+  
+    var marker = L.marker([-45.08333,170.98333],
+			  {
+			      title: "Oamaru",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Oamaru"] = marker;
+  
+    var marker = L.marker([-45.1,170.96667],
+			  {
+			      title: "Oamaru",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Oamaru"] = marker;
+  
+    var marker = L.marker([-36.73428,175.46981],
+			  {
+			      title: "Oamaru",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Oamaru"] = marker;
+  
+    var marker = L.marker([-20.68721,143.35369],
+			  {
+			      title: "Oamaru",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Oamaru"] = marker;
+  
+    var marker = L.marker([-43,171],
+			  {
+			      title: "South Island",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([14.12871,97.80551],
+			  {
+			      title: "South Island",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-53.05,72.6],
+			  {
+			      title: "South Island",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-10.471,56.68874],
+			  {
+			      title: "South Island",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-14.70153,145.45415],
+			  {
+			      title: "South Island",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-18.15712,146.30468],
+			  {
+			      title: "South Island",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([34.22889,125.98944],
+			  {
+			      title: "South Island",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-13.41732,166.69312],
+			  {
+			      title: "South Island",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([10.05,72.28333],
+			  {
+			      title: "South Island",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-8.81511,157.75852],
+			  {
+			      title: "South Island",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([16.94694,112.33472],
+			  {
+			      title: "South Island",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([10.53722,119.73694],
+			  {
+			      title: "South Island",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-21.50813,115.3533],
+			  {
+			      title: "South Island",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([55.985,-156.73861],
+			  {
+			      title: "South Island",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-36.07072,139.58052],
+			  {
+			      title: "South Island",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-12.19161,96.92288],
+			  {
+			      title: "South Island",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([16.84884,94.27132],
+			  {
+			      title: "South Island",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-21.75218,150.33114],
+			  {
+			      title: "South Island",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-10.04546,142.13167],
+			  {
+			      title: "South Island",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-10.16667,51.16667],
+			  {
+			      title: "South Island",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["South Island"] = marker;
+  
+    var marker = L.marker([-42,174],
+			  {
+			      title: "New Zealand",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["New Zealand"] = marker;
+  
+    var marker = L.marker([-42,174],
+			  {
+			      title: "New Zealand",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["New Zealand"] = marker;
+  
+    var marker = L.marker([46.4168,-62.31532],
+			  {
+			      title: "New Zealand",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["New Zealand"] = marker;
+  
+    var marker = L.marker([-44.93333,171.1],
+			  {
+			      title: "Waitaki",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-44.93746,171.14485],
+			  {
+			      title: "Waitaki River",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-44.95994,170.5545],
+			  {
+			      title: "Waitaki District",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-44.75,170.25],
+			  {
+			      title: "Waitaki County",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-9.5759,119.5448],
+			  {
+			      title: "Waitaki",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-38.99823,177.55021],
+			  {
+			      title: "Waitaki",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Waitaki District"] = marker;
+  
+    var marker = L.marker([-45.09758,170.97087],
+			  {
+			      title: "Oamaru",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Oamaru region"] = marker;
+  
+    var marker = L.marker([-45.08333,170.98333],
+			  {
+			      title: "Oamaru",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Oamaru region"] = marker;
+  
+    var marker = L.marker([-45.1,170.96667],
+			  {
+			      title: "Oamaru",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Oamaru region"] = marker;
+  
+    var marker = L.marker([-36.73428,175.46981],
+			  {
+			      title: "Oamaru",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Oamaru region"] = marker;
+  
+    var marker = L.marker([-20.68721,143.35369],
+			  {
+			      title: "Oamaru",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Oamaru region"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Weston is a township situated 5 km (3.1 mi) inland from <span onClick="goto_name('Oamaru')" class="loc">Oamaru</span>, <span onClick="goto_name('South Island')" class="loc">South Island</span>, <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>. It is regarded as one of the more affluent townships of the <span onClick="goto_name('Waitaki District')" class="loc">Waitaki District</span> and had a population of 730 in the 2006 census. Weston has some of the largest sporting grounds in the <span onClick="goto_name('Oamaru region')" class="loc">Oamaru region</span>, with the Weston Domain having a full size cricket oval, two football pitches and two rugby union fields, accompanied by a large pavilion and public garden/recreation area. Weston is home to the largest <span onClick="goto_name('Oamaru')" class="loc">Oamaru</span> stone quarry in <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>, supplying <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span> and exporting much overseas. The quarry lies a further mile inland from Weston, so its daily operation is not noticed by Weston residents. International cement manufacturer Holcim has gained consent to open a cement plant near Weston, involving further limestone quarrying. The application prompted the founding of the Waiareka Preservation Society, which opposes the planned plant. Society members are worried how potential extra traffic through the township would impact on roading infrastructure. However, Holcim has stated a preference for rail transport between the cement works and harbour and would seek to reopen the line to Weston.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Oamaru</th>
+       <td best="true">
+        <a onClick="goto(-45.09758,170.97087)">
+         <span style="white-space:nowrap">-45.098,170.971</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-45.08333,170.98333)">
+         <span style="white-space:nowrap">-45.083,170.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-45.1,170.96667)">
+         <span style="white-space:nowrap">-45.100,170.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.73428,175.46981)">
+         <span style="white-space:nowrap">-36.734,175.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-20.68721,143.35369)">
+         <span style="white-space:nowrap">-20.687,143.354</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>South Island</th>
+       <td best="true">
+        <a onClick="goto(-43,171)">
+         <span style="white-space:nowrap">-43.000,171.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.12871,97.80551)">
+         <span style="white-space:nowrap">14.129,97.806</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-53.05,72.6)">
+         <span style="white-space:nowrap">-53.050,72.600</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-10.471,56.68874)">
+         <span style="white-space:nowrap">-10.471,56.689</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.70153,145.45415)">
+         <span style="white-space:nowrap">-14.702,145.454</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.15712,146.30468)">
+         <span style="white-space:nowrap">-18.157,146.305</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.22889,125.98944)">
+         <span style="white-space:nowrap">34.229,125.989</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-13.41732,166.69312)">
+         <span style="white-space:nowrap">-13.417,166.693</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.05,72.28333)">
+         <span style="white-space:nowrap">10.050,72.283</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.81511,157.75852)">
+         <span style="white-space:nowrap">-8.815,157.759</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.94694,112.33472)">
+         <span style="white-space:nowrap">16.947,112.335</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.53722,119.73694)">
+         <span style="white-space:nowrap">10.537,119.737</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-21.50813,115.3533)">
+         <span style="white-space:nowrap">-21.508,115.353</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.985,-156.73861)">
+         <span style="white-space:nowrap">55.985,-156.739</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.07072,139.58052)">
+         <span style="white-space:nowrap">-36.071,139.581</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-12.19161,96.92288)">
+         <span style="white-space:nowrap">-12.192,96.923</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.84884,94.27132)">
+         <span style="white-space:nowrap">16.849,94.271</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-21.75218,150.33114)">
+         <span style="white-space:nowrap">-21.752,150.331</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-10.04546,142.13167)">
+         <span style="white-space:nowrap">-10.045,142.132</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-10.16667,51.16667)">
+         <span style="white-space:nowrap">-10.167,51.167</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>New Zealand</th>
+       <td best="true">
+        <a onClick="goto(-42,174)">
+         <span style="white-space:nowrap">-42.000,174.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-42,174)">
+         <span style="white-space:nowrap">-42.000,174.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.4168,-62.31532)">
+         <span style="white-space:nowrap">46.417,-62.315</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Waitaki District</th>
+       <td best="true">
+        <a onClick="goto(-44.93333,171.1)">
+         <span style="white-space:nowrap">-44.933,171.100</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-44.93746,171.14485)">
+         <span style="white-space:nowrap">-44.937,171.145</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-44.95994,170.5545)">
+         <span style="white-space:nowrap">-44.960,170.554</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-44.75,170.25)">
+         <span style="white-space:nowrap">-44.750,170.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-9.5759,119.5448)">
+         <span style="white-space:nowrap">-9.576,119.545</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.99823,177.55021)">
+         <span style="white-space:nowrap">-38.998,177.550</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Oamaru region</th>
+       <td best="true">
+        <a onClick="goto(-45.09758,170.97087)">
+         <span style="white-space:nowrap">-45.098,170.971</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-45.08333,170.98333)">
+         <span style="white-space:nowrap">-45.083,170.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-45.1,170.96667)">
+         <span style="white-space:nowrap">-45.100,170.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.73428,175.46981)">
+         <span style="white-space:nowrap">-36.734,175.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-20.68721,143.35369)">
+         <span style="white-space:nowrap">-20.687,143.354</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

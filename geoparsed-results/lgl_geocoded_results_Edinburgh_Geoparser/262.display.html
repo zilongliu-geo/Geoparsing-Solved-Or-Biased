@@ -1,0 +1,1666 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([9,39.5], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([9,39.5],
+			  {
+			      title: "Ethiopia",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ethiopia"] = marker;
+  
+    var marker = L.marker([-33.30488,136.64154],
+			  {
+			      title: "Ethiopia",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Ethiopia"] = marker;
+  
+    var marker = L.marker([13.40882,122.56155],
+			  {
+			      title: "Philippines",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([7.38327,122.7627],
+			  {
+			      title: "Philippines",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([13,122],
+			  {
+			      title: "Philippine Islands",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([24.48653,54.37143],
+			  {
+			      title: "Al Filibbīn",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([16,30],
+			  {
+			      title: "Sudan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([31.085,49.2758],
+			  {
+			      title: "Sūdān",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([24.24794,85.7941],
+			  {
+			      title: "Sudan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.31583,109.28083],
+			  {
+			      title: "Sudan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([14.06667,-86.33333],
+			  {
+			      title: "Sudán",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([49.70187,4.94028],
+			  {
+			      title: "Sedan",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([36.40327,126.74923],
+			  {
+			      title: "Sudan",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.58194,110.735],
+			  {
+			      title: "Sudan",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.70444,110.53083],
+			  {
+			      title: "Sudan",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([14.54114,43.61812],
+			  {
+			      title: "Sūdān",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([14.5566,43.76882],
+			  {
+			      title: "Sūdān",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.63139,110.83611],
+			  {
+			      title: "Sudan",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([34.06786,-102.52436],
+			  {
+			      title: "Sudan",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.99028,110.9875],
+			  {
+			      title: "Sudan",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([15.67648,43.21578],
+			  {
+			      title: "Sūdān",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([31.09924,75.02],
+			  {
+			      title: "Sūdān",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([40.16396,-79.96755],
+			  {
+			      title: "Sudan",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([-7.7371,112.7799],
+			  {
+			      title: "Sudan",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([14.22828,44.54809],
+			  {
+			      title: "Sūdān",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([10,20],
+			  {
+			      title: "Sudan",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Sudan"] = marker;
+  
+    var marker = L.marker([35,38],
+			  {
+			      title: "Syria",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([31.26667,32.3],
+			  {
+			      title: "Syria",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([-2.63333,-67.01667],
+			  {
+			      title: "Síria",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([39.02112,-98.09477],
+			  {
+			      title: "Quartzite",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([38.4879,-78.32612],
+			  {
+			      title: "Syria",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([38.58617,-86.40165],
+			  {
+			      title: "Syria",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([35.27348,33.75529],
+			  {
+			      title: "Syria",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([36.2019,36.15858],
+			  {
+			      title: "Syria (Roman province)",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([25.28405,55.32705],
+			  {
+			      title: "Sūriyā",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([24.42395,54.43857],
+			  {
+			      title: "Sūriyā",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Syria"] = marker;
+  
+    var marker = L.marker([33.89332,35.50157],
+			  {
+			      title: "Beirut",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([33.88333,35.5],
+			  {
+			      title: "Beyrouth",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([51.12443,17.54607],
+			  {
+			      title: "Bierutów",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([-3.88,-71.46139],
+			  {
+			      title: "Beirut",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([27.25148,33.83667],
+			  {
+			      title: "Beirut",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([6.67556,-71.67639],
+			  {
+			      title: "Beirut",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["BEIRUT"] = marker;
+  
+    var marker = L.marker([33.83333,35.83333],
+			  {
+			      title: "Lebanon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([40.34093,-76.41135],
+			  {
+			      title: "Lebanon",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([36.20811,-86.2911],
+			  {
+			      title: "Lebanon",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([39.43534,-84.20299],
+			  {
+			      title: "Lebanon",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([40.04837,-86.46917],
+			  {
+			      title: "Lebanon",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([43.64229,-72.25176],
+			  {
+			      title: "Lebanon",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([37.6806,-92.66379],
+			  {
+			      title: "Lebanon",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([40.64177,-74.836],
+			  {
+			      title: "Lebanon",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([36.90094,-82.08013],
+			  {
+			      title: "Lebanon",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([45.0697,-99.76984],
+			  {
+			      title: "Lebanon",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([41.63621,-72.21258],
+			  {
+			      title: "Lebanon",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([38.60394,-89.80732],
+			  {
+			      title: "Lebanon",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([40.05056,-100.27625],
+			  {
+			      title: "Lebanon",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([34.14288,-84.50937],
+			  {
+			      title: "Lebanon",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([44.53651,-122.90703],
+			  {
+			      title: "Lebanon",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([37.45721,-108.59148],
+			  {
+			      title: "Lebanon",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([37.56979,-85.25274],
+			  {
+			      title: "Lebanon",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([42.78146,-75.64768],
+			  {
+			      title: "Lebanon",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([43.25528,-88.62677],
+			  {
+			      title: "Lebanon",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([43.39453,-70.85089],
+			  {
+			      title: "Lebanon",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Lebanon"] = marker;
+  
+    var marker = L.marker([32.99558,67.57595],
+			  {
+			      title: "Ḩaīdar",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([27.15647,68.63202],
+			  {
+			      title: "Haidar Rind",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([43.36667,26.28333],
+			  {
+			      title: "Kardam",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([32.92576,70.63975],
+			  {
+			      title: "Haidar",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([32.77355,70.80743],
+			  {
+			      title: "Haidar",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([30.73878,66.45449],
+			  {
+			      title: "Kili Haider",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([33.91806,72.36195],
+			  {
+			      title: "Dhok Haider",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([33.53315,67.99957],
+			  {
+			      title: "Ḩaīdar",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([31.03449,67.05362],
+			  {
+			      title: "Tlerai",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([44.77269,28.27855],
+			  {
+			      title: "Haidar",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([32.7016,66.0868],
+			  {
+			      title: "Ḩaīdar",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([34.81253,72.01994],
+			  {
+			      title: "Haidar",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([33.09422,67.47378],
+			  {
+			      title: "Ḩaīdar",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Haidar"] = marker;
+  
+    var marker = L.marker([35.1276,64.60839],
+			  {
+			      title: "‘Āmil",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([50.35357,6.17002],
+			  {
+			      title: "Amel",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([49.26667,5.65],
+			  {
+			      title: "Amel-sur-l'Étang",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([27.35609,35.84428],
+			  {
+			      title: "Wādī ‘Āmil",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([50.28,3.07389],
+			  {
+			      title: "Hamel",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([9.12207,28.38914],
+			  {
+			      title: "Amel",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([50.46667,5.6],
+			  {
+			      title: "Amblève",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([49.6476,1.9925],
+			  {
+			      title: "Le Hamel",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([16.3519,-14.5855],
+			  {
+			      title: "Amel",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([9.91873,32.19974],
+			  {
+			      title: "Amel",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([49.8996,2.5712],
+			  {
+			      title: "Le Hamel",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+    var marker = L.marker([50.35138,6.16814],
+			  {
+			      title: "Amblève",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["AMEL"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>AMEL center offers breathing space to Iraqi refugees . One of the first projects the committee hopes to start is the production of an information pack that contains advice and information useful to the refugee community. Once compiled, they hope to distribute this leaflet to some of the estimated 40,000 Iraqi refugees and many other refugees from <span onClick="goto_name('Ethiopia')" class="loc">Ethiopia</span>, the <span onClick="goto_name('Philippines')" class="loc">Philippines</span>, <span onClick="goto_name('Sudan')" class="loc">Sudan</span> and <span onClick="goto_name('Syria')" class="loc">Syria</span>, who are not currently registered with the UNHCR. <span onClick="goto_name('BEIRUT')" class="loc">BEIRUT</span>: "You know, the life of a refugee in <span onClick="goto_name('Lebanon')" class="loc">Lebanon</span> is such a difficult one," explains <span onClick="goto_name('Haidar')" class="loc">Haidar</span>. "We are treated as undesirables, as trouble-makers, even as terrorists. Society is hostile toward us and the authorities don't recognize us as equals; we suffer from abuse, exploitation and the constant fear of arrest." The association believes that one of the primary benefits of the center is that it provides refugees with an opportunity to participate directly in the running of the services provided by the NGO. This participatory approach relies on a commitment to allowing refugees to take direct responsibility for the provision and maintenance of services. This week, <span onClick="goto_name('AMEL')" class="loc">AMEL</span> took steps in realizing this vision, by organizing a democratic vote to elect a Youth Committee to represent the interests of the NGO's six hundred plus beneficiaries, the first of its kind in <span onClick="goto_name('Lebanon')" class="loc">Lebanon</span>. He goes on to say that even those refugees who are registered with the UNHCR and possesses UN papers are not safe, seeing as the Lebanese authorities do not recognize the status of refugees and will arrest and detain anyone who is caught. As a result, Sajed concludes, "many refugees cannot travel, but must remain in or close to their homes in [Beirut's southern suburbs], where the local security forces are sympathetic to their situation." The committee hopes that by becoming elected representatives, they can help to break the sense of isolation felt by refugees. Sajed explains the importance of the AMEL center as a safe space where people can meet and relax. "It is a place where we are able to do the sorts of everyday things that, as refugees, we are normally deprived of." Committee members all agree that it is through being at the center, making friends, sharing experiences, offering and asking for advice and engaging in dynamic activities that people are able to stop thinking about themselves as refugees and start to live more normal lives. A combination of this community-based mentality and a participatory approach can be seen in action through the educational and vocational training programs provided by the AMEL center. Instead of recruiting staff from outside, the center aims to recruit trainers and teachers directly from the Iraqi refugee community. For example, one of the committee members, Sajed, a long-term refugee in <span onClick="goto_name('Lebanon')" class="loc">Lebanon</span>, works at the center as an Arabic literacy and history teacher. Sajed hopes that by reaching out to the community, they will find other people with skills who are willing to share them. This way, Sajed hopes, the community will be able to provide for its own needs rather than being reliant on external help.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Ethiopia</th>
+       <td best="true">
+        <a onClick="goto(9,39.5)">
+         <span style="white-space:nowrap">9.000,39.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.30488,136.64154)">
+         <span style="white-space:nowrap">-33.305,136.642</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+       <td best="true">
+        <a onClick="goto(13.40882,122.56155)">
+         <span style="white-space:nowrap">13.409,122.562</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.38327,122.7627)">
+         <span style="white-space:nowrap">7.383,122.763</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13,122)">
+         <span style="white-space:nowrap">13.000,122.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.48653,54.37143)">
+         <span style="white-space:nowrap">24.487,54.371</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Sudan</th>
+       <td best="true">
+        <a onClick="goto(16,30)">
+         <span style="white-space:nowrap">16.000,30.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.085,49.2758)">
+         <span style="white-space:nowrap">31.085,49.276</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.24794,85.7941)">
+         <span style="white-space:nowrap">24.248,85.794</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.31583,109.28083)">
+         <span style="white-space:nowrap">-7.316,109.281</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.06667,-86.33333)">
+         <span style="white-space:nowrap">14.067,-86.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.70187,4.94028)">
+         <span style="white-space:nowrap">49.702,4.940</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.40327,126.74923)">
+         <span style="white-space:nowrap">36.403,126.749</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.58194,110.735)">
+         <span style="white-space:nowrap">-7.582,110.735</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.70444,110.53083)">
+         <span style="white-space:nowrap">-7.704,110.531</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.54114,43.61812)">
+         <span style="white-space:nowrap">14.541,43.618</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.5566,43.76882)">
+         <span style="white-space:nowrap">14.557,43.769</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.63139,110.83611)">
+         <span style="white-space:nowrap">-7.631,110.836</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.06786,-102.52436)">
+         <span style="white-space:nowrap">34.068,-102.524</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.99028,110.9875)">
+         <span style="white-space:nowrap">-7.990,110.987</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(15.67648,43.21578)">
+         <span style="white-space:nowrap">15.676,43.216</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.09924,75.02)">
+         <span style="white-space:nowrap">31.099,75.020</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.16396,-79.96755)">
+         <span style="white-space:nowrap">40.164,-79.968</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.7371,112.7799)">
+         <span style="white-space:nowrap">-7.737,112.780</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.22828,44.54809)">
+         <span style="white-space:nowrap">14.228,44.548</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10,20)">
+         <span style="white-space:nowrap">10.000,20.000</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Syria</th>
+       <td best="true">
+        <a onClick="goto(35,38)">
+         <span style="white-space:nowrap">35.000,38.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.26667,32.3)">
+         <span style="white-space:nowrap">31.267,32.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.63333,-67.01667)">
+         <span style="white-space:nowrap">-2.633,-67.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.02112,-98.09477)">
+         <span style="white-space:nowrap">39.021,-98.095</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.4879,-78.32612)">
+         <span style="white-space:nowrap">38.488,-78.326</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.58617,-86.40165)">
+         <span style="white-space:nowrap">38.586,-86.402</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.27348,33.75529)">
+         <span style="white-space:nowrap">35.273,33.755</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.2019,36.15858)">
+         <span style="white-space:nowrap">36.202,36.159</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.28405,55.32705)">
+         <span style="white-space:nowrap">25.284,55.327</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.42395,54.43857)">
+         <span style="white-space:nowrap">24.424,54.439</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>BEIRUT</th>
+       <td best="true">
+        <a onClick="goto(33.89332,35.50157)">
+         <span style="white-space:nowrap">33.893,35.502</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.88333,35.5)">
+         <span style="white-space:nowrap">33.883,35.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.12443,17.54607)">
+         <span style="white-space:nowrap">51.124,17.546</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-3.88,-71.46139)">
+         <span style="white-space:nowrap">-3.880,-71.461</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(27.25148,33.83667)">
+         <span style="white-space:nowrap">27.251,33.837</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.67556,-71.67639)">
+         <span style="white-space:nowrap">6.676,-71.676</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lebanon</th>
+       <td best="true">
+        <a onClick="goto(33.83333,35.83333)">
+         <span style="white-space:nowrap">33.833,35.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.34093,-76.41135)">
+         <span style="white-space:nowrap">40.341,-76.411</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.20811,-86.2911)">
+         <span style="white-space:nowrap">36.208,-86.291</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.43534,-84.20299)">
+         <span style="white-space:nowrap">39.435,-84.203</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.04837,-86.46917)">
+         <span style="white-space:nowrap">40.048,-86.469</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.64229,-72.25176)">
+         <span style="white-space:nowrap">43.642,-72.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.6806,-92.66379)">
+         <span style="white-space:nowrap">37.681,-92.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.64177,-74.836)">
+         <span style="white-space:nowrap">40.642,-74.836</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.90094,-82.08013)">
+         <span style="white-space:nowrap">36.901,-82.080</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.0697,-99.76984)">
+         <span style="white-space:nowrap">45.070,-99.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.63621,-72.21258)">
+         <span style="white-space:nowrap">41.636,-72.213</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.60394,-89.80732)">
+         <span style="white-space:nowrap">38.604,-89.807</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.05056,-100.27625)">
+         <span style="white-space:nowrap">40.051,-100.276</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.14288,-84.50937)">
+         <span style="white-space:nowrap">34.143,-84.509</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.53651,-122.90703)">
+         <span style="white-space:nowrap">44.537,-122.907</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.45721,-108.59148)">
+         <span style="white-space:nowrap">37.457,-108.591</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.56979,-85.25274)">
+         <span style="white-space:nowrap">37.570,-85.253</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.78146,-75.64768)">
+         <span style="white-space:nowrap">42.781,-75.648</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.25528,-88.62677)">
+         <span style="white-space:nowrap">43.255,-88.627</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.39453,-70.85089)">
+         <span style="white-space:nowrap">43.395,-70.851</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Haidar</th>
+       <td best="true">
+        <a onClick="goto(32.99558,67.57595)">
+         <span style="white-space:nowrap">32.996,67.576</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(27.15647,68.63202)">
+         <span style="white-space:nowrap">27.156,68.632</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.36667,26.28333)">
+         <span style="white-space:nowrap">43.367,26.283</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.92576,70.63975)">
+         <span style="white-space:nowrap">32.926,70.640</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.77355,70.80743)">
+         <span style="white-space:nowrap">32.774,70.807</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.73878,66.45449)">
+         <span style="white-space:nowrap">30.739,66.454</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.91806,72.36195)">
+         <span style="white-space:nowrap">33.918,72.362</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.53315,67.99957)">
+         <span style="white-space:nowrap">33.533,68.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.03449,67.05362)">
+         <span style="white-space:nowrap">31.034,67.054</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.77269,28.27855)">
+         <span style="white-space:nowrap">44.773,28.279</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.7016,66.0868)">
+         <span style="white-space:nowrap">32.702,66.087</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.81253,72.01994)">
+         <span style="white-space:nowrap">34.813,72.020</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.09422,67.47378)">
+         <span style="white-space:nowrap">33.094,67.474</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>AMEL</th>
+       <td best="true">
+        <a onClick="goto(35.1276,64.60839)">
+         <span style="white-space:nowrap">35.128,64.608</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.35357,6.17002)">
+         <span style="white-space:nowrap">50.354,6.170</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.26667,5.65)">
+         <span style="white-space:nowrap">49.267,5.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(27.35609,35.84428)">
+         <span style="white-space:nowrap">27.356,35.844</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.28,3.07389)">
+         <span style="white-space:nowrap">50.280,3.074</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.12207,28.38914)">
+         <span style="white-space:nowrap">9.122,28.389</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.46667,5.6)">
+         <span style="white-space:nowrap">50.467,5.600</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.6476,1.9925)">
+         <span style="white-space:nowrap">49.648,1.992</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.3519,-14.5855)">
+         <span style="white-space:nowrap">16.352,-14.585</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.91873,32.19974)">
+         <span style="white-space:nowrap">9.919,32.200</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.8996,2.5712)">
+         <span style="white-space:nowrap">49.900,2.571</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.35138,6.16814)">
+         <span style="white-space:nowrap">50.351,6.168</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

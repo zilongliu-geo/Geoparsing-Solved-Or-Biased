@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Pura')" class="loc">Pura</span> is a municipality in the <span onClick="goto_name('district of Lugano')" class="loc">district of Lugano</span> in the canton of <span onClick="goto_name('Ticino')" class="loc">Ticino</span> in <span onClick="goto_name('Switzerland')" class="loc">Switzerland</span>. <span onClick="goto_name('Pura')" class="loc">Pura</span> is first mentioned around 751-760, though this is found in a 17th Century copy of the original. In the Middle Ages several institutions such as the monastery of <span onClick="goto_name('San Pietro')" class="loc">San Pietro</span> in <span onClick="goto_name('Ciel')" class="loc">Ciel</span> d'<span onClick="goto_name('Oro')" class="loc">Oro</span> in <span onClick="goto_name('Pavia')" class="loc">Pavia</span>, <span onClick="goto_name('Como Cathedral')" class="loc">Como Cathedral</span>, <span onClick="goto_name('Disentis Abbey')" class="loc">Disentis Abbey</span> and the monastery of <span onClick="goto_name('Agno')" class="loc">Agno</span> possessed property or land in <span onClick="goto_name('Pura')" class="loc">Pura</span>. The village was part of the <span onClick="goto_name('Agno parish')" class="loc">Agno parish</span> until 1603 when it became a separate parish. The parish church of <span onClick="goto_name('San Martino')" class="loc">San Martino</span> was first mentioned in 1352. It was rebuilt in 1580 and expanded between 1642 and 1658. The village economy was based mainly on agriculture, livestock and the dairy industry. The dairy cooperative opened in 1890. Due to limited farming land many of the residents emigrated in the 19th Century. The majority of them went to <span onClick="goto_name('Italy')" class="loc">Italy</span> to work as brickmakers. In the 1960s, a strong construction boom began. By 2000, approximately three quarters of the working population are commuters, especially to <span onClick="goto_name('Lugano')" class="loc">Lugano</span>. <span onClick="goto_name('Pura')" class="loc">Pura</span> has an area, as of 1997, of 3.04 square kilometers (1.17 sq mi). Of this area, 0.67 km2 (0.26 sq mi) or 22.0% is used for agricultural purposes, while 2.28 km2 (0.88 sq mi) or 75.0% is forested. Of the rest of the land, 0.53 km2 (0.20 sq mi) or 17.4% is settled (buildings or roads), 0.02 km2 (4.9 acres) or 0.7% is either rivers or lakes and 0.02 km2 (4.9 acres) or 0.7% is unproductive land.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Pura</th>
+      </tr>
+      <tr>
+       <th>district of Lugano</th>
+      </tr>
+      <tr>
+       <th>Ticino</th>
+      </tr>
+      <tr>
+       <th>Switzerland</th>
+      </tr>
+      <tr>
+       <th>San Pietro</th>
+      </tr>
+      <tr>
+       <th>Ciel</th>
+      </tr>
+      <tr>
+       <th>Oro</th>
+      </tr>
+      <tr>
+       <th>Pavia</th>
+      </tr>
+      <tr>
+       <th>Como Cathedral</th>
+      </tr>
+      <tr>
+       <th>Disentis Abbey</th>
+      </tr>
+      <tr>
+       <th>Agno</th>
+      </tr>
+      <tr>
+       <th>Agno parish</th>
+      </tr>
+      <tr>
+       <th>San Martino</th>
+      </tr>
+      <tr>
+       <th>Italy</th>
+      </tr>
+      <tr>
+       <th>Lugano</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

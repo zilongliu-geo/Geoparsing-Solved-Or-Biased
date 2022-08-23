@@ -1,0 +1,663 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([-27.5,24.33333], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([-27.5,24.33333],
+			  {
+			      title: "Ghaap se Plato",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ghaap Plateau"] = marker;
+  
+    var marker = L.marker([-29,24],
+			  {
+			      title: "South Africa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["South Africa"] = marker;
+  
+    var marker = L.marker([-31.3096,18.357],
+			  {
+			      title: "South Africa",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["South Africa"] = marker;
+  
+    var marker = L.marker([24.48721,54.37045],
+			  {
+			      title: "Janūb Afrīqiyā",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["South Africa"] = marker;
+  
+    var marker = L.marker([-28.85141,23.25248],
+			  {
+			      title: "Griekwastad",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Griquatown"] = marker;
+  
+    var marker = L.marker([-28.8,23.25],
+			  {
+			      title: "Griquatown",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Griquatown"] = marker;
+  
+    var marker = L.marker([-32.62962,25.36443],
+			  {
+			      title: "Groote Fontein",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Groote Fontein"] = marker;
+  
+    var marker = L.marker([-32.9,18.78333],
+			  {
+			      title: "Groote Fontein",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Groote Fontein"] = marker;
+  
+    var marker = L.marker([-34.34522,21.38244],
+			  {
+			      title: "Groote Fontein",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Groote Fontein"] = marker;
+  
+    var marker = L.marker([-29.73333,22.73333],
+			  {
+			      title: "Cape Colony",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cape Colony"] = marker;
+  
+    var marker = L.marker([36.01961,-76.58161],
+			  {
+			      title: "Cape Colony",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Cape Colony"] = marker;
+  
+    var marker = L.marker([-28.85141,23.25248],
+			  {
+			      title: "Griekwastad",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-28.65,23.98333],
+			  {
+			      title: "Clearwater",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-29.48091,25.64505],
+			  {
+			      title: "Klaarwater",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-30.54379,26.9787],
+			  {
+			      title: "Klaarwater",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-28.8,24.35],
+			  {
+			      title: "Klaarwater",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-29.90404,30.79117],
+			  {
+			      title: "Klaarwater",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([52.1738,5.48497],
+			  {
+			      title: "Klaarwater",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-30.09449,27.29403],
+			  {
+			      title: "Klaarwater",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-29.86242,30.86133],
+			  {
+			      title: "Klaarwater",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-23.54218,27.21946],
+			  {
+			      title: "Klaarwater",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Klaarwater"] = marker;
+  
+    var marker = L.marker([-27.4524,23.43246],
+			  {
+			      title: "Kuruman",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([-29.95,27],
+			  {
+			      title: "Kuruman",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([-27.58295,23.40493],
+			  {
+			      title: "Kurumanheuwels",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([-26.93787,20.65936],
+			  {
+			      title: "Kurumanrivier",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([-27.41667,23.45],
+			  {
+			      title: "Kuruman",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([38.86667,40.33333],
+			  {
+			      title: "Kroman",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+    var marker = L.marker([-18.63526,30.83749],
+			  {
+			      title: "Kuruman",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kuruman"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Campbell is a small town situated on the edge of the <span onClick="goto_name('Ghaap Plateau')" class="loc">Ghaap Plateau</span> in the Northern Cape province of <span onClick="goto_name('South Africa')" class="loc">South Africa</span>. It is located 48 km east of <span onClick="goto_name('Griquatown')" class="loc">Griquatown</span>. It was originally known as <span onClick="goto_name('Knovel')" class="loc">Knovel</span> Valley and then <span onClick="goto_name('Groote Fontein')" class="loc">Groote Fontein</span>, but was renamed in honour of the Reverend John Campbell who visited the <span onClick="goto_name('Cape Colony')" class="loc">Cape Colony</span> in 1813. The history of modern settlement of Campbell dates back to 1805 when a group of Griqua, including Captain Andries Waterboer, travelled with missionary Jan Matthys Kok from <span onClick="goto_name('Klaarwater')" class="loc">Klaarwater</span> (now <span onClick="goto_name('Griquatown')" class="loc">Griquatown</span>) to the territory of the Tswana near the modern town of <span onClick="goto_name('Kuruman')" class="loc">Kuruman</span>. Encountering strong springs in a valley at the edge of the <span onClick="goto_name('Ghaap Plateau')" class="loc">Ghaap Plateau</span>, they gave the place the name of <span onClick="goto_name('Knovel')" class="loc">Knovel</span> Valley, noting its potential for future crop cultivation. It was only in 1811 that the Reverend Lambert Jansz, accompanying the traveller William Burchell, revisited the place, taking possession of the springs, by now known as <span onClick="goto_name('Groote Fontein')" class="loc">Groote Fontein</span> (Great Fountain), in the name of the London Missionary Society. Before long the name of the place would be changed again: when the Reverend John Campbell, on a tour of inspection in 1813, reached the nascent village and asked its name, he was told it was Campbell.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Ghaap Plateau</th>
+       <td best="true">
+        <a onClick="goto(-27.5,24.33333)">
+         <span style="white-space:nowrap">-27.500,24.333</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>South Africa</th>
+       <td best="true">
+        <a onClick="goto(-29,24)">
+         <span style="white-space:nowrap">-29.000,24.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-31.3096,18.357)">
+         <span style="white-space:nowrap">-31.310,18.357</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.48721,54.37045)">
+         <span style="white-space:nowrap">24.487,54.370</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Griquatown</th>
+       <td best="true">
+        <a onClick="goto(-28.85141,23.25248)">
+         <span style="white-space:nowrap">-28.851,23.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.8,23.25)">
+         <span style="white-space:nowrap">-28.800,23.250</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Knovel</th>
+      </tr>
+      <tr>
+       <th>Groote Fontein</th>
+       <td best="true">
+        <a onClick="goto(-32.62962,25.36443)">
+         <span style="white-space:nowrap">-32.630,25.364</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.9,18.78333)">
+         <span style="white-space:nowrap">-32.900,18.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.34522,21.38244)">
+         <span style="white-space:nowrap">-34.345,21.382</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cape Colony</th>
+       <td best="true">
+        <a onClick="goto(-29.73333,22.73333)">
+         <span style="white-space:nowrap">-29.733,22.733</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.01961,-76.58161)">
+         <span style="white-space:nowrap">36.020,-76.582</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Klaarwater</th>
+       <td best="true">
+        <a onClick="goto(-28.85141,23.25248)">
+         <span style="white-space:nowrap">-28.851,23.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.65,23.98333)">
+         <span style="white-space:nowrap">-28.650,23.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.48091,25.64505)">
+         <span style="white-space:nowrap">-29.481,25.645</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.54379,26.9787)">
+         <span style="white-space:nowrap">-30.544,26.979</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.8,24.35)">
+         <span style="white-space:nowrap">-28.800,24.350</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.90404,30.79117)">
+         <span style="white-space:nowrap">-29.904,30.791</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.1738,5.48497)">
+         <span style="white-space:nowrap">52.174,5.485</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.09449,27.29403)">
+         <span style="white-space:nowrap">-30.094,27.294</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.86242,30.86133)">
+         <span style="white-space:nowrap">-29.862,30.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.54218,27.21946)">
+         <span style="white-space:nowrap">-23.542,27.219</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kuruman</th>
+       <td best="true">
+        <a onClick="goto(-27.4524,23.43246)">
+         <span style="white-space:nowrap">-27.452,23.432</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.95,27)">
+         <span style="white-space:nowrap">-29.950,27.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.58295,23.40493)">
+         <span style="white-space:nowrap">-27.583,23.405</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.93787,20.65936)">
+         <span style="white-space:nowrap">-26.938,20.659</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.41667,23.45)">
+         <span style="white-space:nowrap">-27.417,23.450</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.86667,40.33333)">
+         <span style="white-space:nowrap">38.867,40.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.63526,30.83749)">
+         <span style="white-space:nowrap">-18.635,30.837</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

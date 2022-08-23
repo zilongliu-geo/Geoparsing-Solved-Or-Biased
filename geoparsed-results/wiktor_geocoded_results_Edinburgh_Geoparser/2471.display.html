@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Montenegro')" class="loc">Montenegro</span> (/ˌmɒntᵻˈneɪɡroʊ/ MON-tən-AYG-roh or /ˌmɒntᵻˈniːɡroʊ/ MON-tən-EEG-roh or /ˌmɒntᵻˈnɛɡroʊ/ MON-tən-EG-roh; Montenegrin: <span onClick="goto_name('Crna Gora')" class="loc">Crna Gora</span> / Црна Гора [t͡sr̩̂ːnaː ɡɔ̌ra], meaning "<span onClick="goto_name('Black Mountain')" class="loc">Black Mountain</span>") is a sovereign state in Southeastern <span onClick="goto_name('Europe')" class="loc">Europe</span>. It has a coast on the <span onClick="goto_name('Adriatic Sea')" class="loc">Adriatic Sea</span> to the south-west and is bordered by <span onClick="goto_name('Croatia')" class="loc">Croatia</span> to the west, <span onClick="goto_name('Bosnia and Herzegovina')" class="loc">Bosnia and Herzegovina</span> to the northwest, <span onClick="goto_name('Serbia')" class="loc">Serbia</span> to the northeast, and <span onClick="goto_name('Albania')" class="loc">Albania</span> to the south-east. Its capital and largest city is <span onClick="goto_name('Podgorica')" class="loc">Podgorica</span>, while <span onClick="goto_name('Cetinje')" class="loc">Cetinje</span> is designated as the Prijestonica, meaning the former Royal Capital City. In the 9th century, there were three principalities on the territory of <span onClick="goto_name('Montenegro')" class="loc">Montenegro</span>: <span onClick="goto_name('Duklja')" class="loc">Duklja</span>, roughly corresponding to the southern half, Travunia, the west, and Rascia, the north. In 1042, archon Stefan Vojislav led a revolt that resulted in the independence of <span onClick="goto_name('Duklja')" class="loc">Duklja</span> and the establishment of the Vojislavljević dynasty. <span onClick="goto_name('Duklja')" class="loc">Duklja</span> reached its zenith under Vojislav's son, Mihailo (1046–81), and his grandson <span onClick="goto_name('Bodin')" class="loc">Bodin</span> (1081–1101). By the 13th century, Zeta had replaced <span onClick="goto_name('Duklja')" class="loc">Duklja</span> when referring to the realm. In the late 14th century, southern <span onClick="goto_name('Montenegro')" class="loc">Montenegro</span> (Zeta) came under the rule of the Balšić noble family, then the Crnojević noble family, and by the 15th century, Zeta was more often referred to as <span onClick="goto_name('Crna Gora')" class="loc">Crna Gora</span> (Venetian: monte negro). Large portions fell under the control of the Ottoman Empire from 1496 to 1878 (Between 1454 (For <span onClick="goto_name('Niksic')" class="loc">Niksic</span>) and 1878 for Old Herzegovina). Parts were controlled by Venice and First French Empire and Austria-Hungary, its successors. From 1515 until 1851 the prince-bishops (vladikas) of <span onClick="goto_name('Cetinje')" class="loc">Cetinje</span> were the rulers. The House of Petrović-Njegoš ruled until 1918. From 1918, it was a part of <span onClick="goto_name('Yugoslavia')" class="loc">Yugoslavia</span>. On the basis of an independence referendum held on 21 May 2006, <span onClick="goto_name('Montenegro')" class="loc">Montenegro</span> declared independence on 3 June of that year.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Montenegro</th>
+      </tr>
+      <tr>
+       <th>Crna Gora</th>
+      </tr>
+      <tr>
+       <th>Black Mountain</th>
+      </tr>
+      <tr>
+       <th>Europe</th>
+      </tr>
+      <tr>
+       <th>Adriatic Sea</th>
+      </tr>
+      <tr>
+       <th>Croatia</th>
+      </tr>
+      <tr>
+       <th>Bosnia and Herzegovina</th>
+      </tr>
+      <tr>
+       <th>Serbia</th>
+      </tr>
+      <tr>
+       <th>Albania</th>
+      </tr>
+      <tr>
+       <th>Podgorica</th>
+      </tr>
+      <tr>
+       <th>Cetinje</th>
+      </tr>
+      <tr>
+       <th>Duklja</th>
+      </tr>
+      <tr>
+       <th>Bodin</th>
+      </tr>
+      <tr>
+       <th>Niksic</th>
+      </tr>
+      <tr>
+       <th>Yugoslavia</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

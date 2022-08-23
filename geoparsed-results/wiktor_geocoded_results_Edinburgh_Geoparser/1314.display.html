@@ -1,0 +1,1892 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([14.16667,122.75], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([14.16667,122.75],
+			  {
+			      title: "Province of Camarines Norte",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Camarines Norte"] = marker;
+  
+    var marker = L.marker([13.40882,122.56155],
+			  {
+			      title: "Philippines",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([13,122],
+			  {
+			      title: "Philippine Islands",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([7.38327,122.7627],
+			  {
+			      title: "Philippines",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([24.48653,54.37143],
+			  {
+			      title: "Al Filibbīn",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Philippines"] = marker;
+  
+    var marker = L.marker([14.1122,122.9553],
+			  {
+			      title: "Daet",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Daet"] = marker;
+  
+    var marker = L.marker([14.10707,122.95363],
+			  {
+			      title: "Daet",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Daet"] = marker;
+  
+    var marker = L.marker([14.0824,122.994],
+			  {
+			      title: "Daet River",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Daet"] = marker;
+  
+    var marker = L.marker([14.13333,122.96667],
+			  {
+			      title: "Daet",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Daet"] = marker;
+  
+    var marker = L.marker([13.8513,123.059],
+			  {
+			      title: "Lanot",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([13.85105,123.0322],
+			  {
+			      title: "Lanot",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([14.13333,121.56667],
+			  {
+			      title: "Lanot",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([11.51917,122.75722],
+			  {
+			      title: "Lanot",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([11.06667,122.53333],
+			  {
+			      title: "Lanot Pequeño",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([11.0577,122.5367],
+			  {
+			      title: "Lanot",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([11.93528,119.89611],
+			  {
+			      title: "Lanot",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([15.58333,119.91667],
+			  {
+			      title: "Lanot",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([11.52449,122.75898],
+			  {
+			      title: "Lanot",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([44.51911,-0.87234],
+			  {
+			      title: "Lanot",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Lanot"] = marker;
+  
+    var marker = L.marker([13.8823,123.0789],
+			  {
+			      title: "Lalawigan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([13.88115,123.05002],
+			  {
+			      title: "Lalawigan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([12.25186,121.11251],
+			  {
+			      title: "Santa Teresa",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([11.58917,125.46972],
+			  {
+			      title: "Lalawigan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([14.78571,120.53046],
+			  {
+			      title: "Lalawigan",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([11.58051,125.45256],
+			  {
+			      title: "Lalawigan",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([14.79523,120.52897],
+			  {
+			      title: "Lalawigan",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Lalawigan"] = marker;
+  
+    var marker = L.marker([14.11667,123.01667],
+			  {
+			      title: "Hamoraon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hamoraon"] = marker;
+  
+    var marker = L.marker([13.90085,123.07342],
+			  {
+			      title: "Hamoraon",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hamoraon"] = marker;
+  
+    var marker = L.marker([13.4243,123.2051],
+			  {
+			      title: "Hamuraon",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hamoraon"] = marker;
+  
+    var marker = L.marker([13.41427,123.20423],
+			  {
+			      title: "Hamoraon",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hamoraon"] = marker;
+  
+    var marker = L.marker([12.22564,123.55151],
+			  {
+			      title: "Hamoraon",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Hamoraon"] = marker;
+  
+    var marker = L.marker([13.9222,123.0883],
+			  {
+			      title: "Culasi",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Colasi"] = marker;
+  
+    var marker = L.marker([13.93383,123.06483],
+			  {
+			      title: "Colasi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Colasi"] = marker;
+  
+    var marker = L.marker([12.4444,121.4079],
+			  {
+			      title: "Colasi",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Colasi"] = marker;
+  
+    var marker = L.marker([10.73538,125.70505],
+			  {
+			      title: "Culasi",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Colasi"] = marker;
+  
+    var marker = L.marker([12.55,124.08333],
+			  {
+			      title: "Colasi River",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Colasi"] = marker;
+  
+    var marker = L.marker([14.11667,123.01667],
+			  {
+			      title: "Tarum",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([13.7,123.06667],
+			  {
+			      title: "Tarum",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([13.96954,123.06916],
+			  {
+			      title: "Tarum",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([13.72208,123.05275],
+			  {
+			      title: "Tarum",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([0.8812,103.38383],
+			  {
+			      title: "Tarum",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([31.78289,34.98096],
+			  {
+			      title: "Tarum",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([28.18312,55.74325],
+			  {
+			      title: "Ţārūm",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([-7.5149,111.5548],
+			  {
+			      title: "Tarum",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([28.1507,55.7464],
+			  {
+			      title: "Ţārom",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([-25.63925,149.7998],
+			  {
+			      title: "Taroom",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([35.95865,53.23427],
+			  {
+			      title: "Ţārūm",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([-7.7923,113.9972],
+			  {
+			      title: "Tarum",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([-7.9274,114.0682],
+			  {
+			      title: "Desa Tarum",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Tarum"] = marker;
+  
+    var marker = L.marker([13.9736,123.0837],
+			  {
+			      title: "Pambuhan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([13.98212,123.04745],
+			  {
+			      title: "Pambuhan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([13.888,123.7016],
+			  {
+			      title: "Pambuhan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([14.19845,121.96776],
+			  {
+			      title: "Pambuhan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([12.5642,124.9276],
+			  {
+			      title: "Pambujan",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([13.87473,123.71779],
+			  {
+			      title: "Pambuhan",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([11.26667,125.55],
+			  {
+			      title: "Pambuhan River",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([-7.0003,111.9765],
+			  {
+			      title: "Pambuhan",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Pambuhan"] = marker;
+  
+    var marker = L.marker([14.11667,123],
+			  {
+			      title: "Masalong-salong",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Masalong-salong"] = marker;
+  
+    var marker = L.marker([14.00389,123.04583],
+			  {
+			      title: "Hinipaan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hinipaan"] = marker;
+  
+    var marker = L.marker([13.99704,123.0294],
+			  {
+			      title: "Hinipaan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hinipaan"] = marker;
+  
+    var marker = L.marker([13.9719,124.2665],
+			  {
+			      title: "Henipaan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hinipaan"] = marker;
+  
+    var marker = L.marker([13.9668,124.26697],
+			  {
+			      title: "Hinipaan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hinipaan"] = marker;
+  
+    var marker = L.marker([14.0684,123.0215],
+			  {
+			      title: "Cayucyucan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cayucyucan"] = marker;
+  
+    var marker = L.marker([14.07365,123.03428],
+			  {
+			      title: "Cayucyucan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Cayucyucan"] = marker;
+  
+    var marker = L.marker([14.0824,123.0349],
+			  {
+			      title: "Manbungalon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Mambongalon"] = marker;
+  
+    var marker = L.marker([14.11667,123],
+			  {
+			      title: "Manguisoc",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Manguisoc"] = marker;
+  
+    var marker = L.marker([14.10002,123.02081],
+			  {
+			      title: "Manguisoc",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Manguisoc"] = marker;
+  
+    var marker = L.marker([14.0849,123.0201],
+			  {
+			      title: "Gaboc",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Gaboc"] = marker;
+  
+    var marker = L.marker([14.07957,123.01754],
+			  {
+			      title: "Gaboc",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Gaboc"] = marker;
+  
+    var marker = L.marker([10.3778,123.0835],
+			  {
+			      title: "Gaboc",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Gaboc"] = marker;
+  
+    var marker = L.marker([9.6754,123.8793],
+			  {
+			      title: "Gaboc",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Gaboc"] = marker;
+  
+    var marker = L.marker([13.43333,122.11667],
+			  {
+			      title: "Gaboc River",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Gaboc"] = marker;
+  
+    var marker = L.marker([14.11667,123.01667],
+			  {
+			      title: "Tanayagan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tanayagan"] = marker;
+  
+    var marker = L.marker([14.1142,122.9833],
+			  {
+			      title: "Tagongtong",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tagontong"] = marker;
+  
+    var marker = L.marker([13.6952,123.4713],
+			  {
+			      title: "Tagongtong",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Tagontong"] = marker;
+  
+    var marker = L.marker([9.2109,123.2023],
+			  {
+			      title: "Tagontong",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Tagontong"] = marker;
+  
+    var marker = L.marker([14.0829,123.006],
+			  {
+			      title: "Catandunganon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Catandonganon"] = marker;
+  
+    var marker = L.marker([14.0889,123.0824],
+			  {
+			      title: "Apuao Island",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Apuao Island"] = marker;
+  
+    var marker = L.marker([36.21067,-5.38415],
+			  {
+			      title: "San Roque",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([6.48511,-75.0196],
+			  {
+			      title: "San Roque",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([10.01535,-84.13667],
+			  {
+			      title: "San Roque",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-27.10673,-58.23072],
+			  {
+			      title: "San Roque",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([3.32306,-74.94611],
+			  {
+			      title: "San Roque",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-24.08674,-54.93918],
+			  {
+			      title: "San Roque",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([0.29866,-78.22293],
+			  {
+			      title: "San Roque",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([23.08333,-81.61667],
+			  {
+			      title: "San Roque",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([10.13506,-68.38658],
+			  {
+			      title: "San Roque",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-25.5587,-57.2795],
+			  {
+			      title: "San Roque",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-26.19783,-55.50894],
+			  {
+			      title: "San Roque",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([22.46667,-80.43333],
+			  {
+			      title: "San Roque",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-5.66562,-78.44304],
+			  {
+			      title: "San Roque",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-24.13497,-54.78731],
+			  {
+			      title: "San Roque",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-26.19429,-56.37364],
+			  {
+			      title: "San Roque",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([10.12287,-84.28762],
+			  {
+			      title: "San Roque",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([6.44421,-74.95246],
+			  {
+			      title: "San Roque",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([20.85,-77.53333],
+			  {
+			      title: "San Roque",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([-28.15,-63.48333],
+			  {
+			      title: "San Roque",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+    var marker = L.marker([21.53333,-78.26667],
+			  {
+			      title: "San Roque",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["San Roque"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Mercedes is a second class municipality in the province of <span onClick="goto_name('Camarines Norte')" class="loc">Camarines Norte</span>, <span onClick="goto_name('Philippines')" class="loc">Philippines</span>. According to the 2010 census, it has a population of 47,674 people. The town was originally named "Barra", and it was a barangay of <span onClick="goto_name('Daet')" class="loc">Daet</span>, the provincial capital. Its name was changed to Mercedes after Doña Mercedes, a rich woman who devoted her life of helping the community, especially the poor. Mercedes was created from the barrios of Babatnon, <span onClick="goto_name('Lanot')" class="loc">Lanot</span>, <span onClick="goto_name('Lalawigan')" class="loc">Lalawigan</span>, Pinagdamhan, <span onClick="goto_name('Hamoraon')" class="loc">Hamoraon</span>, <span onClick="goto_name('Colasi')" class="loc">Colasi</span>, <span onClick="goto_name('Tarum')" class="loc">Tarum</span>, <span onClick="goto_name('Pambuhan')" class="loc">Pambuhan</span>, <span onClick="goto_name('Masalong-salong')" class="loc">Masalong-salong</span>, <span onClick="goto_name('Hinipaan')" class="loc">Hinipaan</span>, Matoogtoog, <span onClick="goto_name('Cayucyucan')" class="loc">Cayucyucan</span>, <span onClick="goto_name('Mambongalon')" class="loc">Mambongalon</span>, <span onClick="goto_name('Manguisoc')" class="loc">Manguisoc</span>, <span onClick="goto_name('Gaboc')" class="loc">Gaboc</span>, Mercedes, <span onClick="goto_name('Tanayagan')" class="loc">Tanayagan</span>, <span onClick="goto_name('Tagontong')" class="loc">Tagontong</span>, <span onClick="goto_name('Catandonganon')" class="loc">Catandonganon</span>, Cariñgo Island, <span onClick="goto_name('Quinapaquian')" class="loc">Quinapaquian</span> Island, <span onClick="goto_name('Apuao Island')" class="loc">Apuao Island</span>, all formerly part of <span onClick="goto_name('Daet')" class="loc">Daet</span>, <span onClick="goto_name('Camarines Norte')" class="loc">Camarines Norte</span>, by virtue of Republic Act No. 341, approved on July 26, 1948. Mercedes is politically subdivided into 26 barangays. Mercedes Central School Mercedes High School (<span onClick="goto_name('San Roque')" class="loc">San Roque</span>) Manguisoc National High School Camarines Norte State College - Mercedes Campus (formerly Mercedes School of Fisheries) Tagongtong Elementary School San Roque National High School Don Pablo S Villafuerte National High School</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Camarines Norte</th>
+       <td best="true">
+        <a onClick="goto(14.16667,122.75)">
+         <span style="white-space:nowrap">14.167,122.750</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+       <td best="true">
+        <a onClick="goto(13.40882,122.56155)">
+         <span style="white-space:nowrap">13.409,122.562</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13,122)">
+         <span style="white-space:nowrap">13.000,122.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.38327,122.7627)">
+         <span style="white-space:nowrap">7.383,122.763</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.48653,54.37143)">
+         <span style="white-space:nowrap">24.487,54.371</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Daet</th>
+       <td best="true">
+        <a onClick="goto(14.1122,122.9553)">
+         <span style="white-space:nowrap">14.112,122.955</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.10707,122.95363)">
+         <span style="white-space:nowrap">14.107,122.954</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.0824,122.994)">
+         <span style="white-space:nowrap">14.082,122.994</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.13333,122.96667)">
+         <span style="white-space:nowrap">14.133,122.967</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lanot</th>
+       <td best="true">
+        <a onClick="goto(13.8513,123.059)">
+         <span style="white-space:nowrap">13.851,123.059</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.85105,123.0322)">
+         <span style="white-space:nowrap">13.851,123.032</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.13333,121.56667)">
+         <span style="white-space:nowrap">14.133,121.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.51917,122.75722)">
+         <span style="white-space:nowrap">11.519,122.757</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.06667,122.53333)">
+         <span style="white-space:nowrap">11.067,122.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.0577,122.5367)">
+         <span style="white-space:nowrap">11.058,122.537</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.93528,119.89611)">
+         <span style="white-space:nowrap">11.935,119.896</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(15.58333,119.91667)">
+         <span style="white-space:nowrap">15.583,119.917</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.52449,122.75898)">
+         <span style="white-space:nowrap">11.524,122.759</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.51911,-0.87234)">
+         <span style="white-space:nowrap">44.519,-0.872</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lalawigan</th>
+       <td best="true">
+        <a onClick="goto(13.8823,123.0789)">
+         <span style="white-space:nowrap">13.882,123.079</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.88115,123.05002)">
+         <span style="white-space:nowrap">13.881,123.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.25186,121.11251)">
+         <span style="white-space:nowrap">12.252,121.113</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.58917,125.46972)">
+         <span style="white-space:nowrap">11.589,125.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.78571,120.53046)">
+         <span style="white-space:nowrap">14.786,120.530</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.58051,125.45256)">
+         <span style="white-space:nowrap">11.581,125.453</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.79523,120.52897)">
+         <span style="white-space:nowrap">14.795,120.529</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hamoraon</th>
+       <td best="true">
+        <a onClick="goto(14.11667,123.01667)">
+         <span style="white-space:nowrap">14.117,123.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.90085,123.07342)">
+         <span style="white-space:nowrap">13.901,123.073</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.4243,123.2051)">
+         <span style="white-space:nowrap">13.424,123.205</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.41427,123.20423)">
+         <span style="white-space:nowrap">13.414,123.204</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.22564,123.55151)">
+         <span style="white-space:nowrap">12.226,123.552</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Colasi</th>
+       <td best="true">
+        <a onClick="goto(13.9222,123.0883)">
+         <span style="white-space:nowrap">13.922,123.088</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.93383,123.06483)">
+         <span style="white-space:nowrap">13.934,123.065</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.4444,121.4079)">
+         <span style="white-space:nowrap">12.444,121.408</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.73538,125.70505)">
+         <span style="white-space:nowrap">10.735,125.705</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.55,124.08333)">
+         <span style="white-space:nowrap">12.550,124.083</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Tarum</th>
+       <td best="true">
+        <a onClick="goto(14.11667,123.01667)">
+         <span style="white-space:nowrap">14.117,123.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.7,123.06667)">
+         <span style="white-space:nowrap">13.700,123.067</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.96954,123.06916)">
+         <span style="white-space:nowrap">13.970,123.069</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.72208,123.05275)">
+         <span style="white-space:nowrap">13.722,123.053</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(0.8812,103.38383)">
+         <span style="white-space:nowrap">0.881,103.384</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.78289,34.98096)">
+         <span style="white-space:nowrap">31.783,34.981</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.18312,55.74325)">
+         <span style="white-space:nowrap">28.183,55.743</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.5149,111.5548)">
+         <span style="white-space:nowrap">-7.515,111.555</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.1507,55.7464)">
+         <span style="white-space:nowrap">28.151,55.746</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.63925,149.7998)">
+         <span style="white-space:nowrap">-25.639,149.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.95865,53.23427)">
+         <span style="white-space:nowrap">35.959,53.234</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.7923,113.9972)">
+         <span style="white-space:nowrap">-7.792,113.997</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.9274,114.0682)">
+         <span style="white-space:nowrap">-7.927,114.068</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Pambuhan</th>
+       <td best="true">
+        <a onClick="goto(13.9736,123.0837)">
+         <span style="white-space:nowrap">13.974,123.084</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.98212,123.04745)">
+         <span style="white-space:nowrap">13.982,123.047</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.888,123.7016)">
+         <span style="white-space:nowrap">13.888,123.702</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.19845,121.96776)">
+         <span style="white-space:nowrap">14.198,121.968</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.5642,124.9276)">
+         <span style="white-space:nowrap">12.564,124.928</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.87473,123.71779)">
+         <span style="white-space:nowrap">13.875,123.718</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(11.26667,125.55)">
+         <span style="white-space:nowrap">11.267,125.550</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.0003,111.9765)">
+         <span style="white-space:nowrap">-7.000,111.977</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Masalong-salong</th>
+       <td best="true">
+        <a onClick="goto(14.11667,123)">
+         <span style="white-space:nowrap">14.117,123.000</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hinipaan</th>
+       <td best="true">
+        <a onClick="goto(14.00389,123.04583)">
+         <span style="white-space:nowrap">14.004,123.046</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.99704,123.0294)">
+         <span style="white-space:nowrap">13.997,123.029</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.9719,124.2665)">
+         <span style="white-space:nowrap">13.972,124.266</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.9668,124.26697)">
+         <span style="white-space:nowrap">13.967,124.267</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cayucyucan</th>
+       <td best="true">
+        <a onClick="goto(14.0684,123.0215)">
+         <span style="white-space:nowrap">14.068,123.022</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.07365,123.03428)">
+         <span style="white-space:nowrap">14.074,123.034</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Mambongalon</th>
+       <td best="true">
+        <a onClick="goto(14.0824,123.0349)">
+         <span style="white-space:nowrap">14.082,123.035</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Manguisoc</th>
+       <td best="true">
+        <a onClick="goto(14.11667,123)">
+         <span style="white-space:nowrap">14.117,123.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.10002,123.02081)">
+         <span style="white-space:nowrap">14.100,123.021</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Gaboc</th>
+       <td best="true">
+        <a onClick="goto(14.0849,123.0201)">
+         <span style="white-space:nowrap">14.085,123.020</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.07957,123.01754)">
+         <span style="white-space:nowrap">14.080,123.018</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.3778,123.0835)">
+         <span style="white-space:nowrap">10.378,123.084</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.6754,123.8793)">
+         <span style="white-space:nowrap">9.675,123.879</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.43333,122.11667)">
+         <span style="white-space:nowrap">13.433,122.117</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Tanayagan</th>
+       <td best="true">
+        <a onClick="goto(14.11667,123.01667)">
+         <span style="white-space:nowrap">14.117,123.017</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Tagontong</th>
+       <td best="true">
+        <a onClick="goto(14.1142,122.9833)">
+         <span style="white-space:nowrap">14.114,122.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.6952,123.4713)">
+         <span style="white-space:nowrap">13.695,123.471</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.2109,123.2023)">
+         <span style="white-space:nowrap">9.211,123.202</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Catandonganon</th>
+       <td best="true">
+        <a onClick="goto(14.0829,123.006)">
+         <span style="white-space:nowrap">14.083,123.006</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Quinapaquian</th>
+      </tr>
+      <tr>
+       <th>Apuao Island</th>
+       <td best="true">
+        <a onClick="goto(14.0889,123.0824)">
+         <span style="white-space:nowrap">14.089,123.082</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>San Roque</th>
+       <td best="true">
+        <a onClick="goto(36.21067,-5.38415)">
+         <span style="white-space:nowrap">36.211,-5.384</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.48511,-75.0196)">
+         <span style="white-space:nowrap">6.485,-75.020</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.01535,-84.13667)">
+         <span style="white-space:nowrap">10.015,-84.137</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.10673,-58.23072)">
+         <span style="white-space:nowrap">-27.107,-58.231</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(3.32306,-74.94611)">
+         <span style="white-space:nowrap">3.323,-74.946</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.08674,-54.93918)">
+         <span style="white-space:nowrap">-24.087,-54.939</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(0.29866,-78.22293)">
+         <span style="white-space:nowrap">0.299,-78.223</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.08333,-81.61667)">
+         <span style="white-space:nowrap">23.083,-81.617</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.13506,-68.38658)">
+         <span style="white-space:nowrap">10.135,-68.387</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.5587,-57.2795)">
+         <span style="white-space:nowrap">-25.559,-57.279</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.19783,-55.50894)">
+         <span style="white-space:nowrap">-26.198,-55.509</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.46667,-80.43333)">
+         <span style="white-space:nowrap">22.467,-80.433</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-5.66562,-78.44304)">
+         <span style="white-space:nowrap">-5.666,-78.443</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.13497,-54.78731)">
+         <span style="white-space:nowrap">-24.135,-54.787</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.19429,-56.37364)">
+         <span style="white-space:nowrap">-26.194,-56.374</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.12287,-84.28762)">
+         <span style="white-space:nowrap">10.123,-84.288</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.44421,-74.95246)">
+         <span style="white-space:nowrap">6.444,-74.952</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.85,-77.53333)">
+         <span style="white-space:nowrap">20.850,-77.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.15,-63.48333)">
+         <span style="white-space:nowrap">-28.150,-63.483</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.53333,-78.26667)">
+         <span style="white-space:nowrap">21.533,-78.267</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

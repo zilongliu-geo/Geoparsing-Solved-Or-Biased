@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Goa is a second class municipality in the province of <span onClick="goto_name('Camarines Sur')" class="loc">Camarines Sur</span>, <span onClick="goto_name('Philippines')" class="loc">Philippines</span>. According to the 2010 census, it has a population of 58,503 people. The current municipal mayor is Hon. Antero Silos Lim. Goa is politically subdivided into 34 barangays. The town of Goa was originally situated at Barangay Salog which was then known as “Visita de Salog”, comprising the barrios of <span onClick="goto_name('Lalud')" class="loc">Lalud</span> (now known as barangay <span onClick="goto_name('Salog')" class="loc">Salog</span>), Himagaan, <span onClick="goto_name('Matacla')" class="loc">Matacla</span>, and <span onClick="goto_name('Payatan')" class="loc">Payatan</span>. <span onClick="goto_name('Lalud')" class="loc">Lalud</span> is found along the banks of <span onClick="goto_name('Cagaycay')" class="loc">Cagaycay</span> River and is about five kilometers away from the present site of the town center. The “visita” was established in 1701 by Franciscan Missionary Fr. Matias de Valdesoto and was attached to the <span onClick="goto_name('parish of Manguiring')" class="loc">parish of Manguiring</span>, <span onClick="goto_name('Calabanga')" class="loc">Calabanga</span>. By 1729, it was declared independent and was later converted into a pueblo. The settlement center was later transferred to the present site because a disastrous flood swept the houses down the river and the inhabitants needed more land for planting. The original settlers found in the new site a wide stretch of plain land with brooks and rivers. There were scattered areas of swampland where “GAJO”, a native slender cane plant the locals used for arrow shafts, grow in wild profusion. They believed that the place was ideal for rice farming. In 1777, Franciscan Friar Fr. Juan Abalay, from the Portuguese colony of <span onClick="goto_name('Goa')" class="loc">Goa</span>, <span onClick="goto_name('India')" class="loc">India</span>, came to administer the parish. It was on his arrival that the village was converted into a town with the official name of Pueblo de Goa. Fr. Abalay was instrumental in naming the town Goa, motivated presumably for two reasons: to perpetuate the memory of his birthplace and to give official confirmation to the name which the place has been known for some time corrupted allegedly by the Spaniards from “gajo”. On arrival, Fr. Abalay found Gregorio de los Reyes as Pueblo Headman and Santiago Evangelista, Juan de los Santos, Pedro Paraiso, Francisco Jacinto, Andres de la Trinidad and Lucas <span onClick="goto_name('Delfin')" class="loc">Delfin</span> as council members. Fr. Abalay named Pedro de los Reyes son of the reigning Headman, “Cabeza de Barangay” in the cabeseria De Barangay del Pueblo De Goa. The German traveler, Feodor Jagor, found Goa a thriving municipality in 1863 when he scouted for guides who could accompany him climb Mt. Isarog. In about the same year, the parish started the gigantic project of building a stone church and convent. The church, of Roman Gothic design and the convent, half stone and half wood, were completed in 1887. It took almost two decades of hard labor and involved every man, woman and child who was old enough to carry a piece of stone (known as cellar) to finish the project. A school building of stone was constructed soon across the street on the right side of the convent, to house the classes of the “primera enseñanza”. Another structure of the “segunda enseñanza was added about the time the Revolution broke out in 1896. For the duration of the revolution and until the arrival of the Americans in 1900, Goa was governed by a local detachment of the revolutionary forces. The inhabitants called this period “Gobierno Filipino”. They elected the first “presidente” upon the implementation of the Maura Law. Jose Perfecto, headed the civil authorities with the “Cabezas de Barangay”, the past “Capitanes Municipales” serving as the local town council. Since its creation, various local chief executives have contributed to the progress of the municipality. Laureano Pan was the first to serve as the local executive (1901-1903) in Goa during the American occupation. The establishment of the first American school was hastened by the unexpected capture of “Commandante” Faustino Perfecto, in-charge of a contingent of KKK troops stationed at <span onClick="goto_name('Panagan River')" class="loc">Panagan River</span>, by the American troops on the road to <span onClick="goto_name('Naga')" class="loc">Naga</span>. The American school opened in 1902 with Samuel D. Broadley as the supervising teacher. The first three American teachers were <span onClick="goto_name('Stickney')" class="loc">Stickney</span>, Cappage, and Tabor, a colored American. Evidently, the Americans realized as early as then, the strategic location and prominence of the town in Partido area. From 1904 up to the end of the decade, Goa was one of only four places in Ambos Camarines (now <span onClick="goto_name('Camarines Sur')" class="loc">Camarines Sur</span> and <span onClick="goto_name('Camarines Norte')" class="loc">Camarines Norte</span>) with intermediate classes up to grade seven. The others were <span onClick="goto_name('Nueva Caceres')" class="loc">Nueva Caceres</span> (<span onClick="goto_name('Naga City')" class="loc">Naga City</span>), <span onClick="goto_name('Daet')" class="loc">Daet</span> and <span onClick="goto_name('Iriga')" class="loc">Iriga</span>. The national road connecting Goa to <span onClick="goto_name('Naga')" class="loc">Naga</span> via <span onClick="goto_name('Anayan')" class="loc">Anayan</span> was constructed in 1917. It was also in 1917 when the construction of the Municipal Hall was started which was completed in 1922. With the first automobile that traveled the Naga-Partido road, modernization slowly flowed in. In 1925, Jose Centenera, installed the first electric generator that lighted the town until the Japanese occupation. In the same year, he also opened a movie house, which featured serialized silent movies. In 1926, Goa had a modern concrete market pavilion and abattoir to replace the old market building. The traditional Open Market day on Sunday, was initiated in 1945, though this is no longer true today since as the trade &amp; commercial center in the 3rd District of <span onClick="goto_name('Camarines Sur')" class="loc">Camarines Sur</span>, everyday is already a market day. It was also in 1946 that Goa donated parcels of land to the <span onClick="goto_name('Province of Camarines Sur')" class="loc">Province of Camarines Sur</span> for the establishment of Partido High School (converted to Partido National High School, then to Partido State College and now as Partido State University). Telecommunication service by telegraph was provided in1950. The Goa Civic Square, an open park surrounded by huge acacia trees where the locals of Goa held almost all public activities – from amateur singing contest to political fora, benefit dances, fiesta celebrations, summer basketball competitions, etc., was constructed between 1952-1954. Next was the construction of the ABC Building between 1968-1971 under ABC President Alberto A. Din. The Camp Jovi <span onClick="goto_name('Fuentebella')" class="loc">Fuentebella</span> in <span onClick="goto_name('Lamon')" class="loc">Lamon</span> became the National Jamboree site in 1983. There was a trend of constructing covered basketball courts in majority of the municipalities in the country in the early nineties. By 1993, the Goa Civic Square was converted to become the covered Goa Sports Complex that now exists in front of the Goa Municipal Hall.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Camarines Sur</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>Lalud</th>
+      </tr>
+      <tr>
+       <th>Salog</th>
+      </tr>
+      <tr>
+       <th>Matacla</th>
+      </tr>
+      <tr>
+       <th>Payatan</th>
+      </tr>
+      <tr>
+       <th>Cagaycay</th>
+      </tr>
+      <tr>
+       <th>parish of Manguiring</th>
+      </tr>
+      <tr>
+       <th>Calabanga</th>
+      </tr>
+      <tr>
+       <th>Goa</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Delfin</th>
+      </tr>
+      <tr>
+       <th>Panagan River</th>
+      </tr>
+      <tr>
+       <th>Naga</th>
+      </tr>
+      <tr>
+       <th>Stickney</th>
+      </tr>
+      <tr>
+       <th>Camarines Norte</th>
+      </tr>
+      <tr>
+       <th>Nueva Caceres</th>
+      </tr>
+      <tr>
+       <th>Naga City</th>
+      </tr>
+      <tr>
+       <th>Daet</th>
+      </tr>
+      <tr>
+       <th>Iriga</th>
+      </tr>
+      <tr>
+       <th>Anayan</th>
+      </tr>
+      <tr>
+       <th>Province of Camarines Sur</th>
+      </tr>
+      <tr>
+       <th>Fuentebella</th>
+      </tr>
+      <tr>
+       <th>Lamon</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

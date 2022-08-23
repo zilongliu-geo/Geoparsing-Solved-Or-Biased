@@ -1,0 +1,964 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([45.75,126.65], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([45.75,126.65],
+			  {
+			      title: "Harbin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([45.63333,127.96667],
+			  {
+			      title: "Harbin Shi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([33.94761,-83.85407],
+			  {
+			      title: "Harbin",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([35.87035,-84.63744],
+			  {
+			      title: "Harbin",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([32.11681,-98.27338],
+			  {
+			      title: "Harbin",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([45.71596,-120.51394],
+			  {
+			      title: "Goodnoe",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([-30.414,28.91504],
+			  {
+			      title: "Harbin",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Harbin"] = marker;
+  
+    var marker = L.marker([47.75,128],
+			  {
+			      title: "Heilongjiang",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Heilongjiang province"] = marker;
+  
+    var marker = L.marker([28.3534,103.964],
+			  {
+			      title: "Heilongjiang",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Heilongjiang province"] = marker;
+  
+    var marker = L.marker([35,105],
+			  {
+			      title: "China",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["People_s Republic of China"] = marker;
+  
+    var marker = L.marker([45.75,126.65],
+			  {
+			      title: "Harbin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([45.63333,127.96667],
+			  {
+			      title: "Harbin Shi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([33.94761,-83.85407],
+			  {
+			      title: "Harbin",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([45.71596,-120.51394],
+			  {
+			      title: "Goodnoe",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([32.11681,-98.27338],
+			  {
+			      title: "Harbin",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([35.87035,-84.63744],
+			  {
+			      title: "Harbin",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([-30.414,28.91504],
+			  {
+			      title: "Harbin",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Harbin City"] = marker;
+  
+    var marker = L.marker([45.48333,128.45],
+			  {
+			      title: "Yanshou Xian",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Yanshou County"] = marker;
+  
+    var marker = L.marker([44.92754,127.16039],
+			  {
+			      title: "Wuchang",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([44.91501,127.15217],
+			  {
+			      title: "Wuchang",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([46.678,128.10999],
+			  {
+			      title: "Wuchang",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([23.77088,120.32056],
+			  {
+			      title: "Wuchang",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([30.39607,114.88655],
+			  {
+			      title: "E’zhou",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([28.79444,119.81736],
+			  {
+			      title: "Wuchang",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([25.6982,100.752],
+			  {
+			      title: "Wuchang",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([30.93377,120.94873],
+			  {
+			      title: "Wuchang",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([24.56393,114.17592],
+			  {
+			      title: "Wuchang",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([29.87773,103.62904],
+			  {
+			      title: "Wuchang",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([26.96808,114.90031],
+			  {
+			      title: "Wuchang",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([27.2966,113.973],
+			  {
+			      title: "Wuchang",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([41.89901,93.92918],
+			  {
+			      title: "Wuchang",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([30.26259,120.03524],
+			  {
+			      title: "Wuchang",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([26.2391,114.288],
+			  {
+			      title: "Wuchang",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([32.18719,115.70165],
+			  {
+			      title: "Wuchang",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([34.94321,113.712],
+			  {
+			      title: "Wuchang",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([25.6204,104.195],
+			  {
+			      title: "Wuchang",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([18.7832,110.481],
+			  {
+			      title: "Wuchang",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([30.2626,120.035],
+			  {
+			      title: "Wuchang",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Wuchang"] = marker;
+  
+    var marker = L.marker([45.54558,126.95191],
+			  {
+			      title: "Acheng",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Acheng District"] = marker;
+  
+    var marker = L.marker([45.46667,127.18333],
+			  {
+			      title: "Acheng",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Acheng District"] = marker;
+  
+    var marker = L.marker([18.75976,-16.16685],
+			  {
+			      title: "Baie d'Achéma",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Acheng District"] = marker;
+  
+    var marker = L.marker([36.1616,116.049],
+			  {
+			      title: "Acheng",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Acheng District"] = marker;
+  
+    var marker = L.marker([44.54804,129.62594],
+			  {
+			      title: "Mudanjiang",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["city of Mudanjiang"] = marker;
+  
+    var marker = L.marker([48.45554,125.14404],
+			  {
+			      title: "Mudanjiang",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["city of Mudanjiang"] = marker;
+  
+    var marker = L.marker([44.6,129.88333],
+			  {
+			      title: "Mudanjiang Shi",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["city of Mudanjiang"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Shangzhi (Chinese: 尚志; pinyin: Shàngzhì) is a county-level city under the jurisdiction of <span onClick="goto_name('Harbin')" class="loc">Harbin</span>, the capital of <span onClick="goto_name('Heilongjiang province')" class="loc">Heilongjiang province</span>, <span onClick="goto_name('People_s Republic of China')" class="loc">People's Republic of China</span>. It is 127 kilometres (79 mi) away from central <span onClick="goto_name('Harbin')" class="loc">Harbin</span> and has an area of approximately 9,000 km2 (3,500 sq mi). The city proper has a population of around 120,000, while the total administrative population is approximately 600,000 inhabitants. The most spacious county-level division of <span onClick="goto_name('Harbin City')" class="loc">Harbin City</span>, it borders <span onClick="goto_name('Yanshou County')" class="loc">Yanshou County</span> to the north, <span onClick="goto_name('Wuchang')" class="loc">Wuchang</span> to the southwest, <span onClick="goto_name('Acheng District')" class="loc">Acheng District</span> to the northwest, and <span onClick="goto_name('Bin County')" class="loc">Bin County</span> to the northwest, as well as the prefecture-level <span onClick="goto_name('city of Mudanjiang')" class="loc">city of Mudanjiang</span> to the southeast. The <span onClick="goto_name('city of Shangzhi')" class="loc">city of Shangzhi</span> was once called <span onClick="goto_name('Zhuhe')" class="loc">Zhuhe</span> (珠河; Zhūhé). It was developed during the Guangxu era in the late Qing dynasty, and was renamed to Shangzhi to commemorate the anti-Japanese war hero Zhao Shangzhi in 1946. The most famous place in Shangzhi is the <span onClick="goto_name('Yabuli')" class="loc">Yabuli</span> (simplified Chinese: 亚布力; traditional Chinese: 亞布力; pinyin: Yàbùlì) Skiing Centre - Template:Cn inline Shangzhi has a monsoon-influenced humid continental climate (Köppen Dwa/Dwb), with long, very dry, bitterly cold winters, very warm and humid summers, and short, rather dry spring and autumn in between. The monthly 24-hour average temperature ranges from −19.7 °C (−3.5 °F) in January to 22.0 °C (71.6 °F) in July, and the annual mean is +2.92 °C (37.3 °F). Close to three-fourths of the annual precipitation occurs from June to September. With monthly percent possible sunshine ranging from 49% in July to 63% in March, the city receives 2,450 hours of bright sunshine annually.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Harbin</th>
+       <td best="true">
+        <a onClick="goto(45.75,126.65)">
+         <span style="white-space:nowrap">45.750,126.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.63333,127.96667)">
+         <span style="white-space:nowrap">45.633,127.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.94761,-83.85407)">
+         <span style="white-space:nowrap">33.948,-83.854</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.87035,-84.63744)">
+         <span style="white-space:nowrap">35.870,-84.637</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.11681,-98.27338)">
+         <span style="white-space:nowrap">32.117,-98.273</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.71596,-120.51394)">
+         <span style="white-space:nowrap">45.716,-120.514</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.414,28.91504)">
+         <span style="white-space:nowrap">-30.414,28.915</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Heilongjiang province</th>
+       <td best="true">
+        <a onClick="goto(47.75,128)">
+         <span style="white-space:nowrap">47.750,128.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.3534,103.964)">
+         <span style="white-space:nowrap">28.353,103.964</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>People's Republic of China</th>
+       <td best="true">
+        <a onClick="goto(35,105)">
+         <span style="white-space:nowrap">35.000,105.000</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Harbin City</th>
+       <td best="true">
+        <a onClick="goto(45.75,126.65)">
+         <span style="white-space:nowrap">45.750,126.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.63333,127.96667)">
+         <span style="white-space:nowrap">45.633,127.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.94761,-83.85407)">
+         <span style="white-space:nowrap">33.948,-83.854</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.71596,-120.51394)">
+         <span style="white-space:nowrap">45.716,-120.514</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.11681,-98.27338)">
+         <span style="white-space:nowrap">32.117,-98.273</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.87035,-84.63744)">
+         <span style="white-space:nowrap">35.870,-84.637</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.414,28.91504)">
+         <span style="white-space:nowrap">-30.414,28.915</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Yanshou County</th>
+       <td best="true">
+        <a onClick="goto(45.48333,128.45)">
+         <span style="white-space:nowrap">45.483,128.450</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Wuchang</th>
+       <td best="true">
+        <a onClick="goto(44.92754,127.16039)">
+         <span style="white-space:nowrap">44.928,127.160</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.91501,127.15217)">
+         <span style="white-space:nowrap">44.915,127.152</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.678,128.10999)">
+         <span style="white-space:nowrap">46.678,128.110</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.77088,120.32056)">
+         <span style="white-space:nowrap">23.771,120.321</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.39607,114.88655)">
+         <span style="white-space:nowrap">30.396,114.887</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.79444,119.81736)">
+         <span style="white-space:nowrap">28.794,119.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.6982,100.752)">
+         <span style="white-space:nowrap">25.698,100.752</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.93377,120.94873)">
+         <span style="white-space:nowrap">30.934,120.949</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.56393,114.17592)">
+         <span style="white-space:nowrap">24.564,114.176</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.87773,103.62904)">
+         <span style="white-space:nowrap">29.878,103.629</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(26.96808,114.90031)">
+         <span style="white-space:nowrap">26.968,114.900</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(27.2966,113.973)">
+         <span style="white-space:nowrap">27.297,113.973</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.89901,93.92918)">
+         <span style="white-space:nowrap">41.899,93.929</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.26259,120.03524)">
+         <span style="white-space:nowrap">30.263,120.035</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(26.2391,114.288)">
+         <span style="white-space:nowrap">26.239,114.288</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.18719,115.70165)">
+         <span style="white-space:nowrap">32.187,115.702</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.94321,113.712)">
+         <span style="white-space:nowrap">34.943,113.712</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.6204,104.195)">
+         <span style="white-space:nowrap">25.620,104.195</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.7832,110.481)">
+         <span style="white-space:nowrap">18.783,110.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.2626,120.035)">
+         <span style="white-space:nowrap">30.263,120.035</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Acheng District</th>
+       <td best="true">
+        <a onClick="goto(45.54558,126.95191)">
+         <span style="white-space:nowrap">45.546,126.952</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.46667,127.18333)">
+         <span style="white-space:nowrap">45.467,127.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.75976,-16.16685)">
+         <span style="white-space:nowrap">18.760,-16.167</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.1616,116.049)">
+         <span style="white-space:nowrap">36.162,116.049</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bin County</th>
+      </tr>
+      <tr>
+       <th>city of Mudanjiang</th>
+       <td best="true">
+        <a onClick="goto(44.54804,129.62594)">
+         <span style="white-space:nowrap">44.548,129.626</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.45554,125.14404)">
+         <span style="white-space:nowrap">48.456,125.144</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.6,129.88333)">
+         <span style="white-space:nowrap">44.600,129.883</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>city of Shangzhi</th>
+      </tr>
+      <tr>
+       <th>Zhuhe</th>
+      </tr>
+      <tr>
+       <th>Yabuli</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

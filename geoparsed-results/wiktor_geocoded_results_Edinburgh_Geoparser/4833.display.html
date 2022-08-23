@@ -1,0 +1,1213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([42.17097,-71.18381], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([42.17097,-71.18381],
+			  {
+			      title: "Norfolk",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Norfolk County"] = marker;
+  
+    var marker = L.marker([42.8334,-80.38297],
+			  {
+			      title: "Norfolk County",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Norfolk County"] = marker;
+  
+    var marker = L.marker([36.81904,-76.27494],
+			  {
+			      title: "Chesapeake",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Norfolk County"] = marker;
+  
+    var marker = L.marker([42.36565,-71.10832],
+			  {
+			      title: "Massachusetts",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Massachusetts"] = marker;
+  
+    var marker = L.marker([42.3751,-70.74949],
+			  {
+			      title: "Massachusetts Bay",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Massachusetts"] = marker;
+  
+    var marker = L.marker([-18.21859,29.8556],
+			  {
+			      title: "Massachusetts",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Massachusetts"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([42.35347,-71.06094],
+			  {
+			      title: "Boston-Cambridge-Quincy",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Boston–Cambridge–Quincy metropolitan"] = marker;
+  
+    var marker = L.marker([41.82399,-71.41283],
+			  {
+			      title: "Providence",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([41.79744,-71.38983],
+			  {
+			      title: "Providence",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([36.25431,-78.66167],
+			  {
+			      title: "Providence",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([36.50514,-79.3703],
+			  {
+			      title: "Providence",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([36.47375,-79.82865],
+			  {
+			      title: "Providence",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([35.02237,-80.7609],
+			  {
+			      title: "Weddington",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([33.39266,-80.54204],
+			  {
+			      title: "Providence",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([38.80842,-81.84152],
+			  {
+			      title: "Providence",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([36.33561,-86.15277],
+			  {
+			      title: "Providence",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([41.41839,-83.873],
+			  {
+			      title: "Providence",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([34.2726,-86.81222],
+			  {
+			      title: "Providence",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([33.45289,-87.3],
+			  {
+			      title: "Providence",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([41.27809,-89.5926],
+			  {
+			      title: "Providence",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([44.83441,-96.11309],
+			  {
+			      title: "Providence",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([35.37036,-91.67625],
+			  {
+			      title: "Providence",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([-20.24472,57.61222],
+			  {
+			      title: "Providence",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([33.2334,-96.96158],
+			  {
+			      title: "Providence Village",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([41.70632,-111.81717],
+			  {
+			      title: "Providence",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([6.76337,-58.17608],
+			  {
+			      title: "Providence",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([5.04439,-52.51744],
+			  {
+			      title: "Providence",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Providence metropolitan"] = marker;
+  
+    var marker = L.marker([42.26065,-71.26117],
+			  {
+			      title: "Charles River Village",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([42.37093,-71.0495],
+			  {
+			      title: "Charles River",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([41.32093,-71.85785],
+			  {
+			      title: "Pawcatuck River",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([44.12868,-70.94701],
+			  {
+			      title: "Charles River",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([37.16848,-76.38578],
+			  {
+			      title: "Poquoson River",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([37.24764,-76.38245],
+			  {
+			      title: "York River",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([39.43261,-75.52881],
+			  {
+			      title: "Delaware River",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([33.88545,-78.01277],
+			  {
+			      title: "Cape Fear River",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Charles River"] = marker;
+  
+    var marker = L.marker([42.24177,-71.16616],
+			  {
+			      title: "Dedham",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([44.69174,-68.66198],
+			  {
+			      title: "Dedham",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([36.2334,-88.82451],
+			  {
+			      title: "Sharon",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([45.44358,-90.2982],
+			  {
+			      title: "Ogema",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([46.54216,-92.19797],
+			  {
+			      title: "Dedham",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([41.9061,-94.82221],
+			  {
+			      title: "Dedham",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([51.95892,0.99336],
+			  {
+			      title: "Dedham",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([51.94928,0.988],
+			  {
+			      title: "Dedham",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([41.91637,-94.82165],
+			  {
+			      title: "Dedham",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Dedham"] = marker;
+  
+    var marker = L.marker([42.21399,-71.2245],
+			  {
+			      title: "Westwood",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["West Dedham"] = marker;
+  
+    var marker = L.marker([42.08676,-71.47451],
+			  {
+			      title: "Bellingham",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([48.75955,-122.48822],
+			  {
+			      title: "Bellingham",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([34.75456,-82.24678],
+			  {
+			      title: "Bellingham",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([45.13444,-96.28417],
+			  {
+			      title: "Bellingham",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([46.39316,-83.28598],
+			  {
+			      title: "Bellingham",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([51.4278,-0.02505],
+			  {
+			      title: "Bellingham",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([55.14464,-2.25383],
+			  {
+			      title: "Bellingham",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([-41.01639,147.16884],
+			  {
+			      title: "Bellingham",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([55.15693,-2.2679],
+			  {
+			      title: "Bellingham",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([45.13444,-96.28417],
+			  {
+			      title: "Bellingham",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Bellingham"] = marker;
+  
+    var marker = L.marker([40.62955,-73.59541],
+			  {
+			      title: "Bay Colony",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bay Colony"] = marker;
+  
+    var marker = L.marker([36.8782,-76.00604],
+			  {
+			      title: "Bay Colony",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bay Colony"] = marker;
+  
+    var marker = L.marker([38.58622,-75.14407],
+			  {
+			      title: "Bay Colony",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Bay Colony"] = marker;
+  
+    var marker = L.marker([38.39095,-75.15574],
+			  {
+			      title: "Bay Colony",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Bay Colony"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Bellingham is a town in <span onClick="goto_name('Norfolk County')" class="loc">Norfolk County</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 16,332 at the 2010 census. The town sits on the southwestern fringe of Metropolitan Boston, along the rapidly growing "outer belt" that is Route 495. It is formally a part of the <span onClick="goto_name('Boston–Cambridge–Quincy metropolitan')" class="loc">Boston–Cambridge–Quincy metropolitan</span> statistical area, as well as the <span onClick="goto_name('Providence metropolitan')" class="loc">Providence metropolitan</span> area. For geographic and demographic information on the census-designated place Bellingham, please see the article Bellingham (CDP), <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. The area of the town south of the <span onClick="goto_name('Charles River')" class="loc">Charles River</span> constituted the southwestern corner of the Dedham Grant, which sprouted much of what has become <span onClick="goto_name('Norfolk County')" class="loc">Norfolk County</span>. The land was swampy, and the town of <span onClick="goto_name('Dedham')" class="loc">Dedham</span> did not believe it worthy of settlement. The area north of the river would be purchased by Edward Rawson, and due to the settlement of borders with the surrounding communities, these two areas would eventually merge. By 1713, there were enough citizens to warrant village meetings in the area. By 1718, the village petitioned for separation, and the town officially incorporated on November 27, 1719. The village was originally named "Westham" (short for "<span onClick="goto_name('West Dedham')" class="loc">West Dedham</span>"), but at the time of incorporation, its name was changed to <span onClick="goto_name('Bellingham')" class="loc">Bellingham</span> without record of the benefactor. The town is named for Richard Bellingham, an early governor of the <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> <span onClick="goto_name('Bay Colony')" class="loc">Bay Colony</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Norfolk County</th>
+       <td best="true">
+        <a onClick="goto(42.17097,-71.18381)">
+         <span style="white-space:nowrap">42.171,-71.184</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.8334,-80.38297)">
+         <span style="white-space:nowrap">42.833,-80.383</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.81904,-76.27494)">
+         <span style="white-space:nowrap">36.819,-76.275</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Massachusetts</th>
+       <td best="true">
+        <a onClick="goto(42.36565,-71.10832)">
+         <span style="white-space:nowrap">42.366,-71.108</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.3751,-70.74949)">
+         <span style="white-space:nowrap">42.375,-70.749</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.21859,29.8556)">
+         <span style="white-space:nowrap">-18.219,29.856</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Boston–Cambridge–Quincy metropolitan</th>
+       <td best="true">
+        <a onClick="goto(42.35347,-71.06094)">
+         <span style="white-space:nowrap">42.353,-71.061</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Providence metropolitan</th>
+       <td best="true">
+        <a onClick="goto(41.82399,-71.41283)">
+         <span style="white-space:nowrap">41.824,-71.413</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79744,-71.38983)">
+         <span style="white-space:nowrap">41.797,-71.390</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.25431,-78.66167)">
+         <span style="white-space:nowrap">36.254,-78.662</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.50514,-79.3703)">
+         <span style="white-space:nowrap">36.505,-79.370</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.47375,-79.82865)">
+         <span style="white-space:nowrap">36.474,-79.829</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.02237,-80.7609)">
+         <span style="white-space:nowrap">35.022,-80.761</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.39266,-80.54204)">
+         <span style="white-space:nowrap">33.393,-80.542</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.80842,-81.84152)">
+         <span style="white-space:nowrap">38.808,-81.842</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.33561,-86.15277)">
+         <span style="white-space:nowrap">36.336,-86.153</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.41839,-83.873)">
+         <span style="white-space:nowrap">41.418,-83.873</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.2726,-86.81222)">
+         <span style="white-space:nowrap">34.273,-86.812</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.45289,-87.3)">
+         <span style="white-space:nowrap">33.453,-87.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.27809,-89.5926)">
+         <span style="white-space:nowrap">41.278,-89.593</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.83441,-96.11309)">
+         <span style="white-space:nowrap">44.834,-96.113</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.37036,-91.67625)">
+         <span style="white-space:nowrap">35.370,-91.676</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-20.24472,57.61222)">
+         <span style="white-space:nowrap">-20.245,57.612</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.2334,-96.96158)">
+         <span style="white-space:nowrap">33.233,-96.962</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.70632,-111.81717)">
+         <span style="white-space:nowrap">41.706,-111.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.76337,-58.17608)">
+         <span style="white-space:nowrap">6.763,-58.176</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(5.04439,-52.51744)">
+         <span style="white-space:nowrap">5.044,-52.517</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Charles River</th>
+       <td best="true">
+        <a onClick="goto(42.26065,-71.26117)">
+         <span style="white-space:nowrap">42.261,-71.261</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.37093,-71.0495)">
+         <span style="white-space:nowrap">42.371,-71.049</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.32093,-71.85785)">
+         <span style="white-space:nowrap">41.321,-71.858</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.12868,-70.94701)">
+         <span style="white-space:nowrap">44.129,-70.947</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.16848,-76.38578)">
+         <span style="white-space:nowrap">37.168,-76.386</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.24764,-76.38245)">
+         <span style="white-space:nowrap">37.248,-76.382</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.43261,-75.52881)">
+         <span style="white-space:nowrap">39.433,-75.529</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.88545,-78.01277)">
+         <span style="white-space:nowrap">33.885,-78.013</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Dedham</th>
+       <td best="true">
+        <a onClick="goto(42.24177,-71.16616)">
+         <span style="white-space:nowrap">42.242,-71.166</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.69174,-68.66198)">
+         <span style="white-space:nowrap">44.692,-68.662</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.2334,-88.82451)">
+         <span style="white-space:nowrap">36.233,-88.825</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.44358,-90.2982)">
+         <span style="white-space:nowrap">45.444,-90.298</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.54216,-92.19797)">
+         <span style="white-space:nowrap">46.542,-92.198</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.9061,-94.82221)">
+         <span style="white-space:nowrap">41.906,-94.822</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.95892,0.99336)">
+         <span style="white-space:nowrap">51.959,0.993</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.94928,0.988)">
+         <span style="white-space:nowrap">51.949,0.988</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.91637,-94.82165)">
+         <span style="white-space:nowrap">41.916,-94.822</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>West Dedham</th>
+       <td best="true">
+        <a onClick="goto(42.21399,-71.2245)">
+         <span style="white-space:nowrap">42.214,-71.225</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bellingham</th>
+       <td best="true">
+        <a onClick="goto(42.08676,-71.47451)">
+         <span style="white-space:nowrap">42.087,-71.475</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.75955,-122.48822)">
+         <span style="white-space:nowrap">48.760,-122.488</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.75456,-82.24678)">
+         <span style="white-space:nowrap">34.755,-82.247</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.13444,-96.28417)">
+         <span style="white-space:nowrap">45.134,-96.284</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.39316,-83.28598)">
+         <span style="white-space:nowrap">46.393,-83.286</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.4278,-0.02505)">
+         <span style="white-space:nowrap">51.428,-0.025</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.14464,-2.25383)">
+         <span style="white-space:nowrap">55.145,-2.254</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-41.01639,147.16884)">
+         <span style="white-space:nowrap">-41.016,147.169</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.15693,-2.2679)">
+         <span style="white-space:nowrap">55.157,-2.268</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.13444,-96.28417)">
+         <span style="white-space:nowrap">45.134,-96.284</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bay Colony</th>
+       <td best="true">
+        <a onClick="goto(40.62955,-73.59541)">
+         <span style="white-space:nowrap">40.630,-73.595</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.8782,-76.00604)">
+         <span style="white-space:nowrap">36.878,-76.006</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.58622,-75.14407)">
+         <span style="white-space:nowrap">38.586,-75.144</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.39095,-75.15574)">
+         <span style="white-space:nowrap">38.391,-75.156</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

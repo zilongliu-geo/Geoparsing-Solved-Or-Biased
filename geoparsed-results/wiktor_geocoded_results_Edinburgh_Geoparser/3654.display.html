@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Caro')" class="loc">Caro</span> is a city in and the county seat of <span onClick="goto_name('Tuscola County')" class="loc">Tuscola County</span>, <span onClick="goto_name('Michigan')" class="loc">Michigan</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 4,229 at the 2010 census and 4,145 at the 2000 census (an increase of about 2%). <span onClick="goto_name('Caro')" class="loc">Caro</span> is located northeast of Flint and east of <span onClick="goto_name('Saginaw')" class="loc">Saginaw</span> in <span onClick="goto_name('Michigan')" class="loc">Michigan</span>'s Thumb region. <span onClick="goto_name('Caro')" class="loc">Caro</span> began as a logging camp on the <span onClick="goto_name('Cass River')" class="loc">Cass River</span> established by Curtis Emerson in 1847. Later Samuel P. Sherman, who purchased 63 acres (250,000 m2) in the north half of the northwest quarter of section 3 in Indianfields Township on September 8, 1852. Prior to this, only two land sales had been recorded, both for lumbering or speculative purposes. His son, William E. Sherman, had worked in the lumber industry nearby on the <span onClick="goto_name('Cass River')" class="loc">Cass River</span> for some time prior to 1852 and William's favorable report persuaded his father to visit in 1851 and afterwards purchased several tracts of land in addition to his initial purchase. In the 1856-57 session of the <span onClick="goto_name('Michigan')" class="loc">Michigan</span> Legislature, construction of a road was authorized from <span onClick="goto_name('Bridgeport')" class="loc">Bridgeport</span> in <span onClick="goto_name('Saginaw County')" class="loc">Saginaw County</span> northeast to <span onClick="goto_name('Forestville')" class="loc">Forestville</span> in <span onClick="goto_name('Sanilac County')" class="loc">Sanilac County</span>, with a route that would pass through what is now <span onClick="goto_name('Caro')" class="loc">Caro</span>. Once the road was cleared, commercial interests began to locate here. Melvin Gibbs, who had been keeping a hotel in an old log house, in 1858 put up a new frame building, known as the Gibbs House. In 1859, William E. Sherman built another hotel, which he named the Centerville House, based on the location being near the center of the county. The name <span onClick="goto_name('Centerville')" class="loc">Centerville</span> became associated with the developing community.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Caro</th>
+      </tr>
+      <tr>
+       <th>Tuscola County</th>
+      </tr>
+      <tr>
+       <th>Michigan</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Saginaw</th>
+      </tr>
+      <tr>
+       <th>Cass River</th>
+      </tr>
+      <tr>
+       <th>Bridgeport</th>
+      </tr>
+      <tr>
+       <th>Saginaw County</th>
+      </tr>
+      <tr>
+       <th>Forestville</th>
+      </tr>
+      <tr>
+       <th>Sanilac County</th>
+      </tr>
+      <tr>
+       <th>Centerville</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

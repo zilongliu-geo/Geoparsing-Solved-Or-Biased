@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Newton, officially the Town of Newton, is an incorporated municipality located in <span onClick="goto_name('Sussex County')" class="loc">Sussex County</span>, <span onClick="goto_name('New Jersey')" class="loc">New Jersey</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. It is one of fifteen municipalities in the state organized as a town, and the municipal government operates under a council-manager structure provided by the Faulkner Act, or Optional Municipal Charter Law. As the location of the county's administrative offices and court system, Newton is the county seat of <span onClick="goto_name('Sussex County')" class="loc">Sussex County</span>. Newton was incorporated by an act of the <span onClick="goto_name('New Jersey')" class="loc">New Jersey</span> Legislature on April 11, 1864, from portions of Newton Township, which was also partitioned to create <span onClick="goto_name('Andover Township')" class="loc">Andover Township</span> and <span onClick="goto_name('Hampton Township')" class="loc">Hampton Township</span>, and was then dissolved. Additional land was acquired from <span onClick="goto_name('Andover Township')" class="loc">Andover Township</span> in 1869 and 1927, and from <span onClick="goto_name('Fredon')" class="loc">Fredon</span> Township in 1920. As of the 2010 <span onClick="goto_name('United States')" class="loc">United States</span> Census, the town's population was 7,997, reflecting a decline of 247 (-3.0%) from the 8,244 counted in the 2000 Census, which had in turn increased by 723 (+9.6%) from the 7,521 counted in the 1990 Census. Newton is located near the headwaters of the east branch of the <span onClick="goto_name('Paulins Kill')" class="loc">Paulins Kill</span>, a 41.6-mile (66.9 km) tributary of the <span onClick="goto_name('Delaware')" class="loc">Delaware</span> River. In October 1715, Colonial surveyor Samuel Green plotted a tract of 2,500 acres (1,000 ha) at the head of the <span onClick="goto_name('Paulins Kill')" class="loc">Paulins Kill</span>, then known as the <span onClick="goto_name('Tohokenetcunck')" class="loc">Tohokenetcunck</span> River, on behalf of <span onClick="goto_name('William Penn')" class="loc">William Penn</span>. This tract, which would not be settled for approximately 30–35 years, was part of the survey and division of the Last Indian Purchase by the West Jersey Board of Proprietors. At the time of Green's survey, northwestern <span onClick="goto_name('New Jersey')" class="loc">New Jersey</span> was populated with bands of the Munsee, the northern branch of the Lenni Lenape peoples.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Sussex County</th>
+      </tr>
+      <tr>
+       <th>New Jersey</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Andover Township</th>
+      </tr>
+      <tr>
+       <th>Hampton Township</th>
+      </tr>
+      <tr>
+       <th>Fredon</th>
+      </tr>
+      <tr>
+       <th>Paulins Kill</th>
+      </tr>
+      <tr>
+       <th>Delaware</th>
+      </tr>
+      <tr>
+       <th>Tohokenetcunck</th>
+      </tr>
+      <tr>
+       <th>William Penn</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

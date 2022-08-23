@@ -1,0 +1,1204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([32.53339,-112.58543], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([32.53339,-112.58543],
+			  {
+			      title: "Tom Thumb",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tom Thumb"] = marker;
+  
+    var marker = L.marker([-42.87,147.19],
+			  {
+			      title: "Tom Thumb",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Tom Thumb"] = marker;
+  
+    var marker = L.marker([41.79644,-84.88329],
+			  {
+			      title: "California",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([38.3004,-76.50745],
+			  {
+			      title: "California",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([13.36667,-88.66667],
+			  {
+			      title: "California",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([10.40923,-61.47288],
+			  {
+			      title: "California",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([47.06921,-68.10586],
+			  {
+			      title: "California",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([9.9679,124.4183],
+			  {
+			      title: "California",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([13.4375,-88.46356],
+			  {
+			      title: "California",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([22.05,-79.93333],
+			  {
+			      title: "California",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([20.26667,-74.46667],
+			  {
+			      title: "California",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([-23.6634,-51.32824],
+			  {
+			      title: "Califórnia",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([22.85,-82.66667],
+			  {
+			      title: "California",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([7.3434,-72.95815],
+			  {
+			      title: "California",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([22.8,-82.3],
+			  {
+			      title: "California",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([22.5,-80.66667],
+			  {
+			      title: "California",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([-13.78737,-76.02012],
+			  {
+			      title: "California",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([-5.25741,-75.69145],
+			  {
+			      title: "California",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([-41.24119,-73.22687],
+			  {
+			      title: "California",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([20.25,-75.63333],
+			  {
+			      title: "California",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([22.06667,-79.91667],
+			  {
+			      title: "California",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([-29.8804,-51.3193],
+			  {
+			      title: "California",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["California"] = marker;
+  
+    var marker = L.marker([56.839,60.613],
+			  {
+			      title: "Grand Avenue",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Grand Avenue"] = marker;
+  
+    var marker = L.marker([33.46872,-112.10321],
+			  {
+			      title: "Grand Avenue",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Grand Avenue"] = marker;
+  
+    var marker = L.marker([31.25044,-99.25061],
+			  {
+			      title: "Texas",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([20.87499,-87.76368],
+			  {
+			      title: "Texas",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([20.02556,-99.19556],
+			  {
+			      title: "Texas",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([-17.61667,-63.16667],
+			  {
+			      title: "Texas",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([41.53507,-77.25275],
+			  {
+			      title: "Texas",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([33.24095,-85.19883],
+			  {
+			      title: "Texas",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([37.65562,-85.11024],
+			  {
+			      title: "Texas",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([28.51149,-100.41513],
+			  {
+			      title: "Texas",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([43.51285,-76.25104],
+			  {
+			      title: "Texas",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([42.16537,-71.89229],
+			  {
+			      title: "Texas",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([43.98507,-75.50491],
+			  {
+			      title: "Texas",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([39.46372,-76.64358],
+			  {
+			      title: "Texas",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([-2.91667,-79.86667],
+			  {
+			      title: "Texas",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([41.42366,-83.95161],
+			  {
+			      title: "Texas",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([44.41784,-71.82454],
+			  {
+			      title: "Texas",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([33.92983,-87.67863],
+			  {
+			      title: "Texas",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([30.17186,-91.13816],
+			  {
+			      title: "Texas",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([30.88602,-89.272],
+			  {
+			      title: "Texas",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([40.36066,-74.36932],
+			  {
+			      title: "Texas",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([21.41211,-101.93667],
+			  {
+			      title: "Texas",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Texas"] = marker;
+  
+    var marker = L.marker([6.39085,-5.9606],
+			  {
+			      title: "Bigbié",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bigbie"] = marker;
+  
+    var marker = L.marker([29.65163,-82.32483],
+			  {
+			      title: "Gainesville",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([34.29788,-83.82407],
+			  {
+			      title: "Gainesville",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([33.62594,-97.13335],
+			  {
+			      title: "Gainesville",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([30.67768,-98.52142],
+			  {
+			      title: "Gainesville",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([36.60312,-92.42822],
+			  {
+			      title: "Gainesville",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([35.41342,-89.60924],
+			  {
+			      title: "Gainesville",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([36.16479,-90.51066],
+			  {
+			      title: "Gainesville",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([36.8506,-86.15832],
+			  {
+			      title: "Gainesville",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([38.79567,-77.61388],
+			  {
+			      title: "Gainesville",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([39.07756,-84.79495],
+			  {
+			      title: "Idlewild",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([32.82096,-88.15891],
+			  {
+			      title: "Gainesville",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([32.61654,-94.31936],
+			  {
+			      title: "Gainesville",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([42.6409,-78.1339],
+			  {
+			      title: "Gainesville",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([30.35103,-89.63978],
+			  {
+			      title: "Gainesville",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Gainesville"] = marker;
+  
+    var marker = L.marker([33.63919,-97.21262],
+			  {
+			      title: "Cooke",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cooke County"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Local business owners optimistic. On some mornings, the line at the Mom’s Donut Shop drive-through window is four or five cars long, and the small building is filled with families and individuals gazing at the sweet treats through the glass display cases while employees pack the goodies into neat white boxes. Even in tough economic times people still like a treat now and then. Mom’s Donut owner Cindy Davidson — who operates the donut business with her husband, Chris — said things haven’t been all good, but they are not dismal. “January was real rough,” Davidson said in a telephone interview Friday, “January is always a rough time for us because people are dieting and have spent a lot of money at Christmas, but things are picking up. This week which was spring break has been real good. We’ve seen a lot of faces that we don’t normally see.” The Davidsons are part of a fairly large number of Gainesville business owners and operators who say they are not only surviving, they are thriving even in a bad economy. Some business owners choose to improve the look of their stores. Gainesville’s <span onClick="goto_name('Tom Thumb')" class="loc">Tom Thumb</span> supermarket, which is owned by the <span onClick="goto_name('California')" class="loc">California</span>-based Safeway corporation, recently revamped its store on <span onClick="goto_name('Grand Avenue')" class="loc">Grand Avenue</span>. The changes are part of the company’s plan to make shopping a bit easier for customers, said Connie Yates a spokesman for the company. The renovated <span onClick="goto_name('Tom Thumb')" class="loc">Tom Thumb</span> store was set up using the company’s lifestyle concept, she noted. “We are in the process of remodeling all of our stores in <span onClick="goto_name('Texas')" class="loc">Texas</span> to have the lifestyles format,” she said. The store is organized in more a customer-friendly way with lots of similar items grouped together. “We want to have one-stop shopping for our customers in an atmosphere that they can enjoy shopping in,” she said. The store renovations are part of that plan. “We are very proud of our newly remodeled store in Gainesville and are doing everything we can using special sales and discount opportunities for our customers.” Food is one requirement that cannot be ignored, she said. “I have heard the grocery industry referred to as an essential industry. People have to eat,” Yates said. A handful of Gainesville companies chose to settle in new locations. Curves, a local fitness facility, is set to move to a new office complex on <span onClick="goto_name('Grand Avenue')" class="loc">Grand Avenue</span>. Owner Judy Waskow said after some difficult times late last year, her company seems to be recovering quickly. “The end of the year was not good at all,” Waskow admitted. “But January and February have started out well.” She said although the move to the new building was essential — the building where Curves is located was sold over a year ago — the new location is a larger facility which she believes both current and future members will enjoy. Working out is a passion for many residents, she added. “There’s a good bunch (of members) that work out regularly,” she said. She also said the economic picture isn’t perfect, but it isn’t all bleak. “I’m optimistic,” she said. Another Gainesville business set to move to new, larger digs is Landmark Bank. Landmark Bank Chief Executive Officer Basil Bigbie said the company has experienced “steady growth in the north central <span onClick="goto_name('Texas')" class="loc">Texas</span> (Texoma) area. ”“Providing our customers with access to new facilities along the Highway 82 corridor east into Gainesville and Lindsay was a natural progression for the bank,” <span onClick="goto_name('Bigbie')" class="loc">Bigbie</span> said in an e-mail message. He also said the decision to open new facilities in this area came after a lot of thought and preparation. “The planning, strategy and allocation of resources for these two facilities was in place well before the recent economic events. We’re excited to be moving forward with these two new banking centers and have already received a lot of positive feedback from the <span onClick="goto_name('Gainesville')" class="loc">Gainesville</span> and Lindsay communities,” <span onClick="goto_name('Bigbie')" class="loc">Bigbie</span> noted. Local automobile dealerships faced a year when most major auto manufacturers reported huge losses. But a representative for one Gainesville-area dealership said business is not bad at all. Glenn Polk AutoPlex is posting sales and service numbers that are equal to 2007, which, a press release says, was a fantastic year. They attribute their success to repeat and referral business. “Although lot traffic has slowed a bit, we still have a steady stream of our previous customers coming in, and referrals of their friends and relatives,” said owner Glenn Polk. “Not only are we proud of our hard work and the success that we have had in <span onClick="goto_name('Cooke County')" class="loc">Cooke County</span>, but we are proud to be a part of the American auto industry. We are excited to be a part of Ford Motor Company and Chrysler,” Polk added. According to Polk’s son, Trent, the company also employees approximately 60 people and has contributed almost $200,000 in donations, fundraisers and sponsorships. “Glenn Polk AutoPlex averages between 125-150 new and used vehicle sales every month. Since opening in April of 1995, we have sold over 22,000 here in Gainesville. These kinds of numbers are equal to dealerships you’d find in a big city,” Trent Polk said. Like other business owners, the Polks said they encourage residents to shop local businesses. “We encourage folks to do business local. Keeping the money here in Gainesville is very important to the growth of our community,” Trent Polk concluded. Auto dealer James Wood is another businessman who sees the potential in Gainesville. Wood recently made a deal to purchase Brown Motor Company. “We’ve been looking to put in a finance lot in Gainesville because it’s such a good trade area,” Wood said in a March 4 Register story. Wood said he believes the dealership will be larger than Brown Motor Company.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Tom Thumb</th>
+       <td best="true">
+        <a onClick="goto(32.53339,-112.58543)">
+         <span style="white-space:nowrap">32.533,-112.585</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-42.87,147.19)">
+         <span style="white-space:nowrap">-42.870,147.190</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>California</th>
+       <td best="true">
+        <a onClick="goto(41.79644,-84.88329)">
+         <span style="white-space:nowrap">41.796,-84.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.3004,-76.50745)">
+         <span style="white-space:nowrap">38.300,-76.507</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.36667,-88.66667)">
+         <span style="white-space:nowrap">13.367,-88.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.40923,-61.47288)">
+         <span style="white-space:nowrap">10.409,-61.473</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.06921,-68.10586)">
+         <span style="white-space:nowrap">47.069,-68.106</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.9679,124.4183)">
+         <span style="white-space:nowrap">9.968,124.418</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.4375,-88.46356)">
+         <span style="white-space:nowrap">13.438,-88.464</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.05,-79.93333)">
+         <span style="white-space:nowrap">22.050,-79.933</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.26667,-74.46667)">
+         <span style="white-space:nowrap">20.267,-74.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.6634,-51.32824)">
+         <span style="white-space:nowrap">-23.663,-51.328</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.85,-82.66667)">
+         <span style="white-space:nowrap">22.850,-82.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.3434,-72.95815)">
+         <span style="white-space:nowrap">7.343,-72.958</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.8,-82.3)">
+         <span style="white-space:nowrap">22.800,-82.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.5,-80.66667)">
+         <span style="white-space:nowrap">22.500,-80.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-13.78737,-76.02012)">
+         <span style="white-space:nowrap">-13.787,-76.020</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-5.25741,-75.69145)">
+         <span style="white-space:nowrap">-5.257,-75.691</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-41.24119,-73.22687)">
+         <span style="white-space:nowrap">-41.241,-73.227</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.25,-75.63333)">
+         <span style="white-space:nowrap">20.250,-75.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.06667,-79.91667)">
+         <span style="white-space:nowrap">22.067,-79.917</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.8804,-51.3193)">
+         <span style="white-space:nowrap">-29.880,-51.319</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Grand Avenue</th>
+       <td best="true">
+        <a onClick="goto(56.839,60.613)">
+         <span style="white-space:nowrap">56.839,60.613</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.46872,-112.10321)">
+         <span style="white-space:nowrap">33.469,-112.103</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Texas</th>
+       <td best="true">
+        <a onClick="goto(31.25044,-99.25061)">
+         <span style="white-space:nowrap">31.250,-99.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.87499,-87.76368)">
+         <span style="white-space:nowrap">20.875,-87.764</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.02556,-99.19556)">
+         <span style="white-space:nowrap">20.026,-99.196</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.61667,-63.16667)">
+         <span style="white-space:nowrap">-17.617,-63.167</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.53507,-77.25275)">
+         <span style="white-space:nowrap">41.535,-77.253</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.24095,-85.19883)">
+         <span style="white-space:nowrap">33.241,-85.199</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.65562,-85.11024)">
+         <span style="white-space:nowrap">37.656,-85.110</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.51149,-100.41513)">
+         <span style="white-space:nowrap">28.511,-100.415</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.51285,-76.25104)">
+         <span style="white-space:nowrap">43.513,-76.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.16537,-71.89229)">
+         <span style="white-space:nowrap">42.165,-71.892</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.98507,-75.50491)">
+         <span style="white-space:nowrap">43.985,-75.505</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.46372,-76.64358)">
+         <span style="white-space:nowrap">39.464,-76.644</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.91667,-79.86667)">
+         <span style="white-space:nowrap">-2.917,-79.867</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.42366,-83.95161)">
+         <span style="white-space:nowrap">41.424,-83.952</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.41784,-71.82454)">
+         <span style="white-space:nowrap">44.418,-71.825</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.92983,-87.67863)">
+         <span style="white-space:nowrap">33.930,-87.679</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.17186,-91.13816)">
+         <span style="white-space:nowrap">30.172,-91.138</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.88602,-89.272)">
+         <span style="white-space:nowrap">30.886,-89.272</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.36066,-74.36932)">
+         <span style="white-space:nowrap">40.361,-74.369</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.41211,-101.93667)">
+         <span style="white-space:nowrap">21.412,-101.937</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bigbie</th>
+       <td best="true">
+        <a onClick="goto(6.39085,-5.9606)">
+         <span style="white-space:nowrap">6.391,-5.961</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Gainesville</th>
+       <td best="true">
+        <a onClick="goto(29.65163,-82.32483)">
+         <span style="white-space:nowrap">29.652,-82.325</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.29788,-83.82407)">
+         <span style="white-space:nowrap">34.298,-83.824</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.62594,-97.13335)">
+         <span style="white-space:nowrap">33.626,-97.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.67768,-98.52142)">
+         <span style="white-space:nowrap">30.678,-98.521</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.60312,-92.42822)">
+         <span style="white-space:nowrap">36.603,-92.428</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.41342,-89.60924)">
+         <span style="white-space:nowrap">35.413,-89.609</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.16479,-90.51066)">
+         <span style="white-space:nowrap">36.165,-90.511</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.8506,-86.15832)">
+         <span style="white-space:nowrap">36.851,-86.158</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.79567,-77.61388)">
+         <span style="white-space:nowrap">38.796,-77.614</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.07756,-84.79495)">
+         <span style="white-space:nowrap">39.078,-84.795</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.82096,-88.15891)">
+         <span style="white-space:nowrap">32.821,-88.159</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.61654,-94.31936)">
+         <span style="white-space:nowrap">32.617,-94.319</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.6409,-78.1339)">
+         <span style="white-space:nowrap">42.641,-78.134</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.35103,-89.63978)">
+         <span style="white-space:nowrap">30.351,-89.640</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cooke County</th>
+       <td best="true">
+        <a onClick="goto(33.63919,-97.21262)">
+         <span style="white-space:nowrap">33.639,-97.213</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

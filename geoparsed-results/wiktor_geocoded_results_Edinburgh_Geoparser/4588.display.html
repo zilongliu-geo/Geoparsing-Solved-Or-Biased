@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span> (Russian: Новотро́ицк) is a town in <span onClick="goto_name('Orenburg Oblast')" class="loc">Orenburg Oblast</span>, <span onClick="goto_name('Russia')" class="loc">Russia</span>, located on the right bank of and along the <span onClick="goto_name('Ural')" class="loc">Ural</span> River, 276 kilometers (171 mi) from <span onClick="goto_name('Orenburg')" class="loc">Orenburg</span>, on the border with <span onClick="goto_name('Kazakhstan')" class="loc">Kazakhstan</span>. In the east <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span> almost borders <span onClick="goto_name('Orsk')" class="loc">Orsk</span>: the distance between the two cities is less than 2 kilometers (1.2 mi). Population: 98,173 (2010 Census); 106,315 (2002 Census); 106,084 (1989 Census). The history of <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span> goes to the beginning of the 20th century with a small farm in the wilderness. Near it, were the farms Akkermanovsky, Beloshapochny, and the village of <span onClick="goto_name('Khabarnoye')" class="loc">Khabarnoye</span>. Several families of peasants/immigrants from <span onClick="goto_name('Ukraine')" class="loc">Ukraine</span> settled near Silnova and named their settlement <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span>. The 1930s, large industrial buildings were created. Before <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span> was founded, the villagers heard news of the construction of factories in <span onClick="goto_name('Orsk')" class="loc">Orsk</span>, and the finding of minerals. Fersman, a well-known academician, spoke in his writings of the fabulous and wealthy <span onClick="goto_name('Orsk region')" class="loc">Orsk region</span>, and called Orsk-Khalilovsk area a "true gem of the <span onClick="goto_name('Urals')" class="loc">Urals</span>." In the fall of 1929, geologist I. L. Rudnitsky opened the Khalilovsky field hematites. Khalilovsk ore was rare in its composition: it contains chromium, nickel, titanium, and manganese. Industrial tests confirmed its quality. In June 1931, the Government adopted a decision to start construction on the Khalilovsk ores and Karaganda coal, both to be big metallurgical plants. The construction schedule which was set to start building the <span onClick="goto_name('Khalilovo')" class="loc">Khalilovo</span> metallurgical plant was scheduled for 1936. During this period, in the village of <span onClick="goto_name('Novotroitsk')" class="loc">Novotroitsk</span>, the first construction builders arrived. In 1935, construction was suspended and only in the spring of 1939 in the Resolution XVIII of Congress it had specifically determined: "... To begin construction of new metallurgical plants (at Khalilovsk Bakalskoye and ores).</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Novotroitsk</th>
+      </tr>
+      <tr>
+       <th>Orenburg Oblast</th>
+      </tr>
+      <tr>
+       <th>Russia</th>
+      </tr>
+      <tr>
+       <th>Ural</th>
+      </tr>
+      <tr>
+       <th>Orenburg</th>
+      </tr>
+      <tr>
+       <th>Kazakhstan</th>
+      </tr>
+      <tr>
+       <th>Orsk</th>
+      </tr>
+      <tr>
+       <th>Khabarnoye</th>
+      </tr>
+      <tr>
+       <th>Ukraine</th>
+      </tr>
+      <tr>
+       <th>Orsk region</th>
+      </tr>
+      <tr>
+       <th>Urals</th>
+      </tr>
+      <tr>
+       <th>Khalilovo</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

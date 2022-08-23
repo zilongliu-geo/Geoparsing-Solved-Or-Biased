@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Five appear in court on St Patrick's Day violence charges. FIVE men have appeared in court in relation to allegations of a series of disturbances on St Patrick's Day. The men, ranging in age from 18 to 23, were brought before <span onClick="goto_name('Tipperary District')" class="loc">Tipperary District</span> Court yesterday on charges relating to incidents on March 17 last on Main Street and Abbey Street in Tipperary town. Three of the men were granted bail in open court -- despite objections from gardai who feared they would attempt to intimidate witnesses -- while bail hearings in relation to the other two were held in camera. The hearings held behind closed doors involved Patrick O'Keeffe (19) of 19 St Ailbe's Drive, <span onClick="goto_name('Tipperary')" class="loc">Tipperary</span>, who is accused of carrying out assault causing harm, assault, and two breaches of the Public Order Act and Jimmy Delaney (23) of 1 Carrowclough, <span onClick="goto_name('Tipperary')" class="loc">Tipperary</span>, who is also accused of a breach of the Public Order Act as well as assault causing harm and escaping from custody at Abbey Street, <span onClick="goto_name('Tipperary')" class="loc">Tipperary</span>, on March 17. Dan Delaney (18) and Ned Delaney (21), both of 1 Carrowclough, <span onClick="goto_name('Tipperary')" class="loc">Tipperary</span>, had been in custody since last week on charges of being intoxicated in a public place, using threatening, abusive or insulting words or behaviour and assaulting or threatening to assault a garda carrying out their duty. John-Paul Delaney (18) of Upper Abbey Street, <span onClick="goto_name('Cahir')" class="loc">Cahir</span>, is charged with assault, assault causing harm and theft of a mobile phone at Main Street, <span onClick="goto_name('Tipperary')" class="loc">Tipperary</span>, on the same date. The court heard that he was arrested after four gardai entered his address while he was in bed, during a major garda operation on Tuesday. Opposing bail in respect of Dan Delaney, John-Paul Delaney and Ned Delaney, Detective Inspector William Leahy said that there was "a larger group" of people who were involved in a number of incidents of intimidation over the last year. Following the incidents on St Patrick's Day, he had looked back over files of complaints, "and a pattern has arisen where witnesses who made complaints about assaults either refused to make statements or, having made those statements, subsequently came into the garda station and withdrew them, and that's my fear today". "It's the State's contention," said Inspector Pascal Feeney, "that over the past 12 months a number of injured parties or witnesses have withdrawn their statements as a result of intimidation and fear." The applications for bail were made by solicitors Vincent McCormack and Philip English. Judge Anderson said, in relation to the case involving Dan Delaney, that it was up to the State to stand up any evidence of past intimidation and, as they could not do this, he was precluded from refusing bail. The same applied in the other cases he heard in open court.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Tipperary District</th>
+      </tr>
+      <tr>
+       <th>Tipperary</th>
+      </tr>
+      <tr>
+       <th>Cahir</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

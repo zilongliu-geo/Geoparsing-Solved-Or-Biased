@@ -1,0 +1,1102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([34.00724,-106.93033], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([34.00724,-106.93033],
+			  {
+			      title: "Socorro",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Socorro County"] = marker;
+  
+    var marker = L.marker([34.50034,-106.00085],
+			  {
+			      title: "New Mexico",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-30.7424,150.6185],
+			  {
+			      title: "New Mexico",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([41.79364,-87.69172],
+			  {
+			      title: "Mexico",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([34.53259,-83.98491],
+			  {
+			      title: "Dahlonega",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.60344,-76.94887],
+			  {
+			      title: "New Mexico",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([45.35977,-71.45703],
+			  {
+			      title: "New Mexico",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.16976,-91.88295],
+			  {
+			      title: "Mexico",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([25.20162,55.15157],
+			  {
+			      title: "New Mexico",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([35.25254,-106.20363],
+			  {
+			      title: "New Mexico",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-17.93333,31.18333],
+			  {
+			      title: "New Mexico",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([33.47095,-85.25217],
+			  {
+			      title: "New Mexico",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-30.30759,120.9584],
+			  {
+			      title: "New Mexico",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([40,-4],
+			  {
+			      title: "Spain",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([30.86464,-83.53794],
+			  {
+			      title: "Spain",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([51.48007,-9.33589],
+			  {
+			      title: "Spain",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([45.70301,-97.78594],
+			  {
+			      title: "Spain",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([-46,-63],
+			  {
+			      title: "Argentine Sea",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([6.06315,171.85596],
+			  {
+			      title: "Jbein",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([33.52062,36.28286],
+			  {
+			      title: "Asbāniyā",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Spain"] = marker;
+  
+    var marker = L.marker([33.92613,-117.52172],
+			  {
+			      title: "La Sierra",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([33.86335,-117.58811],
+			  {
+			      title: "La Sierra",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.91667,-81.83333],
+			  {
+			      title: "La Sierra",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.94,-82.38972],
+			  {
+			      title: "La Sierra",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([18.43139,-69.46762],
+			  {
+			      title: "La Sierra",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.9,-82.78333],
+			  {
+			      title: "La Sierra",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.83333,-82.56667],
+			  {
+			      title: "La Sierra",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.83333,-80.56667],
+			  {
+			      title: "La Sierra",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.9,-82.05],
+			  {
+			      title: "La Sierra",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([21,-77.81667],
+			  {
+			      title: "La Sierra",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([2.19665,-76.7859],
+			  {
+			      title: "La Sierra",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.68,-80.9425],
+			  {
+			      title: "La Sierra",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.95,-82.03333],
+			  {
+			      title: "La Sierra",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.90556,-81.96194],
+			  {
+			      title: "La Sierra",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([22.69833,-80.93917],
+			  {
+			      title: "La Sierra",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([21.01667,-75.88333],
+			  {
+			      title: "La Sierra",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([7.95075,-68.91781],
+			  {
+			      title: "La Sierra",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([8.07475,-72.31488],
+			  {
+			      title: "La Sierra",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([18.96583,-71.38932],
+			  {
+			      title: "La Sierra",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([23.01667,-81.63333],
+			  {
+			      title: "La Sierra",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["La Sierra"] = marker;
+  
+    var marker = L.marker([30.54784,-112.30762],
+			  {
+			      title: "María Magdalena",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([19.63804,-99.41349],
+			  {
+			      title: "Santa María Magdalena Cahuacán",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([12.68562,-87.11525],
+			  {
+			      title: "María Magdalena",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([8.60352,-75.96416],
+			  {
+			      title: "Marta Magdalena",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([19.61667,-99.43333],
+			  {
+			      title: "María Magdalena",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([-25.37535,-54.64688],
+			  {
+			      title: "María Magdalena",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([2.28956,-78.1222],
+			  {
+			      title: "Magdalena",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([59.31895,18.06719],
+			  {
+			      title: "Maria Magdalena",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([-25.37597,-54.64715],
+			  {
+			      title: "Maria Magdalena",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([21.46314,-106.42322],
+			  {
+			      title: "Isla María Magdalena",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([48.6,17.23333],
+			  {
+			      title: "Mária Magdaléna",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([13.56667,39.28333],
+			  {
+			      title: "Maria Magdalena",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Maria Magdalena"] = marker;
+  
+    var marker = L.marker([32.37287,-107.20891],
+			  {
+			      title: "Magdalena Gap",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Magdalena Gap"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Magdalena is a village in <span onClick="goto_name('Socorro County')" class="loc">Socorro County</span>, <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 926 in 2012. "The Lady on the Mountain" is a rock formation on Magdalena Peak overlooking Magdalena. Spanish soldiers saw the face of a woman on the west face of the peak. A priest with them was reminded of a similar peak in <span onClick="goto_name('Spain')" class="loc">Spain</span> called "<span onClick="goto_name('La Sierra')" class="loc">La Sierra</span> de <span onClick="goto_name('Maria Magdalena')" class="loc">Maria Magdalena</span>", so he called the <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span> one "<span onClick="goto_name('La Sierra')" class="loc">La Sierra</span> de Magdalena". The pass to the south of the peak became known as <span onClick="goto_name('Magdalena Gap')" class="loc">Magdalena Gap</span>, and when a town grew up it received the same name. Magdalena has sought to transform itself into an art center and cultural destination, with the opening of several art galleries and the Magdalena Hall Hotel and the renovation of the Bank West building. Several rock and mineral shops have been around since the mining boom days. The ghost town of Kelly and two festivals, the Lady Magdalen Art Walk and the Old Timers Reunion and Rodeo, bring tourists to the area. In June 2013 the main village well stopped yielding water, leading to a period of conservation during which other <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span> communities and organizations donated drinking and stock water for distribution to residents until local wells were brought back into operation later in the year.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Socorro County</th>
+       <td best="true">
+        <a onClick="goto(34.00724,-106.93033)">
+         <span style="white-space:nowrap">34.007,-106.930</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>New Mexico</th>
+       <td best="true">
+        <a onClick="goto(34.50034,-106.00085)">
+         <span style="white-space:nowrap">34.500,-106.001</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.7424,150.6185)">
+         <span style="white-space:nowrap">-30.742,150.619</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79364,-87.69172)">
+         <span style="white-space:nowrap">41.794,-87.692</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.53259,-83.98491)">
+         <span style="white-space:nowrap">34.533,-83.985</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.60344,-76.94887)">
+         <span style="white-space:nowrap">39.603,-76.949</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.35977,-71.45703)">
+         <span style="white-space:nowrap">45.360,-71.457</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.16976,-91.88295)">
+         <span style="white-space:nowrap">39.170,-91.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.20162,55.15157)">
+         <span style="white-space:nowrap">25.202,55.152</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.25254,-106.20363)">
+         <span style="white-space:nowrap">35.253,-106.204</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93333,31.18333)">
+         <span style="white-space:nowrap">-17.933,31.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.47095,-85.25217)">
+         <span style="white-space:nowrap">33.471,-85.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.30759,120.9584)">
+         <span style="white-space:nowrap">-30.308,120.958</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Spain</th>
+       <td best="true">
+        <a onClick="goto(40,-4)">
+         <span style="white-space:nowrap">40.000,-4.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.86464,-83.53794)">
+         <span style="white-space:nowrap">30.865,-83.538</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.48007,-9.33589)">
+         <span style="white-space:nowrap">51.480,-9.336</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.70301,-97.78594)">
+         <span style="white-space:nowrap">45.703,-97.786</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-46,-63)">
+         <span style="white-space:nowrap">-46.000,-63.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.06315,171.85596)">
+         <span style="white-space:nowrap">6.063,171.856</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.52062,36.28286)">
+         <span style="white-space:nowrap">33.521,36.283</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>La Sierra</th>
+       <td best="true">
+        <a onClick="goto(33.92613,-117.52172)">
+         <span style="white-space:nowrap">33.926,-117.522</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.86335,-117.58811)">
+         <span style="white-space:nowrap">33.863,-117.588</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.91667,-81.83333)">
+         <span style="white-space:nowrap">22.917,-81.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.94,-82.38972)">
+         <span style="white-space:nowrap">22.940,-82.390</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.43139,-69.46762)">
+         <span style="white-space:nowrap">18.431,-69.468</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.9,-82.78333)">
+         <span style="white-space:nowrap">22.900,-82.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.83333,-82.56667)">
+         <span style="white-space:nowrap">22.833,-82.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.83333,-80.56667)">
+         <span style="white-space:nowrap">22.833,-80.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.9,-82.05)">
+         <span style="white-space:nowrap">22.900,-82.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21,-77.81667)">
+         <span style="white-space:nowrap">21.000,-77.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(2.19665,-76.7859)">
+         <span style="white-space:nowrap">2.197,-76.786</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.68,-80.9425)">
+         <span style="white-space:nowrap">22.680,-80.942</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.95,-82.03333)">
+         <span style="white-space:nowrap">22.950,-82.033</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.90556,-81.96194)">
+         <span style="white-space:nowrap">22.906,-81.962</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.69833,-80.93917)">
+         <span style="white-space:nowrap">22.698,-80.939</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.01667,-75.88333)">
+         <span style="white-space:nowrap">21.017,-75.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.95075,-68.91781)">
+         <span style="white-space:nowrap">7.951,-68.918</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.07475,-72.31488)">
+         <span style="white-space:nowrap">8.075,-72.315</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.96583,-71.38932)">
+         <span style="white-space:nowrap">18.966,-71.389</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.01667,-81.63333)">
+         <span style="white-space:nowrap">23.017,-81.633</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Maria Magdalena</th>
+       <td best="true">
+        <a onClick="goto(30.54784,-112.30762)">
+         <span style="white-space:nowrap">30.548,-112.308</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.63804,-99.41349)">
+         <span style="white-space:nowrap">19.638,-99.413</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.68562,-87.11525)">
+         <span style="white-space:nowrap">12.686,-87.115</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.60352,-75.96416)">
+         <span style="white-space:nowrap">8.604,-75.964</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.61667,-99.43333)">
+         <span style="white-space:nowrap">19.617,-99.433</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.37535,-54.64688)">
+         <span style="white-space:nowrap">-25.375,-54.647</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(2.28956,-78.1222)">
+         <span style="white-space:nowrap">2.290,-78.122</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.31895,18.06719)">
+         <span style="white-space:nowrap">59.319,18.067</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.37597,-54.64715)">
+         <span style="white-space:nowrap">-25.376,-54.647</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.46314,-106.42322)">
+         <span style="white-space:nowrap">21.463,-106.423</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.6,17.23333)">
+         <span style="white-space:nowrap">48.600,17.233</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.56667,39.28333)">
+         <span style="white-space:nowrap">13.567,39.283</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Magdalena Gap</th>
+       <td best="true">
+        <a onClick="goto(32.37287,-107.20891)">
+         <span style="white-space:nowrap">32.373,-107.209</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

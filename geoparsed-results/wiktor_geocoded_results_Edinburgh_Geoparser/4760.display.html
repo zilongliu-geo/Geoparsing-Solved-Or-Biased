@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Limbe')" class="loc">Limbe</span> (1858–1982: Victoria; also spelled Limbé) is a seaside city in the South-West Region of <span onClick="goto_name('Cameroon')" class="loc">Cameroon</span>. <span onClick="goto_name('Limbe')" class="loc">Limbe</span> was founded in 1858 on the southern slopes of Mount <span onClick="goto_name('Cameroon')" class="loc">Cameroon</span> by the British missionary Alfred Saker. At the 2005 Census, the population was 84,223. Victoria was founded by the British missionary Alfred Saker of the Baptist Missionary Society of <span onClick="goto_name('London')" class="loc">London</span> in June 1858. Due to this treaty, initially Victoria and its vicinity was not part of the new German colony <span onClick="goto_name('Kamerun')" class="loc">Kamerun</span> and remained under British administration. On May 7, 1886 <span onClick="goto_name('Great Britain')" class="loc">Great Britain</span> and <span onClick="goto_name('Germany')" class="loc">Germany</span> agreed to exchange Victoria and its vicinity for German rights at the <span onClick="goto_name('Forcados River')" class="loc">Forcados River</span> in <span onClick="goto_name('Nigeria')" class="loc">Nigeria</span> and St. Lucia in <span onClick="goto_name('South Africa')" class="loc">South Africa</span>. On March 28, 1887 Victoria and its vicinity were handed over to the German administration. At the same time Swiss Presbyterian missionaries bought the land from the Baptist Missionary Society in 1887. Victoria became British again in 1915. In 1982 Victoria was renamed and is since then known as <span onClick="goto_name('Limbe')" class="loc">Limbe</span>. <span onClick="goto_name('Limbe')" class="loc">Limbe</span> is located on a beautiful bay against the backdrop of a major mountain range. Black sand beaches make <span onClick="goto_name('Limbe')" class="loc">Limbe</span> one of two coastal towns (Kribi being the other) that are popular among Western tourists. The Limbe Wildlife Centre and Limbe Botanical Gardens are notable attractions. The Germans left a Bismarck tower in the vicinity of <span onClick="goto_name('Limbe')" class="loc">Limbe</span>. <span onClick="goto_name('Limbe')" class="loc">Limbe</span> is considered a good region in the country in terms of night life, and is considered a good tourist city in the country to visit. It is the home to the Bakweri people.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Limbe</th>
+      </tr>
+      <tr>
+       <th>Cameroon</th>
+      </tr>
+      <tr>
+       <th>London</th>
+      </tr>
+      <tr>
+       <th>Kamerun</th>
+      </tr>
+      <tr>
+       <th>Great Britain</th>
+      </tr>
+      <tr>
+       <th>Germany</th>
+      </tr>
+      <tr>
+       <th>Forcados River</th>
+      </tr>
+      <tr>
+       <th>Nigeria</th>
+      </tr>
+      <tr>
+       <th>South Africa</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

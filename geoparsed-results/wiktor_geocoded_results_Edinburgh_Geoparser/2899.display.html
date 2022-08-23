@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Madison County')" class="loc">Madison County</span> is a county located in the <span onClick="goto_name('U.S.')" class="loc">U.S.</span> state of <span onClick="goto_name('New York')" class="loc">New York</span>. As of the 2010 census, the population was 73,442. <span onClick="goto_name('Its county')" class="loc">Its county</span> seat is Wampsville. The county is named after James Madison, fourth President of the <span onClick="goto_name('United States')" class="loc">United States</span> of <span onClick="goto_name('America')" class="loc">America</span>, and was first formed in 1806. <span onClick="goto_name('Madison County')" class="loc">Madison County</span> is part of the <span onClick="goto_name('Syracuse')" class="loc">Syracuse</span>, <span onClick="goto_name('NY')" class="loc">NY</span> Metropolitan Statistical Area. Indigenous peoples had occupied areas around <span onClick="goto_name('Oneida')" class="loc">Oneida</span> Lake for thousands of years. The historic <span onClick="goto_name('Oneida')" class="loc">Oneida</span> Nation is an Iroquoian-speaking people who emerged as a culture in this area about the fourteenth century and dominated the territory. They are one of the Five Nations who originally comprised the Iroquois Confederacy or Haudenosaunee. English colonists established counties in eastern present-day <span onClick="goto_name('New York')" class="loc">New York</span> State in 1683; at the time, the territory of the present <span onClick="goto_name('Madison County')" class="loc">Madison County</span> was considered part of <span onClick="goto_name('Albany County')" class="loc">Albany County</span>, with the <span onClick="goto_name('city of Albany')" class="loc">city of Albany</span> located on the <span onClick="goto_name('Hudson River')" class="loc">Hudson River</span>. This was an enormous county, including the northern part of <span onClick="goto_name('New York')" class="loc">New York</span> State around <span onClick="goto_name('Albany')" class="loc">Albany</span> as well as all of the present State of <span onClick="goto_name('Vermont')" class="loc">Vermont</span> and, in theory, extending westward to the <span onClick="goto_name('Pacific Ocean')" class="loc">Pacific Ocean</span>. It was claimed by the English but largely occupied by the <span onClick="goto_name('Oneida')" class="loc">Oneida</span>, <span onClick="goto_name('Onondaga')" class="loc">Onondaga</span>, <span onClick="goto_name('Seneca')" class="loc">Seneca</span>, <span onClick="goto_name('Cayuga')" class="loc">Cayuga</span> and <span onClick="goto_name('Mohawk')" class="loc">Mohawk</span>, who had the territory in the central <span onClick="goto_name('Mohawk')" class="loc">Mohawk</span> Valley, as well as Mahican near the <span onClick="goto_name('Hudson River')" class="loc">Hudson River</span>. On July 3, 1766 the English organized <span onClick="goto_name('Cumberland County')" class="loc">Cumberland County</span>, and on March 16, 1770 they organized <span onClick="goto_name('Gloucester County')" class="loc">Gloucester County</span>, both containing territory now included in the state of <span onClick="goto_name('Vermont')" class="loc">Vermont</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Madison County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>New York</th>
+      </tr>
+      <tr>
+       <th>Its county</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>America</th>
+      </tr>
+      <tr>
+       <th>Syracuse</th>
+      </tr>
+      <tr>
+       <th>NY</th>
+      </tr>
+      <tr>
+       <th>Oneida</th>
+      </tr>
+      <tr>
+       <th>Albany County</th>
+      </tr>
+      <tr>
+       <th>city of Albany</th>
+      </tr>
+      <tr>
+       <th>Hudson River</th>
+      </tr>
+      <tr>
+       <th>Albany</th>
+      </tr>
+      <tr>
+       <th>Vermont</th>
+      </tr>
+      <tr>
+       <th>Pacific Ocean</th>
+      </tr>
+      <tr>
+       <th>Onondaga</th>
+      </tr>
+      <tr>
+       <th>Seneca</th>
+      </tr>
+      <tr>
+       <th>Cayuga</th>
+      </tr>
+      <tr>
+       <th>Mohawk</th>
+      </tr>
+      <tr>
+       <th>Cumberland County</th>
+      </tr>
+      <tr>
+       <th>Gloucester County</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

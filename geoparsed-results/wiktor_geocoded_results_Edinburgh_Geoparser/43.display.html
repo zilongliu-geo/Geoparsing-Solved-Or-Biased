@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> is a fourth class municipality in the <span onClick="goto_name('province of Samar')" class="loc">province of Samar</span>, <span onClick="goto_name('Philippines')" class="loc">Philippines</span>. According to the 2010 census, it has a population of 38,082 people. <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> is connected to <span onClick="goto_name('Tacloban')" class="loc">Tacloban</span> and <span onClick="goto_name('Leyte Island')" class="loc">Leyte Island</span> by the <span onClick="goto_name('San Juanico')" class="loc">San Juanico</span> Bridge. <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> is a town known but to a few people of <span onClick="goto_name('Samar')" class="loc">Samar</span>. However, in a few years, the <span onClick="goto_name('San Juanico')" class="loc">San Juanico</span> Bridge will be completed. This multi-million bridge will be a water link between <span onClick="goto_name('Tacloban City')" class="loc">Tacloban City</span> at one end and <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> at the other. This link, which is the Philippine-Japan Friendship Highway, formerly known as the Philippine Highway, is envisioned to connect the entire archipelago from horth to south, facilitating travel and communication between <span onClick="goto_name('Samar')" class="loc">Samar</span> and <span onClick="goto_name('Leyte')" class="loc">Leyte</span> and the <span onClick="goto_name('provinces of Luzon and Mindanao')" class="loc">provinces of Luzon and Mindanao</span>. The tiny island between <span onClick="goto_name('Samar')" class="loc">Samar</span> and <span onClick="goto_name('Leyte')" class="loc">Leyte</span>, known to many people as <span onClick="goto_name('Tabucan')" class="loc">Tabucan</span> Island, became the first site of poblacion. Local tradition dates the founding of the town to the early part of the eighteenth century. No historical records however and whatsoever could be found. The early settlers, according to the aged inhabitants, were the tribes of <span onClick="goto_name('Agoy')" class="loc">Agoy</span>, Amistoso, Lacambara clans. Joaquin Amistoso rose to be their leader. <span onClick="goto_name('San Juanico Strait')" class="loc">San Juanico Strait</span> was supposed to have been named in his honor. The people made their living by small-scale fishing. In 1800, <span onClick="goto_name('Capitan')" class="loc">Capitan</span> <span onClick="goto_name('Bartolome')" class="loc">Bartolome</span> <span onClick="goto_name('Sanchez')" class="loc">Sanchez</span>, the head of the Spanish Expedition, was enticed by the people's friendliness and stayed to help the people of the island. He called nearby tribes to unite with them and made Joaquin Amistoso as Cabeza de Barangay. The ruin of the watch tower locally called Barawalti, are mute evidence of Moro raids. A fleet of moro vintas defeated <span onClick="goto_name('Capitan')" class="loc">Capitan</span> <span onClick="goto_name('Tiago')" class="loc">Tiago</span> and men. This fleet was headed by the famous <span onClick="goto_name('Sultan Kudarat')" class="loc">Sultan Kudarat</span>. Some of the people escaped to the marshy shores of the mainland of <span onClick="goto_name('Samar')" class="loc">Samar</span>. These refugees founded a barangay called Lalawiton with peril Lacambra as their capitan. The site of Lalawiton is the present site of the poblacion. In 1863, the municipality of <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> was officially recognized by the Spanish authorities. Before that time it belonged to the Municipality of <span onClick="goto_name('Basey')" class="loc">Basey</span>, <span onClick="goto_name('Santa Rita')" class="loc">Santa Rita</span> was reverted to its former status as a barangay of <span onClick="goto_name('Basey')" class="loc">Basey</span> from 1904 to 1906. Pedro Amistoso was elected as municipal president in the first local election held in 1908. Succeeding him were Mamerto Ilagan, 1910; Alipio Ragarit 1912; Inocencio Hilvano 1916; Florentino Nerviol, 1928; and Margarito Caberic 1932–1940. Conrado Adolfo was elected municipal mayor in 1941 but was unable to serve his full-time because of the onset of the Second World War. Florentino Nerviol served as Mayor from 1942 to 1944 and as [PCAU] (Philippine Civil Affairs Unit) mayor to January 6, 1945, and Margarito Caberic succeeded him up to May 31, 1946. Isidro Zeta was appointed mayor until the held in 1947. Succeeding him were Simplicio Lacaba 1948; Pedro Hilvano, acting 1952 and elected in 1956; Gaudencio Espino in 1960; re-elect in 1964 and again Pedro Hilvano elected in 1968 and re-elected in the latest election.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Santa Rita</th>
+      </tr>
+      <tr>
+       <th>province of Samar</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>Tacloban</th>
+      </tr>
+      <tr>
+       <th>Leyte Island</th>
+      </tr>
+      <tr>
+       <th>San Juanico</th>
+      </tr>
+      <tr>
+       <th>Samar</th>
+      </tr>
+      <tr>
+       <th>Tacloban City</th>
+      </tr>
+      <tr>
+       <th>Leyte</th>
+      </tr>
+      <tr>
+       <th>provinces of Luzon and Mindanao</th>
+      </tr>
+      <tr>
+       <th>Tabucan</th>
+      </tr>
+      <tr>
+       <th>Agoy</th>
+      </tr>
+      <tr>
+       <th>San Juanico Strait</th>
+      </tr>
+      <tr>
+       <th>Capitan</th>
+      </tr>
+      <tr>
+       <th>Bartolome</th>
+      </tr>
+      <tr>
+       <th>Sanchez</th>
+      </tr>
+      <tr>
+       <th>Tiago</th>
+      </tr>
+      <tr>
+       <th>Sultan Kudarat</th>
+      </tr>
+      <tr>
+       <th>Basey</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

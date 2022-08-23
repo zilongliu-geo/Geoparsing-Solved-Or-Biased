@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>French filmmaker slammed for likening illegals to WWII Jews. <span onClick="goto_name('France')" class="loc">France</span>'s immigration minister criticized a film director on Monday for likening the situation of illegal immigrants in <span onClick="goto_name('France')" class="loc">France</span> today to that of Jews under the Nazi occupation during World War Two. Director Philippe Lioret - whose film "Welcome" about illegal immigrants trying to reach <span onClick="goto_name('Britain')" class="loc">Britain</span> from northern <span onClick="goto_name('France')" class="loc">France</span> opens on Wednesday - has criticized a French law that makes it a crime to help illegal immigrants. "To see that a decent guy can all of a sudden be charged and that he can go to prison is crazy. It feels like it's 1943 and we've hidden a Jew in the basement," Lioret told the regional newspaper La Voix du Nord last week. Some 76,000 Jews were arrested in <span onClick="goto_name('France')" class="loc">France</span> during World War Two and taken to concentration camps such as <span onClick="goto_name('Auschwitz')" class="loc">Auschwitz</span>, where most died. Those found to be hiding Jews faced a similar fate. Immigration Minister Eric Besson told <span onClick="goto_name('Europe')" class="loc">Europe</span> 1 radio that comparing the plight of Afghans in the northern town of <span onClick="goto_name('Calais')" class="loc">Calais</span> to that of Jews during the occupation was "intolerable", and that Lioret had "crossed the red line". "I have the impression that the film's promoters are committing a deliberate slur, no doubt with the intention of increasing publicity for the film's release," he said. French President Nicolas Sarkozy has promoted a controversial tough immigration policy, which is widely believed to have won him the support of many far-right National Front voters in the 2007 presidential election. Sarkozy's policies include setting targets for police on the number of illegal immigrants they must expel each year. "Welcome" tells the story of a middle-aged lifeguard at a Calais swimming pool who, while trying to win back his wife's affections, meets a young Kurd and helps him swim across the Channel to <span onClick="goto_name('Britain')" class="loc">Britain</span>, where the young man's girlfriend lives. Vincent Lindon, who plays the lifeguard, has also spoken out about immigration policy in the run-up to the film's release, denouncing the often squalid conditions in which immigrants live while attempting to find a way into <span onClick="goto_name('Britain')" class="loc">Britain</span>. "I believe we must respect human beings. The people in <span onClick="goto_name('Calais')" class="loc">Calais</span> are often treated worse than dogs. And I don't like that," Lindon told the newspaper Le Parisien in an interview published on Saturday. "I do not understand that there is an article of the (law) that says: 'Any person who helps a person in an illegal situation is punishable by up to five years in prison'."</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>France</th>
+      </tr>
+      <tr>
+       <th>Britain</th>
+      </tr>
+      <tr>
+       <th>Auschwitz</th>
+      </tr>
+      <tr>
+       <th>Europe</th>
+      </tr>
+      <tr>
+       <th>Calais</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

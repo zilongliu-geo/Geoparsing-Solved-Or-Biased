@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Bali')" class="loc">Bali</span> is a town and a municipality in <span onClick="goto_name('Pali district')" class="loc">Pali district</span> in the state of Rajasthan, <span onClick="goto_name('India')" class="loc">India</span>. The town is situated on the left bank of the <span onClick="goto_name('Mithari')" class="loc">Mithari</span> River. This walled town was the headquarters of a district having the same name in the Jodhpur State. <span onClick="goto_name('Bali')" class="loc">Bali</span> is a tehsil and panchayat samiti with the same name. <span onClick="goto_name('Bali')" class="loc">Bali</span> is also a sub-divisions among the 10 sub-divisions of the <span onClick="goto_name('Pali district')" class="loc">Pali district</span>. <span onClick="goto_name('Bali')" class="loc">Bali</span> is an ancient city. A Jain scroll which Colonel James Tod obtained from a Jain guru in <span onClick="goto_name('Sanderao')" class="loc">Sanderao</span> gives the earliest description of founding of <span onClick="goto_name('Bali')" class="loc">Bali</span> town. The scroll mentions that on the sack of <span onClick="goto_name('Vallabhi city')" class="loc">Vallabhi city</span> in <span onClick="goto_name('Gujarat')" class="loc">Gujarat</span>, thirty thousand Jain families abandoned Valabhi and led by their priests found a retreat for themselves in <span onClick="goto_name('Marwar')" class="loc">Marwar</span>, where they erected the towns of Sandrao, <span onClick="goto_name('Bali')" class="loc">Bali</span> and <span onClick="goto_name('Nadol')" class="loc">Nadol</span> in 524 AD. It was the heart of the Godwar area in the 11th century. It was also a town where regular horse fair was held to trade the horses. King Sarubali Baldev won the land of <span onClick="goto_name('Bali')" class="loc">Bali</span> in a battle in 1240 AD and he crowned the area his royal capital, naming it <span onClick="goto_name('Bali')" class="loc">Bali</span> after himself. Legends say that the Pandava children used to play childhood games in this area and a water well still exists which was formed by Bhima, one of the Pandavas. In 1608 AD King Balasingh constructed the Fort of <span onClick="goto_name('Bali')" class="loc">Bali</span> to protect the city and a wall was built around the city edges to protect it from attack. The town planning is based on ancient geometrical, astrological and architectural laws. The marriage of <span onClick="goto_name('Rana')" class="loc">Rana</span> <span onClick="goto_name('Udai')" class="loc">Udai</span> <span onClick="goto_name('Singh')" class="loc">Singh</span>, father of legendary hero Maharana Pratap, was solemnized with the daughter of the <span onClick="goto_name('Rao')" class="loc">Rao</span> of <span onClick="goto_name('Jalor')" class="loc">Jalor</span> at <span onClick="goto_name('Bali')" class="loc">Bali</span>. A dispensary was established in this town in March 1896. In 1897, it served 17 in-patients and 4166 out-patients and 318 operations were performed in it. In 1900 there was a plague outbreak in town and the town was evacuated. 1245 deaths occurred during the month of January 1900 as a result of diarrhoea, dysentery and pneumonia. Prior to formation of Rajasthan it was headquarters of a district with same name in erstwhile Jodhpur state. <span onClick="goto_name('Bali')" class="loc">Bali</span> had its own municipality even before independence. It had a middle school in 1932 that was upgraded to high school and in 1946 had more than 200 pupils. In 1960 <span onClick="goto_name('Bali')" class="loc">Bali</span> had three primary schools for boys, one primary school for girls and a high school. The telephone arrived in <span onClick="goto_name('Bali')" class="loc">Bali</span> in 1957, it got electricity in 1961 and piped water connections were given in 1970. A tehsil library was established in the center of <span onClick="goto_name('Bali')" class="loc">Bali</span> in <span onClick="goto_name('Bawari')" class="loc">Bawari</span> Jav in 1958. In addition <span onClick="goto_name('Bali')" class="loc">Bali</span> also has a Jain library.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Bali</th>
+      </tr>
+      <tr>
+       <th>Pali district</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Mithari</th>
+      </tr>
+      <tr>
+       <th>Sanderao</th>
+      </tr>
+      <tr>
+       <th>Vallabhi city</th>
+      </tr>
+      <tr>
+       <th>Gujarat</th>
+      </tr>
+      <tr>
+       <th>Marwar</th>
+      </tr>
+      <tr>
+       <th>Nadol</th>
+      </tr>
+      <tr>
+       <th>Rana</th>
+      </tr>
+      <tr>
+       <th>Udai</th>
+      </tr>
+      <tr>
+       <th>Singh</th>
+      </tr>
+      <tr>
+       <th>Rao</th>
+      </tr>
+      <tr>
+       <th>Jalor</th>
+      </tr>
+      <tr>
+       <th>Bawari</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

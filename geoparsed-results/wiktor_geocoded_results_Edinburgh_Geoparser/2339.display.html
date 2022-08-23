@@ -1,0 +1,396 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([41.8954,-87.64616], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([41.8954,-87.64616],
+			  {
+			      title: "Cook",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cook County"] = marker;
+  
+    var marker = L.marker([47.81684,-90.54108],
+			  {
+			      title: "Cook",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Cook County"] = marker;
+  
+    var marker = L.marker([31.15399,-83.43047],
+			  {
+			      title: "Cook",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Cook County"] = marker;
+  
+    var marker = L.marker([-38.58333,178],
+			  {
+			      title: "Cook County",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Cook County"] = marker;
+  
+    var marker = L.marker([40.00032,-89.25037],
+			  {
+			      title: "Illinois",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([38.28672,-90.38012],
+			  {
+			      title: "Riverside",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([33.09285,-107.23058],
+			  {
+			      title: "Illinois",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([-23.13333,18.38333],
+			  {
+			      title: "Illinois",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([-34.14437,147.05553],
+			  {
+			      title: "Illinois",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([14.66893,121.12046],
+			  {
+			      title: "Illinois",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([14.27694,120.90015],
+			  {
+			      title: "Illinois",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([42.03336,-87.8834],
+			  {
+			      title: "Des Plaines",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Des Plaines"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Summit is a village in <span onClick="goto_name('Cook County')" class="loc">Cook County</span>, <span onClick="goto_name('Illinois')" class="loc">Illinois</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 11,054 at the 2010 census. The village is arguably best known as the setting to Ernest Hemingway's 1927 short story "The Killers". Summit is located at 41°47′N 87°49′W (41.7885, -87.8139). According to the 2010 census, Summit has a total area of 2.257 square miles (5.85 km2), of which 2.12 square miles (5.49 km2) (or 93.93%) is land and 0.137 square miles (0.35 km2) (or 6.07%) is water. Most of "Summit" is actually in the floodplain of the <span onClick="goto_name('Des Plaines')" class="loc">Des Plaines</span> River. As of the census of 2000, there were 10,637 people, 3,356 households, and 2,416 families residing in the village. The population density was 5,008.7 people per square mile (1,937.2/km²). There were 3,552 housing units at an average density of 1,672.6 per square mile (646.9/km²). The racial makeup of the village was 63.31% White, 12.05% African American, 0.30% Native American, 1.41% Asian, 0.02% Pacific Islander, 19.64% from other races, and 3.27% from two or more races. Hispanic or Latino of any race were 48.47% of the population, with Mexican Americans representing 44.3%.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Cook County</th>
+       <td best="true">
+        <a onClick="goto(41.8954,-87.64616)">
+         <span style="white-space:nowrap">41.895,-87.646</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.81684,-90.54108)">
+         <span style="white-space:nowrap">47.817,-90.541</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.15399,-83.43047)">
+         <span style="white-space:nowrap">31.154,-83.430</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.58333,178)">
+         <span style="white-space:nowrap">-38.583,178.000</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Illinois</th>
+       <td best="true">
+        <a onClick="goto(40.00032,-89.25037)">
+         <span style="white-space:nowrap">40.000,-89.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.28672,-90.38012)">
+         <span style="white-space:nowrap">38.287,-90.380</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.09285,-107.23058)">
+         <span style="white-space:nowrap">33.093,-107.231</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.13333,18.38333)">
+         <span style="white-space:nowrap">-23.133,18.383</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.14437,147.05553)">
+         <span style="white-space:nowrap">-34.144,147.056</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.66893,121.12046)">
+         <span style="white-space:nowrap">14.669,121.120</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.27694,120.90015)">
+         <span style="white-space:nowrap">14.277,120.900</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Des Plaines</th>
+       <td best="true">
+        <a onClick="goto(42.03336,-87.8834)">
+         <span style="white-space:nowrap">42.033,-87.883</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

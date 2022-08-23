@@ -1,0 +1,1286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([53.33306,-6.24889], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([53.33306,-6.24889],
+			  {
+			      title: "Dublin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([-34.45,138.35],
+			  {
+			      title: "Dublin",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([39.65094,-76.26662],
+			  {
+			      title: "Dublin",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([34.07233,-90.49065],
+			  {
+			      title: "Dublin",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([28.78944,-81.62674],
+			  {
+			      title: "Dublin",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([42.90758,-72.06258],
+			  {
+			      title: "Dublin",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([40.37177,-75.20156],
+			  {
+			      title: "Dublin",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([32.54044,-82.90375],
+			  {
+			      title: "Dublin",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([39.81227,-85.20885],
+			  {
+			      title: "Dublin",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([40.09923,-83.11408],
+			  {
+			      title: "Dublin",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([37.10568,-80.68534],
+			  {
+			      title: "Dublin",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([32.08514,-98.34199],
+			  {
+			      title: "Dublin",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([42.99479,-76.92219],
+			  {
+			      title: "Dublin",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([34.65684,-78.72641],
+			  {
+			      title: "Dublin",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([36.72534,-88.80228],
+			  {
+			      title: "Dublin",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([37.70215,-121.93579],
+			  {
+			      title: "Dublin",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([51.735,30.328],
+			  {
+			      title: "Dublin",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([8.13746,-13.1927],
+			  {
+			      title: "Dublin",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([53.35512,-6.24922],
+			  {
+			      title: "Dublin City",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([47.11678,-81.64978],
+			  {
+			      title: "Dublin",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([48.937,-87.92191],
+			  {
+			      title: "Dublin",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([38.73052,-0.59746],
+			  {
+			      title: "Reiner",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Reiner"] = marker;
+  
+    var marker = L.marker([47.16667,13.81667],
+			  {
+			      title: "Reiner",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Reiner"] = marker;
+  
+    var marker = L.marker([53.33306,-6.24889],
+			  {
+			      title: "Dublin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([37.70215,-121.93579],
+			  {
+			      title: "Dublin",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([40.09923,-83.11408],
+			  {
+			      title: "Dublin",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([32.54044,-82.90375],
+			  {
+			      title: "Dublin",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([28.78944,-81.62674],
+			  {
+			      title: "Dublin",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([-34.45,138.35],
+			  {
+			      title: "Dublin",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([39.81227,-85.20885],
+			  {
+			      title: "Dublin",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([51.735,30.328],
+			  {
+			      title: "Dublin",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([34.07233,-90.49065],
+			  {
+			      title: "Dublin",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([34.65684,-78.72641],
+			  {
+			      title: "Dublin",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([36.72534,-88.80228],
+			  {
+			      title: "Dublin",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([42.99479,-76.92219],
+			  {
+			      title: "Dublin",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([37.10568,-80.68534],
+			  {
+			      title: "Dublin",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([39.65094,-76.26662],
+			  {
+			      title: "Dublin",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([32.08514,-98.34199],
+			  {
+			      title: "Dublin",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([42.90758,-72.06258],
+			  {
+			      title: "Dublin",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([40.37177,-75.20156],
+			  {
+			      title: "Dublin",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([8.13746,-13.1927],
+			  {
+			      title: "Dublin",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([48.937,-87.92191],
+			  {
+			      title: "Dublin",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([47.11678,-81.64978],
+			  {
+			      title: "Dublin",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Dublin"] = marker;
+  
+    var marker = L.marker([47.93141,12.67873],
+			  {
+			      title: "Freimann",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Freimann"] = marker;
+  
+    var marker = L.marker([48.2,11.61667],
+			  {
+			      title: "Freimann",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Freimann"] = marker;
+  
+    var marker = L.marker([53.2859,-6.37344],
+			  {
+			      title: "Tallaght",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([35.66076,36.07012],
+			  {
+			      title: "Tallā",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([35.05967,-3.39264],
+			  {
+			      title: "Talla",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([26.35075,68.30898],
+			  {
+			      title: "Talla",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([-5.82213,-79.22534],
+			  {
+			      title: "Talla",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([23.6309,90.50135],
+			  {
+			      title: "Talla",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([-28.98187,26.90964],
+			  {
+			      title: "Talla",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([7.48333,42.96667],
+			  {
+			      title: "Talla",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([28.261,70.24233],
+			  {
+			      title: "Talla",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([32.51147,76.06929],
+			  {
+			      title: "Talla",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([28.83127,67.42217],
+			  {
+			      title: "Talla",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([43.60185,11.78714],
+			  {
+			      title: "Talla",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([66.21667,22.23333],
+			  {
+			      title: "Tallå",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([13.1934,-4.8906],
+			  {
+			      title: "Talla",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([31.66322,-9.63013],
+			  {
+			      title: "Talla",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([31.60505,-9.60763],
+			  {
+			      title: "Talla",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([33.41946,-7.05588],
+			  {
+			      title: "Talla",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([43.60185,11.78714],
+			  {
+			      title: "Talla",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([-9.00733,-78.05191],
+			  {
+			      title: "Talla",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Talla"] = marker;
+  
+    var marker = L.marker([-8.91806,-78.18833],
+			  {
+			      title: "Talla",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Talla"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Board appointments go forward aside from discussion. The appointment of residents volunteering to serve on Dublin's boards and commissions is usually a pretty uncomplicated procedure. However, a resolution for the appointments began a discussion among <span onClick="goto_name('Dublin City')" class="loc">Dublin City</span> Council members at their Monday, March 16 meeting regarding the appointment of a City Council member to the city's Planning and Zoning Commission. During the council's goal-setting retreat in February 2008, council members unanimously approved a motion to appoint a seventh citizen to a commission seat previously held by a council member, with plans to review the new process formally in January. Council members Michael Keenan, Rick Gerber and John <span onClick="goto_name('Reiner')" class="loc">Reiner</span>, along with Mayor Marilee Chinnici-Zuercher and Vice Mayor Cathy Boring voted 'no' to Councilman Tim Lecklider's motion to not make the appointment to the planning and zoning commission until after discussion of the process, with Councilwoman Amy Salay joining Lecklider in voting 'yes.' "We have had a tremendous workload," Chinnici-Zuercher said. "When we made the decision to have this discussion in January, this decision was made before the resignation of our city manager, and our search for a new one. "Boulder City Council offered then <span onClick="goto_name('Dublin City')" class="loc">Dublin City</span> Manager Jane Brautigam a position as its city manager Aug. 10, 2008. Her last day in the <span onClick="goto_name('Dublin')" class="loc">Dublin</span> post was Sept. 26, 2008. The national search for a new city manager began Sept. 8, when City Council unanimously approved a motion to engage the services of Thomas Dority Sr., vice president of the Mercer Group, for the recruitment process. The result was the appointment of Terry Foegler as Dublin's city manager, and his first official day of work was Feb. 17. "This discussion is important, but we have had to go to a second tier of consideration," Chinnici-Zuercher said, as she suggested council members discuss the commission issue in a committee of the whole meeting to be scheduled before September. "It clearly needs to be discussed," Keenan said. <span onClick="goto_name('Following City')" class="loc">Following City</span> Council's disapproval of the motion to exclude the planning and zoning seat from the appointments, it unanimously approved the following appointments:* Chris Amorose Groomes and Flite <span onClick="goto_name('Freimann')" class="loc">Freimann</span>, four-year terms on the Planning and Zoning Commission, expiring March 31, 2013. * Carl Karrer, three-year term on the Architectural Review Board as the Dublin Historical Society representative, and Robert Schisler, three-year term on the ARB as an Historic District merchant representative. Both terms expire March 31, 2012. * Victoria Newell and Brett Page, a three-year term for each on the Board of Zoning Appeals, expiring March 31, 2012. * Patrick Todoran, to the unexpired term of Keith Blosser on the Board of Zoning Appeals, a term which expires on March 31, 2010. * Christine Gawronski and Dona Givens, both reappointed to a three-year term on the Community Services Advisory Commission, expiring March 31, 2012. * Kevin Cooper, three-year term on the Community Services Advisory Commission, expiring on March 31, 2012. * Susan Burness, three-year term as the city representative to the Dublin Convention and Visitors Bureau Board, a term which expires on March 31, 2012. * Jamie Boff and David Cecutti, reappointed to three-year terms on the Parks and Recreation Advisory Commission, expiring March 31, 2012. * DeWayne Howard, three-year term on the Personnel Board of Review, a term which expires on March 31, 2012. "I do not wish to vote 'no,' because of the balance of those folks who have been appointed," Lecklider said, as he cast his 'yes' vote. There is one remaining appointment to be made to the Architectural Review Board, and City Council hopes to complete this appointment at its April 6 meeting, Clerk of Council Anne Clarke said via e-mail Tuesday, March 17. Board and commission members will have an orientation and training session at 6:30 p.m. Monday, March 30 in <span onClick="goto_name('Talla')" class="loc">Talla</span> 2 at the Dublin Community Recreation Center, 5600 Post Road, Chinnici-Zuercher said.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Dublin City</th>
+       <td best="true">
+        <a onClick="goto(53.33306,-6.24889)">
+         <span style="white-space:nowrap">53.333,-6.249</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.45,138.35)">
+         <span style="white-space:nowrap">-34.450,138.350</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.65094,-76.26662)">
+         <span style="white-space:nowrap">39.651,-76.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.07233,-90.49065)">
+         <span style="white-space:nowrap">34.072,-90.491</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.78944,-81.62674)">
+         <span style="white-space:nowrap">28.789,-81.627</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.90758,-72.06258)">
+         <span style="white-space:nowrap">42.908,-72.063</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.37177,-75.20156)">
+         <span style="white-space:nowrap">40.372,-75.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.54044,-82.90375)">
+         <span style="white-space:nowrap">32.540,-82.904</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.81227,-85.20885)">
+         <span style="white-space:nowrap">39.812,-85.209</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.09923,-83.11408)">
+         <span style="white-space:nowrap">40.099,-83.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.10568,-80.68534)">
+         <span style="white-space:nowrap">37.106,-80.685</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.08514,-98.34199)">
+         <span style="white-space:nowrap">32.085,-98.342</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.99479,-76.92219)">
+         <span style="white-space:nowrap">42.995,-76.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.65684,-78.72641)">
+         <span style="white-space:nowrap">34.657,-78.726</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.72534,-88.80228)">
+         <span style="white-space:nowrap">36.725,-88.802</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.70215,-121.93579)">
+         <span style="white-space:nowrap">37.702,-121.936</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.735,30.328)">
+         <span style="white-space:nowrap">51.735,30.328</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.13746,-13.1927)">
+         <span style="white-space:nowrap">8.137,-13.193</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.35512,-6.24922)">
+         <span style="white-space:nowrap">53.355,-6.249</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.11678,-81.64978)">
+         <span style="white-space:nowrap">47.117,-81.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.937,-87.92191)">
+         <span style="white-space:nowrap">48.937,-87.922</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Reiner</th>
+       <td best="true">
+        <a onClick="goto(38.73052,-0.59746)">
+         <span style="white-space:nowrap">38.731,-0.597</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.16667,13.81667)">
+         <span style="white-space:nowrap">47.167,13.817</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Dublin</th>
+       <td best="true">
+        <a onClick="goto(53.33306,-6.24889)">
+         <span style="white-space:nowrap">53.333,-6.249</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.70215,-121.93579)">
+         <span style="white-space:nowrap">37.702,-121.936</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.09923,-83.11408)">
+         <span style="white-space:nowrap">40.099,-83.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.54044,-82.90375)">
+         <span style="white-space:nowrap">32.540,-82.904</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.78944,-81.62674)">
+         <span style="white-space:nowrap">28.789,-81.627</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.45,138.35)">
+         <span style="white-space:nowrap">-34.450,138.350</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.81227,-85.20885)">
+         <span style="white-space:nowrap">39.812,-85.209</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.735,30.328)">
+         <span style="white-space:nowrap">51.735,30.328</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.07233,-90.49065)">
+         <span style="white-space:nowrap">34.072,-90.491</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.65684,-78.72641)">
+         <span style="white-space:nowrap">34.657,-78.726</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.72534,-88.80228)">
+         <span style="white-space:nowrap">36.725,-88.802</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.99479,-76.92219)">
+         <span style="white-space:nowrap">42.995,-76.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.10568,-80.68534)">
+         <span style="white-space:nowrap">37.106,-80.685</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.65094,-76.26662)">
+         <span style="white-space:nowrap">39.651,-76.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.08514,-98.34199)">
+         <span style="white-space:nowrap">32.085,-98.342</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.90758,-72.06258)">
+         <span style="white-space:nowrap">42.908,-72.063</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.37177,-75.20156)">
+         <span style="white-space:nowrap">40.372,-75.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.13746,-13.1927)">
+         <span style="white-space:nowrap">8.137,-13.193</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.937,-87.92191)">
+         <span style="white-space:nowrap">48.937,-87.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.11678,-81.64978)">
+         <span style="white-space:nowrap">47.117,-81.650</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Following City</th>
+      </tr>
+      <tr>
+       <th>Freimann</th>
+       <td best="true">
+        <a onClick="goto(47.93141,12.67873)">
+         <span style="white-space:nowrap">47.931,12.679</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.2,11.61667)">
+         <span style="white-space:nowrap">48.200,11.617</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Talla</th>
+       <td best="true">
+        <a onClick="goto(53.2859,-6.37344)">
+         <span style="white-space:nowrap">53.286,-6.373</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.66076,36.07012)">
+         <span style="white-space:nowrap">35.661,36.070</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.05967,-3.39264)">
+         <span style="white-space:nowrap">35.060,-3.393</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(26.35075,68.30898)">
+         <span style="white-space:nowrap">26.351,68.309</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-5.82213,-79.22534)">
+         <span style="white-space:nowrap">-5.822,-79.225</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.6309,90.50135)">
+         <span style="white-space:nowrap">23.631,90.501</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.98187,26.90964)">
+         <span style="white-space:nowrap">-28.982,26.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.48333,42.96667)">
+         <span style="white-space:nowrap">7.483,42.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.261,70.24233)">
+         <span style="white-space:nowrap">28.261,70.242</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.51147,76.06929)">
+         <span style="white-space:nowrap">32.511,76.069</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.83127,67.42217)">
+         <span style="white-space:nowrap">28.831,67.422</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.60185,11.78714)">
+         <span style="white-space:nowrap">43.602,11.787</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(66.21667,22.23333)">
+         <span style="white-space:nowrap">66.217,22.233</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.1934,-4.8906)">
+         <span style="white-space:nowrap">13.193,-4.891</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.66322,-9.63013)">
+         <span style="white-space:nowrap">31.663,-9.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.60505,-9.60763)">
+         <span style="white-space:nowrap">31.605,-9.608</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.41946,-7.05588)">
+         <span style="white-space:nowrap">33.419,-7.056</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.60185,11.78714)">
+         <span style="white-space:nowrap">43.602,11.787</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-9.00733,-78.05191)">
+         <span style="white-space:nowrap">-9.007,-78.052</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.91806,-78.18833)">
+         <span style="white-space:nowrap">-8.918,-78.188</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

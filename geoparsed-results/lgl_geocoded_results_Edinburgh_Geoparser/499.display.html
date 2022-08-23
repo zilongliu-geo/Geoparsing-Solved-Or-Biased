@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Local health care providers banding together to help poor, uninsured. In the years that area health care leaders have struggled with how to care for the uninsured -- while limiting unnecessary use of hospital emergency rooms -- the problems have only gotten worse. The 2008 economic downturn rendered many jobless, without insurance and without the extra cash for medical care. Without coverage for routine doctor visits, the uninsured often wait to seek preventive care and medical treatment until they're very sick, requiring costlier care in ERs. Others use ERs as their source for primary care but can't pay the bill. Hospitals make up that uncompensated care in other areas by charging more or eliminating some services. Here's a local snapshot. - <span onClick="goto_name('Springfield')" class="loc">Springfield</span> hospital emergency room visits by uninsured <span onClick="goto_name('Greene County')" class="loc">Greene County</span> residents grew from 17,709 visits in 2003 to 33,760 visits in 2007, the latest compiled data available. - The most common reasons for those ER visits by the uninsured were dental pain, dental/respiratory complaints, respiratory/lumbar, throat problems, alcohol/neck sprain/respiratory, and ear complaints. - The Kitchen Clinic saw 2,000 patients in 2008, or 8,000 patient visits, and turns away hundreds of people every month for lack of providers. It gave more than 47,000 free prescriptions, up from 42,000 the year before. - CoxHealth system provided $33.5 million in bad debt and charity care in fiscal year 2003, $64.3 million in 2006, and by 2007 it increased to $93.6 million. In 2008 it rose by another 13 percent, to $105.9 million. (Calculation for charity and bad debt is based on write-offs from patient charges.) The combined emergency department and urgent care visits for Cox North, South and Walnut Lawn rose from 145,000 in fiscal year 2007 to 151,000 in fiscal year 2008. The Cox ERs, alone, saw 104,000 patients in 2008. -St. John's Health System write-offs for bad debts and charity combined was $93.4 million in fiscal year 2006, $117.6 million in fiscal year 2007, and totaled $144.1 million in fiscal year 2008. (This increase is due to an increase in the number of uninsured patients and an increase in the number of insured patients who have not met the patient portion of their co-payments and deductibles.) One out of every five patients who visit the ER does not carry insurance. St. John's ER visits totaled 87,600 in fiscal year 2008, representing a 3.6 percent increase over the fiscal year 2007 ER visits of 84,500. Source: <span onClick="goto_name('Springfield')" class="loc">Springfield</span> hospitals, Springfield-Greene County Health Department "We all provide a significant amount of coverage for the indigent ..." said Kim Day, president and CEO of St. John's Health System and a commission member. " ... The economic times, combined with the fact that funding to safety-net providers is drying up, has frankly caused us to work harder, together." "The commission's public-private partnership with the community is not a substitute for state or national reform," Day said, "but we hope our efforts will increase access to health care services for vulnerable people, improving health outcomes in an unhealthy state and region, and reduce costs in the long run." It's patterned after the successful St. Louis Regional Health Commission, recognized nationally for helping coordinate existing services and money to boost primary care and dental visits among the city's working poor. It's one of about 10 <span onClick="goto_name('U.S.')" class="loc">U.S.</span> city initiatives having success increasing access, reducing chronic health problems and cutting their hospitals' charitable care load, <span onClick="goto_name('Bradshaw')" class="loc">Bradshaw</span> said. A board is spearheading the commission, including Day, <span onClick="goto_name('Edwards')" class="loc">Edwards</span>, <span onClick="goto_name('Gipson')" class="loc">Gipson</span> and Miller, Brian Fogle with The Kitchen Inc., John Lilly with the Greene County Medical Society, and Paul Taylor, CEO of Ozarks Community Hospital (formerly Doctors Hospital of <span onClick="goto_name('Springfield')" class="loc">Springfield</span>). Others will be added from government, business and the community. In St. Louis, a financially troubled group of primary care clinics consolidated with a <span onClick="goto_name('Jordan')" class="loc">Jordan</span> Valley-style community health center. The once-strapped clinics became eligible for federal funding, patients had access to more federal services like disease management, and the money saved was used to hire more health care providers, Fruend said.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Springfield</th>
+      </tr>
+      <tr>
+       <th>Greene County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>Bradshaw</th>
+      </tr>
+      <tr>
+       <th>Edwards</th>
+      </tr>
+      <tr>
+       <th>Gipson</th>
+      </tr>
+      <tr>
+       <th>Jordan</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

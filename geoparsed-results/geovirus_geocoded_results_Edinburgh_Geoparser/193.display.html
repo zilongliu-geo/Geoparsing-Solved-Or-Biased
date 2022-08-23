@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Since last reported, the flooding in <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span> has spread and has now struck more than four million people. The UN reports it has left at least 1,600 people dead. The floods have been confirmed as the worst in eighty years. Heavy monsoon rains led to the flooding of the huge <span onClick="goto_name('Indus River')" class="loc">Indus River</span>, destroying homes in the north of the country and causing a large amount of damage in the north-west frontier <span onClick="goto_name('province of Khyber Pakhtunkhwa')" class="loc">province of Khyber Pakhtunkhwa</span>. Manuel Bessler of the United Nations said: "What we are facing now is a major catastrophe. We are afraid it will get worse.” Army and government forces have rushed to evacuate hundreds of thousands of people from parts of the <span onClick="goto_name('Punjab province')" class="loc">Punjab province</span> of <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>, where the disaster spread to yesterday, and from <span onClick="goto_name('Sindh province')" class="loc">Sindh province</span>, where the flood is expected to reach by the weekend. The flooding is now in its second week and the situation is unlikely to improve any time soon, especially since in many parts of the country there is still torrential rain, with more forecast. In other parts of <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span> the water has receded, but this leaves a layer of mud and slime and this covers very large areas. For those affected by the floods, disease is the biggest problem now. The insanitary conditions have already caused diarrhoea and respiratory infections. Cholera and other water-borne diseases may appear if sanitary conditions for those displaced by the calamity are not established. Medical supplies are desperately needed for doctors to keep a pandemic or epidemic of a water-borne disease from infecting the victims of the flooding. Many foreign governments and aid agencies are contributing to the disaster relief effort. The U.S. Army has been flying relief missions, airlifting people from areas where they are stranded. The first mission involved four <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Chinook helicopters landing in the tourist town of <span onClick="goto_name('Kalam')" class="loc">Kalam</span> in the Swat Valley, north-west <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>. The resort had been cut off for more than a week, according to a reporter there. The Chinooks flew hundreds of people to safer areas lower down. A <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Embassy spokesperson said that 800 people had been evacuated and relief goods had been distributed. The <span onClick="goto_name('U.S.')" class="loc">U.S.</span> government pledged 10 million dollars in assistance following the first reports of the disaster. Yesterday the country promised a further 25 million dollars in aid. A spokesperson from the Embassy said: "The <span onClick="goto_name('U.S.')" class="loc">U.S.</span> is making a new contribution of 25 million dollars in assistance to flood-affected populations, bringing its total commitment to date to more than 35 million dollars." The money will go to international aid organisations and established Pakistani aid groups to provide food, health care and shelter to people displaced by the floods. <span onClick="goto_name('Malaysia')" class="loc">Malaysia</span> has also decided to contribute US$1 million for relief efforts in the form of humanitarian aid. The Foreign Ministry said the aid was a manifestation of the government and the people's concern and sympathy. "The government of <span onClick="goto_name('Malaysia')" class="loc">Malaysia</span> hopes the contribution will help alleviate the suffering of flood victims in <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>." In <span onClick="goto_name('Britain')" class="loc">Britain</span>, the Disasters Emergency Committee, an umbrella organisation representing 13 of the leading <span onClick="goto_name('UK')" class="loc">UK</span> humanitarian agencies, has been coordinating relief efforts and has launched an emergency appeal for public donations to help the victims of the crisis. Charities and aid agencies have been quick to respond to the disaster, sending aid and response teams to the worst hit areas. Food, water, shelter and medical supplies have been provided but much more is needed.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Pakistan</th>
+      </tr>
+      <tr>
+       <th>Indus River</th>
+      </tr>
+      <tr>
+       <th>province of Khyber Pakhtunkhwa</th>
+      </tr>
+      <tr>
+       <th>Punjab province</th>
+      </tr>
+      <tr>
+       <th>Sindh province</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>Kalam</th>
+      </tr>
+      <tr>
+       <th>Malaysia</th>
+      </tr>
+      <tr>
+       <th>Britain</th>
+      </tr>
+      <tr>
+       <th>UK</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

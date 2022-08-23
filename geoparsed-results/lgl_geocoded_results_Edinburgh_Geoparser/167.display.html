@@ -1,0 +1,495 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([39.58694,-94.92524], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([39.58694,-94.92524],
+			  {
+			      title: "De Kalb",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([33.50873,-94.61632],
+			  {
+			      title: "De Kalb",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([38.94259,-80.93205],
+			  {
+			      title: "De Kalb",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([40.89256,-82.77268],
+			  {
+			      title: "Dekalb",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([32.76763,-88.65088],
+			  {
+			      title: "De Kalb",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([34.37737,-80.59591],
+			  {
+			      title: "Dekalb",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([44.49895,-75.34272],
+			  {
+			      title: "De Kalb",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([41.92947,-88.75036],
+			  {
+			      title: "DeKalb",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([41.30866,-85.11358],
+			  {
+			      title: "Saint Johns",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([38.06539,-80.96843],
+			  {
+			      title: "Lookout",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([34.45977,-85.80414],
+			  {
+			      title: "DeKalb",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([39.89318,-94.40471],
+			  {
+			      title: "DeKalb",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([41.39758,-84.99909],
+			  {
+			      title: "DeKalb",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([41.89353,-88.77031],
+			  {
+			      title: "DeKalb",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([35.97986,-85.83275],
+			  {
+			      title: "DeKalb",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([33.77153,-84.22641],
+			  {
+			      title: "DeKalb",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["DeKalb City"] = marker;
+  
+    var marker = L.marker([0.05028,15.79278],
+			  {
+			      title: "Nguio",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Guio"] = marker;
+  
+    var marker = L.marker([-8.54695,16.23635],
+			  {
+			      title: "Guio",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Guio"] = marker;
+  
+    var marker = L.marker([5.54367,16.25706],
+			  {
+			      title: "Guio",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Guio"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>NICE to tidy neighborhoods. DeKALB – Residents in the city’s fourth ward might soon be getting a knock on their door and an invitation to clean up. A pilot program that aims to tidy DeKalb neighborhoods was unanimously approved by the <span onClick="goto_name('DeKalb City')" class="loc">DeKalb City</span> Council Monday. The Neighborhood Improvement Coordination Effort, or NICE program, will kick off during NIU Cares Day – a day devoted to performing volunteer work in the community – which is April 18 this year. Northern Illinois University students volunteering that day would be enlisted to clean up participating properties along public alleys and streets in the area between Fourth and Seventh streets bounded by Culver and Charter streets. This area was chosen because it contains alleys that have long been neglected, Public Works Director Rick Monas said. Jamie Smirz, the city’s special projects coordinator, said the goal is to get different programs to work together as one. “We have a lot of programs that the city already offers that we will be basically educating the neighborhood about,” Smirz said. “It really is an extension of our rehab program.” Rather than trying to combat property maintenance issues through strict code enforcement, NICE would encourage residents to take part in rehab programs, like the city’s partnership with the DeKalb Lowe’s store. Lowe’s gives the city supplies for free or at discounted prices, which the city distributes to qualified applicants – usually low-income homeowners or people recommended by social service agencies, <span onClick="goto_name('Acting City')" class="loc">Acting City</span> Planner Sue Guio said. Other programs use federal dollars from the Community Development Block Grant to rehab homes. It’s the first time the city is trying to utilize these programs on an area-wide effort rather than on an individual basis, <span onClick="goto_name('Guio')" class="loc">Guio</span> said. “It’s more of an interpersonal contact of making people aware of what the city can offer,” 4th Ward Alderwoman Donna Gorski said. She and 3rd Ward Alderman Victor Wogen will begin door-knocking to recruit participants. The targeted neighborhood for the pilot program has about 200 residents, Gorski said. For more information on NICE, call the Public Works Planning and Zoning Division at 815-748-2060.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>DeKalb City</th>
+       <td best="true">
+        <a onClick="goto(39.58694,-94.92524)">
+         <span style="white-space:nowrap">39.587,-94.925</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.50873,-94.61632)">
+         <span style="white-space:nowrap">33.509,-94.616</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.94259,-80.93205)">
+         <span style="white-space:nowrap">38.943,-80.932</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.89256,-82.77268)">
+         <span style="white-space:nowrap">40.893,-82.773</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.76763,-88.65088)">
+         <span style="white-space:nowrap">32.768,-88.651</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.37737,-80.59591)">
+         <span style="white-space:nowrap">34.377,-80.596</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.49895,-75.34272)">
+         <span style="white-space:nowrap">44.499,-75.343</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.92947,-88.75036)">
+         <span style="white-space:nowrap">41.929,-88.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.30866,-85.11358)">
+         <span style="white-space:nowrap">41.309,-85.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.06539,-80.96843)">
+         <span style="white-space:nowrap">38.065,-80.968</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.45977,-85.80414)">
+         <span style="white-space:nowrap">34.460,-85.804</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.89318,-94.40471)">
+         <span style="white-space:nowrap">39.893,-94.405</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.39758,-84.99909)">
+         <span style="white-space:nowrap">41.398,-84.999</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.89353,-88.77031)">
+         <span style="white-space:nowrap">41.894,-88.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.97986,-85.83275)">
+         <span style="white-space:nowrap">35.980,-85.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.77153,-84.22641)">
+         <span style="white-space:nowrap">33.772,-84.226</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Acting City</th>
+      </tr>
+      <tr>
+       <th>Guio</th>
+       <td best="true">
+        <a onClick="goto(0.05028,15.79278)">
+         <span style="white-space:nowrap">0.050,15.793</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.54695,16.23635)">
+         <span style="white-space:nowrap">-8.547,16.236</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(5.54367,16.25706)">
+         <span style="white-space:nowrap">5.544,16.257</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

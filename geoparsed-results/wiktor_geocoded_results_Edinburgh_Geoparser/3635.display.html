@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Panay')" class="loc">Panay</span> (/pəˈnaɪ/; <span onClick="goto_name('Tagalog')" class="loc">Tagalog</span>: [pɐˈnaj]) is an island in the <span onClick="goto_name('Philippines')" class="loc">Philippines</span> located in the western part of the <span onClick="goto_name('Visayas')" class="loc">Visayas</span>. It is about 160 kilometres (100 mi) across. Politically, it is divided into four provinces: <span onClick="goto_name('Aklan')" class="loc">Aklan</span>, <span onClick="goto_name('Antique')" class="loc">Antique</span>, <span onClick="goto_name('Capiz')" class="loc">Capiz</span>, and <span onClick="goto_name('Iloilo')" class="loc">Iloilo</span>, all in the <span onClick="goto_name('Western Visayas Region')" class="loc">Western Visayas Region</span>. It is located southeast of the island of <span onClick="goto_name('Mindoro')" class="loc">Mindoro</span> and northwest of <span onClick="goto_name('Negros')" class="loc">Negros</span>, separated by the <span onClick="goto_name('Guimaras Strait')" class="loc">Guimaras Strait</span>. Between <span onClick="goto_name('Negros')" class="loc">Negros</span> and <span onClick="goto_name('Panay Island')" class="loc">Panay Island</span> lie the island-province of Guimaras. To the north is the <span onClick="goto_name('Sibuyan Sea')" class="loc">Sibuyan Sea</span> and the islands of <span onClick="goto_name('Romblon')" class="loc">Romblon</span>; to the southwest is the <span onClick="goto_name('Sulu Sea')" class="loc">Sulu Sea</span> and the <span onClick="goto_name('Panay Gulf')" class="loc">Panay Gulf</span>. The island has many rivers including Akean, <span onClick="goto_name('Sibalom River')" class="loc">Sibalom River</span> in <span onClick="goto_name('Antique')" class="loc">Antique</span>, <span onClick="goto_name('Jalaur River')" class="loc">Jalaur River</span>, <span onClick="goto_name('Jaro River')" class="loc">Jaro River</span> (inc. Ticud and Aganan tributaries), <span onClick="goto_name('Banica')" class="loc">Banica</span>, <span onClick="goto_name('Iloilo')" class="loc">Iloilo</span>, and <span onClick="goto_name('Panay')" class="loc">Panay</span>. <span onClick="goto_name('Panay')" class="loc">Panay</span> was the seat of the ancient Confederation of Madja-as—the first pre-Hispanic Philippine state within the <span onClick="goto_name('Visayas')" class="loc">Visayas</span> islands region, and the second Srivijayan colony in the Philippine Archipelago, next to the <span onClick="goto_name('Sulu Archipelago')" class="loc">Sulu Archipelago</span>. The island is purportedly named after the state of Pannai which was a militant-country fronting the strait of <span onClick="goto_name('Malacca')" class="loc">Malacca</span> and responsible for policing the shipping of the area as well as expelling invasions from Arabs, Indians and Chinese until the state was felled by a surprise attack from the back-flank emanating from the <span onClick="goto_name('Tamil')" class="loc">Tamil</span> occupied capital of <span onClick="goto_name('Sri Vijaya')" class="loc">Sri Vijaya</span>. Madja-as was established by nine rebel datus or high officials connected with the court of <span onClick="goto_name('Brunei')" class="loc">Brunei</span>, who were forced to leave that are on account of enmity of the Rajah at that time ruling the land. The datus, together with their wives and children, as well as few faithful servants and followers were secretly escorted out of the country by the Rajah's Chief Minister, whose name was Datu Puti. The local folklore says that the name of the Bornean Rajah was Makatunao.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Panay</th>
+      </tr>
+      <tr>
+       <th>Tagalog</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>Visayas</th>
+      </tr>
+      <tr>
+       <th>Aklan</th>
+      </tr>
+      <tr>
+       <th>Antique</th>
+      </tr>
+      <tr>
+       <th>Capiz</th>
+      </tr>
+      <tr>
+       <th>Iloilo</th>
+      </tr>
+      <tr>
+       <th>Western Visayas Region</th>
+      </tr>
+      <tr>
+       <th>Mindoro</th>
+      </tr>
+      <tr>
+       <th>Negros</th>
+      </tr>
+      <tr>
+       <th>Guimaras Strait</th>
+      </tr>
+      <tr>
+       <th>Panay Island</th>
+      </tr>
+      <tr>
+       <th>Sibuyan Sea</th>
+      </tr>
+      <tr>
+       <th>Romblon</th>
+      </tr>
+      <tr>
+       <th>Sulu Sea</th>
+      </tr>
+      <tr>
+       <th>Panay Gulf</th>
+      </tr>
+      <tr>
+       <th>Sibalom River</th>
+      </tr>
+      <tr>
+       <th>Jalaur River</th>
+      </tr>
+      <tr>
+       <th>Jaro River</th>
+      </tr>
+      <tr>
+       <th>Banica</th>
+      </tr>
+      <tr>
+       <th>Sulu Archipelago</th>
+      </tr>
+      <tr>
+       <th>Malacca</th>
+      </tr>
+      <tr>
+       <th>Tamil</th>
+      </tr>
+      <tr>
+       <th>Sri Vijaya</th>
+      </tr>
+      <tr>
+       <th>Brunei</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

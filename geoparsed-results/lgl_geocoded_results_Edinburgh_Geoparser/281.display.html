@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([37.11067,-84.1178], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([37.11067,-84.1178],
+			  {
+			      title: "Laurel",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Laurel County"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([14.95,-91.21667],
+			  {
+			      title: "Us",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([16.09233,-16.37397],
+			  {
+			      title: "Us",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-2.71024,132.16831],
+			  {
+			      title: "Us",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([52.08695,92.48051],
+			  {
+			      title: "Us",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([63.43997,48.68396],
+			  {
+			      title: "Us",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([42.95,17.13333],
+			  {
+			      title: "Uvala Luka",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.7,18.71667],
+			  {
+			      title: "Us",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([62.49536,11.22807],
+			  {
+			      title: "Os",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.38333,18.65],
+			  {
+			      title: "Us",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["U.S."] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> clerk honored at Lincoln Dinner. With her stunning red hair flaming, Rebecca Mays cozily sat on her papaw’s lap Saturday night, listening to Kentucky’s top politicos make rousing speeches at the Lincoln Day Dinner. But soon it was her grandfather’s own turn to take to the stage. And when <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> Clerk Dean Johnson was inducted into the 5th District’s Lincoln Club Hall of Fame, he beamed at his smiling granddaughter. Johnson was one of four inductees — and the only <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> resident — welcomed into the prestigious club Saturday. “I feel good about it, naturally,” he said of the honor. Johnson joins fellow inductees state Sen. Tom Jensen, R-London; former commonwealth’s attorney Tom Handy and former senator Gene Huff. But Johnson said he wasn’t sure what clinched the honor for him. “I really don’t know,” he said. “I’ve always tried to help and support the people who run for state and federal offices. I suppose it’s because I’ve tried to be a strong supporter.” Johnson entered the political arena himself in the early 1970s when he ran for sheriff at the age of 31. “I thought there was some room for some younger people,” he said. Though he was defeated by 9 votes, Johnson was immediately hooked to the political game and, soon thereafter, made a bid to fill the county clerk seat. Again, he was narrowly defeated but not discouraged. In 1985, he won the clerk’s seat and has occupied it ever since. Through it all, he has been a staunch Republican supporter, voting for Republican presidents and governors ever since he cast his first vote for Richard Nixon in 1960 at the age of 18. Johnson said he’s admired many Republican presidents in his lifetime, including Dwight Eisenhower. “He was the greatest and the best we ever had,” he said. “I was about 10 and we studied about him. I think he did a lot to bring this nation into the modern era.” Since, Johnson said he has been a fan of Ronald Reagan and “believe it or not, I thought the Bushes did a fine job. ”“You’ve got to understand the conditions they’re serving under,” he said. “I think we have to look at the times before we can be critical of anyone.” Of Saturday’s dinner, Johnson said he enjoyed speeches given by Senate President David Williams, <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Rep. Harold “Hal” Rogers and <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Sens. Mitch McConnell and Jim Bunning. “I thought the content of them was good,” he said. “They didn’t get into specifics about a contested race that they might have in the primary. I thought they limited their speech to what they were doing and what they want to see done.” In terms of the future of the Republican party, Johnson is optimistic. “I think they have to sit back and wait,” he said. “There will be situations they can take advantage of. I think in two years, there will be a reversal. I think people will want conservative values back.”</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Laurel County</th>
+       <td best="true">
+        <a onClick="goto(37.11067,-84.1178)">
+         <span style="white-space:nowrap">37.111,-84.118</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.95,-91.21667)">
+         <span style="white-space:nowrap">14.950,-91.217</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.09233,-16.37397)">
+         <span style="white-space:nowrap">16.092,-16.374</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.71024,132.16831)">
+         <span style="white-space:nowrap">-2.710,132.168</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.08695,92.48051)">
+         <span style="white-space:nowrap">52.087,92.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.43997,48.68396)">
+         <span style="white-space:nowrap">63.440,48.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.95,17.13333)">
+         <span style="white-space:nowrap">42.950,17.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.7,18.71667)">
+         <span style="white-space:nowrap">-27.700,18.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(62.49536,11.22807)">
+         <span style="white-space:nowrap">62.495,11.228</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.38333,18.65)">
+         <span style="white-space:nowrap">-27.383,18.650</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

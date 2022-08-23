@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Wushi')" class="loc">Wushi</span> Town (simplified Chinese: 乌石镇; traditional Chinese: 烏石鎮; pinyin: Wūshí Zhèn) is an urban town in <span onClick="goto_name('Xiangtan County')" class="loc">Xiangtan County</span>, <span onClick="goto_name('Xiangtan City')" class="loc">Xiangtan City</span>, <span onClick="goto_name('Hunan Province')" class="loc">Hunan Province</span>, <span onClick="goto_name('People_s Republic of China')" class="loc">People's Republic of China</span>. It's surrounded by <span onClick="goto_name('Xiangxiang City')" class="loc">Xiangxiang City</span> Town on the west, Paitou Township on the north, Jinshi Township on the east, and Shitan Town on the south. As of the 2000 census it had a population of 37,583 and an area of 96.12 square kilometres (37.11 sq mi). The town is divided into 30 villages and 1 community, the following areas: Waziping Community (瓦子坪社区), Tianming Village (天明村), <span onClick="goto_name('Bawan')" class="loc">Bawan</span> Village (坝湾村), <span onClick="goto_name('Shuangmiao')" class="loc">Shuangmiao</span> Village (双庙村), <span onClick="goto_name('Longtang')" class="loc">Longtang</span> Village (龙塘村), <span onClick="goto_name('Liantang')" class="loc">Liantang</span> Village (联塘村), <span onClick="goto_name('Tieshan')" class="loc">Tieshan</span> Village (铁山村), <span onClick="goto_name('Wushi')" class="loc">Wushi</span> Village (乌石村), <span onClick="goto_name('Sichong')" class="loc">Sichong</span> Village (寺冲村), <span onClick="goto_name('Qitou')" class="loc">Qitou</span> Village (旗头村), <span onClick="goto_name('Mingde')" class="loc">Mingde</span> Village (明德村), <span onClick="goto_name('Gongquan')" class="loc">Gongquan</span> Village (龚泉村), <span onClick="goto_name('Pingshan')" class="loc">Pingshan</span> Village (坪山村), Gongping Village (公平村), <span onClick="goto_name('Shilong')" class="loc">Shilong</span> Village (狮龙村), Anping Village (安平村), <span onClick="goto_name('Huaitang')" class="loc">Huaitang</span> Village (槐塘村), <span onClick="goto_name('Yuechong')" class="loc">Yuechong</span> Village (岳冲村), <span onClick="goto_name('Jingquan')" class="loc">Jingquan</span> Village (景泉村), <span onClick="goto_name('Yunfeng')" class="loc">Yunfeng</span> Village (云峰村), <span onClick="goto_name('Simei')" class="loc">Simei</span> Village (四美村), <span onClick="goto_name('Shuangshi')" class="loc">Shuangshi</span> Village (双石村), <span onClick="goto_name('Shuangle')" class="loc">Shuangle</span> Village (双乐村), <span onClick="goto_name('Shuangfeng')" class="loc">Shuangfeng</span> Village (双峰村), <span onClick="goto_name('Banzhu')" class="loc">Banzhu</span> Village (v), <span onClick="goto_name('Zhenzhu')" class="loc">Zhenzhu</span> Village (珍珠村), <span onClick="goto_name('Datang')" class="loc">Datang</span> Village (大塘村), <span onClick="goto_name('Jiujielong')" class="loc">Jiujielong</span> Village (九节龙村), <span onClick="goto_name('Hongjiashan')" class="loc">Hongjiashan</span> Village (洪家山村), <span onClick="goto_name('Qicai')" class="loc">Qicai</span> Village (奇才村), and <span onClick="goto_name('Yangtang')" class="loc">Yangtang</span> Village (羊塘村).</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Wushi</th>
+      </tr>
+      <tr>
+       <th>Xiangtan County</th>
+      </tr>
+      <tr>
+       <th>Xiangtan City</th>
+      </tr>
+      <tr>
+       <th>Hunan Province</th>
+      </tr>
+      <tr>
+       <th>People's Republic of China</th>
+      </tr>
+      <tr>
+       <th>Xiangxiang City</th>
+      </tr>
+      <tr>
+       <th>Bawan</th>
+      </tr>
+      <tr>
+       <th>Shuangmiao</th>
+      </tr>
+      <tr>
+       <th>Longtang</th>
+      </tr>
+      <tr>
+       <th>Liantang</th>
+      </tr>
+      <tr>
+       <th>Tieshan</th>
+      </tr>
+      <tr>
+       <th>Sichong</th>
+      </tr>
+      <tr>
+       <th>Qitou</th>
+      </tr>
+      <tr>
+       <th>Mingde</th>
+      </tr>
+      <tr>
+       <th>Gongquan</th>
+      </tr>
+      <tr>
+       <th>Pingshan</th>
+      </tr>
+      <tr>
+       <th>Shilong</th>
+      </tr>
+      <tr>
+       <th>Huaitang</th>
+      </tr>
+      <tr>
+       <th>Yuechong</th>
+      </tr>
+      <tr>
+       <th>Jingquan</th>
+      </tr>
+      <tr>
+       <th>Yunfeng</th>
+      </tr>
+      <tr>
+       <th>Simei</th>
+      </tr>
+      <tr>
+       <th>Shuangshi</th>
+      </tr>
+      <tr>
+       <th>Shuangle</th>
+      </tr>
+      <tr>
+       <th>Shuangfeng</th>
+      </tr>
+      <tr>
+       <th>Banzhu</th>
+      </tr>
+      <tr>
+       <th>Zhenzhu</th>
+      </tr>
+      <tr>
+       <th>Datang</th>
+      </tr>
+      <tr>
+       <th>Jiujielong</th>
+      </tr>
+      <tr>
+       <th>Hongjiashan</th>
+      </tr>
+      <tr>
+       <th>Qicai</th>
+      </tr>
+      <tr>
+       <th>Yangtang</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Wilmington (<span onClick="goto_name('Lenape')" class="loc">Lenape</span>: Paxahakink, Pakehakink) is the largest city in the state of <span onClick="goto_name('Delaware')" class="loc">Delaware</span>, <span onClick="goto_name('United States')" class="loc">United States</span>, built on the site of <span onClick="goto_name('Fort Christina')" class="loc">Fort Christina</span>, the first Swedish settlement in <span onClick="goto_name('North America')" class="loc">North America</span>. It is located at the confluence of the <span onClick="goto_name('Christina River')" class="loc">Christina River</span> and Brandywine Creek, near where the Christina flows into the <span onClick="goto_name('Delaware')" class="loc">Delaware</span> River. It is the county seat of New <span onClick="goto_name('Castle County')" class="loc">Castle County</span> and one of the major cities in the <span onClick="goto_name('Delaware')" class="loc">Delaware</span> Valley metropolitan area. Wilmington was named by Proprietor Thomas Penn after his friend Spencer Compton, Earl of Wilmington, who was prime minister in the reign of George II of <span onClick="goto_name('Great Britain')" class="loc">Great Britain</span>. According to the 2010 census, the population of the city is 70,851, a decrease of 2.4% from 2000. Wilmington is built on the site of <span onClick="goto_name('Fort Christina')" class="loc">Fort Christina</span>, the first Swedish settlement in <span onClick="goto_name('North America')" class="loc">North America</span>. The area now known as Wilmington was settled by the <span onClick="goto_name('Lenape')" class="loc">Lenape</span> (or <span onClick="goto_name('Delaware')" class="loc">Delaware</span> Indian) band led by Sachem (Chief) Mattahorn just before Henry Hudson sailed up the Len-api Hanna ("People Like <span onClick="goto_name('Me River')" class="loc">Me River</span>", present <span onClick="goto_name('Delaware')" class="loc">Delaware</span> River) in 1609. The area was called "Maax-waas Unk" or "<span onClick="goto_name('Bear Place')" class="loc">Bear Place</span>" after the Maax-waas Hanna (<span onClick="goto_name('Bear River')" class="loc">Bear River</span>) that flowed by (present <span onClick="goto_name('Christina River')" class="loc">Christina River</span>). It was called the <span onClick="goto_name('Bear River')" class="loc">Bear River</span> because it flowed west to the "Bear People", who are now known as the People of <span onClick="goto_name('Conestoga')" class="loc">Conestoga</span> or the Susquehannocks.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lenape</th>
+      </tr>
+      <tr>
+       <th>Delaware</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Fort Christina</th>
+      </tr>
+      <tr>
+       <th>North America</th>
+      </tr>
+      <tr>
+       <th>Christina River</th>
+      </tr>
+      <tr>
+       <th>Castle County</th>
+      </tr>
+      <tr>
+       <th>Great Britain</th>
+      </tr>
+      <tr>
+       <th>Me River</th>
+      </tr>
+      <tr>
+       <th>Bear Place</th>
+      </tr>
+      <tr>
+       <th>Bear River</th>
+      </tr>
+      <tr>
+       <th>Conestoga</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

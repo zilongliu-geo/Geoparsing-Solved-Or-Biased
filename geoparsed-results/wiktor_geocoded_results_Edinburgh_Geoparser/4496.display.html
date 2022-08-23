@@ -1,0 +1,895 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([45.02234,-95.56669], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([45.02234,-95.56669],
+			  {
+			      title: "Chippewa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Chippewa County"] = marker;
+  
+    var marker = L.marker([45.0694,-91.27989],
+			  {
+			      title: "Chippewa",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Chippewa County"] = marker;
+  
+    var marker = L.marker([46.32818,-84.52936],
+			  {
+			      title: "Chippewa",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Chippewa County"] = marker;
+  
+    var marker = L.marker([46.25024,-94.25055],
+			  {
+			      title: "Minnesota",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([44.55885,-95.98559],
+			  {
+			      title: "Minneota",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([31.31185,-83.91018],
+			  {
+			      title: "Minnesota",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([40.66209,-122.4889],
+			  {
+			      title: "Minnesota",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([39.44934,-120.83106],
+			  {
+			      title: "Minnesota Flat",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([-25.45698,23.39643],
+			  {
+			      title: "Minnesota",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([-34.90328,-56.18816],
+			  {
+			      title: "Montevideo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-34.825,-56.2],
+			  {
+			      title: "Departamento de Montevideo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-34.90222,-56.20861],
+			  {
+			      title: "Montevideo",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([44.94803,-95.71701],
+			  {
+			      title: "Montevideo",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([34.27233,-82.8218],
+			  {
+			      title: "Montevideo",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([38.36457,-78.76947],
+			  {
+			      title: "Montevideo",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-7.2,-79.51667],
+			  {
+			      title: "Montevideo",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([45.66069,12.60055],
+			  {
+			      title: "Montevideo",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([9.38333,-75.11667],
+			  {
+			      title: "Montevideo",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-14.73333,-61.91667],
+			  {
+			      title: "Montevideo",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([7.42806,-80.51321],
+			  {
+			      title: "Montevideo",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-15.08333,-64.71667],
+			  {
+			      title: "Montevideo",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-6.62809,-77.71844],
+			  {
+			      title: "Montevideo",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-28.8,122.18333],
+			  {
+			      title: "Montevideo",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([9.75035,124.21916],
+			  {
+			      title: "Montevideo",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([4.82818,-52.47531],
+			  {
+			      title: "Montevideo",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-24.8,-61.7],
+			  {
+			      title: "Montevideo",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([21.18333,-77.8],
+			  {
+			      title: "Montevideo",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-25.94571,-62.91121],
+			  {
+			      title: "Montevideo",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([-14.01667,-62.16667],
+			  {
+			      title: "Montevideo",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Montevideo"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([14.95,-91.21667],
+			  {
+			      title: "Us",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([16.09233,-16.37397],
+			  {
+			      title: "Us",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-2.71024,132.16831],
+			  {
+			      title: "Us",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([52.08695,92.48051],
+			  {
+			      title: "Us",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([62.49536,11.22807],
+			  {
+			      title: "Os",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([63.43997,48.68396],
+			  {
+			      title: "Us",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.7,18.71667],
+			  {
+			      title: "Us",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([42.95,17.13333],
+			  {
+			      title: "Uvala Luka",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.38333,18.65],
+			  {
+			      title: "Us",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["U.S."] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Montevideo /ˌmɒntəˈvɪdi.oʊ/ is a city in <span onClick="goto_name('Chippewa County')" class="loc">Chippewa County</span>, <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 5,383 at the 2010 census. It is the county seat of <span onClick="goto_name('Chippewa County')" class="loc">Chippewa County</span>. During the 18th century, Europeans established a fur-trading post near the rivers and traded with Native Americans in the area. <span onClick="goto_name('Montevideo')" class="loc">Montevideo</span> was platted in 1870, and incorporated as a city in 1908. On the edge of <span onClick="goto_name('Montevideo')" class="loc">Montevideo</span>, along <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Highway 212, stands the Camp Release State Monument. The <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span> River Valley and <span onClick="goto_name('Montevideo')" class="loc">Montevideo</span> played an integral part in the <span onClick="goto_name('United States')" class="loc">United States</span> - Dakota Conflict of 1862. At this site in the fall of 1862, the Dakota combatants surrendered and released 269 captives to Colonel Henry Sibley. The Camp Release Monument was dedicated on July 4, 1894. In 2004, the city was honored with the presentation of the National Civic League's <span onClick="goto_name('All-America City')" class="loc">All-America City</span> Award, which is given to only ten cities a year. The award is the oldest and most respected community recognition program in the nation and recognizes communities whose citizens work together to identify and tackle community-wide challenges and achieve uncommon results.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Chippewa County</th>
+       <td best="true">
+        <a onClick="goto(45.02234,-95.56669)">
+         <span style="white-space:nowrap">45.022,-95.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.0694,-91.27989)">
+         <span style="white-space:nowrap">45.069,-91.280</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.32818,-84.52936)">
+         <span style="white-space:nowrap">46.328,-84.529</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Minnesota</th>
+       <td best="true">
+        <a onClick="goto(46.25024,-94.25055)">
+         <span style="white-space:nowrap">46.250,-94.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.55885,-95.98559)">
+         <span style="white-space:nowrap">44.559,-95.986</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.31185,-83.91018)">
+         <span style="white-space:nowrap">31.312,-83.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.66209,-122.4889)">
+         <span style="white-space:nowrap">40.662,-122.489</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.44934,-120.83106)">
+         <span style="white-space:nowrap">39.449,-120.831</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.45698,23.39643)">
+         <span style="white-space:nowrap">-25.457,23.396</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Montevideo</th>
+       <td best="true">
+        <a onClick="goto(-34.90328,-56.18816)">
+         <span style="white-space:nowrap">-34.903,-56.188</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.825,-56.2)">
+         <span style="white-space:nowrap">-34.825,-56.200</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.90222,-56.20861)">
+         <span style="white-space:nowrap">-34.902,-56.209</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.94803,-95.71701)">
+         <span style="white-space:nowrap">44.948,-95.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.27233,-82.8218)">
+         <span style="white-space:nowrap">34.272,-82.822</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.36457,-78.76947)">
+         <span style="white-space:nowrap">38.365,-78.769</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.2,-79.51667)">
+         <span style="white-space:nowrap">-7.200,-79.517</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.66069,12.60055)">
+         <span style="white-space:nowrap">45.661,12.601</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.38333,-75.11667)">
+         <span style="white-space:nowrap">9.383,-75.117</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.73333,-61.91667)">
+         <span style="white-space:nowrap">-14.733,-61.917</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.42806,-80.51321)">
+         <span style="white-space:nowrap">7.428,-80.513</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-15.08333,-64.71667)">
+         <span style="white-space:nowrap">-15.083,-64.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-6.62809,-77.71844)">
+         <span style="white-space:nowrap">-6.628,-77.718</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.8,122.18333)">
+         <span style="white-space:nowrap">-28.800,122.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.75035,124.21916)">
+         <span style="white-space:nowrap">9.750,124.219</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(4.82818,-52.47531)">
+         <span style="white-space:nowrap">4.828,-52.475</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.8,-61.7)">
+         <span style="white-space:nowrap">-24.800,-61.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.18333,-77.8)">
+         <span style="white-space:nowrap">21.183,-77.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.94571,-62.91121)">
+         <span style="white-space:nowrap">-25.946,-62.911</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.01667,-62.16667)">
+         <span style="white-space:nowrap">-14.017,-62.167</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.95,-91.21667)">
+         <span style="white-space:nowrap">14.950,-91.217</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.09233,-16.37397)">
+         <span style="white-space:nowrap">16.092,-16.374</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.71024,132.16831)">
+         <span style="white-space:nowrap">-2.710,132.168</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.08695,92.48051)">
+         <span style="white-space:nowrap">52.087,92.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(62.49536,11.22807)">
+         <span style="white-space:nowrap">62.495,11.228</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.43997,48.68396)">
+         <span style="white-space:nowrap">63.440,48.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.7,18.71667)">
+         <span style="white-space:nowrap">-27.700,18.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.95,17.13333)">
+         <span style="white-space:nowrap">42.950,17.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.38333,18.65)">
+         <span style="white-space:nowrap">-27.383,18.650</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>All-America City</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

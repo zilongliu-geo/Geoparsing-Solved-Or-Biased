@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Risks pay off for Saratoga native who's film 'Haunting in <span onClick="goto_name('Connecticut')" class="loc">Connecticut</span>' is about to be released. Andrew Trapani is a gambling man. Rising from a West Valley College student to video game tester to Hollywood producer is a testament to <span onClick="goto_name('Trapani')" class="loc">Trapani</span>'s willingness to work hard and take risks. Those risks have paid off as Trapani's first major-release feature film, "The Haunting in <span onClick="goto_name('Connecticut')" class="loc">Connecticut</span>," will open in theaters on March 27. But Trapani's story really begins about 20 years ago. Trapani rose quickly through the ranks in his five years with the company, going from game tester to designer and then ultimately to producer. The Saratoga native oversaw the development of some of the first Sony Playstation games, which was a transitioning period for video game developers as games went from cartridges to a CD format, which gave video games richer and more robust play, Trapani said. But one of the moments that steered the course of his career came in the late 1990s, when he produced a 30-minute movie-esque narrative for the video game, Solar Eclipse. Trapani and his crew spent three days shooting footage in <span onClick="goto_name('Los Angeles')" class="loc">Los Angeles</span>. One day he and a peer were discussing what they would do if they won the lottery. Trapani said he would produce movies. After some thought, Trapani said he realized that he didn't have to win the lottery. So in March 1998 he resigned from his position and decided not long after to move to <span onClick="goto_name('Los Angeles')" class="loc">Los Angeles</span>. "I didn't have it all figured out, but I knew I wanted to do movies," he said. "I always knew I wanted to do something that didn't require that I wear a suit every day." Within his first year in <span onClick="goto_name('Los')" class="loc">Los</span> <span onClick="goto_name('Angeles')" class="loc">Angeles</span> <span onClick="goto_name('Trapani')" class="loc">Trapani</span> produced the independent film, "True Rights," about a camera crew that chases down news events in hopes of locking up a movie deal. The movie was shot in 18 days on 35-millimeter film in what Trapani calls a "run and gun, guerilla-style" format. While in post-production on "True Rights," Trapani received a call from someone he had worked with on the film, asking if he would be interested in producing commercials. Trapani said yes and spent a few months on commercial production. In 2000 Trapani founded Integrated Films, a production and management company, which has produced the movies Borderland, Tamara and the remake of Amityville Horror. But in a few days Trapani's latest film, "The Haunting in <span onClick="goto_name('Connecticut')" class="loc">Connecticut</span>," will hit theaters across the nation, which will undoubtedly have much more exposure to a wider audience than any of his previous films. "I'm really proud of it. I'm proud of everyone who contributed to it," he said. "The Haunting" is based on the true story of the Snedeker family, who moved into a Connecticut home back in the 1980s that had once been a mortuary. The story goes that the family was looking for an affordable place to live where their son, who was undergoing cancer treatment, could be closer to the hospital where he was receiving treatment. The family, not knowing the dark history of the home, began having unexplained things happen in their house. The movie stars Academy Award-nominated actress Virginia Madsen ("Sideways"). The idea to do this movie came to <span onClick="goto_name('Trapani')" class="loc">Trapani</span> after he watched a 2003 documentary on the family on the Discovery Channel. He thought the story would make a great movie and contacted the family, eventually receiving the rights to make a feature film. Two years later Trapani was able to sell the movie to Gold Circle Films, an independent film production company, and the writers were able to begin putting together the script. "At that point we were finally on our way to getting the movie made," Trapani said. The producer said that he knows that no matter how well this movie does, the mass audience will most likely never know who he is. And he says he is just fine with that. "I didn't come to <span onClick="goto_name('Los Angeles')" class="loc">Los Angeles</span> to be an actor," he said. "Fame is not of interest to me." Instead, Trapani said he's much more interested in putting out quality films and having the respect of his peers. That's much more valuable to him, he says, and more in line with what he cares about. "At the end of the day it's up to the producer to protect the integrity of the movie," he said. "I just love movies. I understand them in a way that is a byproduct of what I was predisposed to do." Just as he's done with his career, Trapani said he follows his gut when it comes to making a movie. If it feels right, go for it; if not, something needs to change. He'll need his instincts to help him as he and his business partner, Brian Gilbert, move forward with other projects in their new production and management venture. Gilbert is the former production president of Stan Winston Studio, which was involved in such films as <span onClick="goto_name('Jurassic')" class="loc">Jurassic</span> Park, Alien and Iron Man, Trapani said. Trapani and Gilbert have already signed on for two Scooby Doo film sequels and a movie starring Nicholas Cage that will start filming early next year. The two are also involved in representing screenwriters and directors and helping them focus on their long-term career goals. Trapani admits that life can be a little overwhelming at times, especially since he can be working on 60 different projects at various stages of development. But he said he feeds off of it and is enthralled with film production. When things do get a little crazy on set, Trapani says that he thinks about Geoffrey Rush's character from "Shakespeare in Love." Rush's character, Philip Henslowe, is asked how the play will be ready with so much madness going on around them. Rush replies, "It's a mystery." He grew up in <span onClick="goto_name('Saratoga')" class="loc">Saratoga</span>, but it's <span onClick="goto_name('Hollywood')" class="loc">Hollywood</span> that Andy Trapani now calls home. Trapani is a movie producer, and his first major feature film,`The Haunting in <span onClick="goto_name('Connecticut')" class="loc">Connecticut</span>,' will hit the theaters on March 27.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Connecticut</th>
+      </tr>
+      <tr>
+       <th>Trapani</th>
+      </tr>
+      <tr>
+       <th>Los Angeles</th>
+      </tr>
+      <tr>
+       <th>Los</th>
+      </tr>
+      <tr>
+       <th>Angeles</th>
+      </tr>
+      <tr>
+       <th>Jurassic</th>
+      </tr>
+      <tr>
+       <th>Saratoga</th>
+      </tr>
+      <tr>
+       <th>Hollywood</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

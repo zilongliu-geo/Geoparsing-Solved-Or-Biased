@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Burlington')" class="loc">Burlington</span> (<span onClick="goto_name('Canada')" class="loc">Canada</span> 2011 Census population 175,779), is a city located in <span onClick="goto_name('Halton Region')" class="loc">Halton Region</span> at the western end of <span onClick="goto_name('Lake Ontario')" class="loc">Lake Ontario</span>. <span onClick="goto_name('Burlington')" class="loc">Burlington</span> is part of the Greater Toronto Area, and is also included in the Hamilton Census Metropolitan Area. Physically, <span onClick="goto_name('Burlington')" class="loc">Burlington</span> lies between the north shore of <span onClick="goto_name('Lake Ontario')" class="loc">Lake Ontario</span> and the <span onClick="goto_name('Niagara Escarpment')" class="loc">Niagara Escarpment</span>. Economically, <span onClick="goto_name('Burlington')" class="loc">Burlington</span> is strategically located near the geographic centre of the <span onClick="goto_name('Golden Horseshoe')" class="loc">Golden Horseshoe</span>, a densely populated and industrialized region home to over 8 million people. Some of the city's attractions include <span onClick="goto_name('Canada')" class="loc">Canada</span>'s Largest Ribfest, Sound of Music Festival, Art Gallery of <span onClick="goto_name('Burlington')" class="loc">Burlington</span>, and Spencer Smith Park, all located near the city's municipal offices in the downtown core. Additionally, the city attracts hikers, birders and nature lovers due to the Royal Botanical Gardens located on the border with <span onClick="goto_name('Hamilton')" class="loc">Hamilton</span>, as well as its proximity to a part of the <span onClick="goto_name('Niagara Escarpment')" class="loc">Niagara Escarpment</span> in the north end of the city that includes the Iroquoian section of the <span onClick="goto_name('Bruce')" class="loc">Bruce</span> Trail. Before pioneer settlement in the 19th century, the area was covered by the primeval forest that stretched between the provincial capital of <span onClick="goto_name('York')" class="loc">York</span> and the town of <span onClick="goto_name('Hamilton')" class="loc">Hamilton</span>, and was home to various First Nations peoples. In 1792, John Graves Simcoe, the first lieutenant governor of <span onClick="goto_name('Upper Canada')" class="loc">Upper Canada</span>, named the western end of <span onClick="goto_name('Lake Ontario')" class="loc">Lake Ontario</span> "<span onClick="goto_name('Burlington')" class="loc">Burlington</span> Bay" after the town of <span onClick="goto_name('Bridlington')" class="loc">Bridlington</span> in the <span onClick="goto_name('East Riding')" class="loc">East Riding</span> of <span onClick="goto_name('Yorkshire')" class="loc">Yorkshire</span>, <span onClick="goto_name('England')" class="loc">England</span>. By the time land beside the bay was deeded to Captain Joseph Brant at the turn of the 19th century, the name "<span onClick="goto_name('Burlington')" class="loc">Burlington</span>" was already in common use. With the completion of the local survey after the War of 1812, the land was opened for settlement. Early farmers prospered in the <span onClick="goto_name('Burlington')" class="loc">Burlington</span> area because of the fertile soil and moderate temperatures. Produce from the farms was shipped out via the bustling docks of the lakeside villages of <span onClick="goto_name('Port Nelson')" class="loc">Port Nelson</span> and Wellington Square, as well as Brown's Wharf in the nearby village of Port Flamborough (which was to become <span onClick="goto_name('Aldershot')" class="loc">Aldershot</span>). Lumber taken from the surrounding forests also competed for space on the busy docks. However, in the latter half of the 19th century, increased wheat production from Western <span onClick="goto_name('Canada')" class="loc">Canada</span> convinced local farmers to switch to fruit and vegetable production.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Burlington</th>
+      </tr>
+      <tr>
+       <th>Canada</th>
+      </tr>
+      <tr>
+       <th>Halton Region</th>
+      </tr>
+      <tr>
+       <th>Lake Ontario</th>
+      </tr>
+      <tr>
+       <th>Niagara Escarpment</th>
+      </tr>
+      <tr>
+       <th>Golden Horseshoe</th>
+      </tr>
+      <tr>
+       <th>Hamilton</th>
+      </tr>
+      <tr>
+       <th>Bruce</th>
+      </tr>
+      <tr>
+       <th>York</th>
+      </tr>
+      <tr>
+       <th>Upper Canada</th>
+      </tr>
+      <tr>
+       <th>Bridlington</th>
+      </tr>
+      <tr>
+       <th>East Riding</th>
+      </tr>
+      <tr>
+       <th>Yorkshire</th>
+      </tr>
+      <tr>
+       <th>England</th>
+      </tr>
+      <tr>
+       <th>Port Nelson</th>
+      </tr>
+      <tr>
+       <th>Aldershot</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

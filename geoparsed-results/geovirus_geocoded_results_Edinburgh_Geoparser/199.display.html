@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>The H1N1 outbreak of swine flu, which began in <span onClick="goto_name('Mexico')" class="loc">Mexico</span> this April, has now spread across the globe. There have been at least 3,330 deaths from the swine flu since the virus started spreading, out of almost 316,000 total reported cases. Nine countries — <span onClick="goto_name('Australia')" class="loc">Australia</span>, <span onClick="goto_name('Brazil')" class="loc">Brazil</span>, <span onClick="goto_name('France')" class="loc">France</span>, <span onClick="goto_name('Italy')" class="loc">Italy</span>, <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>, <span onClick="goto_name('Norway')" class="loc">Norway</span>, <span onClick="goto_name('Switzerland')" class="loc">Switzerland</span>, the <span onClick="goto_name('UK')" class="loc">UK</span>, and the <span onClick="goto_name('US')" class="loc">US</span> — have promised to send ten percent of their antiviral vaccine supply to other countries, should the latter be in need of it. The plan was agreed to "in recognition that diseases know no borders and that the health of the American people is inseparable from the health of people around the world," a statement by the <span onClick="goto_name('US')" class="loc">US</span> government read. In an in-depth report, Wikinews takes a look at how the disease has affected countries around the world. As of Wednesday, <span onClick="goto_name('Brazil')" class="loc">Brazil</span> has registered 899 deaths from the swine flu, making it the hardest-hit country in terms of fatalities. The city of <span onClick="goto_name('Sao Paulo')" class="loc">Sao Paulo</span> reported 327 deaths, and <span onClick="goto_name('Rio de Janeiro')" class="loc">Rio de Janeiro</span> 84. However, the country's health ministry also said that the rate of serious cases "fell for the fifth straight week." <span onClick="goto_name('Brazil')" class="loc">Brazil</span> had surpassed the <span onClick="goto_name('United States')" class="loc">United States</span>, which has 593 deaths, in number of total fatalities from the outbreak late in August. <span onClick="goto_name('Argentina')" class="loc">Argentina</span>, <span onClick="goto_name('Brazil')" class="loc">Brazil</span>'s neighbour to the south, has 512 deaths from the H1N1 virus. 10,000 cases of swine flu were confirmed across <span onClick="goto_name('China')" class="loc">China</span> since the outbreak began. The number of infections seems to be increasing quickly. Communications director for the World Health Organisation Vivian Tan said that "in the last week or so, the increase has been quite quick," attributing the rise to a small decrease in temperatures as fall sets in, as well as students returning to school after summer breaks. <span onClick="goto_name('China')" class="loc">China</span>'s official news agency Xinhua reported that 1,118 new cases of the influenza were reported in a two-day period earlier in the week, adding that a vast majority of the cases had been transmitted in <span onClick="goto_name('China')" class="loc">China</span>, not by persons entering the country from abroad. All 31 of <span onClick="goto_name('China')" class="loc">China</span>'s provinces have reported instances of the flu. The disease initially seemed to be limited to large cities, but recently has started moving into more rural areas. No casualties from the swine flu have yet been confirmed in <span onClick="goto_name('China')" class="loc">China</span>. The office of <span onClick="goto_name('France')" class="loc">France</span>'s president Nicolas Sarkozy said that the country would pledge up to one tenth or nine million of its 94 million antiviral vaccine doses to the World Health Organisation, to be distributed to countries with fewer vaccine supplies if needed. International solidarity "will be a determining factor in reducing the health, economic and social impact of the pandemic," according to a statement released by the government. On Wednesday, eleven people had been reported dead from the virus in <span onClick="goto_name('India')" class="loc">India</span>, taking the country's death toll up to 212 people. The number of people infected with the influenza is now estimated at 6,800. <span onClick="goto_name('India')" class="loc">India</span>'s health ministry on Tuesday said that the Tamiflu drug would be on sale in the open market within seven days, allowing for a "restricted sale" of the drug. An unnamed official said that "it is expected that within the next five to seven days, both the drugs would be available in the retail market through identified chemists against proper medical prescriptions. "Taking into account the current spread of the influenza A(H1N1) in the country, the health ministry has decided that retail sale of Tamiflu and Zanamivir should be allowed in the country but in a regulated manner," he said. Previously, distribution of Tamiflu was prohibited by the government, and access to it was only available through public health institutions. At least 70 people in <span onClick="goto_name('Kenya')" class="loc">Kenya</span> have the swine flu, according to local health official. In the latest outbreak, twenty high school students came down with the virus and had to be quarantined on Thursday. "A majority of the affected students who are in Forms One and Two were treated and advised to remain under bed rest to minimise further spread of the disease among the student community," said the director of Public Health, Dr. Shanaaz Shariff. However, he said that the students' illness was "not too serious to warrant hospitalisation." Security guards were placed around the school the students were isolated in, with orders only to allow medical personnel to enter the premises. <span onClick="goto_name('Kenya')" class="loc">Kenya</span>'s capital <span onClick="goto_name('Nairobi')" class="loc">Nairobi</span> has been the worst hit by the flu, having reported forty cases. Other cities affected by the flu are Kisumu and Rift Valley, who have reported eighteen and ten cases of the H1N1 virus, respectively. <span onClick="goto_name('Mexico')" class="loc">Mexico</span>, the country in which the outbreak initially started, has 25,214 reported cases and 217 fatalities from the virus. Some recent cases have forced schools to close down. Jose Angel Cordova, the Mexican health secretary, said that the virus could infect as many as five million of <span onClick="goto_name('Mexico')" class="loc">Mexico</span>'s 107 million people, and, in a worst-case scenario, cause up to 2,000 deaths. His estimate is higher than his previous prediction of 1 million cases and 1,000 deaths, made last month. About five thousand new cases of swine flu were reported in the <span onClick="goto_name('United Kingdom')" class="loc">United Kingdom</span> in recent weeks, reversing a declining trend in the number of new infections. Health officials have suggested this could lead up to a second outbreak of the virus. "We don't know whether this is the start of the next big wave that we were expecting this autumn but it is certainly something that's giving us concern. It will probably be a week or two before we see whether this increase is sustained." said Liam Donaldson, the Chief Medical Officer. Health authorities have said that at least 25 cases appear to have been resistant to the Tamiflu drug prescribed to treat the illness. Donaldson said that "the positive side of it is that so far these have not been strains that have then gone on and affected other patients, they have stayed with the patient in which they were isolated. What would worry us is if we got a resistant strain that then started infecting people like the rest of the cases of flu that have occurred." The <span onClick="goto_name('UK')" class="loc">UK</span> is one of several countries that have pledged up to one tenth of their vaccine stock to to other countries if they are in need of more supplies. "<span onClick="goto_name('Britain')" class="loc">Britain</span> recognizes that H1N1 is a global pandemic which requires a global response," the International Development Secretary, Douglas Alexander, said. "Solidarity with other nations is vital, particularly the poorest who may be most vulnerable and have least capacity to respond." The <span onClick="goto_name('US')" class="loc">US</span> government recently bought 195 million doses of swine flu vaccine. Health Care Secretary Kathleen Sebelius said that free shots will be given out early in October. The vaccination is to be voluntary, but priority will be given to certain groups, such as toddlers and children, adults over the age of 65, and pregnant women, who are considered especially vulnerable to the virus. "We remain confident that the <span onClick="goto_name('United States')" class="loc">United States</span> will have sufficient doses of the vaccine to ensure that every American who wants a vaccine is able to receive one," a White House statement said. As of September 16, the <span onClick="goto_name('US')" class="loc">US</span> had 593 deaths from the flu. 144 people in <span onClick="goto_name('Vietnam')" class="loc">Vietnam</span> were diagnosed with the swine flu on Wednesday, bringing the total number of infected people in the country to 5,648. This week, the number of affected people has increased by 1104 infections or 6.3%. <span onClick="goto_name('Nguyen')" class="loc">Nguyen</span> <span onClick="goto_name('Tran')" class="loc">Tran</span> <span onClick="goto_name('Hien')" class="loc">Hien</span>, the director of the <span onClick="goto_name('Central Institute')" class="loc">Central Institute</span> of Hygiene Epidemiology, predicted that the swine flu would peak at the end of 2009 and the beginning 2010. The Vietnamese Ministry of Health called for more research into a swine flu vaccine, and urged the the National Steering Board on Flu Prevention in Humans to give out more doses of the drug Tamiflu to areas hardest hit by the flu.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Mexico</th>
+      </tr>
+      <tr>
+       <th>Australia</th>
+      </tr>
+      <tr>
+       <th>Brazil</th>
+      </tr>
+      <tr>
+       <th>France</th>
+      </tr>
+      <tr>
+       <th>Italy</th>
+      </tr>
+      <tr>
+       <th>New Zealand</th>
+      </tr>
+      <tr>
+       <th>Norway</th>
+      </tr>
+      <tr>
+       <th>Switzerland</th>
+      </tr>
+      <tr>
+       <th>UK</th>
+      </tr>
+      <tr>
+       <th>US</th>
+      </tr>
+      <tr>
+       <th>Sao Paulo</th>
+      </tr>
+      <tr>
+       <th>Rio de Janeiro</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Argentina</th>
+      </tr>
+      <tr>
+       <th>China</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Kenya</th>
+      </tr>
+      <tr>
+       <th>Nairobi</th>
+      </tr>
+      <tr>
+       <th>United Kingdom</th>
+      </tr>
+      <tr>
+       <th>Britain</th>
+      </tr>
+      <tr>
+       <th>Vietnam</th>
+      </tr>
+      <tr>
+       <th>Nguyen</th>
+      </tr>
+      <tr>
+       <th>Tran</th>
+      </tr>
+      <tr>
+       <th>Hien</th>
+      </tr>
+      <tr>
+       <th>Central Institute</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

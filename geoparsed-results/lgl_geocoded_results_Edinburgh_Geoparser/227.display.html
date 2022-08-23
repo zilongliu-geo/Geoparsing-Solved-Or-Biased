@@ -1,0 +1,458 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([30.73905,-95.57228], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([30.73905,-95.57228],
+			  {
+			      title: "Walker",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([33.80333,-87.29736],
+			  {
+			      title: "Walker",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([34.73566,-85.30098],
+			  {
+			      title: "Walker",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([-33.92584,18.42322],
+			  {
+			      title: "Cape Town",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([43.55639,-5.76685],
+			  {
+			      title: "El Cabo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([-2.85224,-78.7777],
+			  {
+			      title: "El Cabo",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([36.78234,-2.24198],
+			  {
+			      title: "El Cabo de Gata",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([22.5,-83.6],
+			  {
+			      title: "El Cabo",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([19.27129,-69.20267],
+			  {
+			      title: "Arroyo El Cabo",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([12.19215,-72.14585],
+			  {
+			      title: "Cabo de La Vela",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([18.4088,-68.45019],
+			  {
+			      title: "El Cabo",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([-2.84343,-78.79798],
+			  {
+			      title: "El Cabo",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([18.20523,-71.13863],
+			  {
+			      title: "El Cabo",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([35.03311,-105.56473],
+			  {
+			      title: "El Cabo",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([28.45,-16.25],
+			  {
+			      title: "El Cabo",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([24.08652,-103.86742],
+			  {
+			      title: "El Cabo",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+    var marker = L.marker([28.10208,-15.71056],
+			  {
+			      title: "El Cabo",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["El Cabo"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Food selections abound at fair. Take a stroll around the <span onClick="goto_name('Walker County')" class="loc">Walker County</span> Fairgrounds and your taste buds may start to go a little crazy. Aside from all the attractions and show competitions on slate at the 2009 <span onClick="goto_name('Walker County')" class="loc">Walker County</span> Fair, there are plenty of delectable delights to choose from as well, no matter what your preference. Any regular rodeo-goer will be sure to tell you that the traditional stick foods never disappoint. It was a challenge to walk around the fairgrounds and not see at least one person chowing down on some type of tasty treat stuck on a stick. Corn dogs, as long as a man’s forearm, were certainly in abundance. So were chicken on a stick, roasted corn on a stick, and Polish sausage on a stick. Another staple of fair foods, fried foods, also proved that just about anything can be delicious as long it is dipped in a vat of hot oil. South Comfort Foods features fried twinkies, fried Oreos and fried bananas. Is your mouth watering yet? How about the traditional, but always satisfying, funnel cakes topped with powered sugar, fried ice cream or fried fruit pies? These treats are sure to please, especially for those who have a bit of a sweet tooth. Speaking of which, there’s certainly no shortage of cotton candy at the fair. Want to go off the beaten path a little bit and try something that may be a little unconventional as far as rodeo foods go? Then walk on over to the Greek and Italian Grill’s booth for some gyros. There’s also <span onClick="goto_name('El Cabo')" class="loc">El Cabo</span>’s where you can get Mexican food like taco in a bag for just $2. For those that have trouble resisting seafood, Southern Comfort Foods also has boiled crawfish and peel-n-eat shrimp. Oh, but that’s not all. There’s also turkey legs that are as big as a person’s head and baked potatoes, which are stuffed so much that it could easily pass for a football. What makes the wide variety of odds even better is that just about everything is affordable at around $5 or less. “There’s a lot of food,” said Natalie Gustafson, a junior at Huntsville High School. “You get to eat and you get fat. That’s all that matters. I’ve been here for a long time. The rodeo is always fun. It’s exciting.” “I really like the Italian food,” added Allison Gehovak, a senior at HHS. “The turkey legs are also really good.” While you’re at the fair this week and you feel that grumbling in your stomach, no need to drive back into town, let your tongue have some fun and try some the savory food there at your disposable. You certainly won’t regret it.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Walker County</th>
+       <td best="true">
+        <a onClick="goto(30.73905,-95.57228)">
+         <span style="white-space:nowrap">30.739,-95.572</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.80333,-87.29736)">
+         <span style="white-space:nowrap">33.803,-87.297</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.73566,-85.30098)">
+         <span style="white-space:nowrap">34.736,-85.301</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>El Cabo</th>
+       <td best="true">
+        <a onClick="goto(-33.92584,18.42322)">
+         <span style="white-space:nowrap">-33.926,18.423</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.55639,-5.76685)">
+         <span style="white-space:nowrap">43.556,-5.767</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.85224,-78.7777)">
+         <span style="white-space:nowrap">-2.852,-78.778</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.78234,-2.24198)">
+         <span style="white-space:nowrap">36.782,-2.242</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.5,-83.6)">
+         <span style="white-space:nowrap">22.500,-83.600</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.27129,-69.20267)">
+         <span style="white-space:nowrap">19.271,-69.203</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.19215,-72.14585)">
+         <span style="white-space:nowrap">12.192,-72.146</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.4088,-68.45019)">
+         <span style="white-space:nowrap">18.409,-68.450</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.84343,-78.79798)">
+         <span style="white-space:nowrap">-2.843,-78.798</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.20523,-71.13863)">
+         <span style="white-space:nowrap">18.205,-71.139</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.03311,-105.56473)">
+         <span style="white-space:nowrap">35.033,-105.565</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.45,-16.25)">
+         <span style="white-space:nowrap">28.450,-16.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.08652,-103.86742)">
+         <span style="white-space:nowrap">24.087,-103.867</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.10208,-15.71056)">
+         <span style="white-space:nowrap">28.102,-15.711</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

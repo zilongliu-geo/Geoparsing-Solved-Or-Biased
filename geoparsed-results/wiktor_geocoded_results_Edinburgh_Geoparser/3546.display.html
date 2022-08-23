@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Durango ( duˈɾaŋɡo ), officially Free and Sovereign State of Durango (Spanish: Estado Libre y Soberano de Durango) ( Tepehuan: Korian) (Nahuatl: Tepēhuahcān), is one of the 31 states which, with the Federal District, compose the 32 Federal Entities of <span onClick="goto_name('Mexico')" class="loc">Mexico</span>. The state is located in Northwest <span onClick="goto_name('Mexico')" class="loc">Mexico</span>. With a population of 1,632,934, it has <span onClick="goto_name('Mexico')" class="loc">Mexico</span>'s second-lowest population density, after <span onClick="goto_name('Baja California Sur')" class="loc">Baja California Sur</span>. The city of <span onClick="goto_name('Victoria de Durango')" class="loc">Victoria de Durango</span> is the state's capital, named after the first president of <span onClick="goto_name('Mexico')" class="loc">Mexico</span>, <span onClick="goto_name('Guadalupe Victoria')" class="loc">Guadalupe Victoria</span>. Durango, along with the states of Chihuahua, <span onClick="goto_name('Sonora')" class="loc">Sonora</span> and <span onClick="goto_name('Sinaloa')" class="loc">Sinaloa</span>, formed the historical and geographical unity of Northern <span onClick="goto_name('Mexico')" class="loc">Mexico</span>, for what was the majority of the last millennium; it was not until the territories were reorganized after the independence struggle that they emerged as independent entities. This broad area represents the natural corridor that the <span onClick="goto_name('Sierra Madre Occidental')" class="loc">Sierra Madre Occidental</span> offered to the <span onClick="goto_name('Toltec')" class="loc">Toltec</span> and Nahuatlaca tribes, both whom took advantage of the large accidental stone conformations to survive in the wilderness of the territory. The new formations formed as the only security for the tribes that moved among Northern <span onClick="goto_name('Mexico')" class="loc">Mexico</span> and the Valley of <span onClick="goto_name('Anahuac')" class="loc">Anahuac</span>, eventually becoming a home-state for these tribes who then began to form small communities, united by language and region. The Tepehuános, Huichol, Cora, <span onClick="goto_name('Tarahumara')" class="loc">Tarahumara</span> incorporated perfectly distinct nations, each with evident sedentary purposes, and a strong family structure, all whilst setting aside the bellicose attitude of the Chichimec tribe of the center of the then-current Republic. Sedentary life began in Durango around 500 B.C. in response to population growth. The exceptions were the Acaxee, Humas, and Xiximes who were constantly at war but always on the look-out for final settlements in the region of the <span onClick="goto_name('Quebradas')" class="loc">Quebradas</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Mexico</th>
+      </tr>
+      <tr>
+       <th>Baja California Sur</th>
+      </tr>
+      <tr>
+       <th>Victoria de Durango</th>
+      </tr>
+      <tr>
+       <th>Guadalupe Victoria</th>
+      </tr>
+      <tr>
+       <th>Sonora</th>
+      </tr>
+      <tr>
+       <th>Sinaloa</th>
+      </tr>
+      <tr>
+       <th>Sierra Madre Occidental</th>
+      </tr>
+      <tr>
+       <th>Toltec</th>
+      </tr>
+      <tr>
+       <th>Anahuac</th>
+      </tr>
+      <tr>
+       <th>Tarahumara</th>
+      </tr>
+      <tr>
+       <th>Quebradas</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

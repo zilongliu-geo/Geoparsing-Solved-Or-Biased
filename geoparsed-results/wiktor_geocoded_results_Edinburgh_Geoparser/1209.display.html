@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Bedford')" class="loc">Bedford</span> is a town in <span onClick="goto_name('Middlesex County')" class="loc">Middlesex County</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. It is within the Greater Boston area, 15 miles (24 km) north-west of the <span onClick="goto_name('city of Boston')" class="loc">city of Boston</span>. The population of <span onClick="goto_name('Bedford')" class="loc">Bedford</span> was 13,320 at the 2010 census. The following compilation comes from Ellen Abrams (1999) based on information from Abram English Brown’s History of the Town of <span onClick="goto_name('Bedford')" class="loc">Bedford</span> (1891), as well as other sources such as The Bedford Sampler Bicentennial Edition containing Daisy Pickman Oakley’s articles, Bedford Vital Records, New <span onClick="goto_name('England')" class="loc">England</span> Historical and Genealogical Register, Town Directories, and other publications from the Bedford Historical Society. The land now within the boundaries of <span onClick="goto_name('Bedford')" class="loc">Bedford</span> was first settled by Europeans around 1640. In 1729 it was incorporated from a portion of Concord (about 3/5 of <span onClick="goto_name('Bedford')" class="loc">Bedford</span>) and a portion of <span onClick="goto_name('Billerica')" class="loc">Billerica</span> (about 2/5 of <span onClick="goto_name('Bedford')" class="loc">Bedford</span>). In 1630 came the arrival of John Winthrop and Thomas Dudley of the <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> Bay Company. Aboard the Arabella from <span onClick="goto_name('Yarmouth')" class="loc">Yarmouth</span>, <span onClick="goto_name('England')" class="loc">England</span>, <span onClick="goto_name('Winthrop')" class="loc">Winthrop</span> and Dudley sailed, and after a difficult ten-week voyage, they landed on the shores of the <span onClick="goto_name('New World')" class="loc">New World</span>, with <span onClick="goto_name('Salem')" class="loc">Salem</span> and <span onClick="goto_name('Boston Harbor')" class="loc">Boston Harbor</span> being the Arabella's earliest destinations. In 1637, the General Court of <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> granted some 2,200 acres (9 km²) of land, including <span onClick="goto_name('Huckins')" class="loc">Huckins</span> Farm land to the first Governor, John Winthrop, and to Deputy Governor Thomas Dudley. The following year, the two men agreed to divide the land so that the parcel south of the two large boulders by the Concord River (<span onClick="goto_name('Brothers Rocks')" class="loc">Brothers Rocks</span>) belonged to Governor Winthrop and north of the Rocks was to belong to Deputy Governor Dudley. Later, Dudley became governor. Dudley’s son Rev. Samuel Dudley and Winthrop’s daughter Mary were married, thus <span onClick="goto_name('Brothers Rocks')" class="loc">Brothers Rocks</span> were so named because of this marriage of families.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Bedford</th>
+      </tr>
+      <tr>
+       <th>Middlesex County</th>
+      </tr>
+      <tr>
+       <th>Massachusetts</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>city of Boston</th>
+      </tr>
+      <tr>
+       <th>England</th>
+      </tr>
+      <tr>
+       <th>Billerica</th>
+      </tr>
+      <tr>
+       <th>Yarmouth</th>
+      </tr>
+      <tr>
+       <th>Winthrop</th>
+      </tr>
+      <tr>
+       <th>New World</th>
+      </tr>
+      <tr>
+       <th>Salem</th>
+      </tr>
+      <tr>
+       <th>Boston Harbor</th>
+      </tr>
+      <tr>
+       <th>Huckins</th>
+      </tr>
+      <tr>
+       <th>Brothers Rocks</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

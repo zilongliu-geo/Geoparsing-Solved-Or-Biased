@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Fiscal skills top <span onClick="goto_name('Lakeview')" class="loc">Lakeview</span> priority. <span onClick="goto_name('COLUMBUS')" class="loc">COLUMBUS</span> -- The Lakeview Board of Education met Monday with representatives from <span onClick="goto_name('McPherson')" class="loc">McPherson</span> &amp; Jacobsen LLC to establish the major criteria they are looking for in a candidate to replace Superintendent Paul Calvert. The Omaha executive recruitment and development firm presented the five-phase approach it uses to help school districts hire administrative staff as well as a tentative calendar that includes a seven-week timeline and May 8 as the estimated date for the final decision of the board. The first phase was conducted during Monday’s meeting as the board identified the five major criteria they are looking for in potential candidates. The top five skills and characteristics identified and ranked by the board, according to McPherson’s tabulations, are, in order: 1. Strong fiscal skills; 2. Good communication skills; 3. Open-minded leadership; 4. Good team member and leader; 5. Extensive knowledge of local, state and federal policiesThe representatives asked each board member to identify characteristics they would like in a potential hire. Of note, “the best quality education for the kids” was listed during the second time the representatives asked for each board member’s ideas, but was not included in the top five based on McPherson’s tabulation. After the list was compiled, it was condensed by consolidating overlapping criteria and each member was then asked to pick their top five and rank them in order. The application questions will revolve around the criteria identified, according to the McPherson representatives. Although honesty, integrity, respect and ethics were commonly listed by board members, Jerry Ehlers, lead consultant for <span onClick="goto_name('McPherson')" class="loc">McPherson</span> &amp; Jacobsen, said identifying factors for those characteristics were standard for each process. Ehlers encouraged the board to list criteria that would help them find a superintendent who would match the needs of the district and meet the challenges it faces. “It is understood if you are going to get the job you have to have those characteristics,” he said. Ehlers made the board aware the district could be competing with other districts for an exceptional candidate and cautioned them not to hire a replacement just to fill the position. “There just aren’t a ton of applicants out there. There are more people retiring and getting out of it then are coming through the pipeline,” he said, so candidates “are interviewing you just as much as you’re interviewing them. ”“If you don’t get a quality candidate because of the timing” he advised the board to move forward with an interim superintendent for a year, Ehlers said. “Mr. (Glen) Morgan and I aren’t hiring anybody, the patrons aren’t hiring anybody, the students aren’t hiring anybody. Only the six of you have a vote.” At the board’s request, Ehlers said the principal search to find a replacement for Bob Arp could be conducted for an additional $1,500, which would include advertising, recruitment screening and background and reference checks. The board tentatively set a special meeting for 11 a.m. Friday at Lakeview High School to discuss and vote on that proposal.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lakeview</th>
+      </tr>
+      <tr>
+       <th>COLUMBUS</th>
+      </tr>
+      <tr>
+       <th>McPherson</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

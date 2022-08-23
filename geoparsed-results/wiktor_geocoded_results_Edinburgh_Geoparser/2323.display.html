@@ -1,0 +1,464 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([40.38407,-74.52542], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([40.38407,-74.52542],
+			  {
+			      title: "South Brunswick Township",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["South Brunswick Township"] = marker;
+  
+    var marker = L.marker([43.89725,-69.9779],
+			  {
+			      title: "Town of Brunswick",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["South Brunswick Township"] = marker;
+  
+    var marker = L.marker([39.44709,-93.08742],
+			  {
+			      title: "Brunswick Township",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["South Brunswick Township"] = marker;
+  
+    var marker = L.marker([45.774,-93.32735],
+			  {
+			      title: "Brunswick Township",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["South Brunswick Township"] = marker;
+  
+    var marker = L.marker([40.44004,-74.40889],
+			  {
+			      title: "Middlesex",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([41.43538,-72.52312],
+			  {
+			      title: "Middlesex",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([42.48555,-71.39184],
+			  {
+			      title: "Middlesex",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([37.59737,-76.57814],
+			  {
+			      title: "Middlesex",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([43.00009,-81.41646],
+			  {
+			      title: "Middlesex County",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([18.11667,-77.25],
+			  {
+			      title: "County of Middlesex",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Middlesex County"] = marker;
+  
+    var marker = L.marker([40.16706,-74.49987],
+			  {
+			      title: "New Jersey",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([41.94394,-85.63249],
+			  {
+			      title: "Three Rivers",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([10.23333,-61.63333],
+			  {
+			      title: "New Jersey",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([47.19947,-65.20639],
+			  {
+			      title: "New Jersey",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([-10.80611,166.0617],
+			  {
+			      title: "Tömotu Noi",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([14.67487,121.12367],
+			  {
+			      title: "New Jersey",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["New Jersey"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Dayton is an unincorporated community and census designated place (CDP) located within <span onClick="goto_name('South Brunswick Township')" class="loc">South Brunswick Township</span>, in <span onClick="goto_name('Middlesex County')" class="loc">Middlesex County</span>, <span onClick="goto_name('New Jersey')" class="loc">New Jersey</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. At the 2010 <span onClick="goto_name('United States')" class="loc">United States</span> Census, the CDP's population was 7,063. Dayton has a post office with its own ZIP code (08810) that encompasses the entire CDP, as well as some surrounding areas. Dayton is located at 40°22′52″N 74°30′48″W (40.381014,-74.513355). According to the <span onClick="goto_name('United States')" class="loc">United States</span> Census Bureau, the CDP had a total area of 2.102 square miles (5.443 km2), of which, 2.099 square miles (5.436 km2) of it was land and 0.003 square miles (0.007 km2) of it (0.13%) was water. At the 2000 census, there were 6,235 people, 2,061 households and 1,690 families residing in the CDP. The population density was 1,130.2/km² (2,929.2/mi²). There were 2,252 housing units at an average density of 408.2/km² (1,058.0/mi²). The racial makeup of the CDP was 61.54% White, 9.90% African American, 0.22% Native American, 25.04% Asian, 0.05% Pacific Islander, 1.30% from other races, and 1.96% from two or more races. Hispanic or Latino of any race were 5.15% of the population.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>South Brunswick Township</th>
+       <td best="true">
+        <a onClick="goto(40.38407,-74.52542)">
+         <span style="white-space:nowrap">40.384,-74.525</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.89725,-69.9779)">
+         <span style="white-space:nowrap">43.897,-69.978</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.44709,-93.08742)">
+         <span style="white-space:nowrap">39.447,-93.087</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.774,-93.32735)">
+         <span style="white-space:nowrap">45.774,-93.327</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Middlesex County</th>
+       <td best="true">
+        <a onClick="goto(40.44004,-74.40889)">
+         <span style="white-space:nowrap">40.440,-74.409</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.43538,-72.52312)">
+         <span style="white-space:nowrap">41.435,-72.523</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.48555,-71.39184)">
+         <span style="white-space:nowrap">42.486,-71.392</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.59737,-76.57814)">
+         <span style="white-space:nowrap">37.597,-76.578</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.00009,-81.41646)">
+         <span style="white-space:nowrap">43.000,-81.416</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.11667,-77.25)">
+         <span style="white-space:nowrap">18.117,-77.250</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>New Jersey</th>
+       <td best="true">
+        <a onClick="goto(40.16706,-74.49987)">
+         <span style="white-space:nowrap">40.167,-74.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.94394,-85.63249)">
+         <span style="white-space:nowrap">41.944,-85.632</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.23333,-61.63333)">
+         <span style="white-space:nowrap">10.233,-61.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.19947,-65.20639)">
+         <span style="white-space:nowrap">47.199,-65.206</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-10.80611,166.0617)">
+         <span style="white-space:nowrap">-10.806,166.062</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.67487,121.12367)">
+         <span style="white-space:nowrap">14.675,121.124</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

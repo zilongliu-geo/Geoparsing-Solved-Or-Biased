@@ -1,0 +1,1306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([37.69224,-97.33754], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([37.69224,-97.33754],
+			  {
+			      title: "Wichita",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([41.73332,-94.60414],
+			  {
+			      title: "Wichita",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([38.48208,-101.34736],
+			  {
+			      title: "Wichita",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([33.98798,-98.70361],
+			  {
+			      title: "Wichita",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([53.33306,-6.24889],
+			  {
+			      title: "Dublin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([28.78944,-81.62674],
+			  {
+			      title: "Dublin",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([32.54044,-82.90375],
+			  {
+			      title: "Dublin",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([51.735,30.328],
+			  {
+			      title: "Dublin",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([40.09923,-83.11408],
+			  {
+			      title: "Dublin",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([42.99479,-76.92219],
+			  {
+			      title: "Dublin",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([34.07233,-90.49065],
+			  {
+			      title: "Dublin",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([37.10568,-80.68534],
+			  {
+			      title: "Dublin",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([-34.45,138.35],
+			  {
+			      title: "Dublin",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([8.13746,-13.1927],
+			  {
+			      title: "Dublin",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([32.08514,-98.34199],
+			  {
+			      title: "Dublin",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([39.65094,-76.26662],
+			  {
+			      title: "Dublin",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([36.72534,-88.80228],
+			  {
+			      title: "Dublin",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([34.65684,-78.72641],
+			  {
+			      title: "Dublin",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([39.81227,-85.20885],
+			  {
+			      title: "Dublin",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([42.90758,-72.06258],
+			  {
+			      title: "Dublin",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([37.70215,-121.93579],
+			  {
+			      title: "Dublin",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([40.37177,-75.20156],
+			  {
+			      title: "Dublin",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([48.937,-87.92191],
+			  {
+			      title: "Dublin",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([47.11678,-81.64978],
+			  {
+			      title: "Dublin",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([53.35512,-6.24922],
+			  {
+			      title: "Dublin City",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["Dublin City"] = marker;
+  
+    var marker = L.marker([43.05808,-82.52714],
+			  {
+			      title: "North Street",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["North Street"] = marker;
+  
+    var marker = L.marker([30.01872,-91.82831],
+			  {
+			      title: "North Street Elementary School",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["North Street"] = marker;
+  
+    var marker = L.marker([-28.85906,153.03986],
+			  {
+			      title: "North Street",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["North Street"] = marker;
+  
+    var marker = L.marker([52.10862,0.74156],
+			  {
+			      title: "Bridge Street",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bridge Street"] = marker;
+  
+    var marker = L.marker([-33.8637,151.20787],
+			  {
+			      title: "Bridge Street",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bridge Street"] = marker;
+  
+    var marker = L.marker([39.96118,-82.99879],
+			  {
+			      title: "Columbus",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([45.63661,-109.25211],
+			  {
+			      title: "Columbus",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([43.33805,-89.01539],
+			  {
+			      title: "Columbus",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([45.26522,-93.05015],
+			  {
+			      title: "Columbus",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([32.46098,-84.98771],
+			  {
+			      title: "Columbus",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([39.20144,-85.92138],
+			  {
+			      title: "Columbus",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([48.9042,-102.78045],
+			  {
+			      title: "Columbus",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([42.68396,-75.37267],
+			  {
+			      title: "Columbus",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([31.8276,-107.64002],
+			  {
+			      title: "Columbus",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([29.70662,-96.53969],
+			  {
+			      title: "Columbus",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([40.07261,-74.72072],
+			  {
+			      title: "Columbus",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([38.03702,-84.36549],
+			  {
+			      title: "Columbus",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([41.94089,-79.58172],
+			  {
+			      title: "Columbus",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([37.32778,-107.63006],
+			  {
+			      title: "Columbus",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([33.77595,-93.81713],
+			  {
+			      title: "Columbus",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([37.16923,-94.84412],
+			  {
+			      title: "Columbus",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([33.49567,-88.42726],
+			  {
+			      title: "Columbus",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([38.11021,-118.01928],
+			  {
+			      title: "Columbus",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([41.42973,-97.36838],
+			  {
+			      title: "Columbus",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([43.98342,-78.91627],
+			  {
+			      title: "Columbus",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Columbus Metropolitan"] = marker;
+  
+    var marker = L.marker([28.36111,-82.35815],
+			  {
+			      title: "Darby",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([30.38436,-91.92012],
+			  {
+			      title: "Darby",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([36.12124,-81.49538],
+			  {
+			      title: "Darby",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([39.91845,-75.25907],
+			  {
+			      title: "Darby",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([46.0227,-114.17814],
+			  {
+			      title: "Darby",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([45.41177,-72.64684],
+			  {
+			      title: "Darby",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([48.15361,-98.96763],
+			  {
+			      title: "Darby",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([39.80951,-83.17102],
+			  {
+			      title: "Harrisburg",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([40.10756,-83.26742],
+			  {
+			      title: "Plain City",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([41.93677,-70.74532],
+			  {
+			      title: "Camp Norse",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([43.69409,-111.06605],
+			  {
+			      title: "Darby",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([39.76867,-83.20575],
+			  {
+			      title: "Derby",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([38.04288,-81.57373],
+			  {
+			      title: "Keith",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([36.8937,-83.06294],
+			  {
+			      title: "Clover-Darby",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([7.10787,99.428],
+			  {
+			      title: "Ko Liang Tai",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Darby"] = marker;
+  
+    var marker = L.marker([46.02159,-114.17314],
+			  {
+			      title: "Darby",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Darby"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Name gameCouncil is considering street name changes. <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Street or Wichita Drive? <span onClick="goto_name('Dublin City')" class="loc">Dublin City</span> Council heard a first reading on legislation to change the name of the street during its regular meeting Monday, March 16. Dublin Director of Engineering Paul Hammersmith said a discrepancy in what residents believe is the street name after it was brought to the attention of city staff by the Franklin County Auditor's Office. The city issued addresses for <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Street Dec. 16, 1986. Records indicate the majority of residents are using <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Drive instead of <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Street, according to information from the city. "We think the developer installed street signs showing <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Drive, and that the posted sign is why the residents use 'Drive' instead of 'Street,' " Hammersmith said. "Folks moved in, started using <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Drive and that is where we are at today," he said. Hammersmith said letters were sent to the nine residents regarding the change, and that city staff has not heard back from them. "The post office and 9-1-1 said everybody is using <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Drive," he said. "It should be a simple change, which we will take care of at out next meeting," April 6, Mayor Marilee Chinnici-Zuercher said. Council also heard a first reading of legislation to change the name of a section of Darby Street in Historic Dublin to <span onClick="goto_name('North Street')" class="loc">North Street</span>. Darby Street currently originates on <span onClick="goto_name('Bridge Street')" class="loc">Bridge Street</span> between the Dublin Veterinary Clinic, 32 W. Bridge St., and the BriHi site, and ends on High Street, south of the Dublin Branch of the <span onClick="goto_name('Columbus Metropolitan')" class="loc">Columbus Metropolitan</span> Library, 75 N. High St.Proceeding north on Darby from <span onClick="goto_name('Bridge Street')" class="loc">Bridge Street</span>, <span onClick="goto_name('Darby Street')" class="loc">Darby Street</span> makes a 90-degree turn to the east in front of the library, and causes confusion because the street intersects both Bridge and High Streets and runs both north-south and east-west, according to information from the city. "We know this is actually called Darby Street, and that is part of the problem," Hammersmith said. Changing the name of the section running east-west in front of the library from <span onClick="goto_name('Darby')" class="loc">Darby</span> to <span onClick="goto_name('North Street')" class="loc">North Street</span> will also help meet one of the goals of the Historic Dublin wayfaring project -- to make visitors comfortable and confident while visiting the district, according to information from the city. Both the city and engineering departments support the change, there are no addresses to be renamed, and the library and the Blarney Brothers Ltd., adjoining property owners, have not expressed concerns regarding the proposed change. "Some things do work in our favor," Hammersmith said. A second reading and vote on the legislation is expected during Council's regular meeting April 6.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Wichita</th>
+       <td best="true">
+        <a onClick="goto(37.69224,-97.33754)">
+         <span style="white-space:nowrap">37.692,-97.338</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.73332,-94.60414)">
+         <span style="white-space:nowrap">41.733,-94.604</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.48208,-101.34736)">
+         <span style="white-space:nowrap">38.482,-101.347</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.98798,-98.70361)">
+         <span style="white-space:nowrap">33.988,-98.704</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Dublin City</th>
+       <td best="true">
+        <a onClick="goto(53.33306,-6.24889)">
+         <span style="white-space:nowrap">53.333,-6.249</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.78944,-81.62674)">
+         <span style="white-space:nowrap">28.789,-81.627</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.54044,-82.90375)">
+         <span style="white-space:nowrap">32.540,-82.904</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.735,30.328)">
+         <span style="white-space:nowrap">51.735,30.328</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.09923,-83.11408)">
+         <span style="white-space:nowrap">40.099,-83.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.99479,-76.92219)">
+         <span style="white-space:nowrap">42.995,-76.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.07233,-90.49065)">
+         <span style="white-space:nowrap">34.072,-90.491</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.10568,-80.68534)">
+         <span style="white-space:nowrap">37.106,-80.685</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.45,138.35)">
+         <span style="white-space:nowrap">-34.450,138.350</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.13746,-13.1927)">
+         <span style="white-space:nowrap">8.137,-13.193</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.08514,-98.34199)">
+         <span style="white-space:nowrap">32.085,-98.342</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.65094,-76.26662)">
+         <span style="white-space:nowrap">39.651,-76.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.72534,-88.80228)">
+         <span style="white-space:nowrap">36.725,-88.802</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.65684,-78.72641)">
+         <span style="white-space:nowrap">34.657,-78.726</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.81227,-85.20885)">
+         <span style="white-space:nowrap">39.812,-85.209</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.90758,-72.06258)">
+         <span style="white-space:nowrap">42.908,-72.063</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.70215,-121.93579)">
+         <span style="white-space:nowrap">37.702,-121.936</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.37177,-75.20156)">
+         <span style="white-space:nowrap">40.372,-75.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.937,-87.92191)">
+         <span style="white-space:nowrap">48.937,-87.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.11678,-81.64978)">
+         <span style="white-space:nowrap">47.117,-81.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.35512,-6.24922)">
+         <span style="white-space:nowrap">53.355,-6.249</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>North Street</th>
+       <td best="true">
+        <a onClick="goto(43.05808,-82.52714)">
+         <span style="white-space:nowrap">43.058,-82.527</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.01872,-91.82831)">
+         <span style="white-space:nowrap">30.019,-91.828</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.85906,153.03986)">
+         <span style="white-space:nowrap">-28.859,153.040</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bridge Street</th>
+       <td best="true">
+        <a onClick="goto(52.10862,0.74156)">
+         <span style="white-space:nowrap">52.109,0.742</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.8637,151.20787)">
+         <span style="white-space:nowrap">-33.864,151.208</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Columbus Metropolitan</th>
+       <td best="true">
+        <a onClick="goto(39.96118,-82.99879)">
+         <span style="white-space:nowrap">39.961,-82.999</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.63661,-109.25211)">
+         <span style="white-space:nowrap">45.637,-109.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.33805,-89.01539)">
+         <span style="white-space:nowrap">43.338,-89.015</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.26522,-93.05015)">
+         <span style="white-space:nowrap">45.265,-93.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.46098,-84.98771)">
+         <span style="white-space:nowrap">32.461,-84.988</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.20144,-85.92138)">
+         <span style="white-space:nowrap">39.201,-85.921</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.9042,-102.78045)">
+         <span style="white-space:nowrap">48.904,-102.780</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.68396,-75.37267)">
+         <span style="white-space:nowrap">42.684,-75.373</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.8276,-107.64002)">
+         <span style="white-space:nowrap">31.828,-107.640</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.70662,-96.53969)">
+         <span style="white-space:nowrap">29.707,-96.540</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.07261,-74.72072)">
+         <span style="white-space:nowrap">40.073,-74.721</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.03702,-84.36549)">
+         <span style="white-space:nowrap">38.037,-84.365</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.94089,-79.58172)">
+         <span style="white-space:nowrap">41.941,-79.582</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.32778,-107.63006)">
+         <span style="white-space:nowrap">37.328,-107.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.77595,-93.81713)">
+         <span style="white-space:nowrap">33.776,-93.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.16923,-94.84412)">
+         <span style="white-space:nowrap">37.169,-94.844</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.49567,-88.42726)">
+         <span style="white-space:nowrap">33.496,-88.427</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.11021,-118.01928)">
+         <span style="white-space:nowrap">38.110,-118.019</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.42973,-97.36838)">
+         <span style="white-space:nowrap">41.430,-97.368</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.98342,-78.91627)">
+         <span style="white-space:nowrap">43.983,-78.916</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Darby Street</th>
+      </tr>
+      <tr>
+       <th>Darby</th>
+       <td best="true">
+        <a onClick="goto(28.36111,-82.35815)">
+         <span style="white-space:nowrap">28.361,-82.358</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.38436,-91.92012)">
+         <span style="white-space:nowrap">30.384,-91.920</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.12124,-81.49538)">
+         <span style="white-space:nowrap">36.121,-81.495</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.91845,-75.25907)">
+         <span style="white-space:nowrap">39.918,-75.259</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.0227,-114.17814)">
+         <span style="white-space:nowrap">46.023,-114.178</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.41177,-72.64684)">
+         <span style="white-space:nowrap">45.412,-72.647</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.15361,-98.96763)">
+         <span style="white-space:nowrap">48.154,-98.968</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.80951,-83.17102)">
+         <span style="white-space:nowrap">39.810,-83.171</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.10756,-83.26742)">
+         <span style="white-space:nowrap">40.108,-83.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.93677,-70.74532)">
+         <span style="white-space:nowrap">41.937,-70.745</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.69409,-111.06605)">
+         <span style="white-space:nowrap">43.694,-111.066</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.76867,-83.20575)">
+         <span style="white-space:nowrap">39.769,-83.206</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.04288,-81.57373)">
+         <span style="white-space:nowrap">38.043,-81.574</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.8937,-83.06294)">
+         <span style="white-space:nowrap">36.894,-83.063</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.10787,99.428)">
+         <span style="white-space:nowrap">7.108,99.428</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.02159,-114.17314)">
+         <span style="white-space:nowrap">46.022,-114.173</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

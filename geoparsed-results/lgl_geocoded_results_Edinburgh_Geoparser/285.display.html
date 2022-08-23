@@ -1,0 +1,1269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([37.11067,-84.1178], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([37.11067,-84.1178],
+			  {
+			      title: "Laurel",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Laurel County"] = marker;
+  
+    var marker = L.marker([38.20042,-84.87762],
+			  {
+			      title: "Kentucky",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-30.76143,151.44889],
+			  {
+			      title: "Kentucky",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-28.23333,19.4],
+			  {
+			      title: "Kentucky",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-29.76375,153.0046],
+			  {
+			      title: "Kentucky",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([39.59337,-87.61114],
+			  {
+			      title: "Kentucky",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-35.42977,148.73112],
+			  {
+			      title: "Kentucky",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-28.634,152.83029],
+			  {
+			      title: "Kentucky",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([34.60843,-92.66127],
+			  {
+			      title: "Kentucky",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([46.26523,-86.63099],
+			  {
+			      title: "Kentucky",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-28.99042,152.86131],
+			  {
+			      title: "Kentucky",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([18.19931,-78.01767],
+			  {
+			      title: "Kentucky",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([59.52667,10.25411],
+			  {
+			      title: "Kentucky",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([20.01417,-75.5975],
+			  {
+			      title: "Kentucky",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([20.15,-75.53333],
+			  {
+			      title: "Kentucky",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-22.58498,28.68365],
+			  {
+			      title: "Kentucky",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-29.16667,29.9],
+			  {
+			      title: "Kentucky",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-32.79619,20.76004],
+			  {
+			      title: "Kentucky",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-33.1174,26.6641],
+			  {
+			      title: "Kentucky",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([-17.93139,31.10194],
+			  {
+			      title: "Kentucky",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([14.27534,120.90253],
+			  {
+			      title: "Kentucky",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Kentucky counties"] = marker;
+  
+    var marker = L.marker([39.91678,-83.7839],
+			  {
+			      title: "Clark",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([37.97085,-84.1474],
+			  {
+			      title: "Clark",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([39.33357,-87.78772],
+			  {
+			      title: "Clark",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([40.41036,-91.7384],
+			  {
+			      title: "Clark",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([36.2152,-115.01356],
+			  {
+			      title: "Clark",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([44.28398,-112.35135],
+			  {
+			      title: "Clark",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([44.85825,-97.7295],
+			  {
+			      title: "Clark",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([37.23552,-99.82031],
+			  {
+			      title: "Clark",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([44.73471,-90.61208],
+			  {
+			      title: "Clark",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([45.77927,-122.48259],
+			  {
+			      title: "Clark",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([34.05096,-93.17637],
+			  {
+			      title: "Clark",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([33.95117,-83.36733],
+			  {
+			      title: "Clarke",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([38.47718,-85.70728],
+			  {
+			      title: "Clark",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Clark County"] = marker;
+  
+    var marker = L.marker([51.50853,-0.12574],
+			  {
+			      title: "London",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([51.49227,-0.30864],
+			  {
+			      title: "Central London",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([42.98339,-81.23304],
+			  {
+			      title: "London",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([43.08339,-81.29975],
+			  {
+			      title: "London",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([-24.81927,31.04765],
+			  {
+			      title: "London",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([38.19455,-81.36872],
+			  {
+			      title: "London",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([40.91033,-82.62934],
+			  {
+			      title: "London",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([37.12898,-84.08326],
+			  {
+			      title: "London",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([43.04778,-89.01289],
+			  {
+			      title: "London",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([36.47606,-119.44318],
+			  {
+			      title: "London",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([43.52607,-93.0627],
+			  {
+			      title: "London",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([35.32897,-93.25296],
+			  {
+			      title: "London",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([30.67685,-99.57645],
+			  {
+			      title: "London",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([2.26815,9.78934],
+			  {
+			      title: "London",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([8.31068,-10.78731],
+			  {
+			      title: "London",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([1.98487,-157.47502],
+			  {
+			      title: "London Village",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([39.6256,-85.92026],
+			  {
+			      title: "London",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([39.88645,-83.44825],
+			  {
+			      title: "London",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([6.00972,125.12944],
+			  {
+			      title: "London",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([32.23099,-94.94438],
+			  {
+			      title: "London",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["London"] = marker;
+  
+    var marker = L.marker([9.9,-12.43333],
+			  {
+			      title: "Féma",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["FEMA Region"] = marker;
+  
+    var marker = L.marker([9.22175,12.90074],
+			  {
+			      title: "Fema",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["FEMA Region"] = marker;
+  
+    var marker = L.marker([15.4855,0.5748],
+			  {
+			      title: "Féma",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["FEMA Region"] = marker;
+  
+    var marker = L.marker([12.40582,6.68936],
+			  {
+			      title: "Fema",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["FEMA Region"] = marker;
+  
+    var marker = L.marker([-16.07083,33.35028],
+			  {
+			      title: "Fema",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["FEMA Region"] = marker;
+  
+    var marker = L.marker([9.22175,12.90074],
+			  {
+			      title: "Fema",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["FEMA"] = marker;
+  
+    var marker = L.marker([15.4855,0.5748],
+			  {
+			      title: "Féma",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["FEMA"] = marker;
+  
+    var marker = L.marker([9.9,-12.43333],
+			  {
+			      title: "Féma",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["FEMA"] = marker;
+  
+    var marker = L.marker([12.40582,6.68936],
+			  {
+			      title: "Fema",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["FEMA"] = marker;
+  
+    var marker = L.marker([-16.07083,33.35028],
+			  {
+			      title: "Fema",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["FEMA"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Audit alleges discrepancies with emergency director over $1.8 million grant. Audit alleges discrepancies with emergency director over $1.8 million grant After an audit revealed he misspent $1.87 million in federal funds — much of which went into the coffers of his wife’s company — Brian Reams has been fired from his position as director of the division of public safety and emergency management. The audit also blames the Laurel County Fiscal Court for lack of oversight. The audit has been referred to the Kentucky Attorney General’s Office, the FBI and the United States Department of Homeland Security. Reams did not respond to a request for comment. <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> Judge-Executive Lawrence Kuhl fired Reams at the Emergency Operations Center and asked him to leave the building Tuesday morning. “Naturally, I hate the whole situation,” Kuhl said. “I wasn’t aware of it. None of us were aware of it until their findings. It’s a tough decision that has to be made by us and by me.” Fourth-district magistrate Jeff Book expressed his disapproval. “I’m very disappointed in someone of Mr. Reams’ status, with the magnitude of his position as the EMS director, director of CSEPP, homeland security, just the magnitude of his office, spending federal tax dollars coming into the county for emergency operations and the protection of our citizens being spent for what appears to be other reasons,” he said.Second-district magistrate Tom Baker echoed Book’s sentiment. “I feel anger, disappointment that our county has been dragged into this,” he said. The audit, released by state auditor Crit Luallen’s office, reported the <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> Chemical Stockpile Emergency Preparedness Program received the $1.8 million grant so Reams could buy specific equipment for 10 <span onClick="goto_name('Kentucky counties')" class="loc">Kentucky counties</span>. Reams reportedly received two bids for the project, which he opened alone, rather than going through the fiscal court. The contract was ultimately awarded to PREP, a business owned by Melody Vess Reams. Melody Vess and Brian Reams married in June 2008. The equipment purchased by PREP — Providing Response and Emergency Preparedness — was far inferior to what was supposed to be bought as per the grant’s specifications. For example, the project called for 40, 8,000-watt generators but PREP delivered 40, 3,000-watt generators. “Based on Internet research for comparable prices, it appears that the invoice also overcharged for these generators by as much as $900 each,” the audit reads. “It appears CSEPP overpaid at least $35,402 for these generators.” The grant also called for the purchase of 40, 7 foot-by-18 foot Homesteader trailers. Instead, PREP delivered 40 LA Cargo trailers. “Questions were raised by one county CSEPP coordinator as to whether these were even new trailers due to deteriorated conditions in some areas,” the report reads. Gary Epperson, CSEPP director for <span onClick="goto_name('Clark County')" class="loc">Clark County</span>, was taken aback by the equipment he received. “I was one of the people who was a little surprised we weren’t getting what we thought we were getting,” he said. “We were under the impression that we couldn’t get what we wanted. That’s what we were told. It was indicated at some meetings that we were having a cost overrun.” Epperson said <span onClick="goto_name('Clark County')" class="loc">Clark County</span>’s trailer looked new but “it wasn’t the brand we thought we were getting. ”“I think everybody was concerned it wasn’t exactly what we expected to get,” he said. “The generators were the thing that stood way out. They weren’t really strong enough to power the equipment.” Nevertheless, PREP submitted an invoice asking for $530,446 to pay for supplies. CSEPP Public Information Officer Monica French said questions arose about the grant in August 2008, shortly after CSEPP Program Coordinator Mark Klaas and Kentucky Department of Emergency Management Director Brig. Gen. John Heltzel took over. French said the issue was brought to their attention immediately. “We cooperated completely with the auditors,” French said. “We want to ensure to everyone we are trying to make this right. That’s why we go in and inventory everything now. They will go and look at the property and check it out. We are putting new policies and procedures in place.” The Luallen audit was based on one performed by <span onClick="goto_name('London')" class="loc">London</span>-based Christian, Sturgeon &amp; Associates, whose report questioned the entire cost related to the $1.87 million grant. However, the Christian report also places blame on the Laurel County Fiscal Court, saying it “did not properly oversee the bid process, bid award and procurement process. ”“As a result, improprieties occurred,” it reads. The report states, “bids for materials, supplies or equipment must be obtained for expenditures that exceed $20,000.” In the case of the grant, the bids did not even go through the fiscal court. In its finding, the Christian report said the court “should not engage in related party transactions.” The audit shows in May 2008 a purchase request was forwarded from Reams to the fiscal court for the purchase of parts and maintenance in the amount of $9,996.15. “The purchase requisition was pending at the time the Director (Reams) became married to the owner of PREP,” it reads. Allison Martin, spokeswoman for the Kentucky Attorney General’s office, said they have not yet received a copy of the audit, but will review it once they do. If warranted, charges would be filed in the coming weeks. Kevin Pickering, external affairs officer in <span onClick="goto_name('FEMA Region')" class="loc">FEMA Region</span> IV, said <span onClick="goto_name('FEMA')" class="loc">FEMA</span> is taking a wait-and-see approach. “It’s primarily a state issue at this point,” he said. “FEMA has and will continue to support the commonwealth of Kentucky as it investigates alleged misuse of CSEPP funds in <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span>. Based on the results of that investigation, when it’s finished, <span onClick="goto_name('FEMA')" class="loc">FEMA</span> will assess further action.” Staff writer Tara Kaprowy can be reached by e-mail at tkaprowy@sentinel-echo.com.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Laurel County</th>
+       <td best="true">
+        <a onClick="goto(37.11067,-84.1178)">
+         <span style="white-space:nowrap">37.111,-84.118</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kentucky counties</th>
+       <td best="true">
+        <a onClick="goto(38.20042,-84.87762)">
+         <span style="white-space:nowrap">38.200,-84.878</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.76143,151.44889)">
+         <span style="white-space:nowrap">-30.761,151.449</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.23333,19.4)">
+         <span style="white-space:nowrap">-28.233,19.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.76375,153.0046)">
+         <span style="white-space:nowrap">-29.764,153.005</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.59337,-87.61114)">
+         <span style="white-space:nowrap">39.593,-87.611</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-35.42977,148.73112)">
+         <span style="white-space:nowrap">-35.430,148.731</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.634,152.83029)">
+         <span style="white-space:nowrap">-28.634,152.830</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.60843,-92.66127)">
+         <span style="white-space:nowrap">34.608,-92.661</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.26523,-86.63099)">
+         <span style="white-space:nowrap">46.265,-86.631</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.99042,152.86131)">
+         <span style="white-space:nowrap">-28.990,152.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.19931,-78.01767)">
+         <span style="white-space:nowrap">18.199,-78.018</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.52667,10.25411)">
+         <span style="white-space:nowrap">59.527,10.254</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.01417,-75.5975)">
+         <span style="white-space:nowrap">20.014,-75.597</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.15,-75.53333)">
+         <span style="white-space:nowrap">20.150,-75.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-22.58498,28.68365)">
+         <span style="white-space:nowrap">-22.585,28.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.16667,29.9)">
+         <span style="white-space:nowrap">-29.167,29.900</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.79619,20.76004)">
+         <span style="white-space:nowrap">-32.796,20.760</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.1174,26.6641)">
+         <span style="white-space:nowrap">-33.117,26.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93139,31.10194)">
+         <span style="white-space:nowrap">-17.931,31.102</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.27534,120.90253)">
+         <span style="white-space:nowrap">14.275,120.903</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Clark County</th>
+       <td best="true">
+        <a onClick="goto(39.91678,-83.7839)">
+         <span style="white-space:nowrap">39.917,-83.784</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.97085,-84.1474)">
+         <span style="white-space:nowrap">37.971,-84.147</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.33357,-87.78772)">
+         <span style="white-space:nowrap">39.334,-87.788</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.41036,-91.7384)">
+         <span style="white-space:nowrap">40.410,-91.738</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.2152,-115.01356)">
+         <span style="white-space:nowrap">36.215,-115.014</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.28398,-112.35135)">
+         <span style="white-space:nowrap">44.284,-112.351</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.85825,-97.7295)">
+         <span style="white-space:nowrap">44.858,-97.730</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.23552,-99.82031)">
+         <span style="white-space:nowrap">37.236,-99.820</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.73471,-90.61208)">
+         <span style="white-space:nowrap">44.735,-90.612</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.77927,-122.48259)">
+         <span style="white-space:nowrap">45.779,-122.483</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.05096,-93.17637)">
+         <span style="white-space:nowrap">34.051,-93.176</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.95117,-83.36733)">
+         <span style="white-space:nowrap">33.951,-83.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.47718,-85.70728)">
+         <span style="white-space:nowrap">38.477,-85.707</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>London</th>
+       <td best="true">
+        <a onClick="goto(51.50853,-0.12574)">
+         <span style="white-space:nowrap">51.509,-0.126</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.49227,-0.30864)">
+         <span style="white-space:nowrap">51.492,-0.309</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.98339,-81.23304)">
+         <span style="white-space:nowrap">42.983,-81.233</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.08339,-81.29975)">
+         <span style="white-space:nowrap">43.083,-81.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.81927,31.04765)">
+         <span style="white-space:nowrap">-24.819,31.048</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.19455,-81.36872)">
+         <span style="white-space:nowrap">38.195,-81.369</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.91033,-82.62934)">
+         <span style="white-space:nowrap">40.910,-82.629</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.12898,-84.08326)">
+         <span style="white-space:nowrap">37.129,-84.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.04778,-89.01289)">
+         <span style="white-space:nowrap">43.048,-89.013</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.47606,-119.44318)">
+         <span style="white-space:nowrap">36.476,-119.443</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.52607,-93.0627)">
+         <span style="white-space:nowrap">43.526,-93.063</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.32897,-93.25296)">
+         <span style="white-space:nowrap">35.329,-93.253</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.67685,-99.57645)">
+         <span style="white-space:nowrap">30.677,-99.576</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(2.26815,9.78934)">
+         <span style="white-space:nowrap">2.268,9.789</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.31068,-10.78731)">
+         <span style="white-space:nowrap">8.311,-10.787</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(1.98487,-157.47502)">
+         <span style="white-space:nowrap">1.985,-157.475</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.6256,-85.92026)">
+         <span style="white-space:nowrap">39.626,-85.920</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.88645,-83.44825)">
+         <span style="white-space:nowrap">39.886,-83.448</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.00972,125.12944)">
+         <span style="white-space:nowrap">6.010,125.129</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.23099,-94.94438)">
+         <span style="white-space:nowrap">32.231,-94.944</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>FEMA Region</th>
+       <td best="true">
+        <a onClick="goto(9.9,-12.43333)">
+         <span style="white-space:nowrap">9.900,-12.433</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.22175,12.90074)">
+         <span style="white-space:nowrap">9.222,12.901</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(15.4855,0.5748)">
+         <span style="white-space:nowrap">15.486,0.575</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.40582,6.68936)">
+         <span style="white-space:nowrap">12.406,6.689</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-16.07083,33.35028)">
+         <span style="white-space:nowrap">-16.071,33.350</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>FEMA</th>
+       <td best="true">
+        <a onClick="goto(9.22175,12.90074)">
+         <span style="white-space:nowrap">9.222,12.901</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(15.4855,0.5748)">
+         <span style="white-space:nowrap">15.486,0.575</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.9,-12.43333)">
+         <span style="white-space:nowrap">9.900,-12.433</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.40582,6.68936)">
+         <span style="white-space:nowrap">12.406,6.689</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-16.07083,33.35028)">
+         <span style="white-space:nowrap">-16.071,33.350</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

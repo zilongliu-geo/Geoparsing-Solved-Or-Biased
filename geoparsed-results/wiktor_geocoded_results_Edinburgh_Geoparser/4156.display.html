@@ -1,0 +1,1011 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([47.35167,-115.89103], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([47.35167,-115.89103],
+			  {
+			      title: "Shoshone",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Shoshone County"] = marker;
+  
+    var marker = L.marker([44.5002,-114.25118],
+			  {
+			      title: "Idaho",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([39.74249,-105.51361],
+			  {
+			      title: "Idaho Springs",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([39.08812,-83.14185],
+			  {
+			      title: "Idaho",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([35.09369,-87.2928],
+			  {
+			      title: "Idaho",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([40.65368,-79.34698],
+			  {
+			      title: "Idaho",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([42.86173,-77.55555],
+			  {
+			      title: "Idaho",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([45.8442,-115.46745],
+			  {
+			      title: "Idaho",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([-6.75,36.63333],
+			  {
+			      title: "Idaho",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([42.26943,-93.32965],
+			  {
+			      title: "Idaho",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([-25.76834,22.81217],
+			  {
+			      title: "Idaho",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([-17.93333,30.75],
+			  {
+			      title: "Idaho",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([-30.23363,151.33347],
+			  {
+			      title: "Idaho",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Idaho"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([41.15748,-105.17331],
+			  {
+			      title: "Hecla",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([45.88302,-98.15205],
+			  {
+			      title: "Hecla",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([39.93974,-93.3041],
+			  {
+			      title: "Hecla",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([41.27366,-85.57359],
+			  {
+			      title: "Etna",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([37.28505,-87.52694],
+			  {
+			      title: "Hecla",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([38.54925,-82.63877],
+			  {
+			      title: "Hecla",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([34.53808,-112.12155],
+			  {
+			      title: "Hecla",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([43.09951,-75.45379],
+			  {
+			      title: "Hecla",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([40.70231,-76.00187],
+			  {
+			      title: "Hecla",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([51.13502,-96.66593],
+			  {
+			      title: "Hecla",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([50.28348,-81.96636],
+			  {
+			      title: "Hecla",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([56.8,-7.63333],
+			  {
+			      title: "Hecla",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([57.2912,-7.27123],
+			  {
+			      title: "Hecla",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([42.03916,-101.23767],
+			  {
+			      title: "Hecla",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([-33.66958,120.2182],
+			  {
+			      title: "Hecla",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Hecla"] = marker;
+  
+    var marker = L.marker([40.83834,-101.16488],
+			  {
+			      title: "Wallace",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([45.08607,-97.47592],
+			  {
+			      title: "Wallace",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([38.9114,-101.59156],
+			  {
+			      title: "Wallace",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([39.55527,-94.84691],
+			  {
+			      title: "Wallace",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([38.19409,-120.978],
+			  {
+			      title: "Wallace",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([39.98643,-87.14834],
+			  {
+			      title: "Wallace",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([39.40953,-80.48981],
+			  {
+			      title: "Wallace",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([36.65289,-82.12791],
+			  {
+			      title: "Wallace",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([43.74955,-80.86076],
+			  {
+			      title: "Wallace",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([31.20962,-87.21831],
+			  {
+			      title: "Wallace",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([30.67741,-87.17997],
+			  {
+			      title: "Wallace",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([-37.55,144.05],
+			  {
+			      title: "Wallace",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([45.80015,-63.48199],
+			  {
+			      title: "Wallace",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([34.73572,-77.99526],
+			  {
+			      title: "Wallace",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([34.72016,-79.84145],
+			  {
+			      title: "Wallace",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([30.04326,-90.66731],
+			  {
+			      title: "Wallace",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([49.61677,-104.80109],
+			  {
+			      title: "Wallace",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([49.9167,-101.17314],
+			  {
+			      title: "Wallace",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([-45.5,167.83333],
+			  {
+			      title: "Wallace County",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+    var marker = L.marker([43.7834,-80.91642],
+			  {
+			      title: "Wallace",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Wallace"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Burke is a ghost town in <span onClick="goto_name('Shoshone County')" class="loc">Shoshone County</span>, <span onClick="goto_name('Idaho')" class="loc">Idaho</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. Once a thriving silver, lead and zinc mining community, it is far smaller now than at its height. In 2002, about 300 people lived in or nearby in the lengthy and narrow Burke-Canyon, about 300 feet (90 m) in width. In its early years, Burke was home to the Hercules silver mine, the owners of which were implicated in the <span onClick="goto_name('Idaho')" class="loc">Idaho</span> mining wars of 1899. Burke was also the location of the <span onClick="goto_name('Hecla')" class="loc">Hecla</span> and Star mines. After years of decline, Burke mining operations finally ceased in 1981 with the closing of the Star mine; which reopened for a short period in the 1990s. In recent years, Hecla Mining Company has been exploring the potential of exploiting additional resource deposits in the Star mine. As of December 31, 2012, <span onClick="goto_name('Hecla')" class="loc">Hecla</span> invested $7 million in rehabilitation and exploration with published estimates suggesting the potential to recover in excess of 25 million ounces of silver from the site with significant zinc and lead deposits also present. Burke is located about 7 miles (11 km) northeast of <span onClick="goto_name('Wallace')" class="loc">Wallace</span>, at an elevation of 3,700 feet (1,130 m) above sea level. It is accessed from <span onClick="goto_name('Wallace')" class="loc">Wallace</span> on Burke-Canyon Creek Road (State Highway 4).</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Shoshone County</th>
+       <td best="true">
+        <a onClick="goto(47.35167,-115.89103)">
+         <span style="white-space:nowrap">47.352,-115.891</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Idaho</th>
+       <td best="true">
+        <a onClick="goto(44.5002,-114.25118)">
+         <span style="white-space:nowrap">44.500,-114.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.74249,-105.51361)">
+         <span style="white-space:nowrap">39.742,-105.514</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.08812,-83.14185)">
+         <span style="white-space:nowrap">39.088,-83.142</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.09369,-87.2928)">
+         <span style="white-space:nowrap">35.094,-87.293</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.65368,-79.34698)">
+         <span style="white-space:nowrap">40.654,-79.347</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.86173,-77.55555)">
+         <span style="white-space:nowrap">42.862,-77.556</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.8442,-115.46745)">
+         <span style="white-space:nowrap">45.844,-115.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-6.75,36.63333)">
+         <span style="white-space:nowrap">-6.750,36.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.26943,-93.32965)">
+         <span style="white-space:nowrap">42.269,-93.330</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.76834,22.81217)">
+         <span style="white-space:nowrap">-25.768,22.812</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93333,30.75)">
+         <span style="white-space:nowrap">-17.933,30.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.23363,151.33347)">
+         <span style="white-space:nowrap">-30.234,151.333</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hecla</th>
+       <td best="true">
+        <a onClick="goto(41.15748,-105.17331)">
+         <span style="white-space:nowrap">41.157,-105.173</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.88302,-98.15205)">
+         <span style="white-space:nowrap">45.883,-98.152</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.93974,-93.3041)">
+         <span style="white-space:nowrap">39.940,-93.304</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.27366,-85.57359)">
+         <span style="white-space:nowrap">41.274,-85.574</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.28505,-87.52694)">
+         <span style="white-space:nowrap">37.285,-87.527</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.54925,-82.63877)">
+         <span style="white-space:nowrap">38.549,-82.639</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.53808,-112.12155)">
+         <span style="white-space:nowrap">34.538,-112.122</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.09951,-75.45379)">
+         <span style="white-space:nowrap">43.100,-75.454</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.70231,-76.00187)">
+         <span style="white-space:nowrap">40.702,-76.002</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.13502,-96.66593)">
+         <span style="white-space:nowrap">51.135,-96.666</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.28348,-81.96636)">
+         <span style="white-space:nowrap">50.283,-81.966</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.8,-7.63333)">
+         <span style="white-space:nowrap">56.800,-7.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(57.2912,-7.27123)">
+         <span style="white-space:nowrap">57.291,-7.271</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.03916,-101.23767)">
+         <span style="white-space:nowrap">42.039,-101.238</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.66958,120.2182)">
+         <span style="white-space:nowrap">-33.670,120.218</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Wallace</th>
+       <td best="true">
+        <a onClick="goto(40.83834,-101.16488)">
+         <span style="white-space:nowrap">40.838,-101.165</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.08607,-97.47592)">
+         <span style="white-space:nowrap">45.086,-97.476</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.9114,-101.59156)">
+         <span style="white-space:nowrap">38.911,-101.592</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.55527,-94.84691)">
+         <span style="white-space:nowrap">39.555,-94.847</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.19409,-120.978)">
+         <span style="white-space:nowrap">38.194,-120.978</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.98643,-87.14834)">
+         <span style="white-space:nowrap">39.986,-87.148</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.40953,-80.48981)">
+         <span style="white-space:nowrap">39.410,-80.490</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.65289,-82.12791)">
+         <span style="white-space:nowrap">36.653,-82.128</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.74955,-80.86076)">
+         <span style="white-space:nowrap">43.750,-80.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.20962,-87.21831)">
+         <span style="white-space:nowrap">31.210,-87.218</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.67741,-87.17997)">
+         <span style="white-space:nowrap">30.677,-87.180</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.55,144.05)">
+         <span style="white-space:nowrap">-37.550,144.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.80015,-63.48199)">
+         <span style="white-space:nowrap">45.800,-63.482</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.73572,-77.99526)">
+         <span style="white-space:nowrap">34.736,-77.995</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.72016,-79.84145)">
+         <span style="white-space:nowrap">34.720,-79.841</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.04326,-90.66731)">
+         <span style="white-space:nowrap">30.043,-90.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.61677,-104.80109)">
+         <span style="white-space:nowrap">49.617,-104.801</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.9167,-101.17314)">
+         <span style="white-space:nowrap">49.917,-101.173</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-45.5,167.83333)">
+         <span style="white-space:nowrap">-45.500,167.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.7834,-80.91642)">
+         <span style="white-space:nowrap">43.783,-80.916</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

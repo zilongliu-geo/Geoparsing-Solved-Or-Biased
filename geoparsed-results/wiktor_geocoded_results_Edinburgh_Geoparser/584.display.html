@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span>, also known as "The City of the Crosses", is the county seat of Doña <span onClick="goto_name('Ana County')" class="loc">Ana County</span>, <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. As of the 2010 census the population was 97,618, and in 2014 the estimated population was 101,408, making it the second largest city in the state, after <span onClick="goto_name('Albuquerque')" class="loc">Albuquerque</span>. <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span> is the largest city in both Doña <span onClick="goto_name('Ana County')" class="loc">Ana County</span> and southern <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span>. The <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span> metropolitan area had an estimated population of 213,676 in 2014. It is the principal city of a metropolitan statistical area which encompasses all of Doña <span onClick="goto_name('Ana County')" class="loc">Ana County</span> and is part of the larger El Paso–Las <span onClick="goto_name('Cruces')" class="loc">Cruces</span> combined statistical area. <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span> is the economic and geographic center of the <span onClick="goto_name('Mesilla')" class="loc">Mesilla</span> Valley, the agricultural region on the floodplain of the <span onClick="goto_name('Rio Grande')" class="loc">Rio Grande</span> which extends from Hatch to the west side of <span onClick="goto_name('El Paso')" class="loc">El Paso</span>, <span onClick="goto_name('Texas')" class="loc">Texas</span>. <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span> is the home of New Mexico State University (NMSU), <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span>'s only land-grant university. The city's major employer is the federal government on nearby White Sands Test Facility and White Sands Missile Range. The <span onClick="goto_name('Organ Mountains')" class="loc">Organ Mountains</span>, 10 miles (16 km) to the east, are dominant in the city's landscape, along with the Doña <span onClick="goto_name('Ana')" class="loc">Ana</span> Mountains, <span onClick="goto_name('Robledo Mountains')" class="loc">Robledo Mountains</span>, and <span onClick="goto_name('Picacho Peak')" class="loc">Picacho Peak</span>. <span onClick="goto_name('Las Cruces')" class="loc">Las Cruces</span> lies 225 miles (362 km) south of <span onClick="goto_name('Albuquerque')" class="loc">Albuquerque</span>, 48 miles (77 km) northwest of <span onClick="goto_name('El Paso')" class="loc">El Paso</span>, <span onClick="goto_name('Texas')" class="loc">Texas</span>, and 46 miles (74 km) north of the Mexican border at <span onClick="goto_name('Santa Teresa')" class="loc">Santa Teresa</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Las Cruces</th>
+      </tr>
+      <tr>
+       <th>Ana County</th>
+      </tr>
+      <tr>
+       <th>New Mexico</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Albuquerque</th>
+      </tr>
+      <tr>
+       <th>Cruces</th>
+      </tr>
+      <tr>
+       <th>Mesilla</th>
+      </tr>
+      <tr>
+       <th>Rio Grande</th>
+      </tr>
+      <tr>
+       <th>El Paso</th>
+      </tr>
+      <tr>
+       <th>Texas</th>
+      </tr>
+      <tr>
+       <th>Organ Mountains</th>
+      </tr>
+      <tr>
+       <th>Ana</th>
+      </tr>
+      <tr>
+       <th>Robledo Mountains</th>
+      </tr>
+      <tr>
+       <th>Picacho Peak</th>
+      </tr>
+      <tr>
+       <th>Santa Teresa</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,903 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([30.73905,-95.57228], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([30.73905,-95.57228],
+			  {
+			      title: "Walker",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([34.73566,-85.30098],
+			  {
+			      title: "Walker",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([33.80333,-87.29736],
+			  {
+			      title: "Walker",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([30.72353,-95.55078],
+			  {
+			      title: "Huntsville",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([34.7304,-86.58594],
+			  {
+			      title: "Huntsville",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([36.4098,-84.49049],
+			  {
+			      title: "Huntsville",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([37.16338,-86.88166],
+			  {
+			      title: "Huntsville",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([36.08236,-80.5295],
+			  {
+			      title: "Huntsville",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([39.39145,-84.38355],
+			  {
+			      title: "Huntsville",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([39.53979,-82.76989],
+			  {
+			      title: "Huntsville",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([40.00865,-85.73025],
+			  {
+			      title: "Huntsville",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([40.07116,-85.07219],
+			  {
+			      title: "Huntsville",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([36.08619,-93.7413],
+			  {
+			      title: "Huntsville",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([40.44338,-83.80494],
+			  {
+			      title: "Huntsville",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([40.19116,-90.86458],
+			  {
+			      title: "Huntsville",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([38.05724,-98.3259],
+			  {
+			      title: "Huntsville",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([41.30647,-75.97437],
+			  {
+			      title: "Huntsville",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([40.98038,-74.77544],
+			  {
+			      title: "Huntsville",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([41.94482,-73.31262],
+			  {
+			      title: "Huntsville",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([41.96399,-71.71257],
+			  {
+			      title: "Huntsville",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([44.69977,-72.98403],
+			  {
+			      title: "Huntsville",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([41.26077,-111.76994],
+			  {
+			      title: "Huntsville",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([46.28708,-118.10717],
+			  {
+			      title: "Huntsville",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Huntsville city"] = marker;
+  
+    var marker = L.marker([30.72353,-95.55078],
+			  {
+			      title: "Huntsville",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([34.7304,-86.58594],
+			  {
+			      title: "Huntsville",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([36.4098,-84.49049],
+			  {
+			      title: "Huntsville",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([37.16338,-86.88166],
+			  {
+			      title: "Huntsville",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([36.08236,-80.5295],
+			  {
+			      title: "Huntsville",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([39.39145,-84.38355],
+			  {
+			      title: "Huntsville",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([39.53979,-82.76989],
+			  {
+			      title: "Huntsville",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([40.00865,-85.73025],
+			  {
+			      title: "Huntsville",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([40.07116,-85.07219],
+			  {
+			      title: "Huntsville",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([36.08619,-93.7413],
+			  {
+			      title: "Huntsville",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([40.44338,-83.80494],
+			  {
+			      title: "Huntsville",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([40.19116,-90.86458],
+			  {
+			      title: "Huntsville",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([38.05724,-98.3259],
+			  {
+			      title: "Huntsville",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([41.30647,-75.97437],
+			  {
+			      title: "Huntsville",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([40.98038,-74.77544],
+			  {
+			      title: "Huntsville",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([41.94482,-73.31262],
+			  {
+			      title: "Huntsville",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([41.96399,-71.71257],
+			  {
+			      title: "Huntsville",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([44.69977,-72.98403],
+			  {
+			      title: "Huntsville",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([41.26077,-111.76994],
+			  {
+			      title: "Huntsville",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+    var marker = L.marker([46.28708,-118.10717],
+			  {
+			      title: "Huntsville",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Huntsville"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>County lifts burn ban. The burn ban issued for <span onClick="goto_name('Walker County')" class="loc">Walker County</span> on Jan. 18 was lifted Monday following a conference between Huntsville Fire Chief Tom Grisham and <span onClick="goto_name('Walker County')" class="loc">Walker County</span> Judge Danny Pierce. With the discontinuation of the burn ban, all <span onClick="goto_name('Walker County')" class="loc">Walker County</span> residents will now be allowed to conduct outdoor burns. Those residents living within <span onClick="goto_name('Huntsville city')" class="loc">Huntsville city</span> limits, however, will be required to obtain an updated burning permit from the fire department. “Grisham and Pierce met today and lifted the burn ban on county, so anybody in the county is allowed to burn,” said Jason January with the Huntsville Fire Department. “On the 14-day outlook, it shows us being out of immediate fire danger, and while different parts of the county have received different amounts of rain, we’ve dropped an average of two hazard classes as an entire county.” Residents of <span onClick="goto_name('Huntsville')" class="loc">Huntsville</span> will be able to pick up a burning permit — which is mandatory for city residents who plan to burn — at either of the city’s fire stations, January said. “While the burn ban has been lifted, people who live in the city will still need to come by Huntsville Fire Station 1 or 2 to obtain a new burning permit,” he said. “This is necessary because all burning permits expire once a burn ban has been enacted.” January said the burning permits, which are free to the public, will allow the permit holders to burn for 60 days. While the permits will negate any legal concerns for residents, January said the community is still encouraged to keep in contact with the local fire department to stay aware of any future burn bans. “Even though we received some rain over the last week, we can’t predict conditions for the area in the next few weeks,” he said. “Based on how much rain we receive in the next few weeks, the burn ban could go back into effect.” According to January, 190 of approximately 250 counties in the state are still under burn bans, but the change in soil saturation seen in <span onClick="goto_name('Walker County')" class="loc">Walker County</span> has allowed the local ban to be lifted. “Though we have lifted our burn ban for the time being, we still want to make sure everybody is being really careful,” he said. “We’re thankful we’re able to do this now, primarily because it allows us to clear out a lot of debris, trash and wood that has piled up since January. “Still, we want people to exercise caution as we’re probably going to have some controlled burns get out of control, even with this amount of rain.” <span onClick="goto_name('Walker County')" class="loc">Walker County</span> residents are also asked to be considerate of their neighbors while burning, as certain items to be burned may produce high amounts of smoke. “We have a definite concern with the amount of wetness in things that might be burned,” January said. “Things like sticks, brush and leaves are all wet right now, and when people try to light those things on fire, they’re going to create a lot of smoke. “We just want everyone to think about their neighbors whenever they’re burning.”</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Walker County</th>
+       <td best="true">
+        <a onClick="goto(30.73905,-95.57228)">
+         <span style="white-space:nowrap">30.739,-95.572</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.73566,-85.30098)">
+         <span style="white-space:nowrap">34.736,-85.301</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.80333,-87.29736)">
+         <span style="white-space:nowrap">33.803,-87.297</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Huntsville city</th>
+       <td best="true">
+        <a onClick="goto(30.72353,-95.55078)">
+         <span style="white-space:nowrap">30.724,-95.551</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.7304,-86.58594)">
+         <span style="white-space:nowrap">34.730,-86.586</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.4098,-84.49049)">
+         <span style="white-space:nowrap">36.410,-84.490</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.16338,-86.88166)">
+         <span style="white-space:nowrap">37.163,-86.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.08236,-80.5295)">
+         <span style="white-space:nowrap">36.082,-80.529</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.39145,-84.38355)">
+         <span style="white-space:nowrap">39.391,-84.384</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.53979,-82.76989)">
+         <span style="white-space:nowrap">39.540,-82.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.00865,-85.73025)">
+         <span style="white-space:nowrap">40.009,-85.730</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.07116,-85.07219)">
+         <span style="white-space:nowrap">40.071,-85.072</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.08619,-93.7413)">
+         <span style="white-space:nowrap">36.086,-93.741</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.44338,-83.80494)">
+         <span style="white-space:nowrap">40.443,-83.805</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.19116,-90.86458)">
+         <span style="white-space:nowrap">40.191,-90.865</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.05724,-98.3259)">
+         <span style="white-space:nowrap">38.057,-98.326</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.30647,-75.97437)">
+         <span style="white-space:nowrap">41.306,-75.974</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.98038,-74.77544)">
+         <span style="white-space:nowrap">40.980,-74.775</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.94482,-73.31262)">
+         <span style="white-space:nowrap">41.945,-73.313</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.96399,-71.71257)">
+         <span style="white-space:nowrap">41.964,-71.713</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.69977,-72.98403)">
+         <span style="white-space:nowrap">44.700,-72.984</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.26077,-111.76994)">
+         <span style="white-space:nowrap">41.261,-111.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.28708,-118.10717)">
+         <span style="white-space:nowrap">46.287,-118.107</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Huntsville</th>
+       <td best="true">
+        <a onClick="goto(30.72353,-95.55078)">
+         <span style="white-space:nowrap">30.724,-95.551</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.7304,-86.58594)">
+         <span style="white-space:nowrap">34.730,-86.586</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.4098,-84.49049)">
+         <span style="white-space:nowrap">36.410,-84.490</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.16338,-86.88166)">
+         <span style="white-space:nowrap">37.163,-86.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.08236,-80.5295)">
+         <span style="white-space:nowrap">36.082,-80.529</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.39145,-84.38355)">
+         <span style="white-space:nowrap">39.391,-84.384</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.53979,-82.76989)">
+         <span style="white-space:nowrap">39.540,-82.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.00865,-85.73025)">
+         <span style="white-space:nowrap">40.009,-85.730</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.07116,-85.07219)">
+         <span style="white-space:nowrap">40.071,-85.072</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.08619,-93.7413)">
+         <span style="white-space:nowrap">36.086,-93.741</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.44338,-83.80494)">
+         <span style="white-space:nowrap">40.443,-83.805</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.19116,-90.86458)">
+         <span style="white-space:nowrap">40.191,-90.865</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.05724,-98.3259)">
+         <span style="white-space:nowrap">38.057,-98.326</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.30647,-75.97437)">
+         <span style="white-space:nowrap">41.306,-75.974</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.98038,-74.77544)">
+         <span style="white-space:nowrap">40.980,-74.775</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.94482,-73.31262)">
+         <span style="white-space:nowrap">41.945,-73.313</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.96399,-71.71257)">
+         <span style="white-space:nowrap">41.964,-71.713</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.69977,-72.98403)">
+         <span style="white-space:nowrap">44.700,-72.984</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.26077,-111.76994)">
+         <span style="white-space:nowrap">41.261,-111.770</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.28708,-118.10717)">
+         <span style="white-space:nowrap">46.287,-118.107</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

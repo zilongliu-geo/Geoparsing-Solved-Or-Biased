@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>An eight year study, published in scientific journal Nature, claims the HIV-1 virus that leads to AIDS could have infected humans around 1908 in <span onClick="goto_name('Africa')" class="loc">Africa</span>. Scientists found traces of the HIV-1 genome collected in 1960 from a woman who lived in Léopoldville, presently called <span onClick="goto_name('Kinshasa')" class="loc">Kinshasa</span>, the capital of the <span onClick="goto_name('Democratic Republic of the Congo')" class="loc">Democratic Republic of the Congo</span>. An earlier study had also isolated the virus from a 1959 blood sample of a male from Léopoldville. Study of both the samples and estimate of the rate at which the virus mutates over time has led the researchers to conclude that the human strain could have been around for 100 years. The study, co-sponsored by the National Institute of Allergy and Infectious Diseases (NIAID), part of the U.S. National Institutes of Health, was carried out by Michael Worobey of the University of Arizona in Tucson, Arizona and colleagues from the <span onClick="goto_name('United States')" class="loc">United States</span>, <span onClick="goto_name('France')" class="loc">France</span>, <span onClick="goto_name('Belgium')" class="loc">Belgium</span>, <span onClick="goto_name('Australia')" class="loc">Australia</span>, <span onClick="goto_name('Democratic Republic of the Congo')" class="loc">Democratic Republic of the Congo</span> and <span onClick="goto_name('Denmark')" class="loc">Denmark</span>. Earlier estimates of this nature had indicated the first infection in humans occurred between 1915 and 1941. The present study pushes the date of the infection back to sometime between 1884 and 1924, with a more focused estimate at 1908. Earlier studies have suggested that HIV-1 virus was spread from chimpanzees to humans in <span onClick="goto_name('Cameroon')" class="loc">Cameroon</span>. "Now, for the first time, we have been able to compare two relatively ancient HIV strains. That helped us to calibrate how quickly the virus evolved and make some really robust inferences about when it crossed into humans, how the epidemic grew from that time, and what factors allowed the virus to enter and become a successful human pathogen," Dr. Worobey said. "HIV is one of these pathogens that you could almost think of as living on the edge of extinction," Worobey continued. He believes that had HIV not been carried to a city, it may not have survived the jump to humans. "It means there are things we could do to actually make it so that it doesn't have a chance of spreading," Worobey said. The first human infection could have happened around the time when the colonial cities were established in <span onClick="goto_name('Africa')" class="loc">Africa</span>. Rapid urbanization in colonial <span onClick="goto_name('Africa')" class="loc">Africa</span> around the beginning of the twentieth century may be responsible for the spread of the AIDS pandemic. It is estimated that several thousand people were infected by the 1960s. Today, HIV infection is reported in 33 million people and has killed 25 million. Researchers opine that an understanding of the origin and pathways for human infection of the virus could help in developing a vaccine to fight it.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Africa</th>
+      </tr>
+      <tr>
+       <th>Kinshasa</th>
+      </tr>
+      <tr>
+       <th>Democratic Republic of the Congo</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>France</th>
+      </tr>
+      <tr>
+       <th>Belgium</th>
+      </tr>
+      <tr>
+       <th>Australia</th>
+      </tr>
+      <tr>
+       <th>Denmark</th>
+      </tr>
+      <tr>
+       <th>Cameroon</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

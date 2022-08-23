@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Diu')" class="loc">Diu</span> is a town in <span onClick="goto_name('Diu district')" class="loc">Diu district</span> in the union territory of <span onClick="goto_name('Daman')" class="loc">Daman</span> and <span onClick="goto_name('Diu')" class="loc">Diu</span>, <span onClick="goto_name('India')" class="loc">India</span>. The town of <span onClick="goto_name('Diu')" class="loc">Diu</span> lies at the eastern end of <span onClick="goto_name('Diu Island')" class="loc">Diu Island</span>, and is known for its fortress and old Portuguese Cathedral. It is also a fishing town. It is the tenth least populated <span onClick="goto_name('district of India')" class="loc">district of India</span>. <span onClick="goto_name('Diu')" class="loc">Diu</span> has been selected as one of the hundred Indian cities to be developed as a smart city under PM Narendra Modi's flagship Smart Cities Mission. The town and district were historically part of the <span onClick="goto_name('Saurashtra region')" class="loc">Saurashtra region</span> of <span onClick="goto_name('Gujarat')" class="loc">Gujarat</span> and an important port on trade routes of Arabian sea of <span onClick="goto_name('Indian Ocean')" class="loc">Indian Ocean</span>. Due to its strategic importance, there was a Battle of <span onClick="goto_name('Diu')" class="loc">Diu</span> in 1509 between <span onClick="goto_name('Portugal')" class="loc">Portugal</span> and a combined force of <span onClick="goto_name('Turkey')" class="loc">Turkey</span>, <span onClick="goto_name('Egypt')" class="loc">Egypt</span>, <span onClick="goto_name('Venice')" class="loc">Venice</span>, the Republic of <span onClick="goto_name('Ragusa')" class="loc">Ragusa</span> (now known as <span onClick="goto_name('Dubrovnik')" class="loc">Dubrovnik</span>) and the Sultan of <span onClick="goto_name('Gujarat')" class="loc">Gujarat</span>, Mahmud Begada. In 1513, the Portuguese tried to establish an outpost there, but negotiations were unsuccessful. There were failed attempts by <span onClick="goto_name('Diogo Lopes')" class="loc">Diogo Lopes</span> de <span onClick="goto_name('Sequeira')" class="loc">Sequeira</span> in 1521, Nuno da Cunha in 1523. In 1531 the conquest attempted by D. Nuno da Cunha was also not successful.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Diu</th>
+      </tr>
+      <tr>
+       <th>Diu district</th>
+      </tr>
+      <tr>
+       <th>Daman</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Diu Island</th>
+      </tr>
+      <tr>
+       <th>district of India</th>
+      </tr>
+      <tr>
+       <th>Saurashtra region</th>
+      </tr>
+      <tr>
+       <th>Gujarat</th>
+      </tr>
+      <tr>
+       <th>Indian Ocean</th>
+      </tr>
+      <tr>
+       <th>Portugal</th>
+      </tr>
+      <tr>
+       <th>Turkey</th>
+      </tr>
+      <tr>
+       <th>Egypt</th>
+      </tr>
+      <tr>
+       <th>Venice</th>
+      </tr>
+      <tr>
+       <th>Ragusa</th>
+      </tr>
+      <tr>
+       <th>Dubrovnik</th>
+      </tr>
+      <tr>
+       <th>Diogo Lopes</th>
+      </tr>
+      <tr>
+       <th>Sequeira</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

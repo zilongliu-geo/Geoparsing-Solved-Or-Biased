@@ -1,0 +1,1034 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([38.53881,-118.43521], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([38.53881,-118.43521],
+			  {
+			      title: "Mineral",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Mineral County"] = marker;
+  
+    var marker = L.marker([37.669,-106.92409],
+			  {
+			      title: "Mineral",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Mineral County"] = marker;
+  
+    var marker = L.marker([39.41472,-78.94375],
+			  {
+			      title: "Mineral",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Mineral County"] = marker;
+  
+    var marker = L.marker([47.14732,-114.9985],
+			  {
+			      title: "Mineral",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Mineral County"] = marker;
+  
+    var marker = L.marker([39.25021,-116.75119],
+			  {
+			      title: "Nevada",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([33.04234,-96.37387],
+			  {
+			      title: "Nevada",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([37.83921,-94.35467],
+			  {
+			      title: "Nevada",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([14.33333,-87.06667],
+			  {
+			      title: "Nevada",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([7.20729,-75.61003],
+			  {
+			      title: "Nevada",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([6.1723,-75.53184],
+			  {
+			      title: "Nevada",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([40.81922,-83.13047],
+			  {
+			      title: "Nevada",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([40.39532,-86.00415],
+			  {
+			      title: "Nevada",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([42.02277,-93.45243],
+			  {
+			      title: "Nevada",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([25.716,-98.38813],
+			  {
+			      title: "Nevada",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([21.34055,74.77699],
+			  {
+			      title: "Nevāda",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([37.69646,-84.90968],
+			  {
+			      title: "Nevada",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([32.52403,-90.46815],
+			  {
+			      title: "Nevada",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([43.21733,21.18024],
+			  {
+			      title: "Nevada",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([20.96667,-103.88333],
+			  {
+			      title: "Nevada",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([42.74471,18.12878],
+			  {
+			      title: "Nevada",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([41.08587,-88.55145],
+			  {
+			      title: "Nevada",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([39.30137,-120.76875],
+			  {
+			      title: "Nevada",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([33.66397,-93.30714],
+			  {
+			      title: "Nevada",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([37.04074,-3.02718],
+			  {
+			      title: "Nevada",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Nevada"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([14.95,-91.21667],
+			  {
+			      title: "Us",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([16.09233,-16.37397],
+			  {
+			      title: "Us",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-2.71024,132.16831],
+			  {
+			      title: "Us",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([52.08695,92.48051],
+			  {
+			      title: "Us",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([42.95,17.13333],
+			  {
+			      title: "Uvala Luka",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([63.43997,48.68396],
+			  {
+			      title: "Us",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.7,18.71667],
+			  {
+			      title: "Us",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([49.1,1.96667],
+			  {
+			      title: "Us",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([62.49536,11.22807],
+			  {
+			      title: "Os",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([-27.38333,18.65],
+			  {
+			      title: "Us",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["U.S."] = marker;
+  
+    var marker = L.marker([31.44065,-109.9148],
+			  {
+			      title: "Copper Queen",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Copper Queen"] = marker;
+  
+    var marker = L.marker([-17.51667,29.33333],
+			  {
+			      title: "Copper Queen",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Copper Queen"] = marker;
+  
+    var marker = L.marker([-0.0654,14.49959],
+			  {
+			      title: "Kellé",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([24.7046,107.528],
+			  {
+			      title: "Ke’e",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([42.12509,-72.74954],
+			  {
+			      title: "Westfield",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([37.13909,111.50357],
+			  {
+			      title: "Ke’e",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([-1.72331,37.34356],
+			  {
+			      title: "Kee",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([-9.7327,124.7264],
+			  {
+			      title: "Kee",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([3.25627,32.80185],
+			  {
+			      title: "Kee",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([24.00444,86.75251],
+			  {
+			      title: "Kaseetar",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([-0.07042,14.50526],
+			  {
+			      title: "Kelle Airport",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Kee"] = marker;
+  
+    var marker = L.marker([35.77442,-115.3136],
+			  {
+			      title: "Nevada State Prison",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Nevada State Prison"] = marker;
+  
+    var marker = L.marker([39.16019,-119.7374],
+			  {
+			      title: "Nevada State Maximum Security Prison",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Nevada State Prison"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Mina is a census-designated place in <span onClick="goto_name('Mineral County')" class="loc">Mineral County</span> in west-central <span onClick="goto_name('Nevada')" class="loc">Nevada</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. It is located along <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Route 95 (38° 23' 25" N 118° 06' 30" W) at an elevation of 4,560 feet (1,390 m). The 2010 population was 155. Mina was founded as a railroad town in 1905 and was named for Ferminia Sarras, a large landowner and famed prospector known as the '<span onClick="goto_name('Copper Queen')" class="loc">Copper Queen</span>.' The <span onClick="goto_name('Nevada')" class="loc">Nevada</span> &amp; California Railway, a division of Southern Pacific Railroad, had a station in the town. The railroad is long gone, but at one time a local shuttle called the "Slim Princess" allowed native Americans to ride for free on top of the railcars, and passengers and crew would shoot wild game such as jack rabbits, ducks and sage hens from the open windows. The train moved slow enough that hunters had time to retrieve their game and hop back on board. Gee Jon and Hughie Sing were convicted of the August 27, 1921, Mina, <span onClick="goto_name('Nevada')" class="loc">Nevada</span> murder of Tom Quong <span onClick="goto_name('Kee')" class="loc">Kee</span> and, as a result, Gee Jon, a 29-year-old member of the Hop Sing Tong, became the first person in the world executed by lethal gas. The execution was at the <span onClick="goto_name('Nevada State Prison')" class="loc">Nevada State Prison</span> on February 8, 1924.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Mineral County</th>
+       <td best="true">
+        <a onClick="goto(38.53881,-118.43521)">
+         <span style="white-space:nowrap">38.539,-118.435</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.669,-106.92409)">
+         <span style="white-space:nowrap">37.669,-106.924</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.41472,-78.94375)">
+         <span style="white-space:nowrap">39.415,-78.944</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.14732,-114.9985)">
+         <span style="white-space:nowrap">47.147,-114.999</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Nevada</th>
+       <td best="true">
+        <a onClick="goto(39.25021,-116.75119)">
+         <span style="white-space:nowrap">39.250,-116.751</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.04234,-96.37387)">
+         <span style="white-space:nowrap">33.042,-96.374</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.83921,-94.35467)">
+         <span style="white-space:nowrap">37.839,-94.355</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.33333,-87.06667)">
+         <span style="white-space:nowrap">14.333,-87.067</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.20729,-75.61003)">
+         <span style="white-space:nowrap">7.207,-75.610</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.1723,-75.53184)">
+         <span style="white-space:nowrap">6.172,-75.532</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.81922,-83.13047)">
+         <span style="white-space:nowrap">40.819,-83.130</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.39532,-86.00415)">
+         <span style="white-space:nowrap">40.395,-86.004</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.02277,-93.45243)">
+         <span style="white-space:nowrap">42.023,-93.452</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.716,-98.38813)">
+         <span style="white-space:nowrap">25.716,-98.388</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(21.34055,74.77699)">
+         <span style="white-space:nowrap">21.341,74.777</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.69646,-84.90968)">
+         <span style="white-space:nowrap">37.696,-84.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.52403,-90.46815)">
+         <span style="white-space:nowrap">32.524,-90.468</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.21733,21.18024)">
+         <span style="white-space:nowrap">43.217,21.180</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.96667,-103.88333)">
+         <span style="white-space:nowrap">20.967,-103.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.74471,18.12878)">
+         <span style="white-space:nowrap">42.745,18.129</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.08587,-88.55145)">
+         <span style="white-space:nowrap">41.086,-88.551</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.30137,-120.76875)">
+         <span style="white-space:nowrap">39.301,-120.769</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.66397,-93.30714)">
+         <span style="white-space:nowrap">33.664,-93.307</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.04074,-3.02718)">
+         <span style="white-space:nowrap">37.041,-3.027</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.95,-91.21667)">
+         <span style="white-space:nowrap">14.950,-91.217</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.09233,-16.37397)">
+         <span style="white-space:nowrap">16.092,-16.374</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.71024,132.16831)">
+         <span style="white-space:nowrap">-2.710,132.168</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.08695,92.48051)">
+         <span style="white-space:nowrap">52.087,92.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.95,17.13333)">
+         <span style="white-space:nowrap">42.950,17.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.43997,48.68396)">
+         <span style="white-space:nowrap">63.440,48.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.7,18.71667)">
+         <span style="white-space:nowrap">-27.700,18.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.1,1.96667)">
+         <span style="white-space:nowrap">49.100,1.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(62.49536,11.22807)">
+         <span style="white-space:nowrap">62.495,11.228</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.38333,18.65)">
+         <span style="white-space:nowrap">-27.383,18.650</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Copper Queen</th>
+       <td best="true">
+        <a onClick="goto(31.44065,-109.9148)">
+         <span style="white-space:nowrap">31.441,-109.915</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.51667,29.33333)">
+         <span style="white-space:nowrap">-17.517,29.333</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kee</th>
+       <td best="true">
+        <a onClick="goto(-0.0654,14.49959)">
+         <span style="white-space:nowrap">-0.065,14.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.7046,107.528)">
+         <span style="white-space:nowrap">24.705,107.528</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.12509,-72.74954)">
+         <span style="white-space:nowrap">42.125,-72.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.13909,111.50357)">
+         <span style="white-space:nowrap">37.139,111.504</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-1.72331,37.34356)">
+         <span style="white-space:nowrap">-1.723,37.344</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-9.7327,124.7264)">
+         <span style="white-space:nowrap">-9.733,124.726</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(3.25627,32.80185)">
+         <span style="white-space:nowrap">3.256,32.802</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.00444,86.75251)">
+         <span style="white-space:nowrap">24.004,86.753</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-0.07042,14.50526)">
+         <span style="white-space:nowrap">-0.070,14.505</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Nevada State Prison</th>
+       <td best="true">
+        <a onClick="goto(35.77442,-115.3136)">
+         <span style="white-space:nowrap">35.774,-115.314</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.16019,-119.7374)">
+         <span style="white-space:nowrap">39.160,-119.737</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

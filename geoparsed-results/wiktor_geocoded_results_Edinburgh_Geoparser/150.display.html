@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('San Juan')" class="loc">San Juan</span> is a first class municipality on the <span onClick="goto_name('Philippines')" class="loc">Philippines</span> in the <span onClick="goto_name('province of Batangas')" class="loc">province of Batangas</span>. It is 43 kilometres (27 mi) east of <span onClick="goto_name('Batangas City')" class="loc">Batangas City</span>, also the same distance south-west of <span onClick="goto_name('Lucena City')" class="loc">Lucena City</span>, the capital of <span onClick="goto_name('Quezon Province')" class="loc">Quezon Province</span>, and 115 kilometres (71 mi) south of Manila. According to the 2010 census, it has a population of 94,291. Considered today as the second largest municipality (land area) in <span onClick="goto_name('Batangas')" class="loc">Batangas</span>, <span onClick="goto_name('San Juan')" class="loc">San Juan</span> is located at the easternmost part of <span onClick="goto_name('Batangas province')" class="loc">Batangas province</span>. North of <span onClick="goto_name('San Juan')" class="loc">San Juan</span> is the neighboring town of <span onClick="goto_name('Candelaria')" class="loc">Candelaria</span>, <span onClick="goto_name('Quezon')" class="loc">Quezon</span>, with <span onClick="goto_name('Malaking River')" class="loc">Malaking River</span> defining its geographical boundary. <span onClick="goto_name('Tayabas Bay')" class="loc">Tayabas Bay</span> lies east and the hills on the eastern portion separate it from the towns of <span onClick="goto_name('Lobo')" class="loc">Lobo</span> and <span onClick="goto_name('Rosario')" class="loc">Rosario</span>. Located at the south-eastern tip of the <span onClick="goto_name('province of Batangas')" class="loc">province of Batangas</span>, <span onClick="goto_name('San Juan')" class="loc">San Juan</span> is approximately 120 kilometers from <span onClick="goto_name('Metro Manila')" class="loc">Metro Manila</span> and 43 kilometers from the provincial capital of <span onClick="goto_name('Batangas City')" class="loc">Batangas City</span>. It is accessible by land transportation from <span onClick="goto_name('National Roads')" class="loc">National Roads</span> coming from the West (through <span onClick="goto_name('Lipa City')" class="loc">Lipa City</span> and the town of <span onClick="goto_name('Rosario')" class="loc">Rosario</span>), and from the East (through the <span onClick="goto_name('Quezon')" class="loc">Quezon</span> route). <span onClick="goto_name('San Juan')" class="loc">San Juan</span> is bounded on the North by the <span onClick="goto_name('Quezon')" class="loc">Quezon</span> towns of <span onClick="goto_name('Candelaria')" class="loc">Candelaria</span> and <span onClick="goto_name('Tiaong')" class="loc">Tiaong</span> with the <span onClick="goto_name('Malaking Ilog')" class="loc">Malaking Ilog</span> river defining the geographical boundary between <span onClick="goto_name('Batangas')" class="loc">Batangas</span> and <span onClick="goto_name('Quezon')" class="loc">Quezon</span>; on the South by the <span onClick="goto_name('Verde Island Passage')" class="loc">Verde Island Passage</span>; on the East by the <span onClick="goto_name('Quezon')" class="loc">Quezon</span> town of <span onClick="goto_name('Sariaya')" class="loc">Sariaya</span> and by <span onClick="goto_name('Tayabas Bay')" class="loc">Tayabas Bay</span>; and on the West by the mountain ranges of the <span onClick="goto_name('Batangas')" class="loc">Batangas</span> towns of <span onClick="goto_name('Rosario')" class="loc">Rosario</span> and <span onClick="goto_name('Lobo')" class="loc">Lobo</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>San Juan</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>province of Batangas</th>
+      </tr>
+      <tr>
+       <th>Batangas City</th>
+      </tr>
+      <tr>
+       <th>Lucena City</th>
+      </tr>
+      <tr>
+       <th>Quezon Province</th>
+      </tr>
+      <tr>
+       <th>Batangas</th>
+      </tr>
+      <tr>
+       <th>Batangas province</th>
+      </tr>
+      <tr>
+       <th>Candelaria</th>
+      </tr>
+      <tr>
+       <th>Quezon</th>
+      </tr>
+      <tr>
+       <th>Malaking River</th>
+      </tr>
+      <tr>
+       <th>Tayabas Bay</th>
+      </tr>
+      <tr>
+       <th>Lobo</th>
+      </tr>
+      <tr>
+       <th>Rosario</th>
+      </tr>
+      <tr>
+       <th>Metro Manila</th>
+      </tr>
+      <tr>
+       <th>National Roads</th>
+      </tr>
+      <tr>
+       <th>Lipa City</th>
+      </tr>
+      <tr>
+       <th>Tiaong</th>
+      </tr>
+      <tr>
+       <th>Malaking Ilog</th>
+      </tr>
+      <tr>
+       <th>Verde Island Passage</th>
+      </tr>
+      <tr>
+       <th>Sariaya</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

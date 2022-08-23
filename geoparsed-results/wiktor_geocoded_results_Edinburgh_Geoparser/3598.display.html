@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>George Town (Chinese: 乔治市; pinyin: Qiáozhì Shì, <span onClick="goto_name('Tamil')" class="loc">Tamil</span>: ஜோர்ஜ் டவுன்) is the capital city of the Malaysian state of Penang, located on the north-east corner of the island. It had an estimated population of 500,000 as of 2010. The metropolitan area (which consists of <span onClick="goto_name('Jelutong')" class="loc">Jelutong</span>, <span onClick="goto_name('Sungai Pinang')" class="loc">Sungai Pinang</span>, <span onClick="goto_name('Sungai Nibong')" class="loc">Sungai Nibong</span>, Gelugor, <span onClick="goto_name('Air Itam')" class="loc">Air Itam</span>, Tanjung Bungah and <span onClick="goto_name('Tanjung Tokong')" class="loc">Tanjung Tokong</span>) has a population of 2.5 million, which makes it the second largest metropolitan area and the biggest northern metropolis in <span onClick="goto_name('Malaysia')" class="loc">Malaysia</span>. Excluding the metropolitan area, the area of George Town is the seventh largest city by population in <span onClick="goto_name('Malaysia')" class="loc">Malaysia</span>. Together with <span onClick="goto_name('Alor')" class="loc">Alor</span> Setar and Malacca City, it is one of the Malaysian oldest cities in the <span onClick="goto_name('Straits of Malacca')" class="loc">Straits of Malacca</span> since its foundation by Francis Light, who was a captain and trader for the British <span onClick="goto_name('East India')" class="loc">East India</span> Company (EIC) after being instructed by his company, Jourdain Sullivan and de <span onClick="goto_name('Souza')" class="loc">Souza</span> to establish presence in the <span onClick="goto_name('Malay Archipelago')" class="loc">Malay Archipelago</span>. Light gained control of <span onClick="goto_name('Penang Island')" class="loc">Penang Island</span> through a treaty negotiated with the Sultan of <span onClick="goto_name('Kedah')" class="loc">Kedah</span>, although in the early stages of negotiation the Sultan refused to cede the island. The <span onClick="goto_name('Fort Cornwallis')" class="loc">Fort Cornwallis</span> was then established and he was successful in increasing the island import values and settlement population especially with the free trade policy the British used at the time. The Sultan of <span onClick="goto_name('Kedah')" class="loc">Kedah</span> tried to regain control of the area when he saw the British had failed to provide protection to them as promised earlier in the treaty they had signed when the Sultan was attacked by the Siamese, the plan was however ended with a failure when Light implemented night raids on the Sultan's fortress. Prior to its successful trading post, many Chinese traders began to settle in the town as well to other areas in <span onClick="goto_name('Penang Island')" class="loc">Penang Island</span> to participate in agriculture and to manage plantations. This was continued under the administration of Straits Settlements with the migration of more Chinese together with Indian workers prior to the Industrial Revolution in <span onClick="goto_name('Britain')" class="loc">Britain</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Tamil</th>
+      </tr>
+      <tr>
+       <th>Jelutong</th>
+      </tr>
+      <tr>
+       <th>Sungai Pinang</th>
+      </tr>
+      <tr>
+       <th>Sungai Nibong</th>
+      </tr>
+      <tr>
+       <th>Air Itam</th>
+      </tr>
+      <tr>
+       <th>Tanjung Tokong</th>
+      </tr>
+      <tr>
+       <th>Malaysia</th>
+      </tr>
+      <tr>
+       <th>Alor</th>
+      </tr>
+      <tr>
+       <th>Straits of Malacca</th>
+      </tr>
+      <tr>
+       <th>East India</th>
+      </tr>
+      <tr>
+       <th>Souza</th>
+      </tr>
+      <tr>
+       <th>Malay Archipelago</th>
+      </tr>
+      <tr>
+       <th>Penang Island</th>
+      </tr>
+      <tr>
+       <th>Kedah</th>
+      </tr>
+      <tr>
+       <th>Fort Cornwallis</th>
+      </tr>
+      <tr>
+       <th>Britain</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

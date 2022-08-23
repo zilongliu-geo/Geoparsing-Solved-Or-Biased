@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Oakland')" class="loc">Oakland</span> is one of five primary historic neighborhoods of the <span onClick="goto_name('city of Taunton')" class="loc">city of Taunton</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. Although these neighborhoods are not census-designated areas, they are municipally designated populated regions of the city. <span onClick="goto_name('Oakland')" class="loc">Oakland</span> Village is located in the northwestern section of the <span onClick="goto_name('City of Taunton')" class="loc">City of Taunton</span>. The village center is located at the intersection of <span onClick="goto_name('Tremont Street')" class="loc">Tremont Street</span>, <span onClick="goto_name('Worcester Street')" class="loc">Worcester Street</span> and North Walker Street. The <span onClick="goto_name('Oakland')" class="loc">Oakland</span> neighborhood is bordered on the east by the neighborhood of <span onClick="goto_name('North Taunton')" class="loc">North Taunton</span> and Whittenton and the <span onClick="goto_name('Oakland')" class="loc">Oakland</span> neighborhood is bordered on the west by the neighborhood of <span onClick="goto_name('Westville')" class="loc">Westville</span>. The <span onClick="goto_name('Oakland')" class="loc">Oakland</span> neighborhood is bordered on the north west by the communities of <span onClick="goto_name('Norton')" class="loc">Norton</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. The main roadway through the neighborhood of <span onClick="goto_name('Oakland')" class="loc">Oakland</span> is tremont Street which was formally called the Bristol Path. The road was a major stage route to what is today <span onClick="goto_name('Bristol')" class="loc">Bristol</span> <span onClick="goto_name('Rhode Island')" class="loc">Rhode Island</span>. Also, <span onClick="goto_name('Worcester')" class="loc">Worcester</span> Street was the major stagecoach route to the towwn of <span onClick="goto_name('Worcester')" class="loc">Worcester</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. The original schoolhouse in <span onClick="goto_name('Oakland')" class="loc">Oakland</span> still exists at # 4 north Walker Street. The former schoolhouse was later used as a firehouse and is today used by the Lion's Club. The second Oakland School closed in 1954 and is currently an apartment house. The <span onClick="goto_name('Oakland')" class="loc">Oakland</span> Cemetery is located on Glebe Street. Other cemeteries include the St Francis Catholic Cemetery is located on Glebe Street as is the Mt Nebo Jewish Cemetery. Th old St Thomas Church Cemetery is located on <span onClick="goto_name('Tremont')" class="loc">Tremont</span> Street opposite <span onClick="goto_name('Tremont')" class="loc">Tremont</span> Avenue. other cemeteries include the Woodward cemetery in Mello Drive; the Knapp Cemetery on Segregansett Road; the Willis Cemetery on <span onClick="goto_name('Worcester')" class="loc">Worcester</span> Street; the <span onClick="goto_name('Quaker')" class="loc">Quaker</span> <span onClick="goto_name('Burying Ground')" class="loc">Burying Ground</span> on South Crane Ave; the Bassett Cemetery on South Crane Ave; the thayer Family Cemetery on South Crane Avenue; the Lincoln Cemetery on Davis Street; the Peddy Knapp Cemetery on Burt Street; the Walker Cemetery on Laneway Farm Road.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Oakland</th>
+      </tr>
+      <tr>
+       <th>city of Taunton</th>
+      </tr>
+      <tr>
+       <th>Massachusetts</th>
+      </tr>
+      <tr>
+       <th>City of Taunton</th>
+      </tr>
+      <tr>
+       <th>Tremont Street</th>
+      </tr>
+      <tr>
+       <th>Worcester Street</th>
+      </tr>
+      <tr>
+       <th>North Taunton</th>
+      </tr>
+      <tr>
+       <th>Westville</th>
+      </tr>
+      <tr>
+       <th>Norton</th>
+      </tr>
+      <tr>
+       <th>Bristol</th>
+      </tr>
+      <tr>
+       <th>Rhode Island</th>
+      </tr>
+      <tr>
+       <th>Worcester</th>
+      </tr>
+      <tr>
+       <th>Tremont</th>
+      </tr>
+      <tr>
+       <th>Quaker</th>
+      </tr>
+      <tr>
+       <th>Burying Ground</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

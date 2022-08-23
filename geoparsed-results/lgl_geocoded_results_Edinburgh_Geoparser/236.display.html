@@ -1,0 +1,611 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([39.09973,-94.57857], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([39.09973,-94.57857],
+			  {
+			      title: "Kansas City",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([39.11417,-94.62746],
+			  {
+			      title: "Kansas City",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([39.12346,-94.74419],
+			  {
+			      title: "City of Kansas City",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([36.19316,-82.46931],
+			  {
+			      title: "Kansas City",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([45.59595,-123.14705],
+			  {
+			      title: "Kansas City",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([13.2029,-84.07353],
+			  {
+			      title: "Kansas City",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kansas City"] = marker;
+  
+    var marker = L.marker([39.0085,-94.34609],
+			  {
+			      title: "Jackson",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([39.41682,-95.79366],
+			  {
+			      title: "Jackson",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([35.28739,-83.14083],
+			  {
+			      title: "Jackson",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([34.13388,-83.56635],
+			  {
+			      title: "Jackson",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([36.35921,-85.67315],
+			  {
+			      title: "Jackson",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([38.83447,-81.67479],
+			  {
+			      title: "Jackson",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([39.01967,-82.61838],
+			  {
+			      title: "Jackson",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([42.43215,-122.72843],
+			  {
+			      title: "Jackson",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([34.77941,-85.9993],
+			  {
+			      title: "Jackson",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([38.90642,-86.03754],
+			  {
+			      title: "Jackson",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([42.17174,-90.57423],
+			  {
+			      title: "Jackson",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([35.59923,-91.21457],
+			  {
+			      title: "Jackson",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([43.67417,-95.15411],
+			  {
+			      title: "Jackson",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([34.58797,-99.41476],
+			  {
+			      title: "Jackson",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([44.31913,-90.80518],
+			  {
+			      title: "Jackson",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([42.24849,-84.42344],
+			  {
+			      title: "Jackson",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([43.69421,-101.62813],
+			  {
+			      title: "Jackson",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([30.46289,-88.62284],
+			  {
+			      title: "Jackson",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([40.66643,-106.34279],
+			  {
+			      title: "Jackson",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+    var marker = L.marker([28.95424,-96.57768],
+			  {
+			      title: "Jackson",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Jackson County"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Attempt to recover stolen items results in fatal stabbing . He found the men early Saturday in Independence, but during an ensuing struggle, the 48-year-old <span onClick="goto_name('Kansas City')" class="loc">Kansas City</span> man was fatally stabbed in the back. <span onClick="goto_name('Jackson County')" class="loc">Jackson County</span> prosecutors charged an Independence teenager on Monday with killing Welch and another teen with the stealing that led to Saturday’s fatal confrontation. According to court documents, Welch went to a residence in the 300 block of East Elm Street about 1:45 a.m. Saturday and got into a fight with 19-year-old Anthony Gillen of <span onClick="goto_name('Kansas City')" class="loc">Kansas City</span>. While they were struggling, 18-year-old Christopher Vasquez allegedly stabbed Welch. Welch and Gillen’s mother, who had accompanied him to the residence, then left in a pickup truck but pulled over near Interstate 435 and 23rd Street and called 911. Gillen and Vasquez were picked up for questioning on Saturday afternoon. Vasquez admitted to police that he and Gillen had stolen property from Welch and that he had stabbed Welch, according to court documents. Gillen told detectives that he was on the ground struggling with Welch when he saw Vasquez approach. Welch then “seemed to lose power and stop fighting.” After Welch and his mother left, Gillen said Vasquez told him that he had stabbed Welch and needed to get rid of the knife. Vasquez later led detectives to where he had hidden the knife and it was recovered, according to the documents. He is charged with second-degree murder and armed criminal action and Gillen is facing a felony stealing charge.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Kansas City</th>
+       <td best="true">
+        <a onClick="goto(39.09973,-94.57857)">
+         <span style="white-space:nowrap">39.100,-94.579</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.11417,-94.62746)">
+         <span style="white-space:nowrap">39.114,-94.627</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.12346,-94.74419)">
+         <span style="white-space:nowrap">39.123,-94.744</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.19316,-82.46931)">
+         <span style="white-space:nowrap">36.193,-82.469</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.59595,-123.14705)">
+         <span style="white-space:nowrap">45.596,-123.147</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.2029,-84.07353)">
+         <span style="white-space:nowrap">13.203,-84.074</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Jackson County</th>
+       <td best="true">
+        <a onClick="goto(39.0085,-94.34609)">
+         <span style="white-space:nowrap">39.008,-94.346</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.41682,-95.79366)">
+         <span style="white-space:nowrap">39.417,-95.794</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.28739,-83.14083)">
+         <span style="white-space:nowrap">35.287,-83.141</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.13388,-83.56635)">
+         <span style="white-space:nowrap">34.134,-83.566</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.35921,-85.67315)">
+         <span style="white-space:nowrap">36.359,-85.673</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.83447,-81.67479)">
+         <span style="white-space:nowrap">38.834,-81.675</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.01967,-82.61838)">
+         <span style="white-space:nowrap">39.020,-82.618</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.43215,-122.72843)">
+         <span style="white-space:nowrap">42.432,-122.728</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.77941,-85.9993)">
+         <span style="white-space:nowrap">34.779,-85.999</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.90642,-86.03754)">
+         <span style="white-space:nowrap">38.906,-86.038</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.17174,-90.57423)">
+         <span style="white-space:nowrap">42.172,-90.574</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.59923,-91.21457)">
+         <span style="white-space:nowrap">35.599,-91.215</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.67417,-95.15411)">
+         <span style="white-space:nowrap">43.674,-95.154</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.58797,-99.41476)">
+         <span style="white-space:nowrap">34.588,-99.415</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.31913,-90.80518)">
+         <span style="white-space:nowrap">44.319,-90.805</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.24849,-84.42344)">
+         <span style="white-space:nowrap">42.248,-84.423</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.69421,-101.62813)">
+         <span style="white-space:nowrap">43.694,-101.628</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.46289,-88.62284)">
+         <span style="white-space:nowrap">30.463,-88.623</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.66643,-106.34279)">
+         <span style="white-space:nowrap">40.666,-106.343</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.95424,-96.57768)">
+         <span style="white-space:nowrap">28.954,-96.578</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

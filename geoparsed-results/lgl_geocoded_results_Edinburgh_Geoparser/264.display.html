@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([33.66667,35.83333], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([33.66667,35.83333],
+			  {
+			      title: "Mohafazat Béqaa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bekaa"] = marker;
+  
+    var marker = L.marker([33.83333,35.9],
+			  {
+			      title: "Zahle",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bekaa"] = marker;
+  
+    var marker = L.marker([33.55751,35.37148],
+			  {
+			      title: "Sidon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([34.83033,0.15171],
+			  {
+			      title: "Saïda",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([34.66667,0.33333],
+			  {
+			      title: "Saida",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([24.67027,83.29719],
+			  {
+			      title: "Saida",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([34.79558,72.79785],
+			  {
+			      title: "Saida",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([35.0192,72.49597],
+			  {
+			      title: "Saida",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([28.809,100.70784],
+			  {
+			      title: "Saida",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([14.2621,5.7983],
+			  {
+			      title: "Saida",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([22.06978,82.08125],
+			  {
+			      title: "Saidā",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([24.52695,84.71177],
+			  {
+			      title: "Saida",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([32.83065,74.19069],
+			  {
+			      title: "Saida",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([36.8283,9.96963],
+			  {
+			      title: "Saïda",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([32.82929,-4.33729],
+			  {
+			      title: "Saïda",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([36.31295,139.11061],
+			  {
+			      title: "Saida",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([12.67255,4.85303],
+			  {
+			      title: "Saida",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([32.7621,74.07414],
+			  {
+			      title: "Saida",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([50.94269,13.77703],
+			  {
+			      title: "Saida",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([36.81037,137.00599],
+			  {
+			      title: "Saida",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([33.00189,97.28391],
+			  {
+			      title: "Saida",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+    var marker = L.marker([47.90333,17.07208],
+			  {
+			      title: "Saida",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["city of Saida"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Family feud leaves two people dead in Palestinian camp . MIEH MIEH/BEIRUT: Rival Palestinian families clashed in a southern refugee camp on Saturday and armed groups opened fire on an army patrol in the <span onClick="goto_name('Bekaa')" class="loc">Bekaa</span> Valley during a weekend marked by a series of security incidents. Two Palestinians were killed and three were wounded early Saturday morning as Palestinian fighters from rival families battled in the Mieh Mieh refugee camp outside of the southern coastal <span onClick="goto_name('city of Saida')" class="loc">city of Saida</span>. "The army responded ... using appropriate weaponry which forced the armed men to leave their cars and escape," the statement said, adding that helicopters were involved in the operation. Following the flight of the assailants, the army confiscated four cars and a collection of contraband, including drugs and weapons.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Bekaa</th>
+       <td best="true">
+        <a onClick="goto(33.66667,35.83333)">
+         <span style="white-space:nowrap">33.667,35.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.83333,35.9)">
+         <span style="white-space:nowrap">33.833,35.900</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>city of Saida</th>
+       <td best="true">
+        <a onClick="goto(33.55751,35.37148)">
+         <span style="white-space:nowrap">33.558,35.371</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.83033,0.15171)">
+         <span style="white-space:nowrap">34.830,0.152</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.66667,0.33333)">
+         <span style="white-space:nowrap">34.667,0.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.67027,83.29719)">
+         <span style="white-space:nowrap">24.670,83.297</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.79558,72.79785)">
+         <span style="white-space:nowrap">34.796,72.798</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.0192,72.49597)">
+         <span style="white-space:nowrap">35.019,72.496</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.809,100.70784)">
+         <span style="white-space:nowrap">28.809,100.708</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.2621,5.7983)">
+         <span style="white-space:nowrap">14.262,5.798</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.06978,82.08125)">
+         <span style="white-space:nowrap">22.070,82.081</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.52695,84.71177)">
+         <span style="white-space:nowrap">24.527,84.712</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.83065,74.19069)">
+         <span style="white-space:nowrap">32.831,74.191</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.8283,9.96963)">
+         <span style="white-space:nowrap">36.828,9.970</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.82929,-4.33729)">
+         <span style="white-space:nowrap">32.829,-4.337</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.31295,139.11061)">
+         <span style="white-space:nowrap">36.313,139.111</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.67255,4.85303)">
+         <span style="white-space:nowrap">12.673,4.853</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.7621,74.07414)">
+         <span style="white-space:nowrap">32.762,74.074</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.94269,13.77703)">
+         <span style="white-space:nowrap">50.943,13.777</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.81037,137.00599)">
+         <span style="white-space:nowrap">36.810,137.006</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.00189,97.28391)">
+         <span style="white-space:nowrap">33.002,97.284</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.90333,17.07208)">
+         <span style="white-space:nowrap">47.903,17.072</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,1728 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([45.41117,-75.69812], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([45.41117,-75.69812],
+			  {
+			      title: "Ottawa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([45.41858,-75.69717],
+			  {
+			      title: "Ottawa",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([45.4168,-75.69934],
+			  {
+			      title: "Ottawa",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.08175,-76.70357],
+			  {
+			      title: "Ottawa",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([37.95871,-81.81651],
+			  {
+			      title: "Ottawa",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.76727,-83.52132],
+			  {
+			      title: "Ottawa",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.01922,-84.04717],
+			  {
+			      title: "Ottawa",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([37.36175,-84.45605],
+			  {
+			      title: "Ottawa",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([42.97612,-88.44982],
+			  {
+			      title: "Ottawa",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.34559,-88.84258],
+			  {
+			      title: "Ottawa",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([-7.62361,110.81972],
+			  {
+			      title: "Ottawa",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.03,-93.59105],
+			  {
+			      title: "Ottawa",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.31194,-93.50216],
+			  {
+			      title: "Ottawa",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([36.85674,-94.78773],
+			  {
+			      title: "Ottawa",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([44.38219,-93.94579],
+			  {
+			      title: "Ottawa",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([-29.67276,31.0363],
+			  {
+			      title: "Ottawa",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([38.61557,-95.26775],
+			  {
+			      title: "Ottawa",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([41.35292,-88.83208],
+			  {
+			      title: "City of Ottawa",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([38.60067,-95.26444],
+			  {
+			      title: "City of Ottawa",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([36.83551,-94.81044],
+			  {
+			      title: "Ottawa",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([-25.64383,23.36725],
+			  {
+			      title: "Ottawa",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([-29.66667,31.03333],
+			  {
+			      title: "Ottawa",
+			      icon: 22 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 22 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(22 == 1)
+    markers_by_name["City of Ottawa"] = marker;
+  
+    var marker = L.marker([45.4501,-75.69934],
+			  {
+			      title: "Rideau River",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Rideau River"] = marker;
+  
+    var marker = L.marker([45.56678,-74.38254],
+			  {
+			      title: "Ottawa River",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([45.33338,-73.9159],
+			  {
+			      title: "Ottawa River",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([41.74171,-83.46104],
+			  {
+			      title: "Ottawa River",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([41.69949,-83.45993],
+			  {
+			      title: "Maumee River",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([41.71394,-83.69855],
+			  {
+			      title: "North Tenmile Creek",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([40.99505,-84.24134],
+			  {
+			      title: "Ottawa River",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Ottawa River"] = marker;
+  
+    var marker = L.marker([45.41117,-75.69812],
+			  {
+			      title: "Ottawa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([45.41858,-75.69717],
+			  {
+			      title: "Ottawa",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([45.4168,-75.69934],
+			  {
+			      title: "Ottawa",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.08175,-76.70357],
+			  {
+			      title: "Ottawa",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([37.95871,-81.81651],
+			  {
+			      title: "Ottawa",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.76727,-83.52132],
+			  {
+			      title: "Ottawa",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.01922,-84.04717],
+			  {
+			      title: "Ottawa",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([37.36175,-84.45605],
+			  {
+			      title: "Ottawa",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([42.97612,-88.44982],
+			  {
+			      title: "Ottawa",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.34559,-88.84258],
+			  {
+			      title: "Ottawa",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([-29.67276,31.0363],
+			  {
+			      title: "Ottawa",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([-7.62361,110.81972],
+			  {
+			      title: "Ottawa",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([44.38219,-93.94579],
+			  {
+			      title: "Ottawa",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.03,-93.59105],
+			  {
+			      title: "Ottawa",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.31194,-93.50216],
+			  {
+			      title: "Ottawa",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([38.61557,-95.26775],
+			  {
+			      title: "Ottawa",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([36.85674,-94.78773],
+			  {
+			      title: "Ottawa",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([41.35292,-88.83208],
+			  {
+			      title: "City of Ottawa",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([38.60067,-95.26444],
+			  {
+			      title: "City of Ottawa",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([36.83551,-94.81044],
+			  {
+			      title: "Ottawa",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([-29.66667,31.03333],
+			  {
+			      title: "Ottawa",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([-25.64383,23.36725],
+			  {
+			      title: "Ottawa",
+			      icon: 22 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 22 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(22 == 1)
+    markers_by_name["city of Ottawa"] = marker;
+  
+    var marker = L.marker([60.10867,-113.64258],
+			  {
+			      title: "Canada",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.0654,-57.11403],
+			  {
+			      title: "Cañada",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-24.44499,-56.90662],
+			  {
+			      title: "Cañada",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.52785,-55.99474],
+			  {
+			      title: "Cañada",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.95812,-56.96023],
+			  {
+			      title: "Cañada",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-11.4,-66.96667],
+			  {
+			      title: "Canadá",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-7.33333,-41.7],
+			  {
+			      title: "Canada",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([22.86667,-82.05],
+			  {
+			      title: "Cañada",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([20.58333,-75.51667],
+			  {
+			      title: "Cañada",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.79031,-56.76615],
+			  {
+			      title: "Cañada",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.90377,-57.36271],
+			  {
+			      title: "Cañada",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([9.90951,-84.1834],
+			  {
+			      title: "Cañada",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([39.20071,-2.1572],
+			  {
+			      title: "Cañada",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-24.07382,-57.0617],
+			  {
+			      title: "Cañada",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([20.53333,-75.53333],
+			  {
+			      title: "Cañada",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-27.28333,-65.08333],
+			  {
+			      title: "Cañada",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([9.93764,-84.28166],
+			  {
+			      title: "Cañada",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.10388,-56.21136],
+			  {
+			      title: "Canada",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.45765,-57.11215],
+			  {
+			      title: "Cañada",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.43058,-56.5238],
+			  {
+			      title: "Cañada",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([45.35,-75.63333],
+			  {
+			      title: "Gloucester",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([45.3501,-75.56604],
+			  {
+			      title: "Gloucester",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([45.3001,-75.63264],
+			  {
+			      title: "Gloucester",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([39.89178,-75.11629],
+			  {
+			      title: "Gloucester City",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([37.41375,-76.52551],
+			  {
+			      title: "Gloucester",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([42.61405,-70.66313],
+			  {
+			      title: "Gloucester",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([34.72627,-76.54104],
+			  {
+			      title: "Gloucester",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([8.45089,-13.21457],
+			  {
+			      title: "Gloucester",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-32.0077,151.9633],
+			  {
+			      title: "Gloucester",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([51.86568,-2.2431],
+			  {
+			      title: "Gloucester",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([49.09804,-122.47361],
+			  {
+			      title: "Gloucester",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-5.51658,148.51021],
+			  {
+			      title: "Gloucester",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([39.71731,-75.14167],
+			  {
+			      title: "Gloucester",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([37.40121,-76.52297],
+			  {
+			      title: "Gloucester",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([42.63061,-70.68358],
+			  {
+			      title: "City of Gloucester",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([51.83333,-2.16667],
+			  {
+			      title: "Gloucestershire",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-19.15,-140.71667],
+			  {
+			      title: "Atoll Paraoa",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-31.96667,151.98333],
+			  {
+			      title: "Gloucester River",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-20.25,140.65],
+			  {
+			      title: "Gloucester",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+    var marker = L.marker([-17.64175,31.04235],
+			  {
+			      title: "Gloucester",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["city of Gloucester"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Gloucester is a suburb of and within the <span onClick="goto_name('City of Ottawa')" class="loc">City of Ottawa</span>. Gloucester Township was established in 1792 and originally included lands east of the <span onClick="goto_name('Rideau River')" class="loc">Rideau River</span> from the <span onClick="goto_name('Ottawa River')" class="loc">Ottawa River</span> south to Manotick. It was incorporated as a township in 1850 and became a city in 1981. Gloucester was one of the 11 municipalities that merged in 2001 to form the new <span onClick="goto_name('city of Ottawa')" class="loc">city of Ottawa</span>. As of the <span onClick="goto_name('Canada')" class="loc">Canada</span> 2011 Census, the former <span onClick="goto_name('city of Gloucester')" class="loc">city of Gloucester</span> had a population of 123,678. Gloucester took its name from Prince William Frederick, Duke of Gloucester and Edinburgh. Before amalgamating in 2001, Gloucester had a population of 110,264. According to the <span onClick="goto_name('Canada')" class="loc">Canada</span> 2001 Census: Population: 110,264 % Change (1996–2001): 6.0 Dwellings: 38,542 Area (km².): 293.86 Density (persons per km².): 375.2 By the 2006 census, Gloucester's population had increased slightly, to 114,604. Prior to amalgamation, the following communities and neighbourhoods were within the city boundaries: Beacon Hill Beacon Hill North Beacon Hill South Beaconwood Blackburn Hamlet Blossom Park Emerald Woods Sawmill Creek Timbermill Upper Hunt Club</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>City of Ottawa</th>
+       <td best="true">
+        <a onClick="goto(45.41117,-75.69812)">
+         <span style="white-space:nowrap">45.411,-75.698</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.41858,-75.69717)">
+         <span style="white-space:nowrap">45.419,-75.697</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.4168,-75.69934)">
+         <span style="white-space:nowrap">45.417,-75.699</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.08175,-76.70357)">
+         <span style="white-space:nowrap">41.082,-76.704</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.95871,-81.81651)">
+         <span style="white-space:nowrap">37.959,-81.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.76727,-83.52132)">
+         <span style="white-space:nowrap">41.767,-83.521</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.01922,-84.04717)">
+         <span style="white-space:nowrap">41.019,-84.047</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.36175,-84.45605)">
+         <span style="white-space:nowrap">37.362,-84.456</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.97612,-88.44982)">
+         <span style="white-space:nowrap">42.976,-88.450</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.34559,-88.84258)">
+         <span style="white-space:nowrap">41.346,-88.843</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.62361,110.81972)">
+         <span style="white-space:nowrap">-7.624,110.820</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.03,-93.59105)">
+         <span style="white-space:nowrap">41.030,-93.591</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.31194,-93.50216)">
+         <span style="white-space:nowrap">41.312,-93.502</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.85674,-94.78773)">
+         <span style="white-space:nowrap">36.857,-94.788</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.38219,-93.94579)">
+         <span style="white-space:nowrap">44.382,-93.946</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.67276,31.0363)">
+         <span style="white-space:nowrap">-29.673,31.036</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.61557,-95.26775)">
+         <span style="white-space:nowrap">38.616,-95.268</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.35292,-88.83208)">
+         <span style="white-space:nowrap">41.353,-88.832</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.60067,-95.26444)">
+         <span style="white-space:nowrap">38.601,-95.264</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.83551,-94.81044)">
+         <span style="white-space:nowrap">36.836,-94.810</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.64383,23.36725)">
+         <span style="white-space:nowrap">-25.644,23.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.66667,31.03333)">
+         <span style="white-space:nowrap">-29.667,31.033</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Rideau River</th>
+       <td best="true">
+        <a onClick="goto(45.4501,-75.69934)">
+         <span style="white-space:nowrap">45.450,-75.699</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Ottawa River</th>
+       <td best="true">
+        <a onClick="goto(45.56678,-74.38254)">
+         <span style="white-space:nowrap">45.567,-74.383</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.33338,-73.9159)">
+         <span style="white-space:nowrap">45.333,-73.916</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.74171,-83.46104)">
+         <span style="white-space:nowrap">41.742,-83.461</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.69949,-83.45993)">
+         <span style="white-space:nowrap">41.699,-83.460</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.71394,-83.69855)">
+         <span style="white-space:nowrap">41.714,-83.699</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.99505,-84.24134)">
+         <span style="white-space:nowrap">40.995,-84.241</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>city of Ottawa</th>
+       <td best="true">
+        <a onClick="goto(45.41117,-75.69812)">
+         <span style="white-space:nowrap">45.411,-75.698</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.41858,-75.69717)">
+         <span style="white-space:nowrap">45.419,-75.697</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.4168,-75.69934)">
+         <span style="white-space:nowrap">45.417,-75.699</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.08175,-76.70357)">
+         <span style="white-space:nowrap">41.082,-76.704</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.95871,-81.81651)">
+         <span style="white-space:nowrap">37.959,-81.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.76727,-83.52132)">
+         <span style="white-space:nowrap">41.767,-83.521</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.01922,-84.04717)">
+         <span style="white-space:nowrap">41.019,-84.047</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.36175,-84.45605)">
+         <span style="white-space:nowrap">37.362,-84.456</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.97612,-88.44982)">
+         <span style="white-space:nowrap">42.976,-88.450</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.34559,-88.84258)">
+         <span style="white-space:nowrap">41.346,-88.843</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.67276,31.0363)">
+         <span style="white-space:nowrap">-29.673,31.036</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.62361,110.81972)">
+         <span style="white-space:nowrap">-7.624,110.820</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.38219,-93.94579)">
+         <span style="white-space:nowrap">44.382,-93.946</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.03,-93.59105)">
+         <span style="white-space:nowrap">41.030,-93.591</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.31194,-93.50216)">
+         <span style="white-space:nowrap">41.312,-93.502</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.61557,-95.26775)">
+         <span style="white-space:nowrap">38.616,-95.268</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.85674,-94.78773)">
+         <span style="white-space:nowrap">36.857,-94.788</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.35292,-88.83208)">
+         <span style="white-space:nowrap">41.353,-88.832</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.60067,-95.26444)">
+         <span style="white-space:nowrap">38.601,-95.264</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.83551,-94.81044)">
+         <span style="white-space:nowrap">36.836,-94.810</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.66667,31.03333)">
+         <span style="white-space:nowrap">-29.667,31.033</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.64383,23.36725)">
+         <span style="white-space:nowrap">-25.644,23.367</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Canada</th>
+       <td best="true">
+        <a onClick="goto(60.10867,-113.64258)">
+         <span style="white-space:nowrap">60.109,-113.643</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.0654,-57.11403)">
+         <span style="white-space:nowrap">-25.065,-57.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.44499,-56.90662)">
+         <span style="white-space:nowrap">-24.445,-56.907</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.52785,-55.99474)">
+         <span style="white-space:nowrap">-25.528,-55.995</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.95812,-56.96023)">
+         <span style="white-space:nowrap">-25.958,-56.960</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-11.4,-66.96667)">
+         <span style="white-space:nowrap">-11.400,-66.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.33333,-41.7)">
+         <span style="white-space:nowrap">-7.333,-41.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.86667,-82.05)">
+         <span style="white-space:nowrap">22.867,-82.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.58333,-75.51667)">
+         <span style="white-space:nowrap">20.583,-75.517</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.79031,-56.76615)">
+         <span style="white-space:nowrap">-25.790,-56.766</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.90377,-57.36271)">
+         <span style="white-space:nowrap">-25.904,-57.363</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.90951,-84.1834)">
+         <span style="white-space:nowrap">9.910,-84.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.20071,-2.1572)">
+         <span style="white-space:nowrap">39.201,-2.157</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.07382,-57.0617)">
+         <span style="white-space:nowrap">-24.074,-57.062</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.53333,-75.53333)">
+         <span style="white-space:nowrap">20.533,-75.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.28333,-65.08333)">
+         <span style="white-space:nowrap">-27.283,-65.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.93764,-84.28166)">
+         <span style="white-space:nowrap">9.938,-84.282</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.10388,-56.21136)">
+         <span style="white-space:nowrap">-25.104,-56.211</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.45765,-57.11215)">
+         <span style="white-space:nowrap">-25.458,-57.112</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.43058,-56.5238)">
+         <span style="white-space:nowrap">-25.431,-56.524</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>city of Gloucester</th>
+       <td best="true">
+        <a onClick="goto(45.35,-75.63333)">
+         <span style="white-space:nowrap">45.350,-75.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.3501,-75.56604)">
+         <span style="white-space:nowrap">45.350,-75.566</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.3001,-75.63264)">
+         <span style="white-space:nowrap">45.300,-75.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.89178,-75.11629)">
+         <span style="white-space:nowrap">39.892,-75.116</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.41375,-76.52551)">
+         <span style="white-space:nowrap">37.414,-76.526</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.61405,-70.66313)">
+         <span style="white-space:nowrap">42.614,-70.663</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.72627,-76.54104)">
+         <span style="white-space:nowrap">34.726,-76.541</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.45089,-13.21457)">
+         <span style="white-space:nowrap">8.451,-13.215</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.0077,151.9633)">
+         <span style="white-space:nowrap">-32.008,151.963</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.86568,-2.2431)">
+         <span style="white-space:nowrap">51.866,-2.243</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.09804,-122.47361)">
+         <span style="white-space:nowrap">49.098,-122.474</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-5.51658,148.51021)">
+         <span style="white-space:nowrap">-5.517,148.510</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.71731,-75.14167)">
+         <span style="white-space:nowrap">39.717,-75.142</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.40121,-76.52297)">
+         <span style="white-space:nowrap">37.401,-76.523</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.63061,-70.68358)">
+         <span style="white-space:nowrap">42.631,-70.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.83333,-2.16667)">
+         <span style="white-space:nowrap">51.833,-2.167</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-19.15,-140.71667)">
+         <span style="white-space:nowrap">-19.150,-140.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-31.96667,151.98333)">
+         <span style="white-space:nowrap">-31.967,151.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-20.25,140.65)">
+         <span style="white-space:nowrap">-20.250,140.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.64175,31.04235)">
+         <span style="white-space:nowrap">-17.642,31.042</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

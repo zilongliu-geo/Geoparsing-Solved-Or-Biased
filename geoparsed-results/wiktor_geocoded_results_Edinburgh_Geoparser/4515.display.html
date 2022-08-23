@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> is a suburb of northern <span onClick="goto_name('Sydney')" class="loc">Sydney</span>, in the state of <span onClick="goto_name('New South Wales')" class="loc">New South Wales</span>, <span onClick="goto_name('Australia')" class="loc">Australia</span>. <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> is located 12 kilometres north-east of the <span onClick="goto_name('Sydney')" class="loc">Sydney</span> central business district in the local government area of Manly Council and is part of the Northern Beaches region. <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> overlooks <span onClick="goto_name('Middle Harbour')" class="loc">Middle Harbour</span> and is linked south to <span onClick="goto_name('Mosman')" class="loc">Mosman</span> by the Spit Bridge. To the west, <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> overlooks <span onClick="goto_name('Sugarloaf Bay')" class="loc">Sugarloaf Bay</span> across to the suburbs of <span onClick="goto_name('Northbridge')" class="loc">Northbridge</span>, <span onClick="goto_name('Castlecrag')" class="loc">Castlecrag</span> and Castle Cove. The Garigal National Park sits on the northern border. <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> was named after <span onClick="goto_name('Loch Seaforth')" class="loc">Loch Seaforth</span> and <span onClick="goto_name('Seaforth Island')" class="loc">Seaforth Island</span> in <span onClick="goto_name('Scotland')" class="loc">Scotland</span>. The land in this area was once owned by Henry Halloran, who subdivided it in 1906. The <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> library was built in 1887 and protected by heritage listing by Manly Council in 1995. It stands outside the former Seaforth TAFE. <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> celebrated its centenary on Sunday 12 November 2006 with a historical display in the town centre. The <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> shopping district is located off <span onClick="goto_name('Sydney')" class="loc">Sydney</span> Road and offers a wide variety of services, including niche market products. It is also home to Balgowlah RSL Memorial Club. At the 2011 census, the suburb of <span onClick="goto_name('Seaforth')" class="loc">Seaforth</span> recorded a population of 6,726. Of these:</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Seaforth</th>
+      </tr>
+      <tr>
+       <th>Sydney</th>
+      </tr>
+      <tr>
+       <th>New South Wales</th>
+      </tr>
+      <tr>
+       <th>Australia</th>
+      </tr>
+      <tr>
+       <th>Middle Harbour</th>
+      </tr>
+      <tr>
+       <th>Mosman</th>
+      </tr>
+      <tr>
+       <th>Sugarloaf Bay</th>
+      </tr>
+      <tr>
+       <th>Northbridge</th>
+      </tr>
+      <tr>
+       <th>Castlecrag</th>
+      </tr>
+      <tr>
+       <th>Loch Seaforth</th>
+      </tr>
+      <tr>
+       <th>Seaforth Island</th>
+      </tr>
+      <tr>
+       <th>Scotland</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Karak (Pashto: کرك, <span onClick="goto_name('Urdu')" class="loc">Urdu</span>: کرک‎) is the headquarters of <span onClick="goto_name('Karak District')" class="loc">Karak District</span> in the <span onClick="goto_name('Khyber')" class="loc">Khyber</span> <span onClick="goto_name('Pakhtunkhwa province')" class="loc">Pakhtunkhwa province</span> of <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>. It is 123 km from <span onClick="goto_name('Peshawar')" class="loc">Peshawar</span> on the main Indus Highway between <span onClick="goto_name('Peshawar')" class="loc">Peshawar</span> and <span onClick="goto_name('Karachi')" class="loc">Karachi</span>. It is located at 33°7'12N 71°5'41E. Karak is said to be the single district in <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span> which is inhabited by only one tribe of Pashtuns — the <span onClick="goto_name('Khattak')" class="loc">Khattak</span>. The predominant language of Karak is Pashto; the dialect is the softer "Kandahari" Pashto as opposed to the harder "Peshawari" dialect. <span onClick="goto_name('Urdu')" class="loc">Urdu</span> and English are understood by majority however, they are spoken to a lesser degree. Till 1956, the district was part of the princely state of <span onClick="goto_name('Teri')" class="loc">Teri</span> and was ruled by Nawab of <span onClick="goto_name('Teri')" class="loc">Teri</span>. <span onClick="goto_name('Teri')" class="loc">Teri</span> State was divided into tappas (satrapies)- <span onClick="goto_name('Teri')" class="loc">Teri</span>, <span onClick="goto_name('Seni-Khurram')" class="loc">Seni-Khurram</span> and <span onClick="goto_name('Barak')" class="loc">Barak</span>. In 1956 <span onClick="goto_name('Teri')" class="loc">Teri</span> State was merged with Kohat Tehsil. Thus between 1956 and 1982, present <span onClick="goto_name('district of Karak')" class="loc">district of Karak</span> was administratively part of <span onClick="goto_name('Kohat')" class="loc">Kohat</span>. Karak was established as a separate district July 1, 1982. The district is predominantly populated by the Pashtun Khattak tribe. There are several natural resources that have been discovered in Karak. The salt mines were well known in antiquity and a major source of salt for the Indian subcontinent into British imperial times. More recently oil, gas, and uranium have all been discovered. Oil and gas reservoirs have been found in the towns of <span onClick="goto_name('Makori')" class="loc">Makori</span>, Noshpa Banda, <span onClick="goto_name('Gurguri')" class="loc">Gurguri</span> and <span onClick="goto_name('Lachi')" class="loc">Lachi</span> circle <span onClick="goto_name('Teri')" class="loc">Teri</span> is also very important village of Karak .The <span onClick="goto_name('Nawab')" class="loc">Nawab</span> of Dist Karak and Khattak Nama etc. was <span onClick="goto_name('Ghazi Khan')" class="loc">Ghazi Khan</span> son of Darwaish Muhammad the brother of Akor Khan. Then Nawab <span onClick="goto_name('Jaffar')" class="loc">Jaffar</span>, then Nawab Allah hKhan and Nawab <span onClick="goto_name('Abdullah Khan')" class="loc">Abdullah Khan</span> wife Mrs. Moran daughter of Nawab Behram Khan Son of Khushal Khattak. Nawab Behram or Nawab Abdullah khan arrested the important Khan of <span onClick="goto_name('Teri')" class="loc">Teri</span> a.k.a. Ashraf khan Hijre, who died in Jail . See The History Book " Tareekh Murassa " but this history book is silent about Nawab <span onClick="goto_name('Ghazi Khan')" class="loc">Ghazi Khan</span> the brother of Akor Khan and about Nawab Jafar .The father of <span onClick="goto_name('Akor Khan')" class="loc">Akor Khan</span> and <span onClick="goto_name('Ghazi Khan')" class="loc">Ghazi Khan</span> etc. was Darwaish Muhammad and the father of Darwaish Muhammad Was Taman Baba. The son of Taman was Hassan (Tomb in <span onClick="goto_name('Lachi')" class="loc">Lachi</span> on main High way Seddle/Kaye On top of hill(police Check post } and the father of Hassan was <span onClick="goto_name('Sheikh Ali')" class="loc">Sheikh Ali</span> {Baig} Baba (Shrine in <span onClick="goto_name('Lachi')" class="loc">Lachi</span> <span onClick="goto_name('Bala')" class="loc">Bala</span>).God may bless upon all (Syeds} <span onClick="goto_name('Khattaks')" class="loc">Khattaks</span>, because Syed Karlanr was Syed and we all are from them from mother side. and from father side we are all Khattak. by <span onClick="goto_name('Umer')" class="loc">Umer</span> <span onClick="goto_name('Khel')" class="loc">Khel</span> <span onClick="goto_name('Khattak')" class="loc">Khattak</span>
+    </p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Urdu</th>
+      </tr>
+      <tr>
+       <th>Karak District</th>
+      </tr>
+      <tr>
+       <th>Khyber</th>
+      </tr>
+      <tr>
+       <th>Pakhtunkhwa province</th>
+      </tr>
+      <tr>
+       <th>Pakistan</th>
+      </tr>
+      <tr>
+       <th>Peshawar</th>
+      </tr>
+      <tr>
+       <th>Karachi</th>
+      </tr>
+      <tr>
+       <th>Khattak</th>
+      </tr>
+      <tr>
+       <th>Teri</th>
+      </tr>
+      <tr>
+       <th>Seni-Khurram</th>
+      </tr>
+      <tr>
+       <th>Barak</th>
+      </tr>
+      <tr>
+       <th>district of Karak</th>
+      </tr>
+      <tr>
+       <th>Kohat</th>
+      </tr>
+      <tr>
+       <th>Makori</th>
+      </tr>
+      <tr>
+       <th>Gurguri</th>
+      </tr>
+      <tr>
+       <th>Lachi</th>
+      </tr>
+      <tr>
+       <th>Nawab</th>
+      </tr>
+      <tr>
+       <th>Ghazi Khan</th>
+      </tr>
+      <tr>
+       <th>Jaffar</th>
+      </tr>
+      <tr>
+       <th>Abdullah Khan</th>
+      </tr>
+      <tr>
+       <th>Akor Khan</th>
+      </tr>
+      <tr>
+       <th>Sheikh Ali</th>
+      </tr>
+      <tr>
+       <th>Bala</th>
+      </tr>
+      <tr>
+       <th>Khattaks</th>
+      </tr>
+      <tr>
+       <th>Umer</th>
+      </tr>
+      <tr>
+       <th>Khel</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

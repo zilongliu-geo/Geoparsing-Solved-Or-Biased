@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([47.58753,-99.66095], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([47.58753,-99.66095],
+			  {
+			      title: "Wells",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Wells County"] = marker;
+  
+    var marker = L.marker([40.72919,-85.22122],
+			  {
+			      title: "Wells",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Wells County"] = marker;
+  
+    var marker = L.marker([47.50027,-100.00068],
+			  {
+			      title: "North Dakota",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["North Dakota"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([46.25024,-94.25055],
+			  {
+			      title: "Minnesota",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([44.55885,-95.98559],
+			  {
+			      title: "Minneota",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([31.31185,-83.91018],
+			  {
+			      title: "Minnesota",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([39.44934,-120.83106],
+			  {
+			      title: "Minnesota Flat",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([40.66209,-122.4889],
+			  {
+			      title: "Minnesota",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([-25.45698,23.39643],
+			  {
+			      title: "Minnesota",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([47.76972,-99.9354],
+			  {
+			      title: "Harvey",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([47.76989,-99.93057],
+			  {
+			      title: "City of Harvey",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([41.31583,-92.92409],
+			  {
+			      title: "Harvey",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([41.61003,-87.64671],
+			  {
+			      title: "Harvey",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([46.49466,-87.35431],
+			  {
+			      title: "Harvey",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([38.44585,-93.86688],
+			  {
+			      title: "Harvey",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([36.80839,-88.41782],
+			  {
+			      title: "Harvey",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([37.93261,-81.13899],
+			  {
+			      title: "Harvey",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([37.59791,-79.62365],
+			  {
+			      title: "Harvey",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([34.84593,-93.7852],
+			  {
+			      title: "Harvey",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([30.65492,-96.27524],
+			  {
+			      title: "Harvey",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([-33.07863,115.91512],
+			  {
+			      title: "Harvey",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([29.90354,-90.07729],
+			  {
+			      title: "Harvey",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([46.34671,-67.90752],
+			  {
+			      title: "Harvey",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([45.72458,-64.71028],
+			  {
+			      title: "Harvey",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([41.31794,-92.92269],
+			  {
+			      title: "City of Harvey",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([41.60744,-87.6523],
+			  {
+			      title: "City of Harvey",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([50.2334,-90.41688],
+			  {
+			      title: "Harvey",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([44.61682,-78.38285],
+			  {
+			      title: "Harvey",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([48.48338,-70.78234],
+			  {
+			      title: "Harvey",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([-33.14976,115.93376],
+			  {
+			      title: "Harvey",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([52.95777,-119.44833],
+			  {
+			      title: "Harvey",
+			      icon: 22 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 22 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(22 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+    var marker = L.marker([45.66686,-64.79877],
+			  {
+			      title: "Harvey",
+			      icon: 23 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 23 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(23 == 1)
+    markers_by_name["City of Harvey"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Harvey is a city in <span onClick="goto_name('Wells County')" class="loc">Wells County</span>, <span onClick="goto_name('North Dakota')" class="loc">North Dakota</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 1,783 at the 2010 census. Harvey was founded in 1893 as a division point by the Soo Line Railway. According to the book published in 1981 on the 75th anniversary of the town's incorporation as a city in 1906, Harvey, ND is believed to have been named for a director of the Soo Line Railway: Col. Scott William Harvey of Minneapolis, <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span>. Harvey is located at 47°46′12″N 99°55′52″W (47.770045, -99.931121). According to the <span onClick="goto_name('United States')" class="loc">United States</span> Census Bureau, the city has a total area of 1.88 square miles (4.87 km2), all of it land. Harvey Public Schools operates public schools. This climatic region is typified by large seasonal temperature differences, with warm to hot (and often humid) summers and cold (sometimes severely cold) winters. According to the Köppen Climate Classification system, Harvey has a humid continental climate, abbreviated "Dfb" on climate maps. <span onClick="goto_name('City of Harvey')" class="loc">City of Harvey</span> official website Harvey, <span onClick="goto_name('North Dakota')" class="loc">North Dakota</span>: community fact survey (1964) from the Digital Horizons website</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Wells County</th>
+       <td best="true">
+        <a onClick="goto(47.58753,-99.66095)">
+         <span style="white-space:nowrap">47.588,-99.661</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.72919,-85.22122)">
+         <span style="white-space:nowrap">40.729,-85.221</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>North Dakota</th>
+       <td best="true">
+        <a onClick="goto(47.50027,-100.00068)">
+         <span style="white-space:nowrap">47.500,-100.001</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Minnesota</th>
+       <td best="true">
+        <a onClick="goto(46.25024,-94.25055)">
+         <span style="white-space:nowrap">46.250,-94.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.55885,-95.98559)">
+         <span style="white-space:nowrap">44.559,-95.986</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.31185,-83.91018)">
+         <span style="white-space:nowrap">31.312,-83.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.44934,-120.83106)">
+         <span style="white-space:nowrap">39.449,-120.831</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.66209,-122.4889)">
+         <span style="white-space:nowrap">40.662,-122.489</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.45698,23.39643)">
+         <span style="white-space:nowrap">-25.457,23.396</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>City of Harvey</th>
+       <td best="true">
+        <a onClick="goto(47.76972,-99.9354)">
+         <span style="white-space:nowrap">47.770,-99.935</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.76989,-99.93057)">
+         <span style="white-space:nowrap">47.770,-99.931</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.31583,-92.92409)">
+         <span style="white-space:nowrap">41.316,-92.924</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.61003,-87.64671)">
+         <span style="white-space:nowrap">41.610,-87.647</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.49466,-87.35431)">
+         <span style="white-space:nowrap">46.495,-87.354</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.44585,-93.86688)">
+         <span style="white-space:nowrap">38.446,-93.867</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.80839,-88.41782)">
+         <span style="white-space:nowrap">36.808,-88.418</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.93261,-81.13899)">
+         <span style="white-space:nowrap">37.933,-81.139</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.59791,-79.62365)">
+         <span style="white-space:nowrap">37.598,-79.624</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.84593,-93.7852)">
+         <span style="white-space:nowrap">34.846,-93.785</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.65492,-96.27524)">
+         <span style="white-space:nowrap">30.655,-96.275</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.07863,115.91512)">
+         <span style="white-space:nowrap">-33.079,115.915</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.90354,-90.07729)">
+         <span style="white-space:nowrap">29.904,-90.077</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.34671,-67.90752)">
+         <span style="white-space:nowrap">46.347,-67.908</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.72458,-64.71028)">
+         <span style="white-space:nowrap">45.725,-64.710</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.31794,-92.92269)">
+         <span style="white-space:nowrap">41.318,-92.923</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.60744,-87.6523)">
+         <span style="white-space:nowrap">41.607,-87.652</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.2334,-90.41688)">
+         <span style="white-space:nowrap">50.233,-90.417</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.61682,-78.38285)">
+         <span style="white-space:nowrap">44.617,-78.383</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.48338,-70.78234)">
+         <span style="white-space:nowrap">48.483,-70.782</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.14976,115.93376)">
+         <span style="white-space:nowrap">-33.150,115.934</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.95777,-119.44833)">
+         <span style="white-space:nowrap">52.958,-119.448</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.66686,-64.79877)">
+         <span style="white-space:nowrap">45.667,-64.799</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

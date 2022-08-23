@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('San Jose')" class="loc">San Jose</span> is a fifth class municipality in the province of <span onClick="goto_name('Negros Oriental')" class="loc">Negros Oriental</span>, <span onClick="goto_name('Philippines')" class="loc">Philippines</span>. According to the 2010 census, it has a population of 19,098 people. <span onClick="goto_name('San Jose')" class="loc">San Jose</span> is the Regional Pineapple Capital. <span onClick="goto_name('San Jose')" class="loc">San Jose</span> is politically subdivided into 14 barangays, shown here with population as of 2010 Census: <span onClick="goto_name('Basak')" class="loc">Basak</span> - 888 <span onClick="goto_name('Basiao')" class="loc">Basiao</span> - 596 <span onClick="goto_name('Cambaloctot')" class="loc">Cambaloctot</span> - 557 <span onClick="goto_name('Cancawas')" class="loc">Cancawas</span> - 1,527 <span onClick="goto_name('Janayjanay')" class="loc">Janayjanay</span> - 933 <span onClick="goto_name('Jilocon')" class="loc">Jilocon</span> - 1,728 <span onClick="goto_name('Naiba')" class="loc">Naiba</span> - 671 <span onClick="goto_name('Poblacion')" class="loc">Poblacion</span> - 1,035 <span onClick="goto_name('San Roque')" class="loc">San Roque</span> - 816 Santo Niño - 2,195 Señora Ascion (Calo) - 1,690 <span onClick="goto_name('Siapo')" class="loc">Siapo</span> - 2,136 <span onClick="goto_name('Tampi')" class="loc">Tampi</span> - 1,837 <span onClick="goto_name('Tapon Norte')" class="loc">Tapon Norte</span> - 2,489 The municipality of <span onClick="goto_name('San Jose')" class="loc">San Jose</span> was formerly called "Ayuquitan", a name that was born due to a communication problem between the natives and Spanish Conquistadors. The story was that one day a group of Spaniards searching for flourishing communities came upon a group of natives harvesting rice. The Spaniards approached the natives and asked the name of the place while pointing to the ground filled with piles of rice chaffs. The natives thought they were asked for the name of the pile and answered "Inoquitan". From then on, the Spaniards called the place "Inoquitan". In time, the name "Ayuquitan" was adapted from the phrase "may inoquitan". In 1902 Governor Demetrio Larena considered the place as a pueblo. <span onClick="goto_name('San Jose')" class="loc">San Jose</span> is the home of the old Spanish families settled since 1871 like the <span onClick="goto_name('Patero')" class="loc">Patero</span>, Amiscaray, <span onClick="goto_name('Larena')" class="loc">Larena</span>, <span onClick="goto_name('Pareja')" class="loc">Pareja</span>, Siglos, Remollo, Renacia, Remata, Araco and Remoto.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>San Jose</th>
+      </tr>
+      <tr>
+       <th>Negros Oriental</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>Basak</th>
+      </tr>
+      <tr>
+       <th>Basiao</th>
+      </tr>
+      <tr>
+       <th>Cambaloctot</th>
+      </tr>
+      <tr>
+       <th>Cancawas</th>
+      </tr>
+      <tr>
+       <th>Janayjanay</th>
+      </tr>
+      <tr>
+       <th>Jilocon</th>
+      </tr>
+      <tr>
+       <th>Naiba</th>
+      </tr>
+      <tr>
+       <th>Poblacion</th>
+      </tr>
+      <tr>
+       <th>San Roque</th>
+      </tr>
+      <tr>
+       <th>Siapo</th>
+      </tr>
+      <tr>
+       <th>Tampi</th>
+      </tr>
+      <tr>
+       <th>Tapon Norte</th>
+      </tr>
+      <tr>
+       <th>Patero</th>
+      </tr>
+      <tr>
+       <th>Larena</th>
+      </tr>
+      <tr>
+       <th>Pareja</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

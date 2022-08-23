@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>On Thursday night, <span onClick="goto_name('California')" class="loc">California</span> State Senator Joe Dunn held the second town hall meeting regarding a recent outbreak of leukemia in schoolchildren, at Franklin Elementary in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>, <span onClick="goto_name('California')" class="loc">California</span>. Representatives from the City of <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>, the Santa Ana Unified School District, and the South Coast Air Quality Management District (AQMD) were available to answer the community's questions. Senator Dunn started off the meeting by thanking the panelists and parents for showing their support by attending. "We are trying to address a very, very important issue. What's the issue? We have high rates of cancer, leukemia, and respiratory problems in our children. Why are our kids sick? This is a very difficult question," he said. "What's causing the sickness in our children, and how can we avoid it? We can all agree that no one wants to see another sick child in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>." The audience applauded. "Three weeks ago, we heard from two parents and a teacher, they told us about some deaths." The previous town hall meeting was held to address concerns of the community about a steel plating manufacturing plant that applied to the AQMD for a permit to expand its facilities to increase pollution emissions. Parents and teachers were concerned over the facts that the plant was located directly adjacent to Kennedy Elementary School, and that their children were experiencing high levels of lead, respiratory problems, excessive nose-bleeding, and leukemia. "How many businesses in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span> are required to obtain permits for emissions of hazardous pollutants?" This question Dunn posed at the last meeting was answered by the AQMD and the <span onClick="goto_name('Orange County')" class="loc">Orange County</span> Sanitation District, who provided maps of <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span> with green flags indicating where businesses with emissions permits were located. "I can tell you one thing, at the end of the meeting, we won't have all of the answers... but we'll certainly have another Town Hall meeting. Initial concerns were raised when five boys attending Franklin Elementary were diagnosed with the same type of leukemia in Spring 2002. Attempts to gain an investigation from the Center for Disease Control (CDC) into possible causes were not successful as the Center told parents that the cases "were in an acceptable range". Parents, teachers, public officials, and doctors remain unconvinced. In the past three years, 19 mothers living in an apartment building a block away from Franklin were also diagnosed with leukemia. Dunn then introduced a teacher at Franklin, Tammy Sanchez. Tammy said, "In December 2002, we received some very disturbing news. One of my students was diagnosed with leukemia. Then, more children at Franklin were diagnosed with leukemia. I later found out that three kids at a nearby apartment building were diagnosed with leukemia. Sanchez then explained about more cancer-related deaths near Franklin, including 19 mothers all living in he same apartment building who were diagnosed with leukemia, which took over three minutes. "To me, this is way too much," said Sanchez. Socorro Molina, whose son Diego, a student at Franklin, is undergoing treatment for his leukemia, had this to say: "My son has leukemia. I'm worried, because there are many kids. Children who played with my son died from leukemia. They should do some investigations of these companies." Senator Dunn responded, "Thank you, <span onClick="goto_name('Socorro')" class="loc">Socorro</span>. I know it's difficult to share that privately, and you have shared this with us publicly on two occasions." Senator Dunn then said, "at the end of that [previous] meeting, we were requested by a parent for a map of all businesses releasing toxic materials. We asked the AQMD for a map that showed every single business that releases harmful materials into our air. This is that map. The heaviest concentration of these businesses are, guess where? Near Franklin. This map is striking. The OCSD gave us a map showing all businesses that release toxic materials into our sewers. The largest concentration of these businesses are, guess where? Near Franklin and Kennedy Elementary Schools." Senator Dunn promised that at the next town hall meeting, he will have a panel of scientists present to determine if the substances released by these business pose a health risk to residents of the area. "We are going to keep at this until we find out what is making our kids sick," he said. Santa <span onClick="goto_name('Ana City')" class="loc">Ana City</span> Council member Jose Solorio said that "the city has been following the media's attention. I got to tell you, this is a very complex issue. The city has jurisdiction over land use; they can issue restrictions. We, as elected officials, need to know more." Solorio then introduced the city's planning director and other city officials. Solorio added, "the mayor of <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>, Miguel Pulido, is a board-member for AQMD." Miguel Pulido has not attended any of the town hall meetings, and has not spoken about this issue at any time. Dunn then introduced the next panelist, Santa Ana Unified School District board member Rosemary Avila. She said, "the school board is looking into this. I've talked to some teachers on the phone I believe the federal disease organization has been contacted about this." The Center for Disease Control was notified by parents of the leukemia cases in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>, but stated that they were "within the acceptable range". Avila then introduced some school board officials, and said, "there has been some concern in the past, and we have looked into that. As a school district, we really have to act not out of fear, but with facts." Jill Whynot of the AQMD noted that "there are 515 facilities in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span> that we issue permits to". Barry Wallerstein, Executive Officer of the AQMD said, "we appreciate the forum. There appears to be a need for closer air quality monitoring. So, I propose that we make <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span> a high priority and closely monitor air quality in your community." That statement was met with much applause from the audience. Senator Dunn responded, "we thank the AQMD for being here and answering our questions. We will be sure to let everybody know about any updates. When I looked at the map, I was struck. There are 515 permitted businesses in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>. We will bring some scientists in at the next town hall meeting to determine which businesses are releasing carcinogenic pollutants," he said. "When I look at the maps, there are two pockets of permitted facilities in <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>. Do you [AQMD] look at the cumulative impact of facilities grouped together [when considering issuing a permit]?" Dunn posed. Dr. Wallerstein responded, "the short answer is 'partially'". Senator Dunn, responding to Dr. Wallerstein's comments, said "if we need to give AQMD more power in terms of cumulative impact of permitted facilities, then we will introduce legislation to give them that power." The Senator then asked City Councilman Solorio, "does the city in any way look at what type of business it is, or its cumulative impact [when approving a business]?" Solorio responded, "one of the main things the city does is make a General Plan, and unlike <span onClick="goto_name('Irvine')" class="loc">Irvine</span> or <span onClick="goto_name('Newport Beach')" class="loc">Newport Beach</span>, we are an older city." Solorio went on to talk about how in the future, the city could pass litigation limit permits, and said that "we all need to do our part". Referring to concerns about the steel plating plant next to a school, he said, "Markland came into an industrial area, so they have a legal right to set up shop". Dunn asked Solorio if the city is now looking at regulation to limit this, and Solorio responded, "We always have opportunities to look at our General Plan, and we need to have solid facts to make those decisions". Dunn asked Dr. Wallerstein, "what about this pocket of businesses in south <span onClick="goto_name('Santa Ana')" class="loc">Santa Ana</span>, is that unusual?" Wallerstein responded, "Senator, I don't think that's an issue".</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>California</th>
+      </tr>
+      <tr>
+       <th>Santa Ana</th>
+      </tr>
+      <tr>
+       <th>Orange County</th>
+      </tr>
+      <tr>
+       <th>Socorro</th>
+      </tr>
+      <tr>
+       <th>Ana City</th>
+      </tr>
+      <tr>
+       <th>Irvine</th>
+      </tr>
+      <tr>
+       <th>Newport Beach</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

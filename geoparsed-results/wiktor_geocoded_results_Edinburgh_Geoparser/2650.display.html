@@ -1,0 +1,1250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([-39.16667,174.66667], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([-39.16667,174.66667],
+			  {
+			      title: "Taranaki",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-39.3,174.06667],
+			  {
+			      title: "Mount Egmont",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-39.16667,174],
+			  {
+			      title: "Taranaki County",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-38.79823,177.91021],
+			  {
+			      title: "Taranaki",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-36.46667,174.46667],
+			  {
+			      title: "Taranaki",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-32.41598,134.67789],
+			  {
+			      title: "Taranaki",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-37.12845,140.81255],
+			  {
+			      title: "Taranaki",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-19.83333,29.48333],
+			  {
+			      title: "Taranaki",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Taranaki"] = marker;
+  
+    var marker = L.marker([-39.33762,174.28368],
+			  {
+			      title: "Stratford",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([-39.25,174.66667],
+			  {
+			      title: "Stratford County",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([41.18454,-73.13317],
+			  {
+			      title: "Stratford",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([43.36679,-80.94972],
+			  {
+			      title: "Stratford",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([-37.9634,147.0826],
+			  {
+			      title: "Stratford",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([36.33614,-102.07212],
+			  {
+			      title: "Stratford",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([44.65505,-71.55564],
+			  {
+			      title: "Stratford",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([42.27137,-93.92717],
+			  {
+			      title: "Stratford",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([51.53333,0],
+			  {
+			      title: "Stratford",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([38.1484,-76.8413],
+			  {
+			      title: "Stratford",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([34.79675,-96.95946],
+			  {
+			      title: "Stratford",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([-16.87831,145.72842],
+			  {
+			      title: "Stratford",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([39.82678,-75.01545],
+			  {
+			      title: "Stratford",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([44.80108,-90.0793],
+			  {
+			      title: "Stratford",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([36.1894,-119.82319],
+			  {
+			      title: "Stratford",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([-32.11667,151.93333],
+			  {
+			      title: "Stratford",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([45.31636,-98.30482],
+			  {
+			      title: "Stratford",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([40.25617,-83.06352],
+			  {
+			      title: "Stratford",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([47.42675,-119.28157],
+			  {
+			      title: "Stratford",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([45.83337,-71.24907],
+			  {
+			      title: "Stratford",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Stratford"] = marker;
+  
+    var marker = L.marker([48.61671,-58.6985],
+			  {
+			      title: "East Road",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([50.975,1.01667],
+			  {
+			      title: "East Road",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([-51.793,-58.09025],
+			  {
+			      title: "East Road",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([46.85949,-67.80641],
+			  {
+			      title: "East Road",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([-0.50019,36.31565],
+			  {
+			      title: "East Road",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([14.235,121.10939],
+			  {
+			      title: "East Road",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["East Road"] = marker;
+  
+    var marker = L.marker([-38.87823,175.2602],
+			  {
+			      title: "Taumarunui",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Taumarunui"] = marker;
+  
+    var marker = L.marker([-38.88333,175.26667],
+			  {
+			      title: "Taumarunui",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Taumarunui"] = marker;
+  
+    var marker = L.marker([-38.86667,175.28333],
+			  {
+			      title: "Taumarunui",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Taumarunui"] = marker;
+  
+    var marker = L.marker([-38.83333,175.33333],
+			  {
+			      title: "Taumarunui County",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Taumarunui"] = marker;
+  
+    var marker = L.marker([-39.25,174.46667],
+			  {
+			      title: "Huiroa",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Huiroa"] = marker;
+  
+    var marker = L.marker([-39.23824,174.4702],
+			  {
+			      title: "Huiroa",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Huiroa"] = marker;
+  
+    var marker = L.marker([-39.21667,174.41667],
+			  {
+			      title: "Huiroa",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Huiroa"] = marker;
+  
+    var marker = L.marker([-39.26667,174.36667],
+			  {
+			      title: "Te Popo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Te Popo"] = marker;
+  
+    var marker = L.marker([-39.26824,174.3602],
+			  {
+			      title: "Te Popo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Te Popo"] = marker;
+  
+    var marker = L.marker([-39.21824,174.5302],
+			  {
+			      title: "Kiore",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([35.48292,75.36177],
+			  {
+			      title: "Kiore",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([-38.39823,178.15021],
+			  {
+			      title: "Kiore",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([-1.4,34.33333],
+			  {
+			      title: "Kiore",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([-1.43075,34.34768],
+			  {
+			      title: "Kiore",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([40.21683,19.60566],
+			  {
+			      title: "Maja e Qorres",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kiore"] = marker;
+  
+    var marker = L.marker([-39.16121,174.56351],
+			  {
+			      title: "Matau",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-39.15824,174.5602],
+			  {
+			      title: "Matau",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([5.01667,116.8],
+			  {
+			      title: "Matau",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([12.68333,5.36667],
+			  {
+			      title: "Matua",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-42.56885,-73.44098],
+			  {
+			      title: "Matao",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([45.23565,25.08286],
+			  {
+			      title: "Mățău",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([8.57165,11.06973],
+			  {
+			      title: "Matau",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-46.3084,169.8001],
+			  {
+			      title: "Matau",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-46.35,169.8],
+			  {
+			      title: "Clutha River",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-14.08,37.41889],
+			  {
+			      title: "Matau",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-9.78334,-138.85311],
+			  {
+			      title: "Matau",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([16.49585,45.63487],
+			  {
+			      title: "Mataw",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Matau"] = marker;
+  
+    var marker = L.marker([-17.16051,32.11734],
+			  {
+			      title: "Matau",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Matau"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Douglas is a lowly populated locality and a rural centre in east <span onClick="goto_name('Taranaki')" class="loc">Taranaki</span>, surrounded by dairy, sheep and beef pastoral farming. It is situated 18 km east of <span onClick="goto_name('Stratford')" class="loc">Stratford</span> at the intersection of <span onClick="goto_name('East Road')" class="loc">East Road</span>, <span onClick="goto_name('Ohura Road')" class="loc">Ohura Road</span>, <span onClick="goto_name('Douglas Road South')" class="loc">Douglas Road South</span> and <span onClick="goto_name('Bredow Road')" class="loc">Bredow Road</span>. <span onClick="goto_name('East Road')" class="loc">East Road</span> and <span onClick="goto_name('Ohura Road')" class="loc">Ohura Road</span> meet to form State Highway 43, linking <span onClick="goto_name('Stratford')" class="loc">Stratford</span> to the King Country town of <span onClick="goto_name('Taumarunui')" class="loc">Taumarunui</span>. The <span onClick="goto_name('Stratford')" class="loc">Stratford</span> - Okahukura Line, a secondary railway line, runs through Douglas where it veers north-east and away from the state highway for approximately 20 km. Douglas is centred on the Toko Stream adjacent to a small saddle crossed by <span onClick="goto_name('Ohura Road')" class="loc">Ohura Road</span> to the east. The wider locality takes in State Highway 43 from Gordon Road in the west to Mangaotuku Road in the east. The reclaimed swamplands of the upper Toko valley are the dominant geographic feature, running from the north to the south-west of Douglas, at approximately 200m above sea level. Sandstone/greywacke ridges rise to between 300-370m altitude on each side of the valley floor. Peaks include Tarerepo trig to the north-east (366m altitude), Oruru trig to the south-east (329m) and Makuri trig to the south (327m). Crown Road provides access to farms below the Makuri trig, <span onClick="goto_name('Bredow Road')" class="loc">Bredow Road</span> to farms below the Oruru trig, and Douglas Road to farms in the upper end of the valley (Tarerepo trig). Douglas Road links Douglas to <span onClick="goto_name('Huiroa')" class="loc">Huiroa</span>, <span onClick="goto_name('Te Popo')" class="loc">Te Popo</span>, <span onClick="goto_name('Kiore')" class="loc">Kiore</span> and <span onClick="goto_name('Matau')" class="loc">Matau</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Taranaki</th>
+       <td best="true">
+        <a onClick="goto(-39.16667,174.66667)">
+         <span style="white-space:nowrap">-39.167,174.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.3,174.06667)">
+         <span style="white-space:nowrap">-39.300,174.067</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.16667,174)">
+         <span style="white-space:nowrap">-39.167,174.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.79823,177.91021)">
+         <span style="white-space:nowrap">-38.798,177.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.46667,174.46667)">
+         <span style="white-space:nowrap">-36.467,174.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.41598,134.67789)">
+         <span style="white-space:nowrap">-32.416,134.678</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.12845,140.81255)">
+         <span style="white-space:nowrap">-37.128,140.813</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-19.83333,29.48333)">
+         <span style="white-space:nowrap">-19.833,29.483</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Stratford</th>
+       <td best="true">
+        <a onClick="goto(-39.33762,174.28368)">
+         <span style="white-space:nowrap">-39.338,174.284</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.25,174.66667)">
+         <span style="white-space:nowrap">-39.250,174.667</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.18454,-73.13317)">
+         <span style="white-space:nowrap">41.185,-73.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.36679,-80.94972)">
+         <span style="white-space:nowrap">43.367,-80.950</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.9634,147.0826)">
+         <span style="white-space:nowrap">-37.963,147.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.33614,-102.07212)">
+         <span style="white-space:nowrap">36.336,-102.072</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.65505,-71.55564)">
+         <span style="white-space:nowrap">44.655,-71.556</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.27137,-93.92717)">
+         <span style="white-space:nowrap">42.271,-93.927</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.53333,0)">
+         <span style="white-space:nowrap">51.533,0.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.1484,-76.8413)">
+         <span style="white-space:nowrap">38.148,-76.841</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.79675,-96.95946)">
+         <span style="white-space:nowrap">34.797,-96.959</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-16.87831,145.72842)">
+         <span style="white-space:nowrap">-16.878,145.728</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.82678,-75.01545)">
+         <span style="white-space:nowrap">39.827,-75.015</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.80108,-90.0793)">
+         <span style="white-space:nowrap">44.801,-90.079</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.1894,-119.82319)">
+         <span style="white-space:nowrap">36.189,-119.823</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.11667,151.93333)">
+         <span style="white-space:nowrap">-32.117,151.933</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.31636,-98.30482)">
+         <span style="white-space:nowrap">45.316,-98.305</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.25617,-83.06352)">
+         <span style="white-space:nowrap">40.256,-83.064</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.42675,-119.28157)">
+         <span style="white-space:nowrap">47.427,-119.282</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.83337,-71.24907)">
+         <span style="white-space:nowrap">45.833,-71.249</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>East Road</th>
+       <td best="true">
+        <a onClick="goto(48.61671,-58.6985)">
+         <span style="white-space:nowrap">48.617,-58.699</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.975,1.01667)">
+         <span style="white-space:nowrap">50.975,1.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-51.793,-58.09025)">
+         <span style="white-space:nowrap">-51.793,-58.090</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.85949,-67.80641)">
+         <span style="white-space:nowrap">46.859,-67.806</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-0.50019,36.31565)">
+         <span style="white-space:nowrap">-0.500,36.316</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.235,121.10939)">
+         <span style="white-space:nowrap">14.235,121.109</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Ohura Road</th>
+      </tr>
+      <tr>
+       <th>Douglas Road South</th>
+      </tr>
+      <tr>
+       <th>Bredow Road</th>
+      </tr>
+      <tr>
+       <th>Taumarunui</th>
+       <td best="true">
+        <a onClick="goto(-38.87823,175.2602)">
+         <span style="white-space:nowrap">-38.878,175.260</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.88333,175.26667)">
+         <span style="white-space:nowrap">-38.883,175.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.86667,175.28333)">
+         <span style="white-space:nowrap">-38.867,175.283</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.83333,175.33333)">
+         <span style="white-space:nowrap">-38.833,175.333</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Huiroa</th>
+       <td best="true">
+        <a onClick="goto(-39.25,174.46667)">
+         <span style="white-space:nowrap">-39.250,174.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.23824,174.4702)">
+         <span style="white-space:nowrap">-39.238,174.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.21667,174.41667)">
+         <span style="white-space:nowrap">-39.217,174.417</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Te Popo</th>
+       <td best="true">
+        <a onClick="goto(-39.26667,174.36667)">
+         <span style="white-space:nowrap">-39.267,174.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.26824,174.3602)">
+         <span style="white-space:nowrap">-39.268,174.360</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kiore</th>
+       <td best="true">
+        <a onClick="goto(-39.21824,174.5302)">
+         <span style="white-space:nowrap">-39.218,174.530</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.48292,75.36177)">
+         <span style="white-space:nowrap">35.483,75.362</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.39823,178.15021)">
+         <span style="white-space:nowrap">-38.398,178.150</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-1.4,34.33333)">
+         <span style="white-space:nowrap">-1.400,34.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-1.43075,34.34768)">
+         <span style="white-space:nowrap">-1.431,34.348</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.21683,19.60566)">
+         <span style="white-space:nowrap">40.217,19.606</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Matau</th>
+       <td best="true">
+        <a onClick="goto(-39.16121,174.56351)">
+         <span style="white-space:nowrap">-39.161,174.564</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.15824,174.5602)">
+         <span style="white-space:nowrap">-39.158,174.560</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(5.01667,116.8)">
+         <span style="white-space:nowrap">5.017,116.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.68333,5.36667)">
+         <span style="white-space:nowrap">12.683,5.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-42.56885,-73.44098)">
+         <span style="white-space:nowrap">-42.569,-73.441</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.23565,25.08286)">
+         <span style="white-space:nowrap">45.236,25.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.57165,11.06973)">
+         <span style="white-space:nowrap">8.572,11.070</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-46.3084,169.8001)">
+         <span style="white-space:nowrap">-46.308,169.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-46.35,169.8)">
+         <span style="white-space:nowrap">-46.350,169.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.08,37.41889)">
+         <span style="white-space:nowrap">-14.080,37.419</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-9.78334,-138.85311)">
+         <span style="white-space:nowrap">-9.783,-138.853</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.49585,45.63487)">
+         <span style="white-space:nowrap">16.496,45.635</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.16051,32.11734)">
+         <span style="white-space:nowrap">-17.161,32.117</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

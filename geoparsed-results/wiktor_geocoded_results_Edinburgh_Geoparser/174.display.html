@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Rosario')" class="loc">Rosario</span> is a first class municipality in the <span onClick="goto_name('province of Batangas')" class="loc">province of Batangas</span>, <span onClick="goto_name('Philippines')" class="loc">Philippines</span>. According to the 2010 census, it has a population of 105,561 people. <span onClick="goto_name('Rosario')" class="loc">Rosario</span> is also considered as among the interior municipalities of the <span onClick="goto_name('Batangas Bay')" class="loc">Batangas Bay</span> Region comprising eleven municipalities and two cities whose catchment areas drain into the <span onClick="goto_name('Batangas Bay')" class="loc">Batangas Bay</span>. The town is also dubbed as "The Rice Granary of <span onClick="goto_name('Batangas')" class="loc">Batangas</span>". Accounts show that the origin of <span onClick="goto_name('Rosario')" class="loc">Rosario</span> was a Christian settlement along the coast of Lobo. The settlement became prey to the pirate raids during the <span onClick="goto_name('Moro')" class="loc">Moro</span> wars of the 18th century. The <span onClick="goto_name('Moro')" class="loc">Moro</span> or pirate raids forced the inhabitants of the settlement to the safety of the ravine and forest on the north-west bank of <span onClick="goto_name('Kansahayan')" class="loc">Kansahayan</span> River (now the Municipality of <span onClick="goto_name('Taysan')" class="loc">Taysan</span>). Here the settlement was relocated. However, at the height of the <span onClick="goto_name('Moro')" class="loc">Moro</span> Wars in the second half of the 18th century, the <span onClick="goto_name('Moro')" class="loc">Moro</span> vicious <span onClick="goto_name('Moro')" class="loc">Moro</span> raids did reach <span onClick="goto_name('Kansahayan')" class="loc">Kansahayan</span>. In one of their forays the Parish Priest is said to be among those slain. The inhabitants decided to leave <span onClick="goto_name('Kansahayan')" class="loc">Kansahayan</span>. They headed farther north holding a novena and praying the rosary in the process of their flight. On the 9th night of the novena, the fleeing inhabitants reached the river bank of Tubig ng <span onClick="goto_name('Bayan')" class="loc">Bayan</span> (a river originating from <span onClick="goto_name('Lipa')" class="loc">Lipa</span>) in now the town of <span onClick="goto_name('Padre Garcia')" class="loc">Padre Garcia</span>. Here they finally settled. Living in peace and prosperity, the grateful town’s people erected a stone church south of the river bank in honor of their benefactress, the Lady of the Most <span onClick="goto_name('Holy Rosary Parish')" class="loc">Holy Rosary Parish</span>. The town was named <span onClick="goto_name('Sto')" class="loc">Sto</span>. <span onClick="goto_name('Rosario')" class="loc">Rosario</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Rosario</th>
+      </tr>
+      <tr>
+       <th>province of Batangas</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>Batangas Bay</th>
+      </tr>
+      <tr>
+       <th>Batangas</th>
+      </tr>
+      <tr>
+       <th>Moro</th>
+      </tr>
+      <tr>
+       <th>Kansahayan</th>
+      </tr>
+      <tr>
+       <th>Taysan</th>
+      </tr>
+      <tr>
+       <th>Bayan</th>
+      </tr>
+      <tr>
+       <th>Lipa</th>
+      </tr>
+      <tr>
+       <th>Padre Garcia</th>
+      </tr>
+      <tr>
+       <th>Holy Rosary Parish</th>
+      </tr>
+      <tr>
+       <th>Sto</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

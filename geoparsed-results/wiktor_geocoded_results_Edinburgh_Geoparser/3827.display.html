@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Valladolid')" class="loc">Valladolid</span> (/ˌvælədəˈliːdˌ -ˈlɪd/ or /ˌbɑːjədəˈliːd/, Spanish: [baʎaðoˈlið]) is a city in <span onClick="goto_name('Spain')" class="loc">Spain</span> and the de facto capital of the autonomous region of Castile and Leon. It has a population of 309,714 people (2013 est.), making it <span onClick="goto_name('Spain')" class="loc">Spain</span>'s 13th most populous municipality and northwestern <span onClick="goto_name('Spain')" class="loc">Spain</span>'s biggest city. <span onClick="goto_name('Its metropolitan')" class="loc">Its metropolitan</span> area ranks 20th in <span onClick="goto_name('Spain')" class="loc">Spain</span> with a population of 414,244 people in 23 municipalities. The city is situated at the confluence of the Pisuerga and Esgueva rivers, and located within five winegrowing regions: Ribera del Duero, <span onClick="goto_name('Rueda')" class="loc">Rueda</span>, <span onClick="goto_name('Toro')" class="loc">Toro</span>, <span onClick="goto_name('Tierra')" class="loc">Tierra</span> de León, and <span onClick="goto_name('Cigales')" class="loc">Cigales</span>. <span onClick="goto_name('Valladolid')" class="loc">Valladolid</span> was originally settled in pre-Roman times by the Celtic Vaccaei people, and later the Romans themselves. It remained a small settlement until being re-established by King Alfonso VI of Castile as a Lordship for the Count Pedro Ansúrez in 1072. It grew to prominence in the Middle Ages as the seat of the Court of Castile and being endowed with fairs and different institutions as a collegiate church, University (1241), <span onClick="goto_name('Royal Court')" class="loc">Royal Court</span> and Chancery and the Royal Mint. The Catholic Monarchs, Isabel I of Castile and Ferdinand II of <span onClick="goto_name('Aragon')" class="loc">Aragon</span>, married in <span onClick="goto_name('Valladolid')" class="loc">Valladolid</span> in 1469 and established it as the capital of the Kingdom of Castile and later of united <span onClick="goto_name('Spain')" class="loc">Spain</span>. Christopher Columbus died in <span onClick="goto_name('Valladolid')" class="loc">Valladolid</span> in 1506, while authors Francisco de Quevedo and Miguel de Cervantes lived and worked in the city. The city was briefly the capital of <span onClick="goto_name('Habsburg')" class="loc">Habsburg</span> <span onClick="goto_name('Spain')" class="loc">Spain</span> under Phillip III between 1601 and 1606, before returning indefinitely to <span onClick="goto_name('Madrid')" class="loc">Madrid</span>. The city then declined until the arrival of the railway in the 19th century, and with its industrialisation into the 20th century.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Valladolid</th>
+      </tr>
+      <tr>
+       <th>Spain</th>
+      </tr>
+      <tr>
+       <th>Its metropolitan</th>
+      </tr>
+      <tr>
+       <th>Rueda</th>
+      </tr>
+      <tr>
+       <th>Toro</th>
+      </tr>
+      <tr>
+       <th>Tierra</th>
+      </tr>
+      <tr>
+       <th>Cigales</th>
+      </tr>
+      <tr>
+       <th>Royal Court</th>
+      </tr>
+      <tr>
+       <th>Aragon</th>
+      </tr>
+      <tr>
+       <th>Habsburg</th>
+      </tr>
+      <tr>
+       <th>Madrid</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

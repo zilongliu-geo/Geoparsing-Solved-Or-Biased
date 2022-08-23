@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>The town of <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> is located in <span onClick="goto_name('Providence County')" class="loc">Providence County</span>, <span onClick="goto_name('Rhode Island')" class="loc">Rhode Island</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. It includes the historic villages of <span onClick="goto_name('Esmond')" class="loc">Esmond</span>, <span onClick="goto_name('Georgiaville')" class="loc">Georgiaville</span>, <span onClick="goto_name('Mountaindale')" class="loc">Mountaindale</span>, <span onClick="goto_name('Hanton City')" class="loc">Hanton City</span>, <span onClick="goto_name('Stillwater')" class="loc">Stillwater</span> and <span onClick="goto_name('Greenville')" class="loc">Greenville</span>. The population was 21,430 at the 2010 census. <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> is the home of Bryant University, a private four year college. The area comprising modern-day <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> was first settled in 1636 by several British colonists, including John Steere as a farming community and named after <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span>, <span onClick="goto_name('London')" class="loc">London</span>. The area was within the boundaries of Providence until 1731 when <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> was incorporated as a separate town. Chief Justice Peleg Arnold lived in early <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span>, and his 1690 home stands today. There was an active Quaker community in early 18th century <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> that extended along the Great Road, from what is today <span onClick="goto_name('Woonsocket')" class="loc">Woonsocket</span>, north into <span onClick="goto_name('south Uxbridge')" class="loc">south Uxbridge</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. This Quaker community, and its members, became influential in the abolition movement, with members such as <span onClick="goto_name('Effingham')" class="loc">Effingham</span> Capron and Abby Kelley Foster, and also gave rise to other Quaker settlements including one at <span onClick="goto_name('Adams')" class="loc">Adams</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> where Susan B. Anthony was born as an early member. Elizabeth Buffum Chace is a well-known person from <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> who was influential in both abolition of slavery, and the women's rights movement. In the 19th century several mills were built in the town. In the mid-19th century the towns of <span onClick="goto_name('North Smithfield')" class="loc">North Smithfield</span>, <span onClick="goto_name('Rhode Island')" class="loc">Rhode Island</span>, and Lincoln, <span onClick="goto_name('Rhode Island')" class="loc">Rhode Island</span>, became separate towns. The colonial ghost town of <span onClick="goto_name('Hanton City')" class="loc">Hanton City</span> is located within the boundaries of present-day <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span>, but was a completely separate community in the eighteenth century. A Revolutionary war soldier, from the <span onClick="goto_name('Smithfield')" class="loc">Smithfield</span> side of the <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> border, Captain James Buxton, ended up as a <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> militiaman and Continental Army veteran, who was deeded 300 acres in <span onClick="goto_name('Worcester County')" class="loc">Worcester County</span> by Governor John Hancock. For this reason Buxton was lost to the history of <span onClick="goto_name('Rhode Island')" class="loc">Rhode Island</span> Revolutionary soldiers.(see <span onClick="goto_name('South Uxbridge')" class="loc">South Uxbridge</span> history). Buxton served at <span onClick="goto_name('Valley Forge')" class="loc">Valley Forge</span> among other battles.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Smithfield</th>
+      </tr>
+      <tr>
+       <th>Providence County</th>
+      </tr>
+      <tr>
+       <th>Rhode Island</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Esmond</th>
+      </tr>
+      <tr>
+       <th>Georgiaville</th>
+      </tr>
+      <tr>
+       <th>Mountaindale</th>
+      </tr>
+      <tr>
+       <th>Hanton City</th>
+      </tr>
+      <tr>
+       <th>Stillwater</th>
+      </tr>
+      <tr>
+       <th>Greenville</th>
+      </tr>
+      <tr>
+       <th>London</th>
+      </tr>
+      <tr>
+       <th>Woonsocket</th>
+      </tr>
+      <tr>
+       <th>south Uxbridge</th>
+      </tr>
+      <tr>
+       <th>Massachusetts</th>
+      </tr>
+      <tr>
+       <th>Effingham</th>
+      </tr>
+      <tr>
+       <th>Adams</th>
+      </tr>
+      <tr>
+       <th>North Smithfield</th>
+      </tr>
+      <tr>
+       <th>Worcester County</th>
+      </tr>
+      <tr>
+       <th>South Uxbridge</th>
+      </tr>
+      <tr>
+       <th>Valley Forge</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

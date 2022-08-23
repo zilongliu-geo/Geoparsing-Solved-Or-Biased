@@ -1,0 +1,1338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([35.98766,-99.00789], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([35.98766,-99.00789],
+			  {
+			      title: "Dewey",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dewey County"] = marker;
+  
+    var marker = L.marker([45.15662,-100.87186],
+			  {
+			      title: "Dewey",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dewey County"] = marker;
+  
+    var marker = L.marker([35.49209,-97.50328],
+			  {
+			      title: "Oklahoma",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([35.46756,-97.51643],
+			  {
+			      title: "Oklahoma City",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([40.58145,-79.57393],
+			  {
+			      title: "Oklahoma",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([41.11395,-78.73336],
+			  {
+			      title: "Oklahoma",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([37.66172,-86.87721],
+			  {
+			      title: "Oklahoma",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([41.79364,-87.69172],
+			  {
+			      title: "Mexico",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([35.55152,-97.4072],
+			  {
+			      title: "Oklahoma",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([37.74397,-83.63547],
+			  {
+			      title: "Rogers",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([39.41371,-76.92276],
+			  {
+			      title: "Oklahoma",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([33.33373,-90.16842],
+			  {
+			      title: "Oklahoma",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([30.15549,-95.59383],
+			  {
+			      title: "Oklahoma",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([31.0088,-92.20846],
+			  {
+			      title: "Oklahoma",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([28.77054,-97.74889],
+			  {
+			      title: "Couch",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([17.85582,-91.56662],
+			  {
+			      title: "Oklahoma",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([14.65463,-90.72022],
+			  {
+			      title: "Oklahoma",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([-43.43831,170.6401],
+			  {
+			      title: "Oklahoma",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([-43.45,170.65],
+			  {
+			      title: "Oklahoma",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([-33.09683,148.0993],
+			  {
+			      title: "Oklahoma",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([-30.7863,148.62162],
+			  {
+			      title: "Oklahoma",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([-33.67742,115.1899],
+			  {
+			      title: "Oklahoma",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Oklahoma"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([40.00032,-89.25037],
+			  {
+			      title: "Illinois",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([38.28672,-90.38012],
+			  {
+			      title: "Riverside",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([33.09285,-107.23058],
+			  {
+			      title: "Illinois",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([-23.13333,18.38333],
+			  {
+			      title: "Illinois",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([-34.14437,147.05553],
+			  {
+			      title: "Illinois",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([14.66893,121.12046],
+			  {
+			      title: "Illinois",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([14.27694,120.90015],
+			  {
+			      title: "Illinois",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Illinois"] = marker;
+  
+    var marker = L.marker([37.69224,-97.33754],
+			  {
+			      title: "Wichita",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([41.73332,-94.60414],
+			  {
+			      title: "Wichita",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([33.98798,-98.70361],
+			  {
+			      title: "Wichita",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([38.48208,-101.34736],
+			  {
+			      title: "Wichita",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Wichita"] = marker;
+  
+    var marker = L.marker([38.25031,-92.50046],
+			  {
+			      title: "Missouri",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([31.94766,-85.70522],
+			  {
+			      title: "Perote",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([45.67965,-111.03856],
+			  {
+			      title: "Bozeman",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([44.42634,-76.48767],
+			  {
+			      title: "Missouri",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([-30.21981,120.9539],
+			  {
+			      title: "Missouri",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([14.62179,121.11342],
+			  {
+			      title: "Missouri",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Missouri"] = marker;
+  
+    var marker = L.marker([38.50029,-98.50063],
+			  {
+			      title: "Kansas",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([36.20509,-94.79773],
+			  {
+			      title: "Kansas",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([39.55281,-87.93948],
+			  {
+			      title: "Kansas",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([36.90172,-88.72839],
+			  {
+			      title: "Kansas",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([39.33144,-86.03249],
+			  {
+			      title: "Kansas",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([40.48785,-77.81083],
+			  {
+			      title: "Little Kansas",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([41.24505,-83.28465],
+			  {
+			      title: "Kansas",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([36.45282,-86.38055],
+			  {
+			      title: "Kansas",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([33.85816,-92.98822],
+			  {
+			      title: "Kansas",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([33.90177,-87.55196],
+			  {
+			      title: "Kansas",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([39.71567,-75.91661],
+			  {
+			      title: "Blake",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([43.05786,-73.13094],
+			  {
+			      title: "Kansas",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([37.7014,-97.28004],
+			  {
+			      title: "Kansas",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([36.08954,-83.36322],
+			  {
+			      title: "Kansas",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([33.62122,-85.27023],
+			  {
+			      title: "Kansas",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([49.43834,6.789],
+			  {
+			      title: "Kansas",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([-23.11667,18.51667],
+			  {
+			      title: "Kansas",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Kansas"] = marker;
+  
+    var marker = L.marker([35.87005,-99.34677],
+			  {
+			      title: "Leedey",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Leedey"] = marker;
+  
+    var marker = L.marker([36.90697,-100.53932],
+			  {
+			      title: "Forgan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Forgan"] = marker;
+  
+    var marker = L.marker([51.26672,-107.80067],
+			  {
+			      title: "Forgan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Forgan"] = marker;
+  
+    var marker = L.marker([56.4236,-2.9321],
+			  {
+			      title: "Forgan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Forgan"] = marker;
+  
+    var marker = L.marker([36.74971,-100.47678],
+			  {
+			      title: "Beaver",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Beaver County"] = marker;
+  
+    var marker = L.marker([40.68226,-80.34929],
+			  {
+			      title: "Beaver",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Beaver County"] = marker;
+  
+    var marker = L.marker([38.35771,-113.23576],
+			  {
+			      title: "Beaver",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Beaver County"] = marker;
+  
+    var marker = L.marker([53.22074,-112.19764],
+			  {
+			      title: "Beaver County",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Beaver County"] = marker;
+  
+    var marker = L.marker([44.86999,-104.15522],
+			  {
+			      title: "Colony",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bentonite"] = marker;
+  
+    var marker = L.marker([36.14976,-99.29816],
+			  {
+			      title: "Vici",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Vici"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Camargo is a town in <span onClick="goto_name('Dewey County')" class="loc">Dewey County</span>, <span onClick="goto_name('Oklahoma')" class="loc">Oklahoma</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 178 at the 2010 census, an increase of 54.8 percent from 115 at the 2000 census. The area that became the present town of Camargo was part of the Cheyenne and Arapaho Reservation until it was opened for non-Indian settlement on April 19, 1892. A Camargo post office was established on September 16, 1892. Two stories exist about the meaning of the town name. One claims that it was named for a town in <span onClick="goto_name('Illinois')" class="loc">Illinois</span>, while the other claims Camargo meant "little dog" in the Cheyenne language. Farming and ranching sustained Camargo's early economy. The <span onClick="goto_name('Wichita')" class="loc">Wichita</span> Falls and Northwestern Railway (later the <span onClick="goto_name('Missouri')" class="loc">Missouri</span>, <span onClick="goto_name('Kansas')" class="loc">Kansas</span> and Texas Railway, or Katy) built a line in 1912 between <span onClick="goto_name('Leedey')" class="loc">Leedey</span> and <span onClick="goto_name('Forgan')" class="loc">Forgan</span> (in <span onClick="goto_name('Beaver County')" class="loc">Beaver County</span> that passed through Camargo. <span onClick="goto_name('Bentonite')" class="loc">Bentonite</span> was mined in the area and shipped on the railroad until the railroad ceased operating in 1972-3. Camargo is located at 36°1′4″N 99°17′14″W (36.017879, -99.287244). It is approximately halfway between <span onClick="goto_name('Leedey')" class="loc">Leedey</span> and <span onClick="goto_name('Vici')" class="loc">Vici</span> on State Highway 34.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Dewey County</th>
+       <td best="true">
+        <a onClick="goto(35.98766,-99.00789)">
+         <span style="white-space:nowrap">35.988,-99.008</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.15662,-100.87186)">
+         <span style="white-space:nowrap">45.157,-100.872</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Oklahoma</th>
+       <td best="true">
+        <a onClick="goto(35.49209,-97.50328)">
+         <span style="white-space:nowrap">35.492,-97.503</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.46756,-97.51643)">
+         <span style="white-space:nowrap">35.468,-97.516</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.58145,-79.57393)">
+         <span style="white-space:nowrap">40.581,-79.574</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.11395,-78.73336)">
+         <span style="white-space:nowrap">41.114,-78.733</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.66172,-86.87721)">
+         <span style="white-space:nowrap">37.662,-86.877</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79364,-87.69172)">
+         <span style="white-space:nowrap">41.794,-87.692</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.55152,-97.4072)">
+         <span style="white-space:nowrap">35.552,-97.407</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.74397,-83.63547)">
+         <span style="white-space:nowrap">37.744,-83.635</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.41371,-76.92276)">
+         <span style="white-space:nowrap">39.414,-76.923</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.33373,-90.16842)">
+         <span style="white-space:nowrap">33.334,-90.168</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.15549,-95.59383)">
+         <span style="white-space:nowrap">30.155,-95.594</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.0088,-92.20846)">
+         <span style="white-space:nowrap">31.009,-92.208</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.77054,-97.74889)">
+         <span style="white-space:nowrap">28.771,-97.749</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.85582,-91.56662)">
+         <span style="white-space:nowrap">17.856,-91.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.65463,-90.72022)">
+         <span style="white-space:nowrap">14.655,-90.720</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-43.43831,170.6401)">
+         <span style="white-space:nowrap">-43.438,170.640</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-43.45,170.65)">
+         <span style="white-space:nowrap">-43.450,170.650</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.09683,148.0993)">
+         <span style="white-space:nowrap">-33.097,148.099</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.7863,148.62162)">
+         <span style="white-space:nowrap">-30.786,148.622</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.67742,115.1899)">
+         <span style="white-space:nowrap">-33.677,115.190</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Illinois</th>
+       <td best="true">
+        <a onClick="goto(40.00032,-89.25037)">
+         <span style="white-space:nowrap">40.000,-89.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.28672,-90.38012)">
+         <span style="white-space:nowrap">38.287,-90.380</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.09285,-107.23058)">
+         <span style="white-space:nowrap">33.093,-107.231</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.13333,18.38333)">
+         <span style="white-space:nowrap">-23.133,18.383</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.14437,147.05553)">
+         <span style="white-space:nowrap">-34.144,147.056</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.66893,121.12046)">
+         <span style="white-space:nowrap">14.669,121.120</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.27694,120.90015)">
+         <span style="white-space:nowrap">14.277,120.900</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Wichita</th>
+       <td best="true">
+        <a onClick="goto(37.69224,-97.33754)">
+         <span style="white-space:nowrap">37.692,-97.338</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.73332,-94.60414)">
+         <span style="white-space:nowrap">41.733,-94.604</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.98798,-98.70361)">
+         <span style="white-space:nowrap">33.988,-98.704</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.48208,-101.34736)">
+         <span style="white-space:nowrap">38.482,-101.347</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Missouri</th>
+       <td best="true">
+        <a onClick="goto(38.25031,-92.50046)">
+         <span style="white-space:nowrap">38.250,-92.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.94766,-85.70522)">
+         <span style="white-space:nowrap">31.948,-85.705</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.67965,-111.03856)">
+         <span style="white-space:nowrap">45.680,-111.039</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.42634,-76.48767)">
+         <span style="white-space:nowrap">44.426,-76.488</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.21981,120.9539)">
+         <span style="white-space:nowrap">-30.220,120.954</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.62179,121.11342)">
+         <span style="white-space:nowrap">14.622,121.113</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kansas</th>
+       <td best="true">
+        <a onClick="goto(38.50029,-98.50063)">
+         <span style="white-space:nowrap">38.500,-98.501</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.20509,-94.79773)">
+         <span style="white-space:nowrap">36.205,-94.798</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.55281,-87.93948)">
+         <span style="white-space:nowrap">39.553,-87.939</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.90172,-88.72839)">
+         <span style="white-space:nowrap">36.902,-88.728</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.33144,-86.03249)">
+         <span style="white-space:nowrap">39.331,-86.032</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.48785,-77.81083)">
+         <span style="white-space:nowrap">40.488,-77.811</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.24505,-83.28465)">
+         <span style="white-space:nowrap">41.245,-83.285</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.45282,-86.38055)">
+         <span style="white-space:nowrap">36.453,-86.381</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.85816,-92.98822)">
+         <span style="white-space:nowrap">33.858,-92.988</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.90177,-87.55196)">
+         <span style="white-space:nowrap">33.902,-87.552</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.71567,-75.91661)">
+         <span style="white-space:nowrap">39.716,-75.917</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.05786,-73.13094)">
+         <span style="white-space:nowrap">43.058,-73.131</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.7014,-97.28004)">
+         <span style="white-space:nowrap">37.701,-97.280</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.08954,-83.36322)">
+         <span style="white-space:nowrap">36.090,-83.363</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.62122,-85.27023)">
+         <span style="white-space:nowrap">33.621,-85.270</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.43834,6.789)">
+         <span style="white-space:nowrap">49.438,6.789</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.11667,18.51667)">
+         <span style="white-space:nowrap">-23.117,18.517</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Leedey</th>
+       <td best="true">
+        <a onClick="goto(35.87005,-99.34677)">
+         <span style="white-space:nowrap">35.870,-99.347</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Forgan</th>
+       <td best="true">
+        <a onClick="goto(36.90697,-100.53932)">
+         <span style="white-space:nowrap">36.907,-100.539</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.26672,-107.80067)">
+         <span style="white-space:nowrap">51.267,-107.801</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.4236,-2.9321)">
+         <span style="white-space:nowrap">56.424,-2.932</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Beaver County</th>
+       <td best="true">
+        <a onClick="goto(36.74971,-100.47678)">
+         <span style="white-space:nowrap">36.750,-100.477</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.68226,-80.34929)">
+         <span style="white-space:nowrap">40.682,-80.349</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.35771,-113.23576)">
+         <span style="white-space:nowrap">38.358,-113.236</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.22074,-112.19764)">
+         <span style="white-space:nowrap">53.221,-112.198</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bentonite</th>
+       <td best="true">
+        <a onClick="goto(44.86999,-104.15522)">
+         <span style="white-space:nowrap">44.870,-104.155</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Vici</th>
+       <td best="true">
+        <a onClick="goto(36.14976,-99.29816)">
+         <span style="white-space:nowrap">36.150,-99.298</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

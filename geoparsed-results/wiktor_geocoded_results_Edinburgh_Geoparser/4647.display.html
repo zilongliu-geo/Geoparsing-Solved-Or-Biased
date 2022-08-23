@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Phalia')" class="loc">Phalia</span> (Urdu تحصیل پھالیہ ) is a Tehsil of Mandi <span onClick="goto_name('Bahauddin District')" class="loc">Bahauddin District</span>, <span onClick="goto_name('Punjab')" class="loc">Punjab</span>, <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>. The population of <span onClick="goto_name('Phalia')" class="loc">Phalia</span> was calculated to be 25,914 in 2007 (21,025 in 1998). Alexander the Great and his army crossed the <span onClick="goto_name('Jhelum')" class="loc">Jhelum</span> in July 326 BC at the Battle of the <span onClick="goto_name('Hydaspes')" class="loc">Hydaspes</span> River where he defeated the Indian king <span onClick="goto_name('Porus')" class="loc">Porus</span>. According to Arrian (Anabasis, 29), he built a city on the spot whence he started to cross the river <span onClick="goto_name('Hydaspes')" class="loc">Hydaspes</span>, which he named Bukephala or Bucephala to honour his famous and loyal horse Bukephalus or Bucephalus. It is thought that ancient Bukephala was near the site of modern <span onClick="goto_name('Jhelum City')" class="loc">Jhelum City</span> but that is wrong. <span onClick="goto_name('Phalia')" class="loc">Phalia</span> was named after Bucephalus on the name of the Alexander's dead horse and presently a tehsil of Mandi <span onClick="goto_name('Bahauddin District')" class="loc">Bahauddin District</span>. The Alexander while forwarding from <span onClick="goto_name('Taxila')" class="loc">Taxila</span> opted alternate way despite of using traditional route i.e. today's GT road and built two cities on opposite banks of the river Hydaspes en route between <span onClick="goto_name('Bhera')" class="loc">Bhera</span> and <span onClick="goto_name('Mong')" class="loc">Mong</span>. In 997 CE, Sultan Mahmud Ghaznavi, took over the Ghaznavid dynasty empire established by his father, Sultan Sebuktegin, In 1005 he conquered the Shahis in <span onClick="goto_name('Kabul')" class="loc">Kabul</span> in 1005, and followed it by the conquests of <span onClick="goto_name('Punjab region')" class="loc">Punjab region</span>. The Delhi Sultanate and later Mughal Empire ruled the region. The <span onClick="goto_name('Punjab region')" class="loc">Punjab region</span> became predominantly Muslim due to missionary Sufi saints whose dargahs dot the landscape of <span onClick="goto_name('Punjab region')" class="loc">Punjab region</span>. Jalalpur Sharif is located on west of the river <span onClick="goto_name('Jhelum')" class="loc">Jhelum</span> whereas <span onClick="goto_name('Phalia')" class="loc">Phalia</span> on eastern bank in Mandi <span onClick="goto_name('Bahauddin District')" class="loc">Bahauddin District</span> close to river <span onClick="goto_name('Jhelum')" class="loc">Jhelum</span> earlier known as <span onClick="goto_name('Hydaspes')" class="loc">Hydaspes</span>. A semi hill or mound i.e. the historical sign of the ancient city and a shrine still available in mid of the Mohalla Ameer. In 2010, maximum of the area reshaped into commercial land and precious heritage could not be preserved.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Phalia</th>
+      </tr>
+      <tr>
+       <th>Bahauddin District</th>
+      </tr>
+      <tr>
+       <th>Punjab</th>
+      </tr>
+      <tr>
+       <th>Pakistan</th>
+      </tr>
+      <tr>
+       <th>Jhelum</th>
+      </tr>
+      <tr>
+       <th>Hydaspes</th>
+      </tr>
+      <tr>
+       <th>Porus</th>
+      </tr>
+      <tr>
+       <th>Jhelum City</th>
+      </tr>
+      <tr>
+       <th>Taxila</th>
+      </tr>
+      <tr>
+       <th>Bhera</th>
+      </tr>
+      <tr>
+       <th>Mong</th>
+      </tr>
+      <tr>
+       <th>Kabul</th>
+      </tr>
+      <tr>
+       <th>Punjab region</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

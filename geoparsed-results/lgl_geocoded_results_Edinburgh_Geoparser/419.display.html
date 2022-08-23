@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>A poodle perches atop the dog show pedestal. Standard poodle Hillwood Dassin De-Lovely took the winner's stage and posed regally for her victory photo after capturing the Best in Show award at yesterday's session of the Western <span onClick="goto_name('Pennsylvania Kennel')" class="loc">Pennsylvania Kennel</span> Association Dog Show. It makes sense that the pose would come naturally to the 3-year-old poodle who answers to the name "Sissy," since it was the 13th best in show award she's garnered in the past year. "It's very exciting every single time" said Joseph Vergnetti, of <span onClick="goto_name('Medina')" class="loc">Medina</span>, <span onClick="goto_name('Ohio')" class="loc">Ohio</span>, Sissy's handler and one of her owners. "Today there were at least 1,000 dogs here and we beat out all of the others." Sissy competed in Saturday's session of the show, held at the David L. Lawrence Convention Center, but didn't make it to the final round. On Saturday, she took third place in her group, non-sporting breeds. To make it to the final round, a dog must place first in its group. Saturday's best in show went to an Airedale terrier, <span onClick="goto_name('Stirling')" class="loc">Stirling</span> Cool Hand Luke. The best in show award came with a <span onClick="goto_name('Waterford')" class="loc">Waterford</span> bowl, $100 and a ribbon. Over the course of the two-day event, about 2,500 dogs competed in the show, said Nance Shields, president of the Western <span onClick="goto_name('Pennsylvania Kennel')" class="loc">Pennsylvania Kennel</span> Association. While it came down to one top dog on the winner's stage by the end of the afternoon on Saturday and Sunday, the convention center hall was a whirl of activity in the morning and early afternoon as the owners and handlers of more the more than 1,000 dogs prepared them for competition. There was primping and brushing and teasing in all corners of the convention hall in preparation for contests what would give the dogs just a few minutes to strut their stuff. It's a familiar scene for many of the owners and handlers who spend their weekends traveling from dog show to dog show. Amy Booth, of <span onClick="goto_name('Fowlerville')" class="loc">Fowlerville</span>, <span onClick="goto_name('Mich.')" class="loc">Mich.</span>, said she and her husband, Phil, will attend 150 to 180 dog shows this year. They traveled to this weekend's show in a box truck which they use to transport their dogs and all of the equipment needed for their travel and showing. They were able to get a hotel room that would permit their dogs at the Downtown Westin. When the weather gets warmer, the Booths and their dogs will travel to shows in their camper. One of the dogs the Booths entered into the competition yesterday was Ms. Booth's 2-year-old smooth fox terrier, Dodger. Even though he is a short-haired dog, Dodger's preparation included mousse and gel and powder to make his coat look good. It paid off -- Dodger was chosen as best in his breed and then placed second in the terrier group. "I personally do it because I love the dogs. There is nothing better than traveling some place in the country and taking the dog with you and experiencing it with them," said Ms. Booth, a full-time breeder and dog handler. Kris Goodman of <span onClick="goto_name('Hudson')" class="loc">Hudson</span>, <span onClick="goto_name('Ohio')" class="loc">Ohio</span>, brought her Pyrenean shepherd, Conor, to yesterday's competition. "He got beat, but that's OK," said Ms. Goodman, an industrial engineer for General Motors who said she travels to 30 to 50 dog shows a year. Ms. Goodman travels to many of the shows with her friend, Karen Mlynar, of <span onClick="goto_name('Akron')" class="loc">Akron</span>, <span onClick="goto_name('Ohio')" class="loc">Ohio</span>. They transport their dogs and equipment in the back of a minivan. "You do it because you love to do it. You love showing the dogs and the thrill of the win if you get it," she said. "It's an addiction. I did it for 30 years," said Joy Kealy, publicity chairperson for the Western <span onClick="goto_name('Pennsylvania Kennel')" class="loc">Pennsylvania Kennel</span> Association. "You are just so proud of your dog and you like to go out and meet up with your friends and have a nice weekend." Mary Brazytis, of <span onClick="goto_name('Cleveland')" class="loc">Cleveland</span>, brought her rescue dog, an English cocker spaniel named Moose, to compete in the obedience portion of the show. Moose started to compete about four years ago after a trainer told Ms. Brazytis that her dog "would never amount to anything" because he performed poorly in obedience class. "I wanted to prove her wrong and show her that Moose could do something," she said, adding that Moose has also completed training to be a therapy dog. Julia Kinsey, of Canton, <span onClick="goto_name('Ohio')" class="loc">Ohio</span>, was preparing her two white standard poodles -- Vegas and Trouble -- for their trip home yesterday after both were eliminated from the final rounds of the competition. The process, which included brushing the hairspray and other products from their puffy fur and wrapping their ears in plastic, took almost as long as preparing them for competition. Ms. Kinsey said she attends dog shows nearly every weekend and has done so for the past eight to 10 years. "I spend way more time on their hair than I do on mine," she said. Handler Joseph Vergnetti of <span onClick="goto_name('Medina')" class="loc">Medina</span>, <span onClick="goto_name('Ohio')" class="loc">Ohio</span>, runs the show ring with Champion Hillwood Dassin De-Lovely, a standard poodle, during the Best of Show competition of the Western <span onClick="goto_name('Pennsylvania Kennel')" class="loc">Pennsylvania Kennel</span> Association Dog Show at the David Lawrence Convention Center yesterday.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Pennsylvania Kennel</th>
+      </tr>
+      <tr>
+       <th>Medina</th>
+      </tr>
+      <tr>
+       <th>Ohio</th>
+      </tr>
+      <tr>
+       <th>Stirling</th>
+      </tr>
+      <tr>
+       <th>Waterford</th>
+      </tr>
+      <tr>
+       <th>Fowlerville</th>
+      </tr>
+      <tr>
+       <th>Mich.</th>
+      </tr>
+      <tr>
+       <th>Hudson</th>
+      </tr>
+      <tr>
+       <th>Akron</th>
+      </tr>
+      <tr>
+       <th>Cleveland</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

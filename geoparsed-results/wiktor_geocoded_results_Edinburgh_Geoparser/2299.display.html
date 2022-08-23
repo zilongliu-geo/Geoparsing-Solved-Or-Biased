@@ -1,0 +1,1094 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([20.77024,-156.26816], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([20.77024,-156.26816],
+			  {
+			      title: "Maui",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([20.86774,-156.61706],
+			  {
+			      title: "Maui County",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([20.86777,-156.96019],
+			  {
+			      title: "Keoneheʻeheʻe",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([9.7005,124.4034],
+			  {
+			      title: "Mawi",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([-3.48071,142.03899],
+			  {
+			      title: "Maui",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([17.25502,121.74433],
+			  {
+			      title: "Maui",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([17.26906,121.72522],
+			  {
+			      title: "Maui",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([-14.2175,38.20167],
+			  {
+			      title: "Máui",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([14.97996,145.65584],
+			  {
+			      title: "Marpo Wells",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([20.015,145.221],
+			  {
+			      title: "Maug Islands",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([13.89721,124.15004],
+			  {
+			      title: "Maui",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["district of Maui"] = marker;
+  
+    var marker = L.marker([20.78785,-156.38612],
+			  {
+			      title: "Hawaii",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([20.77798,-156.88603],
+			  {
+			      title: "Puʻumakani",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([19.54814,-155.66494],
+			  {
+			      title: "Island of Hawai‘i",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([19.6024,-155.52289],
+			  {
+			      title: "Hawaii",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([13.86036,-90.41127],
+			  {
+			      title: "Hawaii",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([16.1077,120.514],
+			  {
+			      title: "Haway",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([25.8602,-80.1198],
+			  {
+			      title: "hawaii",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([44.2556,28.62146],
+			  {
+			      title: "Hawaii",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([33.50042,126.51737],
+			  {
+			      title: "Hawaii",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Hawaii"] = marker;
+  
+    var marker = L.marker([20.85694,-156.31306],
+			  {
+			      title: "Makawao",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Makawao"] = marker;
+  
+    var marker = L.marker([20.75,-156.33333],
+			  {
+			      title: "Makawao District",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Makawao"] = marker;
+  
+    var marker = L.marker([20.8475,-156.31667],
+			  {
+			      title: "Makawao",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Makawao"] = marker;
+  
+    var marker = L.marker([20.65,-156.39306],
+			  {
+			      title: "Ulupalakua",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ulupalakua"] = marker;
+  
+    var marker = L.marker([20.64869,-156.39823],
+			  {
+			      title: "ʻUlupalakua",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Ulupalakua"] = marker;
+  
+    var marker = L.marker([20.62024,-156.43008],
+			  {
+			      title: "South Maui Hawaiian Home Land",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Ulupalakua"] = marker;
+  
+    var marker = L.marker([20.76462,-156.44578],
+			  {
+			      title: "Kīhei",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kihei"] = marker;
+  
+    var marker = L.marker([20.87429,-156.67663],
+			  {
+			      title: "Lahaina",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lahaina"] = marker;
+  
+    var marker = L.marker([20.94662,-156.67099],
+			  {
+			      title: "Honokōwai Hawaiian Home Land",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lahaina"] = marker;
+  
+    var marker = L.marker([38.76678,-76.74275],
+			  {
+			      title: "Lahaina",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lahaina"] = marker;
+  
+    var marker = L.marker([20.71862,-156.18277],
+			  {
+			      title: "Haleakalā Crater",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Haleakala"] = marker;
+  
+    var marker = L.marker([20.70141,-156.17332],
+			  {
+			      title: "Haleakalā",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Haleakala"] = marker;
+  
+    var marker = L.marker([-33.58102,115.9168],
+			  {
+			      title: "Haleakala",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Haleakala"] = marker;
+  
+    var marker = L.marker([20.70711,-156.35446],
+			  {
+			      title: "Keokea",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Keokea"] = marker;
+  
+    var marker = L.marker([20.72833,-156.39972],
+			  {
+			      title: "Kēōkea",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Keokea"] = marker;
+  
+    var marker = L.marker([19.41633,-155.88338],
+			  {
+			      title: "Keokea",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Keokea"] = marker;
+  
+    var marker = L.marker([19.42278,-155.86806],
+			  {
+			      title: "Kēōkea",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Keokea"] = marker;
+  
+    var marker = L.marker([19.39333,-154.94111],
+			  {
+			      title: "Keokea",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Keokea"] = marker;
+  
+    var marker = L.marker([-37.25477,140.53922],
+			  {
+			      title: "Erewhon",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Erewhon"] = marker;
+  
+    var marker = L.marker([-39.50824,175.97021],
+			  {
+			      title: "Erewhon",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Erewhon"] = marker;
+  
+    var marker = L.marker([-17.1,30.46667],
+			  {
+			      title: "Erewhon",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Erewhon"] = marker;
+  
+    var marker = L.marker([-43.50832,170.8501],
+			  {
+			      title: "Erewhon",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Erewhon"] = marker;
+  
+    var marker = L.marker([20.77024,-156.26816],
+			  {
+			      title: "Maui",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([20.86774,-156.61706],
+			  {
+			      title: "Maui County",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([20.86777,-156.96019],
+			  {
+			      title: "Keoneheʻeheʻe",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([-3.48071,142.03899],
+			  {
+			      title: "Maui",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([9.7005,124.4034],
+			  {
+			      title: "Mawi",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([17.25502,121.74433],
+			  {
+			      title: "Maui",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([20.015,145.221],
+			  {
+			      title: "Maug Islands",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([-14.2175,38.20167],
+			  {
+			      title: "Máui",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([14.97996,145.65584],
+			  {
+			      title: "Marpo Wells",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([17.26906,121.72522],
+			  {
+			      title: "Maui",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+    var marker = L.marker([13.89721,124.15004],
+			  {
+			      title: "Maui",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["East Maui"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Kula is a <span onClick="goto_name('district of Maui')" class="loc">district of Maui</span>, <span onClick="goto_name('Hawaii')" class="loc">Hawaii</span>, that stretches across the "up-country", the western-facing slopes of Haleakalā, from <span onClick="goto_name('Makawao')" class="loc">Makawao</span> to <span onClick="goto_name('Ulupalakua')" class="loc">Ulupalakua</span>. Most of the residential areas lie between about 500 to 1,100 m (1,600 to 3,600 ft) in elevation. The district has traditionally been where full-time residents prefer to live, as distinct from the generally hotter and busier, more tourism-oriented towns near sea level, such as <span onClick="goto_name('Kihei')" class="loc">Kihei</span> and <span onClick="goto_name('Lahaina')" class="loc">Lahaina</span>. Kula roughly extends from <span onClick="goto_name('Haleakala')" class="loc">Haleakala</span> Highway (Hawaii Route 37) in the north to <span onClick="goto_name('Keokea')" class="loc">Keokea</span> in the south—a distance of about 16 miles around 20°47′32″N 156°19′37″W. The largely rural area known as Upper Kula includes the region up-slope from Lower Kula, the more densely populated area spread along the Kula Highway. The word Kula means "open meadows" in the Hawaiian language. On Maui Kula is one of the island's 12 foundation districts of ancient <span onClick="goto_name('Hawaii')" class="loc">Hawaii</span> called moku. Generally, Kula is a zone of arid earth with open country slopes between the inhabited and productive shoreline areas and the densely forested zone higher on the mountain. Maui's Kula district is the island's largest district, extending from dry coastal areas to the wetter high pasture lands of three major ranches (<span onClick="goto_name('Haleakala')" class="loc">Haleakala</span>, <span onClick="goto_name('Erewhon')" class="loc">Erewhon</span>, and <span onClick="goto_name('Ulupalakua')" class="loc">Ulupalakua</span>) that cap the region about halfway up the slopes of <span onClick="goto_name('Haleakala')" class="loc">Haleakala</span>. It laterally extends from <span onClick="goto_name('Keokea')" class="loc">Keokea</span> to near <span onClick="goto_name('Makawao')" class="loc">Makawao</span> where the rainforest of <span onClick="goto_name('East Maui')" class="loc">East Maui</span> once began.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>district of Maui</th>
+       <td best="true">
+        <a onClick="goto(20.77024,-156.26816)">
+         <span style="white-space:nowrap">20.770,-156.268</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.86774,-156.61706)">
+         <span style="white-space:nowrap">20.868,-156.617</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.86777,-156.96019)">
+         <span style="white-space:nowrap">20.868,-156.960</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.7005,124.4034)">
+         <span style="white-space:nowrap">9.700,124.403</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-3.48071,142.03899)">
+         <span style="white-space:nowrap">-3.481,142.039</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.25502,121.74433)">
+         <span style="white-space:nowrap">17.255,121.744</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.26906,121.72522)">
+         <span style="white-space:nowrap">17.269,121.725</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.2175,38.20167)">
+         <span style="white-space:nowrap">-14.217,38.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.97996,145.65584)">
+         <span style="white-space:nowrap">14.980,145.656</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.015,145.221)">
+         <span style="white-space:nowrap">20.015,145.221</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.89721,124.15004)">
+         <span style="white-space:nowrap">13.897,124.150</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hawaii</th>
+       <td best="true">
+        <a onClick="goto(20.78785,-156.38612)">
+         <span style="white-space:nowrap">20.788,-156.386</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.77798,-156.88603)">
+         <span style="white-space:nowrap">20.778,-156.886</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.54814,-155.66494)">
+         <span style="white-space:nowrap">19.548,-155.665</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.6024,-155.52289)">
+         <span style="white-space:nowrap">19.602,-155.523</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.86036,-90.41127)">
+         <span style="white-space:nowrap">13.860,-90.411</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.1077,120.514)">
+         <span style="white-space:nowrap">16.108,120.514</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.8602,-80.1198)">
+         <span style="white-space:nowrap">25.860,-80.120</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.2556,28.62146)">
+         <span style="white-space:nowrap">44.256,28.621</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.50042,126.51737)">
+         <span style="white-space:nowrap">33.500,126.517</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Makawao</th>
+       <td best="true">
+        <a onClick="goto(20.85694,-156.31306)">
+         <span style="white-space:nowrap">20.857,-156.313</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.75,-156.33333)">
+         <span style="white-space:nowrap">20.750,-156.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.8475,-156.31667)">
+         <span style="white-space:nowrap">20.848,-156.317</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Ulupalakua</th>
+       <td best="true">
+        <a onClick="goto(20.65,-156.39306)">
+         <span style="white-space:nowrap">20.650,-156.393</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.64869,-156.39823)">
+         <span style="white-space:nowrap">20.649,-156.398</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.62024,-156.43008)">
+         <span style="white-space:nowrap">20.620,-156.430</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kihei</th>
+       <td best="true">
+        <a onClick="goto(20.76462,-156.44578)">
+         <span style="white-space:nowrap">20.765,-156.446</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lahaina</th>
+       <td best="true">
+        <a onClick="goto(20.87429,-156.67663)">
+         <span style="white-space:nowrap">20.874,-156.677</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.94662,-156.67099)">
+         <span style="white-space:nowrap">20.947,-156.671</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.76678,-76.74275)">
+         <span style="white-space:nowrap">38.767,-76.743</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Haleakala</th>
+       <td best="true">
+        <a onClick="goto(20.71862,-156.18277)">
+         <span style="white-space:nowrap">20.719,-156.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.70141,-156.17332)">
+         <span style="white-space:nowrap">20.701,-156.173</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.58102,115.9168)">
+         <span style="white-space:nowrap">-33.581,115.917</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Keokea</th>
+       <td best="true">
+        <a onClick="goto(20.70711,-156.35446)">
+         <span style="white-space:nowrap">20.707,-156.354</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.72833,-156.39972)">
+         <span style="white-space:nowrap">20.728,-156.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.41633,-155.88338)">
+         <span style="white-space:nowrap">19.416,-155.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.42278,-155.86806)">
+         <span style="white-space:nowrap">19.423,-155.868</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.39333,-154.94111)">
+         <span style="white-space:nowrap">19.393,-154.941</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Erewhon</th>
+       <td best="true">
+        <a onClick="goto(-37.25477,140.53922)">
+         <span style="white-space:nowrap">-37.255,140.539</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-39.50824,175.97021)">
+         <span style="white-space:nowrap">-39.508,175.970</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.1,30.46667)">
+         <span style="white-space:nowrap">-17.100,30.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-43.50832,170.8501)">
+         <span style="white-space:nowrap">-43.508,170.850</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>East Maui</th>
+       <td best="true">
+        <a onClick="goto(20.77024,-156.26816)">
+         <span style="white-space:nowrap">20.770,-156.268</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.86774,-156.61706)">
+         <span style="white-space:nowrap">20.868,-156.617</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.86777,-156.96019)">
+         <span style="white-space:nowrap">20.868,-156.960</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-3.48071,142.03899)">
+         <span style="white-space:nowrap">-3.481,142.039</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.7005,124.4034)">
+         <span style="white-space:nowrap">9.700,124.403</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.25502,121.74433)">
+         <span style="white-space:nowrap">17.255,121.744</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.015,145.221)">
+         <span style="white-space:nowrap">20.015,145.221</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-14.2175,38.20167)">
+         <span style="white-space:nowrap">-14.217,38.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.97996,145.65584)">
+         <span style="white-space:nowrap">14.980,145.656</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.26906,121.72522)">
+         <span style="white-space:nowrap">17.269,121.725</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.89721,124.15004)">
+         <span style="white-space:nowrap">13.897,124.150</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

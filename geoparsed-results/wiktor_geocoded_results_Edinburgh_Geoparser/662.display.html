@@ -1,0 +1,1663 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([53.84331,-2.63001], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([53.84331,-2.63001],
+			  {
+			      title: "Lancashire",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lancashire"] = marker;
+  
+    var marker = L.marker([53.83333,-2.5],
+			  {
+			      title: "Lancashire",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lancashire"] = marker;
+  
+    var marker = L.marker([39.819,-75.4902],
+			  {
+			      title: "Lancashire",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lancashire"] = marker;
+  
+    var marker = L.marker([-19.19784,31.14349],
+			  {
+			      title: "Lancashire",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Lancashire"] = marker;
+  
+    var marker = L.marker([-19.35,29.71667],
+			  {
+			      title: "Lancashire",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Lancashire"] = marker;
+  
+    var marker = L.marker([52.16045,-0.70312],
+			  {
+			      title: "England",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([53,-2],
+			  {
+			      title: "England",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([52.21667,7.03333],
+			  {
+			      title: "England",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([54.48333,8.88333],
+			  {
+			      title: "England",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([40.84033,-82.23933],
+			  {
+			      title: "England",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([61.33333,5.01667],
+			  {
+			      title: "England",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([59.26536,10.4806],
+			  {
+			      title: "England",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([6.59465,8.88173],
+			  {
+			      title: "England",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([35.88453,-94.668],
+			  {
+			      title: "England",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([34.54426,-91.96903],
+			  {
+			      title: "England",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([61.23333,10.2],
+			  {
+			      title: "England",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([63.4,13.01667],
+			  {
+			      title: "Ängland",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([48.48581,-96.62811],
+			  {
+			      title: "Englund",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([63.31662,22.47928],
+			  {
+			      title: "England",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([59.117,5.9663],
+			  {
+			      title: "England",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([60.98846,4.59514],
+			  {
+			      title: "England",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([62.80496,6.78423],
+			  {
+			      title: "England",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([-28.34492,23.61985],
+			  {
+			      title: "England",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([-28.29379,22.29347],
+			  {
+			      title: "England",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([14.32689,120.97685],
+			  {
+			      title: "England",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([54.07402,-2.73214],
+			  {
+			      title: "River Lune",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["River Lune"] = marker;
+  
+    var marker = L.marker([53.985,-2.8775],
+			  {
+			      title: "River Lune",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["River Lune"] = marker;
+  
+    var marker = L.marker([54.61453,-2.05719],
+			  {
+			      title: "River Lune",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["River Lune"] = marker;
+  
+    var marker = L.marker([54.04649,-2.79988],
+			  {
+			      title: "Lancaster",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([40.03788,-76.30551],
+			  {
+			      title: "Lancaster",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([39.71368,-82.59933],
+			  {
+			      title: "Lancaster",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([42.90061,-78.67031],
+			  {
+			      title: "Lancaster",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([40.74893,-85.50692],
+			  {
+			      title: "Lancaster",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([37.76986,-76.46634],
+			  {
+			      title: "Lancaster",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([38.54783,-87.86531],
+			  {
+			      title: "Lancaster",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([34.69804,-118.13674],
+			  {
+			      title: "Lancaster",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([44.2529,-123.19565],
+			  {
+			      title: "Lancaster",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([47.031,-117.66437],
+			  {
+			      title: "Lancaster",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([34.31364,-111.71542],
+			  {
+			      title: "Lancaster",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([42.45565,-71.67312],
+			  {
+			      title: "Lancaster",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([36.12756,-85.85415],
+			  {
+			      title: "Lancaster",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([32.59208,-96.75611],
+			  {
+			      title: "Lancaster",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([48.85831,-96.80421],
+			  {
+			      title: "Lancaster",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([-36.31667,145.13333],
+			  {
+			      title: "Lancaster",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([34.72043,-80.7709],
+			  {
+			      title: "Lancaster",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([40.04201,-76.30116],
+			  {
+			      title: "City of Lancaster",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([39.72486,-82.60486],
+			  {
+			      title: "City of Lancaster",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([37.61569,-84.58106],
+			  {
+			      title: "City of Lancaster",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([45.25009,-74.49926],
+			  {
+			      title: "Lancaster",
+			      icon: 21 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 21 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(21 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([48.66658,-53.04804],
+			  {
+			      title: "Lancaster",
+			      icon: 22 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 22 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(22 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([39.57126,-95.30371],
+			  {
+			      title: "City of Lancaster",
+			      icon: 23 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 23 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(23 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([42.84733,-90.70641],
+			  {
+			      title: "City of Lancaster",
+			      icon: 24 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 24 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(24 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([17.93603,-77.46134],
+			  {
+			      title: "Lancaster",
+			      icon: 25 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 25 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(25 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([48.85778,-96.80278],
+			  {
+			      title: "City of Lancaster",
+			      icon: 26 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 26 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(26 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([34.72461,-80.77999],
+			  {
+			      title: "City of Lancaster",
+			      icon: 27 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 27 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(27 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([34.69344,-118.17524],
+			  {
+			      title: "City of Lancaster",
+			      icon: 28 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 28 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(28 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([40.52388,-92.53134],
+			  {
+			      title: "City of Lancaster",
+			      icon: 29 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 29 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(29 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([32.59226,-96.77375],
+			  {
+			      title: "City of Lancaster",
+			      icon: 30 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 30 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(30 == 1)
+    markers_by_name["City of Lancaster"] = marker;
+  
+    var marker = L.marker([54.06835,-2.86108],
+			  {
+			      title: "Morecambe",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Morecambe"] = marker;
+  
+    var marker = L.marker([54.08231,-2.86935],
+			  {
+			      title: "Morecambe",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Morecambe"] = marker;
+  
+    var marker = L.marker([53.66444,-111.47],
+			  {
+			      title: "Morecambe",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Morecambe"] = marker;
+  
+    var marker = L.marker([-17.81085,145.11258],
+			  {
+			      title: "Morecambe",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Morecambe"] = marker;
+  
+    var marker = L.marker([54.04649,-2.79988],
+			  {
+			      title: "Lancaster",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([34.69804,-118.13674],
+			  {
+			      title: "Lancaster",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([40.03788,-76.30551],
+			  {
+			      title: "Lancaster",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([39.71368,-82.59933],
+			  {
+			      title: "Lancaster",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([32.59208,-96.75611],
+			  {
+			      title: "Lancaster",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([42.90061,-78.67031],
+			  {
+			      title: "Lancaster",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([40.74893,-85.50692],
+			  {
+			      title: "Lancaster",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([37.76986,-76.46634],
+			  {
+			      title: "Lancaster",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([38.54783,-87.86531],
+			  {
+			      title: "Lancaster",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([34.31364,-111.71542],
+			  {
+			      title: "Lancaster",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([47.031,-117.66437],
+			  {
+			      title: "Lancaster",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([48.85831,-96.80421],
+			  {
+			      title: "Lancaster",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([44.2529,-123.19565],
+			  {
+			      title: "Lancaster",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([-36.31667,145.13333],
+			  {
+			      title: "Lancaster",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([34.72043,-80.7709],
+			  {
+			      title: "Lancaster",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([36.12756,-85.85415],
+			  {
+			      title: "Lancaster",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([42.45565,-71.67312],
+			  {
+			      title: "Lancaster",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([45.25009,-74.49926],
+			  {
+			      title: "Lancaster",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([48.66658,-53.04804],
+			  {
+			      title: "Lancaster",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([17.93603,-77.46134],
+			  {
+			      title: "Lancaster",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Lancaster"] = marker;
+  
+    var marker = L.marker([54.75844,-2.69531],
+			  {
+			      title: "United Kingdom",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Britain"] = marker;
+  
+    var marker = L.marker([54,-2],
+			  {
+			      title: "Great Britain",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Britain"] = marker;
+  
+    var marker = L.marker([53.59378,-1.86823],
+			  {
+			      title: "Britain",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Britain"] = marker;
+  
+    var marker = L.marker([39.25288,-77.69694],
+			  {
+			      title: "Britain",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Britain"] = marker;
+  
+    var marker = L.marker([33.51978,36.27691],
+			  {
+			      title: "Birīţāniyā",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Britain"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Lancaster /ˈlæŋkəstər/, or /ˈlæŋˌkæstər/ is the county town of <span onClick="goto_name('Lancashire')" class="loc">Lancashire</span>, <span onClick="goto_name('England')" class="loc">England</span>. It is situated on the <span onClick="goto_name('River Lune')" class="loc">River Lune</span> and has a population of 45,952. Lancaster is a constituent settlement of the wider <span onClick="goto_name('City of Lancaster')" class="loc">City of Lancaster</span>, a local government district which has a population of 138,375  and encompasses several outlying settlements, including neighbouring <span onClick="goto_name('Morecambe')" class="loc">Morecambe</span>. Long existing as a commercial, cultural and educational centre, Lancaster is the settlement that gives <span onClick="goto_name('Lancashire')" class="loc">Lancashire</span> its name. Lancaster has several unique ties to the British monarchy; the House of Lancaster was a branch of the English royal family, whilst the Duchy of Lancaster holds large estates on behalf of Elizabeth II, who herself is also the Duke of Lancaster. Lancaster was granted city status in 1937 for its "long association with the crown" and because it was "the county town of the King's Duchy of Lancaster". With its history based on its port and canal, Lancaster is an ancient settlement, dominated by <span onClick="goto_name('Lancaster')" class="loc">Lancaster</span> Castle. It is also home to the campus-based Lancaster University and a campus of the University of Cumbria. It is known that there existed a permanent Roman fort on the hill where <span onClick="goto_name('Lancaster')" class="loc">Lancaster</span> Castle now stands by the end of the 1st century AD, and possibly as early as the 60s, based on the Roman coin evidence. The coin evidence also suggests that the fort was not continuously inhabited in these early years. The fort was rebuilt in stone around 102 AD. The fort underwent a few more extensions, and at its largest area it was 9–10 acres (4–4 ha). The evidence suggests that the fort remained active into the early 5th century, which was the end of the Roman occupation of <span onClick="goto_name('Britain')" class="loc">Britain</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lancashire</th>
+       <td best="true">
+        <a onClick="goto(53.84331,-2.63001)">
+         <span style="white-space:nowrap">53.843,-2.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.83333,-2.5)">
+         <span style="white-space:nowrap">53.833,-2.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.819,-75.4902)">
+         <span style="white-space:nowrap">39.819,-75.490</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-19.19784,31.14349)">
+         <span style="white-space:nowrap">-19.198,31.143</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-19.35,29.71667)">
+         <span style="white-space:nowrap">-19.350,29.717</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>England</th>
+       <td best="true">
+        <a onClick="goto(52.16045,-0.70312)">
+         <span style="white-space:nowrap">52.160,-0.703</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53,-2)">
+         <span style="white-space:nowrap">53.000,-2.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.21667,7.03333)">
+         <span style="white-space:nowrap">52.217,7.033</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.48333,8.88333)">
+         <span style="white-space:nowrap">54.483,8.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.84033,-82.23933)">
+         <span style="white-space:nowrap">40.840,-82.239</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(61.33333,5.01667)">
+         <span style="white-space:nowrap">61.333,5.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.26536,10.4806)">
+         <span style="white-space:nowrap">59.265,10.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.59465,8.88173)">
+         <span style="white-space:nowrap">6.595,8.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.88453,-94.668)">
+         <span style="white-space:nowrap">35.885,-94.668</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.54426,-91.96903)">
+         <span style="white-space:nowrap">34.544,-91.969</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(61.23333,10.2)">
+         <span style="white-space:nowrap">61.233,10.200</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.4,13.01667)">
+         <span style="white-space:nowrap">63.400,13.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.48581,-96.62811)">
+         <span style="white-space:nowrap">48.486,-96.628</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.31662,22.47928)">
+         <span style="white-space:nowrap">63.317,22.479</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.117,5.9663)">
+         <span style="white-space:nowrap">59.117,5.966</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(60.98846,4.59514)">
+         <span style="white-space:nowrap">60.988,4.595</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(62.80496,6.78423)">
+         <span style="white-space:nowrap">62.805,6.784</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.34492,23.61985)">
+         <span style="white-space:nowrap">-28.345,23.620</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.29379,22.29347)">
+         <span style="white-space:nowrap">-28.294,22.293</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.32689,120.97685)">
+         <span style="white-space:nowrap">14.327,120.977</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>River Lune</th>
+       <td best="true">
+        <a onClick="goto(54.07402,-2.73214)">
+         <span style="white-space:nowrap">54.074,-2.732</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.985,-2.8775)">
+         <span style="white-space:nowrap">53.985,-2.877</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.61453,-2.05719)">
+         <span style="white-space:nowrap">54.615,-2.057</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>City of Lancaster</th>
+       <td best="true">
+        <a onClick="goto(54.04649,-2.79988)">
+         <span style="white-space:nowrap">54.046,-2.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.03788,-76.30551)">
+         <span style="white-space:nowrap">40.038,-76.306</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.71368,-82.59933)">
+         <span style="white-space:nowrap">39.714,-82.599</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.90061,-78.67031)">
+         <span style="white-space:nowrap">42.901,-78.670</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.74893,-85.50692)">
+         <span style="white-space:nowrap">40.749,-85.507</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.76986,-76.46634)">
+         <span style="white-space:nowrap">37.770,-76.466</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.54783,-87.86531)">
+         <span style="white-space:nowrap">38.548,-87.865</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.69804,-118.13674)">
+         <span style="white-space:nowrap">34.698,-118.137</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.2529,-123.19565)">
+         <span style="white-space:nowrap">44.253,-123.196</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.031,-117.66437)">
+         <span style="white-space:nowrap">47.031,-117.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.31364,-111.71542)">
+         <span style="white-space:nowrap">34.314,-111.715</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.45565,-71.67312)">
+         <span style="white-space:nowrap">42.456,-71.673</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.12756,-85.85415)">
+         <span style="white-space:nowrap">36.128,-85.854</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.59208,-96.75611)">
+         <span style="white-space:nowrap">32.592,-96.756</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.85831,-96.80421)">
+         <span style="white-space:nowrap">48.858,-96.804</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.31667,145.13333)">
+         <span style="white-space:nowrap">-36.317,145.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.72043,-80.7709)">
+         <span style="white-space:nowrap">34.720,-80.771</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.04201,-76.30116)">
+         <span style="white-space:nowrap">40.042,-76.301</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.72486,-82.60486)">
+         <span style="white-space:nowrap">39.725,-82.605</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.61569,-84.58106)">
+         <span style="white-space:nowrap">37.616,-84.581</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.25009,-74.49926)">
+         <span style="white-space:nowrap">45.250,-74.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.66658,-53.04804)">
+         <span style="white-space:nowrap">48.667,-53.048</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.57126,-95.30371)">
+         <span style="white-space:nowrap">39.571,-95.304</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.84733,-90.70641)">
+         <span style="white-space:nowrap">42.847,-90.706</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.93603,-77.46134)">
+         <span style="white-space:nowrap">17.936,-77.461</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.85778,-96.80278)">
+         <span style="white-space:nowrap">48.858,-96.803</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.72461,-80.77999)">
+         <span style="white-space:nowrap">34.725,-80.780</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.69344,-118.17524)">
+         <span style="white-space:nowrap">34.693,-118.175</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.52388,-92.53134)">
+         <span style="white-space:nowrap">40.524,-92.531</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.59226,-96.77375)">
+         <span style="white-space:nowrap">32.592,-96.774</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Morecambe</th>
+       <td best="true">
+        <a onClick="goto(54.06835,-2.86108)">
+         <span style="white-space:nowrap">54.068,-2.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.08231,-2.86935)">
+         <span style="white-space:nowrap">54.082,-2.869</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.66444,-111.47)">
+         <span style="white-space:nowrap">53.664,-111.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.81085,145.11258)">
+         <span style="white-space:nowrap">-17.811,145.113</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lancaster</th>
+       <td best="true">
+        <a onClick="goto(54.04649,-2.79988)">
+         <span style="white-space:nowrap">54.046,-2.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.69804,-118.13674)">
+         <span style="white-space:nowrap">34.698,-118.137</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.03788,-76.30551)">
+         <span style="white-space:nowrap">40.038,-76.306</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.71368,-82.59933)">
+         <span style="white-space:nowrap">39.714,-82.599</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.59208,-96.75611)">
+         <span style="white-space:nowrap">32.592,-96.756</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.90061,-78.67031)">
+         <span style="white-space:nowrap">42.901,-78.670</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.74893,-85.50692)">
+         <span style="white-space:nowrap">40.749,-85.507</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.76986,-76.46634)">
+         <span style="white-space:nowrap">37.770,-76.466</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.54783,-87.86531)">
+         <span style="white-space:nowrap">38.548,-87.865</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.31364,-111.71542)">
+         <span style="white-space:nowrap">34.314,-111.715</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.031,-117.66437)">
+         <span style="white-space:nowrap">47.031,-117.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.85831,-96.80421)">
+         <span style="white-space:nowrap">48.858,-96.804</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.2529,-123.19565)">
+         <span style="white-space:nowrap">44.253,-123.196</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.31667,145.13333)">
+         <span style="white-space:nowrap">-36.317,145.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.72043,-80.7709)">
+         <span style="white-space:nowrap">34.720,-80.771</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.12756,-85.85415)">
+         <span style="white-space:nowrap">36.128,-85.854</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.45565,-71.67312)">
+         <span style="white-space:nowrap">42.456,-71.673</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.25009,-74.49926)">
+         <span style="white-space:nowrap">45.250,-74.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.66658,-53.04804)">
+         <span style="white-space:nowrap">48.667,-53.048</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.93603,-77.46134)">
+         <span style="white-space:nowrap">17.936,-77.461</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Britain</th>
+       <td best="true">
+        <a onClick="goto(54.75844,-2.69531)">
+         <span style="white-space:nowrap">54.758,-2.695</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54,-2)">
+         <span style="white-space:nowrap">54.000,-2.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.59378,-1.86823)">
+         <span style="white-space:nowrap">53.594,-1.868</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.25288,-77.69694)">
+         <span style="white-space:nowrap">39.253,-77.697</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.51978,36.27691)">
+         <span style="white-space:nowrap">33.520,36.277</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

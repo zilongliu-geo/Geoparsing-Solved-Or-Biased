@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Hamilton (Māori: Kirikiriroa) is the seat and most populous city of the <span onClick="goto_name('Waikato region')" class="loc">Waikato region</span>, in the <span onClick="goto_name('North Island')" class="loc">North Island</span> of <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>. The city encompasses a land area of about 110 km2 (42 sq mi) on the banks of the <span onClick="goto_name('Waikato River')" class="loc">Waikato River</span>, and is home to 156,800 people, making it <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>'s fourth most-populous city. <span onClick="goto_name('Hamilton City')" class="loc">Hamilton City</span> is part of the wider <span onClick="goto_name('Hamilton Urban')" class="loc">Hamilton Urban</span> Area, which also encompasses the nearby towns of <span onClick="goto_name('Ngaruawahia')" class="loc">Ngaruawahia</span>, <span onClick="goto_name('Te Awamutu')" class="loc">Te Awamutu</span> and <span onClick="goto_name('Cambridge')" class="loc">Cambridge</span>. Initially an agricultural service centre, Hamilton now has a growing and diverse economy and is the third fastest growing urban area in <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span> (behind <span onClick="goto_name('Pukekohe')" class="loc">Pukekohe</span> and <span onClick="goto_name('Auckland')" class="loc">Auckland</span>). Education and research and development play an important part in Hamilton's economy, as the city is home to approximately 40,000 tertiary students and 1,000 PhD-qualified scientists. The area now covered by the city was originally the site of a handful of Māori villages (kāinga), including Pukete, Miropiko and Kirikiriroa ("long stretch of gravel'), from which the city takes its Māori name. Local Māori were the target of raids by Ngāpuhi during the Musket Wars, and several pā sites from this period can still be found beside the Waikato River.In December 2011 several rua or food storage pits were found near the <span onClick="goto_name('Waikato River')" class="loc">Waikato River</span> bank, close to the Waikato museum. Magistrate Gorst, estimated that Kirikiriroa had a population of about 78 before the Waikato Kingitanga wars of 1863–64. The government estimated the Waikato area had a Maori population of 3,400 at the same time. By the time British settlers arrived after 1863, most of these villages had been abandoned as the inhabitants were away fighting with the Kingitanga rebels further west in the battlefields of the upper Waipa river. Missionaries arrived in the area in the 1830s. At the end of the <span onClick="goto_name('Waikato Campaign')" class="loc">Waikato Campaign</span> in the <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span> wars the four regiments of the Waikato Militia were settled as a peace-keeping force across the region. The 1st Regiment was at <span onClick="goto_name('Tauranga')" class="loc">Tauranga</span>, the 2nd at <span onClick="goto_name('Pirongia')" class="loc">Pirongia</span>, the 3rd at <span onClick="goto_name('Cambridge')" class="loc">Cambridge</span> and the 4th at Kirikiriroa. The settlement was founded on 24 August 1864 and named by Colonel William Moule after Captain John Fane Charles Hamilton, the popular Scottish commander of HMS <span onClick="goto_name('Esk')" class="loc">Esk</span>, who was killed in the battle of Gate Pā, <span onClick="goto_name('Tauranga')" class="loc">Tauranga</span>. Many of the soldier/settlers who intended to farm after the 1863 war, walked off their land in 1868 disgusted at the poor quality of the land. Much of the land was swampy or under water. In 1868 Hamilton's population, which was about 1,000 in 1864, dropped to 300 as farmers left.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Waikato region</th>
+      </tr>
+      <tr>
+       <th>North Island</th>
+      </tr>
+      <tr>
+       <th>New Zealand</th>
+      </tr>
+      <tr>
+       <th>Waikato River</th>
+      </tr>
+      <tr>
+       <th>Hamilton City</th>
+      </tr>
+      <tr>
+       <th>Hamilton Urban</th>
+      </tr>
+      <tr>
+       <th>Ngaruawahia</th>
+      </tr>
+      <tr>
+       <th>Te Awamutu</th>
+      </tr>
+      <tr>
+       <th>Cambridge</th>
+      </tr>
+      <tr>
+       <th>Pukekohe</th>
+      </tr>
+      <tr>
+       <th>Auckland</th>
+      </tr>
+      <tr>
+       <th>Waikato Campaign</th>
+      </tr>
+      <tr>
+       <th>Tauranga</th>
+      </tr>
+      <tr>
+       <th>Pirongia</th>
+      </tr>
+      <tr>
+       <th>Esk</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

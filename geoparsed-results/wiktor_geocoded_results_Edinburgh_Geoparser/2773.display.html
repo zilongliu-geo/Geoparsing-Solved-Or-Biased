@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Baima')" class="loc">Baima</span> (simplified Chinese: 白马; traditional Chinese: 白馬; pinyin: Báimǎ; literally: "white horse") is a town under the administration of <span onClick="goto_name('Lianyuan City')" class="loc">Lianyuan City</span> in central <span onClick="goto_name('Hunan province')" class="loc">Hunan province</span>, <span onClick="goto_name('China')" class="loc">China</span>, situated about 13 kilometres (8.1 mi) to the south-southeast of downtown <span onClick="goto_name('Lianyuan')" class="loc">Lianyuan</span>. As of 2011, it has two residential communities (社区) and 44 villages under its administration. The town is divided into 44 villages and 2 communities, the following areas: Tianxinping Community, Laojie Community, <span onClick="goto_name('Baiping')" class="loc">Baiping</span> Village, <span onClick="goto_name('Zhaojia')" class="loc">Zhaojia</span> Village, <span onClick="goto_name('Tongshi')" class="loc">Tongshi</span> Village, <span onClick="goto_name('Taozi')" class="loc">Taozi</span> Village, <span onClick="goto_name('Sanxie')" class="loc">Sanxie</span> Village, <span onClick="goto_name('Xunan')" class="loc">Xunan</span> Village, <span onClick="goto_name('Aibian')" class="loc">Aibian</span> Village, <span onClick="goto_name('Jinfeng')" class="loc">Jinfeng</span> Village, <span onClick="goto_name('Yuxi Village')" class="loc">Yuxi Village</span>, <span onClick="goto_name('Jingyang Village')" class="loc">Jingyang Village</span>, <span onClick="goto_name('Niujiaoshan')" class="loc">Niujiaoshan</span> Village, <span onClick="goto_name('Yangqiao')" class="loc">Yangqiao</span> Village, <span onClick="goto_name('Tianxin Village')" class="loc">Tianxin Village</span>, <span onClick="goto_name('Quantang Village')" class="loc">Quantang Village</span>, <span onClick="goto_name('Wangjia Village')" class="loc">Wangjia Village</span>, <span onClick="goto_name('Shile Village')" class="loc">Shile Village</span>, <span onClick="goto_name('Liaoli')" class="loc">Liaoli</span> Village, <span onClick="goto_name('Baima')" class="loc">Baima</span> Village, <span onClick="goto_name('Zhangmu')" class="loc">Zhangmu</span> Village, <span onClick="goto_name('Zoujia')" class="loc">Zoujia</span> Village, <span onClick="goto_name('Zhongling')" class="loc">Zhongling</span> Village, <span onClick="goto_name('Songbai Village')" class="loc">Songbai Village</span>, <span onClick="goto_name('Huangni Village')" class="loc">Huangni Village</span>, <span onClick="goto_name('Quanchong')" class="loc">Quanchong</span> Village, <span onClick="goto_name('Nanmushan')" class="loc">Nanmushan</span> Village, <span onClick="goto_name('Xuezu')" class="loc">Xuezu</span> Village, <span onClick="goto_name('Taolin')" class="loc">Taolin</span> Village, <span onClick="goto_name('Hongtian Village')" class="loc">Hongtian Village</span>, <span onClick="goto_name('Geshan Village')" class="loc">Geshan Village</span>, <span onClick="goto_name('Lujiangbian')" class="loc">Lujiangbian</span> Village, <span onClick="goto_name('Jingliu')" class="loc">Jingliu</span> Village, <span onClick="goto_name('Miaobian')" class="loc">Miaobian</span> Village, <span onClick="goto_name('Daxiu')" class="loc">Daxiu</span> Village, <span onClick="goto_name('Zhalin')" class="loc">Zhalin</span> Village, <span onClick="goto_name('Lianhe')" class="loc">Lianhe</span> Village, <span onClick="goto_name('Santuan Village')" class="loc">Santuan Village</span>, <span onClick="goto_name('Yangshi Village')" class="loc">Yangshi Village</span>, <span onClick="goto_name('Jiangxi Village')" class="loc">Jiangxi Village</span>, <span onClick="goto_name('Chushi')" class="loc">Chushi</span> Village, <span onClick="goto_name('Xinglong')" class="loc">Xinglong</span> Village, <span onClick="goto_name('Wenhua Village')" class="loc">Wenhua Village</span>, <span onClick="goto_name('Sunjiaqiao Village')" class="loc">Sunjiaqiao Village</span>, <span onClick="goto_name('Luoping Village')" class="loc">Luoping Village</span>, and <span onClick="goto_name('Xianpan')" class="loc">Xianpan</span> Village. (田心坪社区、老街社区、百坪村、赵家村、桐石村、桃子村、三协村、徐南村、矮边村、金凤村、郁溪村、井洋村、牛角山村、杨桥村、田心村、泉塘村、王家村、师乐村、廖里村、白马村、樟木村、邹家村、钟灵村、松柏村、黄泥村、泉冲村、楠木山村、学足村、桃林村、洪田村、隔山村、卢江边村、井流村、庙边村、大秀村、查林村、涟河村、三团村、杨世村、浆溪村、出石村、兴隆村、文化村、孙家桥村、罗坪村、咸蟠村).</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Baima</th>
+      </tr>
+      <tr>
+       <th>Lianyuan City</th>
+      </tr>
+      <tr>
+       <th>Hunan province</th>
+      </tr>
+      <tr>
+       <th>China</th>
+      </tr>
+      <tr>
+       <th>Lianyuan</th>
+      </tr>
+      <tr>
+       <th>Baiping</th>
+      </tr>
+      <tr>
+       <th>Zhaojia</th>
+      </tr>
+      <tr>
+       <th>Tongshi</th>
+      </tr>
+      <tr>
+       <th>Taozi</th>
+      </tr>
+      <tr>
+       <th>Sanxie</th>
+      </tr>
+      <tr>
+       <th>Xunan</th>
+      </tr>
+      <tr>
+       <th>Aibian</th>
+      </tr>
+      <tr>
+       <th>Jinfeng</th>
+      </tr>
+      <tr>
+       <th>Yuxi Village</th>
+      </tr>
+      <tr>
+       <th>Jingyang Village</th>
+      </tr>
+      <tr>
+       <th>Niujiaoshan</th>
+      </tr>
+      <tr>
+       <th>Yangqiao</th>
+      </tr>
+      <tr>
+       <th>Tianxin Village</th>
+      </tr>
+      <tr>
+       <th>Quantang Village</th>
+      </tr>
+      <tr>
+       <th>Wangjia Village</th>
+      </tr>
+      <tr>
+       <th>Shile Village</th>
+      </tr>
+      <tr>
+       <th>Liaoli</th>
+      </tr>
+      <tr>
+       <th>Zhangmu</th>
+      </tr>
+      <tr>
+       <th>Zoujia</th>
+      </tr>
+      <tr>
+       <th>Zhongling</th>
+      </tr>
+      <tr>
+       <th>Songbai Village</th>
+      </tr>
+      <tr>
+       <th>Huangni Village</th>
+      </tr>
+      <tr>
+       <th>Quanchong</th>
+      </tr>
+      <tr>
+       <th>Nanmushan</th>
+      </tr>
+      <tr>
+       <th>Xuezu</th>
+      </tr>
+      <tr>
+       <th>Taolin</th>
+      </tr>
+      <tr>
+       <th>Hongtian Village</th>
+      </tr>
+      <tr>
+       <th>Geshan Village</th>
+      </tr>
+      <tr>
+       <th>Lujiangbian</th>
+      </tr>
+      <tr>
+       <th>Jingliu</th>
+      </tr>
+      <tr>
+       <th>Miaobian</th>
+      </tr>
+      <tr>
+       <th>Daxiu</th>
+      </tr>
+      <tr>
+       <th>Zhalin</th>
+      </tr>
+      <tr>
+       <th>Lianhe</th>
+      </tr>
+      <tr>
+       <th>Santuan Village</th>
+      </tr>
+      <tr>
+       <th>Yangshi Village</th>
+      </tr>
+      <tr>
+       <th>Jiangxi Village</th>
+      </tr>
+      <tr>
+       <th>Chushi</th>
+      </tr>
+      <tr>
+       <th>Xinglong</th>
+      </tr>
+      <tr>
+       <th>Wenhua Village</th>
+      </tr>
+      <tr>
+       <th>Sunjiaqiao Village</th>
+      </tr>
+      <tr>
+       <th>Luoping Village</th>
+      </tr>
+      <tr>
+       <th>Xianpan</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

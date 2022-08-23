@@ -1,0 +1,1075 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([42.05875,27.77947], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([42.05875,27.77947],
+			  {
+			      title: "Kosti",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([42.06667,27.78333],
+			  {
+			      title: "Kosti",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([1.1,34.06667],
+			  {
+			      title: "Kosti",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([54.02,25.9347],
+			  {
+			      title: "Kosti",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([13.1629,32.66347],
+			  {
+			      title: "Kūstī",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([12.73,32.31],
+			  {
+			      title: "Kosti",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kosti"] = marker;
+  
+    var marker = L.marker([42.66667,25.25],
+			  {
+			      title: "Bulgaria",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bulgaria"] = marker;
+  
+    var marker = L.marker([44.11269,12.32595],
+			  {
+			      title: "Bulgaria",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bulgaria"] = marker;
+  
+    var marker = L.marker([4.22194,-75.72028],
+			  {
+			      title: "Bulgaria",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Bulgaria"] = marker;
+  
+    var marker = L.marker([42.06058,25.60474],
+			  {
+			      title: "Bulgaria",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Bulgaria"] = marker;
+  
+    var marker = L.marker([33.52231,36.29485],
+			  {
+			      title: "Bulghāriyā",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Bulgaria"] = marker;
+  
+    var marker = L.marker([42.06889,27.96892],
+			  {
+			      title: "Veleka River",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Veleka River"] = marker;
+  
+    var marker = L.marker([42.06213,27.0024],
+			  {
+			      title: "Strandzha",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Strandzha"] = marker;
+  
+    var marker = L.marker([41.85359,27.48525],
+			  {
+			      title: "Strandzha",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Strandzha"] = marker;
+  
+    var marker = L.marker([42.70421,27.71988],
+			  {
+			      title: "Strandzha",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Strandzha"] = marker;
+  
+    var marker = L.marker([43.28313,28.07013],
+			  {
+			      title: "Strandzha",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Strandzha"] = marker;
+  
+    var marker = L.marker([42.16955,27.84541],
+			  {
+			      title: "Tsarevo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([42.1,27.81667],
+			  {
+			      title: "Tsarevo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([55.84118,29.57236],
+			  {
+			      title: "Tsarëvo",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([53.74426,37.5831],
+			  {
+			      title: "Tsarëvo",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([56.08333,38.08333],
+			  {
+			      title: "Tsarëvo",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([64.4083,40.9983],
+			  {
+			      title: "Tsarëvo",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([58.51667,33.26667],
+			  {
+			      title: "Tsarëvo",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([58.30962,41.6628],
+			  {
+			      title: "Tsarëvo",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([59.30438,38.10999],
+			  {
+			      title: "Tsarëvo",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([58.8943,42.1218],
+			  {
+			      title: "Tsarëvo",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([54.3372,41.72662],
+			  {
+			      title: "Tsarëvo",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([57.69157,39.41091],
+			  {
+			      title: "Tsarëvo",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([58.10621,38.07675],
+			  {
+			      title: "Tsarëvo",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([59.09976,38.63471],
+			  {
+			      title: "Tsarëvo",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([56.31312,31.42841],
+			  {
+			      title: "Tsarëvo",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([56.15653,30.73495],
+			  {
+			      title: "Tsarëvo",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([60.3912,36.804],
+			  {
+			      title: "Tsarëvo",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([57.01667,30.98333],
+			  {
+			      title: "Tsarëvo",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([58.31844,34.46786],
+			  {
+			      title: "Tsarëvo",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([54.7075,42.21917],
+			  {
+			      title: "Tsarëvo",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Tsarevo"] = marker;
+  
+    var marker = L.marker([42.50606,27.46781],
+			  {
+			      title: "Burgas",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.53333,27.23333],
+			  {
+			      title: "Burgas",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.48961,27.47932],
+			  {
+			      title: "Burgas",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.48133,27.46958],
+			  {
+			      title: "Burgas",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.5,27.46667],
+			  {
+			      title: "Burgas",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.49451,27.47135],
+			  {
+			      title: "Tsentralna Gara Burgas",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.56958,27.51524],
+			  {
+			      title: "Burgas Airport",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([41.68512,22.48829],
+			  {
+			      title: "Burgas",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([52.54028,104.70639],
+			  {
+			      title: "Burgaz",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([43.33333,-7.78333],
+			  {
+			      title: "Burgás",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.34106,-3.70184],
+			  {
+			      title: "Burgos",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.24282,-7.67204],
+			  {
+			      title: "Burgas",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([40.39066,8.99423],
+			  {
+			      title: "Burgos",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Burgas"] = marker;
+  
+    var marker = L.marker([42.09768,27.93961],
+			  {
+			      title: "Ahtopol",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ahtopol"] = marker;
+  
+    var marker = L.marker([42.09871,27.94683],
+			  {
+			      title: "Ahtopol",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Ahtopol"] = marker;
+  
+    var marker = L.marker([42.10076,27.94814],
+			  {
+			      title: "Ahtopol",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Ahtopol"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Kosti')" class="loc">Kosti</span> (Bulgarian: Кости, stressed on the last syllable, formerly Greek: Κωστί - <span onClick="goto_name('Kosti')" class="loc">Kosti</span>) is a village in southeastern <span onClick="goto_name('Bulgaria')" class="loc">Bulgaria</span>, part of <span onClick="goto_name('Tsarevo Municipality')" class="loc">Tsarevo Municipality</span>, <span onClick="goto_name('Burgas Province')" class="loc">Burgas Province</span>. It is located on the banks of the <span onClick="goto_name('Veleka River')" class="loc">Veleka River</span> in the <span onClick="goto_name('Strandzha')" class="loc">Strandzha</span> mountains not far from the Turkish border, 20-25 kilometres south of <span onClick="goto_name('Tsarevo')" class="loc">Tsarevo</span> and 91 km southeast of <span onClick="goto_name('Burgas')" class="loc">Burgas</span>. As of June 2008, it has a population of 320[1] and the mayor is Iliya Yazov. The village lies within <span onClick="goto_name('Strandzha')" class="loc">Strandzha</span> Nature Park. Traces of ancient metallurgical activity have been discovered in the vicinity of <span onClick="goto_name('Kosti')" class="loc">Kosti</span>, as well as a big necropolis and several independent mounds of Thracian origin. The modern village was first mentioned in an Ottoman tax register of 1498, according to which Kosti's population consisted of 22 Christian families. It also featured in a 17th-century tax register, and during the Russo-Turkish War of 1828-1829 it was described as a Greek village (see Greeks in <span onClick="goto_name('Bulgaria')" class="loc">Bulgaria</span>). Statistics of 1898 count 185 Greek and 25 Bulgarian houses, whereas 1897 data only notes 300 Greek houses. <span onClick="goto_name('Kosti')" class="loc">Kosti</span> was one of the Greek villages of inland <span onClick="goto_name('Strandzha')" class="loc">Strandzha</span>, culturally and linguistically very distant from then-Greek-inhabited nearby coastal towns like <span onClick="goto_name('Tsarevo')" class="loc">Tsarevo</span> (Vassiliko) and <span onClick="goto_name('Ahtopol')" class="loc">Ahtopol</span>. The local houses differ significantly from the typical village houses of <span onClick="goto_name('Strandzha')" class="loc">Strandzha</span> and the town houses of the coast. The houses in <span onClick="goto_name('Kosti')" class="loc">Kosti</span> typically have two stories of crude stone, with the top floor cased with thick oak boards. They feature an unusually large fireplace on the top floor and the reported lack of any windows (which were later added by the Bulgarians who settled), as the only light to enter the room would come from a small opening in the ceiling called okno. The population was mainly engaged in agriculture, cattle breeding and logging (wood was in demand by the Ahtopol shipyard).</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Kosti</th>
+       <td best="true">
+        <a onClick="goto(42.05875,27.77947)">
+         <span style="white-space:nowrap">42.059,27.779</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.06667,27.78333)">
+         <span style="white-space:nowrap">42.067,27.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(1.1,34.06667)">
+         <span style="white-space:nowrap">1.100,34.067</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.02,25.9347)">
+         <span style="white-space:nowrap">54.020,25.935</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.1629,32.66347)">
+         <span style="white-space:nowrap">13.163,32.663</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(12.73,32.31)">
+         <span style="white-space:nowrap">12.730,32.310</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bulgaria</th>
+       <td best="true">
+        <a onClick="goto(42.66667,25.25)">
+         <span style="white-space:nowrap">42.667,25.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.11269,12.32595)">
+         <span style="white-space:nowrap">44.113,12.326</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(4.22194,-75.72028)">
+         <span style="white-space:nowrap">4.222,-75.720</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.06058,25.60474)">
+         <span style="white-space:nowrap">42.061,25.605</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.52231,36.29485)">
+         <span style="white-space:nowrap">33.522,36.295</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Tsarevo Municipality</th>
+      </tr>
+      <tr>
+       <th>Burgas Province</th>
+      </tr>
+      <tr>
+       <th>Veleka River</th>
+       <td best="true">
+        <a onClick="goto(42.06889,27.96892)">
+         <span style="white-space:nowrap">42.069,27.969</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Strandzha</th>
+       <td best="true">
+        <a onClick="goto(42.06213,27.0024)">
+         <span style="white-space:nowrap">42.062,27.002</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.85359,27.48525)">
+         <span style="white-space:nowrap">41.854,27.485</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.70421,27.71988)">
+         <span style="white-space:nowrap">42.704,27.720</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.28313,28.07013)">
+         <span style="white-space:nowrap">43.283,28.070</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Tsarevo</th>
+       <td best="true">
+        <a onClick="goto(42.16955,27.84541)">
+         <span style="white-space:nowrap">42.170,27.845</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.1,27.81667)">
+         <span style="white-space:nowrap">42.100,27.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.84118,29.57236)">
+         <span style="white-space:nowrap">55.841,29.572</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.74426,37.5831)">
+         <span style="white-space:nowrap">53.744,37.583</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.08333,38.08333)">
+         <span style="white-space:nowrap">56.083,38.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(64.4083,40.9983)">
+         <span style="white-space:nowrap">64.408,40.998</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.51667,33.26667)">
+         <span style="white-space:nowrap">58.517,33.267</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.30962,41.6628)">
+         <span style="white-space:nowrap">58.310,41.663</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.30438,38.10999)">
+         <span style="white-space:nowrap">59.304,38.110</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.8943,42.1218)">
+         <span style="white-space:nowrap">58.894,42.122</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.3372,41.72662)">
+         <span style="white-space:nowrap">54.337,41.727</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(57.69157,39.41091)">
+         <span style="white-space:nowrap">57.692,39.411</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.10621,38.07675)">
+         <span style="white-space:nowrap">58.106,38.077</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.09976,38.63471)">
+         <span style="white-space:nowrap">59.100,38.635</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.31312,31.42841)">
+         <span style="white-space:nowrap">56.313,31.428</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.15653,30.73495)">
+         <span style="white-space:nowrap">56.157,30.735</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(60.3912,36.804)">
+         <span style="white-space:nowrap">60.391,36.804</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(57.01667,30.98333)">
+         <span style="white-space:nowrap">57.017,30.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.31844,34.46786)">
+         <span style="white-space:nowrap">58.318,34.468</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.7075,42.21917)">
+         <span style="white-space:nowrap">54.708,42.219</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Burgas</th>
+       <td best="true">
+        <a onClick="goto(42.50606,27.46781)">
+         <span style="white-space:nowrap">42.506,27.468</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.53333,27.23333)">
+         <span style="white-space:nowrap">42.533,27.233</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.48961,27.47932)">
+         <span style="white-space:nowrap">42.490,27.479</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.48133,27.46958)">
+         <span style="white-space:nowrap">42.481,27.470</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.5,27.46667)">
+         <span style="white-space:nowrap">42.500,27.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.49451,27.47135)">
+         <span style="white-space:nowrap">42.495,27.471</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.56958,27.51524)">
+         <span style="white-space:nowrap">42.570,27.515</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.68512,22.48829)">
+         <span style="white-space:nowrap">41.685,22.488</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.54028,104.70639)">
+         <span style="white-space:nowrap">52.540,104.706</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.33333,-7.78333)">
+         <span style="white-space:nowrap">43.333,-7.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.34106,-3.70184)">
+         <span style="white-space:nowrap">42.341,-3.702</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.24282,-7.67204)">
+         <span style="white-space:nowrap">42.243,-7.672</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.39066,8.99423)">
+         <span style="white-space:nowrap">40.391,8.994</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Ahtopol</th>
+       <td best="true">
+        <a onClick="goto(42.09768,27.93961)">
+         <span style="white-space:nowrap">42.098,27.940</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.09871,27.94683)">
+         <span style="white-space:nowrap">42.099,27.947</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.10076,27.94814)">
+         <span style="white-space:nowrap">42.101,27.948</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

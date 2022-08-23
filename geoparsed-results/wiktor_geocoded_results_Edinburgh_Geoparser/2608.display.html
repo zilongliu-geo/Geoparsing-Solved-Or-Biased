@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Abak')" class="loc">Abak</span> is also a nickname for the painter Hans von Aachen. For the place in <span onClick="goto_name('Pakistan')" class="loc">Pakistan</span>, see <span onClick="goto_name('Abak')" class="loc">Abak</span>, <span onClick="goto_name('FATA')" class="loc">FATA</span>. <span onClick="goto_name('Abak')" class="loc">Abak</span> is a town and Local Government Area in <span onClick="goto_name('Akwa Ibom State')" class="loc">Akwa Ibom State</span>, <span onClick="goto_name('Nigeria')" class="loc">Nigeria</span>. The LGA was previously part of <span onClick="goto_name('Cross River State')" class="loc">Cross River State</span>. It was later sub divided into other local government areas such as Oruk Anam, Etim Ekpo, <span onClick="goto_name('Ukanafun')" class="loc">Ukanafun</span> and <span onClick="goto_name('Ika')" class="loc">Ika</span>. Notable tribes include the Annang. The major economic activities of the people of this area before and after the Nigerian civil war was palm produce exported through river port at Ekpene Okpo, Ntak Ibesit, a distance of about 8 km from <span onClick="goto_name('Abak')" class="loc">Abak</span> town. <span onClick="goto_name('Abak')" class="loc">Abak</span> to say the least, is the shadow of its former self due to politically motivated neglect by successive governments in Akwa Ibom state.<span onClick="goto_name('Abak')" class="loc">Abak</span> before the civil war, was the economic hub of the former South Eastern <span onClick="goto_name('Nigeria')" class="loc">Nigeria</span>. The major economic activities of the people is palm produce. Before the Nigerian civil war, <span onClick="goto_name('Abak Division')" class="loc">Abak Division</span> was the major producer of palm oil and kernel exported through river ports at Ntak Ibesit and <span onClick="goto_name('IKOT Okoro')" class="loc">IKOT Okoro</span>. <span onClick="goto_name('Abak')" class="loc">Abak</span> became the seat of Government in 1902 after conquest by war against the British colonial invaders at the valley lying between <span onClick="goto_name('Ediene')" class="loc">Ediene</span> and <span onClick="goto_name('Abak Clans')" class="loc">Abak Clans</span>. The outcome of that conquest was the penetration into the hinterland by the colonial soldiers and eventual installation of the government. Valley in the local language is called “Aba-ag” and fighting is “Anwan.” By joining the two words “Aba- ag” and “Anwan” the names “Aba-ag Ikot Anwan” was given to the newly established entity. The seat of Government kept growing until 1957 and 1958 when it gained the status of Divisional Council Headquarters. At the establishment, the area included the present <span onClick="goto_name('Ukanafun')" class="loc">Ukanafun</span>, Oruk Anam, Etim Ekpo, <span onClick="goto_name('Ika')" class="loc">Ika</span> and the present <span onClick="goto_name('Abak')" class="loc">Abak</span>. All the places mentioned here have been developed to become full-fledged local government areas.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Abak</th>
+      </tr>
+      <tr>
+       <th>Pakistan</th>
+      </tr>
+      <tr>
+       <th>FATA</th>
+      </tr>
+      <tr>
+       <th>Akwa Ibom State</th>
+      </tr>
+      <tr>
+       <th>Nigeria</th>
+      </tr>
+      <tr>
+       <th>Cross River State</th>
+      </tr>
+      <tr>
+       <th>Ukanafun</th>
+      </tr>
+      <tr>
+       <th>Ika</th>
+      </tr>
+      <tr>
+       <th>Abak Division</th>
+      </tr>
+      <tr>
+       <th>IKOT Okoro</th>
+      </tr>
+      <tr>
+       <th>Ediene</th>
+      </tr>
+      <tr>
+       <th>Abak Clans</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

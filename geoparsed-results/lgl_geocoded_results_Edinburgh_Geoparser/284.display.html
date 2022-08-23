@@ -1,0 +1,601 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([37.11067,-84.1178], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([37.11067,-84.1178],
+			  {
+			      title: "Laurel",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Laurel County"] = marker;
+  
+    var marker = L.marker([38.20042,-84.87762],
+			  {
+			      title: "Kentucky",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-30.76143,151.44889],
+			  {
+			      title: "Kentucky",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.23333,19.4],
+			  {
+			      title: "Kentucky",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-29.76375,153.0046],
+			  {
+			      title: "Kentucky",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([39.59337,-87.61114],
+			  {
+			      title: "Kentucky",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-35.42977,148.73112],
+			  {
+			      title: "Kentucky",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.634,152.83029],
+			  {
+			      title: "Kentucky",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([34.60843,-92.66127],
+			  {
+			      title: "Kentucky",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([46.26523,-86.63099],
+			  {
+			      title: "Kentucky",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.99042,152.86131],
+			  {
+			      title: "Kentucky",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([18.19931,-78.01767],
+			  {
+			      title: "Kentucky",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([59.52667,10.25411],
+			  {
+			      title: "Kentucky",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([20.01417,-75.5975],
+			  {
+			      title: "Kentucky",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([20.15,-75.53333],
+			  {
+			      title: "Kentucky",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-22.58498,28.68365],
+			  {
+			      title: "Kentucky",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-29.16667,29.9],
+			  {
+			      title: "Kentucky",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-32.79619,20.76004],
+			  {
+			      title: "Kentucky",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-33.1174,26.6641],
+			  {
+			      title: "Kentucky",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-17.93139,31.10194],
+			  {
+			      title: "Kentucky",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([14.27534,120.90253],
+			  {
+			      title: "Kentucky",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([36.85981,-83.16878],
+			  {
+			      title: "Redbud",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Redbud"] = marker;
+  
+    var marker = L.marker([34.06676,-86.25831],
+			  {
+			      title: "Redbud",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Redbud"] = marker;
+  
+    var marker = L.marker([34.53286,-84.81633],
+			  {
+			      title: "Redbud",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Redbud"] = marker;
+  
+    var marker = L.marker([-25.08333,44.66667],
+			  {
+			      title: "Seky",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["SEKY"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> prepares for PRIDE Spring Cleanup. April is PRIDE Spring Cleanup Month in southern and eastern <span onClick="goto_name('Kentucky')" class="loc">Kentucky</span>. Local cleanup activities are being organized by <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> PRIDE coordinator Jim Ed McDaniel and London PRIDE coordinator Steve Edge. “PRIDE wants you,” said Karen Engle, PRIDE president and chief executive officer. “That’s our theme for the 2009 Spring Cleanup because our goal is 20,000 volunteers region-wide. This is a big territory, and we need that many volunteers to make it look its best. .” PRIDE coordinators are volunteers who play a vital role in building PRIDE in their communities. The coordinators work with the PRIDE staff to organize cleanup activities, recruit volunteers and track cleanup results. They assist local officials with the programs of PRIDE, a nonprofit organization that promotes environmental cleanup and education in 38 counties. PRIDE coordinators are planning each community’s Spring Cleanup activities. Throughout April, volunteers will pick up roadside litter and beautify welcome areas. PRIDE will give each volunteer a free T-shirt, as well as supply their trash bags, gloves and vests. PRIDE will help local governments pay for trash disposal and beautification projects. Hundreds of volunteers are needed for several large cleanup events in the <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> area. On April 4, volunteers will pick up trash along KY 90 near Cumberland Falls State Resort Park during the PRIDE Spring Cleanup Kickoff. On April 18, the annual Laurel Lake Cleanup will be held. The annual Woods Creek Lake Cleanup will be April 25. April is also Redbud Month, and freshly cleaned roads will welcome the tourists who want to enjoy the region’s native Eastern <span onClick="goto_name('Redbud')" class="loc">Redbud</span> trees. <span onClick="goto_name('Redbud')" class="loc">Redbud</span> Month is sponsored by TOUR Southern and Eastern <span onClick="goto_name('Kentucky')" class="loc">Kentucky</span>, which is the region’s tourism development organization and PRIDE’s partner in making our region a more beautiful place to call home. Qualifying communities will receive hundreds of redbud seedlings from TOUR <span onClick="goto_name('SEKY')" class="loc">SEKY</span> and eight-feet-tall redbud trees from PRIDE. <span onClick="goto_name('Redbud')" class="loc">Redbud</span> Month information is available at ww.tourseky.com or by contacting Michelle Spencer at mspencer@tourseky.com or 677-6142. To volunteer for the PRIDE Spring Cleanup in <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span>, contact McDaniel at 878-6845 or lcsolidwaste@alltel.net. London residents can reach Edge at 864-5521.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Laurel County</th>
+       <td best="true">
+        <a onClick="goto(37.11067,-84.1178)">
+         <span style="white-space:nowrap">37.111,-84.118</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kentucky</th>
+       <td best="true">
+        <a onClick="goto(38.20042,-84.87762)">
+         <span style="white-space:nowrap">38.200,-84.878</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.76143,151.44889)">
+         <span style="white-space:nowrap">-30.761,151.449</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.23333,19.4)">
+         <span style="white-space:nowrap">-28.233,19.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.76375,153.0046)">
+         <span style="white-space:nowrap">-29.764,153.005</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.59337,-87.61114)">
+         <span style="white-space:nowrap">39.593,-87.611</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-35.42977,148.73112)">
+         <span style="white-space:nowrap">-35.430,148.731</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.634,152.83029)">
+         <span style="white-space:nowrap">-28.634,152.830</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.60843,-92.66127)">
+         <span style="white-space:nowrap">34.608,-92.661</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.26523,-86.63099)">
+         <span style="white-space:nowrap">46.265,-86.631</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.99042,152.86131)">
+         <span style="white-space:nowrap">-28.990,152.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.19931,-78.01767)">
+         <span style="white-space:nowrap">18.199,-78.018</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.52667,10.25411)">
+         <span style="white-space:nowrap">59.527,10.254</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.01417,-75.5975)">
+         <span style="white-space:nowrap">20.014,-75.597</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.15,-75.53333)">
+         <span style="white-space:nowrap">20.150,-75.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-22.58498,28.68365)">
+         <span style="white-space:nowrap">-22.585,28.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.16667,29.9)">
+         <span style="white-space:nowrap">-29.167,29.900</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.79619,20.76004)">
+         <span style="white-space:nowrap">-32.796,20.760</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.1174,26.6641)">
+         <span style="white-space:nowrap">-33.117,26.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93139,31.10194)">
+         <span style="white-space:nowrap">-17.931,31.102</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.27534,120.90253)">
+         <span style="white-space:nowrap">14.275,120.903</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Redbud</th>
+       <td best="true">
+        <a onClick="goto(36.85981,-83.16878)">
+         <span style="white-space:nowrap">36.860,-83.169</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.06676,-86.25831)">
+         <span style="white-space:nowrap">34.067,-86.258</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.53286,-84.81633)">
+         <span style="white-space:nowrap">34.533,-84.816</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>SEKY</th>
+       <td best="true">
+        <a onClick="goto(-25.08333,44.66667)">
+         <span style="white-space:nowrap">-25.083,44.667</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

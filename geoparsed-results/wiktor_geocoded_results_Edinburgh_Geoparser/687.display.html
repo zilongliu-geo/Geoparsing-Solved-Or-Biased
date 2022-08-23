@@ -1,0 +1,753 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([33.91533,-108.40473], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([33.91533,-108.40473],
+			  {
+			      title: "Catron",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Catron County"] = marker;
+  
+    var marker = L.marker([34.50034,-106.00085],
+			  {
+			      title: "New Mexico",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.16976,-91.88295],
+			  {
+			      title: "Mexico",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([41.79364,-87.69172],
+			  {
+			      title: "Mexico",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([34.53259,-83.98491],
+			  {
+			      title: "Dahlonega",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.60344,-76.94887],
+			  {
+			      title: "New Mexico",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-30.7424,150.6185],
+			  {
+			      title: "New Mexico",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([45.35977,-71.45703],
+			  {
+			      title: "New Mexico",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([25.20162,55.15157],
+			  {
+			      title: "New Mexico",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([35.25254,-106.20363],
+			  {
+			      title: "New Mexico",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([33.47095,-85.25217],
+			  {
+			      title: "New Mexico",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-17.93333,31.18333],
+			  {
+			      title: "New Mexico",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([-30.30759,120.9584],
+			  {
+			      title: "New Mexico",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["New Mexico"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([40.51753,-92.5763],
+			  {
+			      title: "Glenwood",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([41.54253,-87.60227],
+			  {
+			      title: "Glenwood",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([31.6646,-86.17134],
+			  {
+			      title: "Glenwood",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([32.1799,-82.66958],
+			  {
+			      title: "Glenwood",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([38.59175,-82.18653],
+			  {
+			      title: "Glenwood",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([39.2876,-77.02803],
+			  {
+			      title: "Glenwood",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([46.92767,-117.2799],
+			  {
+			      title: "Glenwood",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([42.61923,-78.6578],
+			  {
+			      title: "Glenwood",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([45.7745,-68.11807],
+			  {
+			      title: "Glenwood",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([48.98322,-54.88146],
+			  {
+			      title: "Glenwood",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([53.53612,-113.60155],
+			  {
+			      title: "Glenwood",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([49.36667,-113.51861],
+			  {
+			      title: "Glenwood",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([43.79303,-65.8828],
+			  {
+			      title: "Glenwood",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([29.08609,-81.35423],
+			  {
+			      title: "Glenwood",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([41.25121,-74.4896],
+			  {
+			      title: "Glenwood",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([-29.59117,30.41665],
+			  {
+			      title: "Glenwood",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([-33.73333,150.93284],
+			  {
+			      title: "Glenwood",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([36.58875,-79.36613],
+			  {
+			      title: "Glenwood",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([49.36572,-113.51623],
+			  {
+			      title: "Glenwood",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+    var marker = L.marker([49.6214,-100.2587],
+			  {
+			      title: "Glenwood",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Glenwood"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Alma is an unincorporated community in <span onClick="goto_name('Catron County')" class="loc">Catron County</span>, <span onClick="goto_name('New Mexico')" class="loc">New Mexico</span>, <span onClick="goto_name('United States')" class="loc">United States</span>, north of <span onClick="goto_name('Glenwood')" class="loc">Glenwood</span> and south of Reserve. Sergeant James C. Cooney laid out a town on site of Alma in the early 1870s, but left it undeveloped. The town was bought by a Captain Birney, who named it "Alma" for his mother. In 1882 the U.S. Post Office opened in Alma, lasting until 1931. The town was home of Butch Cassidy and the Sundance Kid's infamous Wild Bunch gang for a short period. They worked at the nearby WS ranch. Reportedly, the foreman and ranch manager were very happy with the Wild Bunch's work since the rustling stopped while they were employed at the ranch. Tom Ketchum, Harvey Logan and William Antrim, Billy the Kid's stepfather, also lived in Alma at some point. Artist Olaf Wieghorst once worked on the Cunningham Ranch near Alma. Alma is the site of a Boot Hill cemetery, which is located about two miles north of the town. The "Alma Massacre" involved a raid on <span onClick="goto_name('United States')" class="loc">United States</span> settlers' homes around Alma in 1880. As many as 41 people were killed during and immediately after the event. There were two memorials erected to commemorate these events.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Catron County</th>
+       <td best="true">
+        <a onClick="goto(33.91533,-108.40473)">
+         <span style="white-space:nowrap">33.915,-108.405</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>New Mexico</th>
+       <td best="true">
+        <a onClick="goto(34.50034,-106.00085)">
+         <span style="white-space:nowrap">34.500,-106.001</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.16976,-91.88295)">
+         <span style="white-space:nowrap">39.170,-91.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79364,-87.69172)">
+         <span style="white-space:nowrap">41.794,-87.692</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.53259,-83.98491)">
+         <span style="white-space:nowrap">34.533,-83.985</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.60344,-76.94887)">
+         <span style="white-space:nowrap">39.603,-76.949</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.7424,150.6185)">
+         <span style="white-space:nowrap">-30.742,150.619</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.35977,-71.45703)">
+         <span style="white-space:nowrap">45.360,-71.457</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.20162,55.15157)">
+         <span style="white-space:nowrap">25.202,55.152</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.25254,-106.20363)">
+         <span style="white-space:nowrap">35.253,-106.204</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.47095,-85.25217)">
+         <span style="white-space:nowrap">33.471,-85.252</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93333,31.18333)">
+         <span style="white-space:nowrap">-17.933,31.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.30759,120.9584)">
+         <span style="white-space:nowrap">-30.308,120.958</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Glenwood</th>
+       <td best="true">
+        <a onClick="goto(40.51753,-92.5763)">
+         <span style="white-space:nowrap">40.518,-92.576</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.54253,-87.60227)">
+         <span style="white-space:nowrap">41.543,-87.602</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.6646,-86.17134)">
+         <span style="white-space:nowrap">31.665,-86.171</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.1799,-82.66958)">
+         <span style="white-space:nowrap">32.180,-82.670</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.59175,-82.18653)">
+         <span style="white-space:nowrap">38.592,-82.187</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.2876,-77.02803)">
+         <span style="white-space:nowrap">39.288,-77.028</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.92767,-117.2799)">
+         <span style="white-space:nowrap">46.928,-117.280</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.61923,-78.6578)">
+         <span style="white-space:nowrap">42.619,-78.658</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.7745,-68.11807)">
+         <span style="white-space:nowrap">45.775,-68.118</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.98322,-54.88146)">
+         <span style="white-space:nowrap">48.983,-54.881</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.53612,-113.60155)">
+         <span style="white-space:nowrap">53.536,-113.602</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.36667,-113.51861)">
+         <span style="white-space:nowrap">49.367,-113.519</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.79303,-65.8828)">
+         <span style="white-space:nowrap">43.793,-65.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.08609,-81.35423)">
+         <span style="white-space:nowrap">29.086,-81.354</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.25121,-74.4896)">
+         <span style="white-space:nowrap">41.251,-74.490</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.59117,30.41665)">
+         <span style="white-space:nowrap">-29.591,30.417</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.73333,150.93284)">
+         <span style="white-space:nowrap">-33.733,150.933</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.58875,-79.36613)">
+         <span style="white-space:nowrap">36.589,-79.366</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.36572,-113.51623)">
+         <span style="white-space:nowrap">49.366,-113.516</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.6214,-100.2587)">
+         <span style="white-space:nowrap">49.621,-100.259</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

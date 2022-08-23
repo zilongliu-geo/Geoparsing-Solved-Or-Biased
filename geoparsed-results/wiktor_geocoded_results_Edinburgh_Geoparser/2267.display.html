@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Lincoln County')" class="loc">Lincoln County</span> is a county located in the <span onClick="goto_name('U.S.')" class="loc">U.S.</span> state of <span onClick="goto_name('West Virginia')" class="loc">West Virginia</span>. As of the 2010 census, the population was 21,720. <span onClick="goto_name('Its county')" class="loc">Its county</span> seat is <span onClick="goto_name('Hamlin')" class="loc">Hamlin</span>. The county was created in 1867 and named for <span onClick="goto_name('Abraham Lincoln')" class="loc">Abraham Lincoln</span>. <span onClick="goto_name('Lincoln County')" class="loc">Lincoln County</span> is part of the Huntington-Ashland, WV-KY-OH, Metropolitan Statistical Area, which is also included in the Charleston-Huntington-Ashland, WV-OH-KY Combined Statistical Area. The county is probably best known as the birthplace of Chuck Yeager. <span onClick="goto_name('Lincoln County')" class="loc">Lincoln County</span> was created by an act of the <span onClick="goto_name('West Virginia')" class="loc">West Virginia</span> Legislature on February 23, 1867, from parts of <span onClick="goto_name('Boone')" class="loc">Boone</span>, <span onClick="goto_name('Cabell')" class="loc">Cabell</span>, <span onClick="goto_name('Kanawha')" class="loc">Kanawha</span> and <span onClick="goto_name('Putnam')" class="loc">Putnam</span> counties. By 1869, the county had returned much of its <span onClick="goto_name('Putnam County')" class="loc">Putnam County</span> territory and absorbed the northern portion of <span onClick="goto_name('Logan County')" class="loc">Logan County</span> and a portion of <span onClick="goto_name('Wayne County')" class="loc">Wayne County</span>. In 1869, Harts Creek Township (later district) was created from this latter region. <span onClick="goto_name('Lincoln County')" class="loc">Lincoln County</span> is one of five counties created by <span onClick="goto_name('West Virginia')" class="loc">West Virginia</span> since the Civil War. <span onClick="goto_name('Hamlin')" class="loc">Hamlin</span>, seat of government for the county, was established in 1853. Jesse, John, David, William, and Moses McComas were the first Anglo settlers in what is now <span onClick="goto_name('Lincoln County')" class="loc">Lincoln County</span>. They cultivated 20 acres (81,000 m2) of corn, the first ever grown in the area near present-day <span onClick="goto_name('West Hamlin')" class="loc">West Hamlin</span>, in 1799. Later that year, they returned to eastern Virginia to get their families. Their families were initially left behind because it was not known if there were any hostile Native Americans in the area, or if the soil would be suitable for cultivation. John Lucas, William Hinch, and John Johnson soon joined the McComases in the county. They built cabins in the county around 1800. About 1804, William Wirt <span onClick="goto_name('Brumfield')" class="loc">Brumfield</span> settled at the mouth of Big Ugly Creek.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lincoln County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>West Virginia</th>
+      </tr>
+      <tr>
+       <th>Its county</th>
+      </tr>
+      <tr>
+       <th>Hamlin</th>
+      </tr>
+      <tr>
+       <th>Abraham Lincoln</th>
+      </tr>
+      <tr>
+       <th>Boone</th>
+      </tr>
+      <tr>
+       <th>Cabell</th>
+      </tr>
+      <tr>
+       <th>Kanawha</th>
+      </tr>
+      <tr>
+       <th>Putnam</th>
+      </tr>
+      <tr>
+       <th>Putnam County</th>
+      </tr>
+      <tr>
+       <th>Logan County</th>
+      </tr>
+      <tr>
+       <th>Wayne County</th>
+      </tr>
+      <tr>
+       <th>West Hamlin</th>
+      </tr>
+      <tr>
+       <th>Brumfield</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

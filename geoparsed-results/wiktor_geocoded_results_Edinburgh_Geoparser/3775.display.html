@@ -1,0 +1,528 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([65.50306,-171.70387], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([65.50306,-171.70387],
+			  {
+			      title: "Lorino",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lorino"] = marker;
+  
+    var marker = L.marker([55.80057,32.1704],
+			  {
+			      title: "Lorino",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lorino"] = marker;
+  
+    var marker = L.marker([35.00219,127.66084],
+			  {
+			      title: "Daechi",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Chukchi"] = marker;
+  
+    var marker = L.marker([34.90323,127.16782],
+			  {
+			      title: "Chukchi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Chukchi"] = marker;
+  
+    var marker = L.marker([50.2885,130.6107],
+			  {
+			      title: "Chukchi",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Chukchi"] = marker;
+  
+    var marker = L.marker([60,100],
+			  {
+			      title: "Russia",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([43.25868,-75.08211],
+			  {
+			      title: "Russia",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([44.67365,-73.78209],
+			  {
+			      title: "Russia",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([44.63865,-73.75598],
+			  {
+			      title: "Moffitsville",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([40.23449,-84.40939],
+			  {
+			      title: "Russia",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([41.04065,-74.53266],
+			  {
+			      title: "Russia",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([18.21649,-78.12361],
+			  {
+			      title: "Russia",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([56.13446,47.24201],
+			  {
+			      title: "Russia",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([40.53254,44.71924],
+			  {
+			      title: "Russia",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Russia"] = marker;
+  
+    var marker = L.marker([69.45755,-171.78223],
+			  {
+			      title: "Chukchi Sea",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Chukchi Sea"] = marker;
+  
+    var marker = L.marker([60,-175],
+			  {
+			      title: "Bering Sea",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Bering Sea"] = marker;
+  
+    var marker = L.marker([60.37209,-172.64679],
+			  {
+			      title: "Bering Sea",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Bering Sea"] = marker;
+  
+    var marker = L.marker([65.50306,-171.70387],
+			  {
+			      title: "Lorino",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lorino Rural"] = marker;
+  
+    var marker = L.marker([55.80057,32.1704],
+			  {
+			      title: "Lorino",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lorino Rural"] = marker;
+  
+    var marker = L.marker([65.58604,-171.02082],
+			  {
+			      title: "Lavrentiya",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lavrentiya"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Lorino')" class="loc">Lorino</span> (Russian: Лорино; <span onClick="goto_name('Chukchi')" class="loc">Chukchi</span>: Льурэн, lit. found camp) is a rural locality (a selo) in <span onClick="goto_name('Chukotsky District')" class="loc">Chukotsky District</span> of Chukotka Autonomous Okrug, <span onClick="goto_name('Russia')" class="loc">Russia</span>. It is located on the boundary of the <span onClick="goto_name('Chukchi Sea')" class="loc">Chukchi Sea</span> and the <span onClick="goto_name('Bering Sea')" class="loc">Bering Sea</span>. Population: 1,267 (2010 Census);  Municipally, <span onClick="goto_name('Lorino')" class="loc">Lorino</span> is subordinated to Chukotsky Municipal District and incorporated as <span onClick="goto_name('Lorino Rural')" class="loc">Lorino Rural</span> Settlement. <span onClick="goto_name('Lorino')" class="loc">Lorino</span> is the largest indigenous village in the whole autonomous okrug and larger even than <span onClick="goto_name('Lavrentiya')" class="loc">Lavrentiya</span>, the administrative centre of the district, which is found to the north-west of <span onClick="goto_name('Lorino')" class="loc">Lorino</span>. The village is located on the shores of the <span onClick="goto_name('Bering Sea')" class="loc">Bering Sea</span>, on the Mechigmen spit. it is 40.5 km to the district centre. In the vicinity of the village located Lorinski (Kukunyskie) hot springs. The name "Lorino" comes from the <span onClick="goto_name('Chukchi')" class="loc">Chukchi</span> "льурэн" (lyuren), meaning "found camp". The first mention of <span onClick="goto_name('Lorino')" class="loc">Lorino</span> comes from the 18th century, with the modern <span onClick="goto_name('Chukchi')" class="loc">Chukchi</span> village located on the site of the former Eskimo settlement of Nukak [6]. The main occupation of the inhabitants is sea mammal hunting, reindeer herding and fishing and the village is the base for the municipal agricultural enterprise "Keper" (Russian: Кэпэр). A fox farm was established in the village in 1955 and a processing factory for seafood and meat canning was opened in 2009.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lorino</th>
+       <td best="true">
+        <a onClick="goto(65.50306,-171.70387)">
+         <span style="white-space:nowrap">65.503,-171.704</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.80057,32.1704)">
+         <span style="white-space:nowrap">55.801,32.170</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Chukchi</th>
+       <td best="true">
+        <a onClick="goto(35.00219,127.66084)">
+         <span style="white-space:nowrap">35.002,127.661</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.90323,127.16782)">
+         <span style="white-space:nowrap">34.903,127.168</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.2885,130.6107)">
+         <span style="white-space:nowrap">50.288,130.611</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Chukotsky District</th>
+      </tr>
+      <tr>
+       <th>Russia</th>
+       <td best="true">
+        <a onClick="goto(60,100)">
+         <span style="white-space:nowrap">60.000,100.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.25868,-75.08211)">
+         <span style="white-space:nowrap">43.259,-75.082</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.67365,-73.78209)">
+         <span style="white-space:nowrap">44.674,-73.782</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.63865,-73.75598)">
+         <span style="white-space:nowrap">44.639,-73.756</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.23449,-84.40939)">
+         <span style="white-space:nowrap">40.234,-84.409</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.04065,-74.53266)">
+         <span style="white-space:nowrap">41.041,-74.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.21649,-78.12361)">
+         <span style="white-space:nowrap">18.216,-78.124</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(56.13446,47.24201)">
+         <span style="white-space:nowrap">56.134,47.242</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.53254,44.71924)">
+         <span style="white-space:nowrap">40.533,44.719</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Chukchi Sea</th>
+       <td best="true">
+        <a onClick="goto(69.45755,-171.78223)">
+         <span style="white-space:nowrap">69.458,-171.782</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Bering Sea</th>
+       <td best="true">
+        <a onClick="goto(60,-175)">
+         <span style="white-space:nowrap">60.000,-175.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(60.37209,-172.64679)">
+         <span style="white-space:nowrap">60.372,-172.647</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lorino Rural</th>
+       <td best="true">
+        <a onClick="goto(65.50306,-171.70387)">
+         <span style="white-space:nowrap">65.503,-171.704</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.80057,32.1704)">
+         <span style="white-space:nowrap">55.801,32.170</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Lavrentiya</th>
+       <td best="true">
+        <a onClick="goto(65.58604,-171.02082)">
+         <span style="white-space:nowrap">65.586,-171.021</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

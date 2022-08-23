@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Lee')" class="loc">Lee</span> (also <span onClick="goto_name('Lee Green')" class="loc">Lee Green</span>) is a suburban district of south east <span onClick="goto_name('London')" class="loc">London</span>, within the <span onClick="goto_name('London Boroughs')" class="loc">London Boroughs</span> of <span onClick="goto_name('Lewisham')" class="loc">Lewisham</span> and <span onClick="goto_name('Greenwich')" class="loc">Greenwich</span>. It is located west of <span onClick="goto_name('Eltham')" class="loc">Eltham</span> and south east of <span onClick="goto_name('Lewisham')" class="loc">Lewisham</span>. Until 1889 the district was in the <span onClick="goto_name('county of Kent')" class="loc">county of Kent</span>. St Margaret's Church (built 1839–41, architect: John Brown) is the burial place of three Astronomers Royal: Edmond Halley, Nathaniel Bliss and John Pond. The Manor of <span onClick="goto_name('Lee')" class="loc">Lee</span> was a historic parish of the <span onClick="goto_name('Blackheath')" class="loc">Blackheath</span> hundred and existed up to 1900 when it was merged with the <span onClick="goto_name('parish of Lewisham')" class="loc">parish of Lewisham</span> to create the Metropolitan Borough of <span onClick="goto_name('Lewisham')" class="loc">Lewisham</span>. While modern <span onClick="goto_name('Lee')" class="loc">Lee</span> is centred on <span onClick="goto_name('Lee')" class="loc">Lee</span> railway station and the road of Burnt <span onClick="goto_name('Ash Hill')" class="loc">Ash Hill</span>, the parish was based around <span onClick="goto_name('Lee')" class="loc">Lee</span> High Road which today stretches into the town centre of <span onClick="goto_name('Lewisham')" class="loc">Lewisham</span>. The River Quaggy formed much of the boundary between the two parishes, though at <span onClick="goto_name('Lee')" class="loc">Lee</span> Bridge (at the western end of <span onClick="goto_name('Lee')" class="loc">Lee</span> High Road) it is now almost completely hidden. The <span onClick="goto_name('Lee')" class="loc">Lee</span> Manor Society have produced a comprehensive history of the area. The Domesday Book describes <span onClick="goto_name('Lee')" class="loc">Lee</span> as a small area of cultivation set in extensive woodland. The earliest map available (Rocque's of 1740) shows a cluster of about a dozen houses around a triangular village green. This hamlet was surrounded by fields. <span onClick="goto_name('Lee')" class="loc">Lee</span> <span onClick="goto_name('Green Farm')" class="loc">Green Farm</span> occupied the south-east quadrant from the 1660s (roughly on the site of the present Leegate shopping centre). The farm was demolished in the 1840s and rebuilt as <span onClick="goto_name('Tudor House')" class="loc">Tudor House</span> further east.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lee</th>
+      </tr>
+      <tr>
+       <th>Lee Green</th>
+      </tr>
+      <tr>
+       <th>London</th>
+      </tr>
+      <tr>
+       <th>London Boroughs</th>
+      </tr>
+      <tr>
+       <th>Lewisham</th>
+      </tr>
+      <tr>
+       <th>Greenwich</th>
+      </tr>
+      <tr>
+       <th>Eltham</th>
+      </tr>
+      <tr>
+       <th>county of Kent</th>
+      </tr>
+      <tr>
+       <th>Blackheath</th>
+      </tr>
+      <tr>
+       <th>parish of Lewisham</th>
+      </tr>
+      <tr>
+       <th>Ash Hill</th>
+      </tr>
+      <tr>
+       <th>Green Farm</th>
+      </tr>
+      <tr>
+       <th>Tudor House</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

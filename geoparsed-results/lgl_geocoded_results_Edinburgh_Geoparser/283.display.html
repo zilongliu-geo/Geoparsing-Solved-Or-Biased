@@ -1,0 +1,580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([37.11067,-84.1178], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([37.11067,-84.1178],
+			  {
+			      title: "Laurel",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Laurel County"] = marker;
+  
+    var marker = L.marker([38.20042,-84.87762],
+			  {
+			      title: "Kentucky",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([39.59337,-87.61114],
+			  {
+			      title: "Kentucky",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-30.76143,151.44889],
+			  {
+			      title: "Kentucky",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.23333,19.4],
+			  {
+			      title: "Kentucky",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-29.76375,153.0046],
+			  {
+			      title: "Kentucky",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-35.42977,148.73112],
+			  {
+			      title: "Kentucky",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.634,152.83029],
+			  {
+			      title: "Kentucky",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([34.60843,-92.66127],
+			  {
+			      title: "Kentucky",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([46.26523,-86.63099],
+			  {
+			      title: "Kentucky",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-28.99042,152.86131],
+			  {
+			      title: "Kentucky",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([18.19931,-78.01767],
+			  {
+			      title: "Kentucky",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([59.52667,10.25411],
+			  {
+			      title: "Kentucky",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([20.01417,-75.5975],
+			  {
+			      title: "Kentucky",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([20.15,-75.53333],
+			  {
+			      title: "Kentucky",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-22.58498,28.68365],
+			  {
+			      title: "Kentucky",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-29.16667,29.9],
+			  {
+			      title: "Kentucky",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-32.79619,20.76004],
+			  {
+			      title: "Kentucky",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-33.1174,26.6641],
+			  {
+			      title: "Kentucky",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([-17.93139,31.10194],
+			  {
+			      title: "Kentucky",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([14.27534,120.90253],
+			  {
+			      title: "Kentucky",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Kentucky"] = marker;
+  
+    var marker = L.marker([38.88622,-77.01831],
+			  {
+			      title: "Department of Education",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Department of Education"] = marker;
+  
+    var marker = L.marker([-33.86383,151.21064],
+			  {
+			      title: "Department of Education",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Department of Education"] = marker;
+  
+    var marker = L.marker([30.96944,61.85369],
+			  {
+			      title: "Department of Education",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Department of Education"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>School district officials discuss changed in school calendar. Last day of school for <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> students scheduled for June 5; graduation set June 6 if state approves The last day of school for <span onClick="goto_name('Laurel County')" class="loc">Laurel County</span> School District students will be June 5 and graduation will be June 6, pending approval from the <span onClick="goto_name('Kentucky')" class="loc">Kentucky</span> <span onClick="goto_name('Department of Education')" class="loc">Department of Education</span>. Director of Pupil Personnel Rhonda Welch said the district will ask the <span onClick="goto_name('Kentucky')" class="loc">Kentucky</span> <span onClick="goto_name('Department of Education')" class="loc">Department of Education</span> to forgive one of its 13 missed school days this year, which will allow the June 5 end date. “We can apply for one day,” Welch said. “The lady at KDE said the same thing.” The rest of the missed days that were not covered under banked time will be made up. The last day of school was originally scheduled for May 27. Welch said muddling through the details of House Bill 322, which allows districts to apply for missed days, hasn’t been easy. “Developing the amended calendar this year has been somewhat of an adventure,” she admitted. Welch said the commissioner has 10 days to respond to the request. If it is denied, Superintendent David Young said going to school on Memorial Day is an option. “That’s the only day we can take,” he said. “If we did lose another day, it gives us another option, but still keep graduation June 6.” Motion was approved by Joe Schenkenfelder, seconded by Bud Stuber and unanimously approved. Following the motion, Hacker Brothers Construction Manager David Jackson told School Board members Phase I of the North Laurel High School renovation — which involves replacing the heating, ventilation and air conditioning systems this summer — will be “severely affected” by the calendar change. Business Manager Jim Kennedy said he would speak with Jackson and Superintendent David Young to arrive at some type of arrangement. In other action, School Board members: Approved design development drawings for Phase II of North Laurel High School. The multi-million dollar renovations to the school will involve adding four classrooms to its northwest corner, upgrading bathrooms, fixing the roof, replacing the ceiling in the auditorium, fixing doors leading to the gym and enclosing the front canopy. Motion was made by Tommy Smith, seconded by Eddie Jones and unanimously approved. Authorized the sale of four buses after declaring a school bus surplus. “This is continuing to keep us on a rotation schedule to basically replace the fleet every 14 years,” Young said. Motion was made by Schenkenfelder, seconded by Stuber and unanimously approved. Tabled Cold Hill Elementary’s request to get a debit/credit card machine installed at the school. Board members are waiting to get more information as to how much the machine will cost the district. Motion was made by Jones, seconded by Smith and unanimously approved. Approved the $6,897 teacher preparation program grant from the Kentucky Workforce Development Cabinet. The purpose of the grant is to provide professional development for high school teachers who are interested in teaching a Principals in Teaching class. The class will introduce students to teaching as a profession. Motion was made by Jones, seconded by Smith and unanimously approved. Approved a contract with Bluegrass Technology, which provides technical devices for students with disabilities. Motion was made by Stuber, seconded by Schenkenfelder and unanimously approved. Modified its agreement with the Lake Cumberland Area Development District for the Summer Youth Program. Deputy Superintendent Greg Smith said changing the agreement is “laying the groundwork” so the county can accept federal stimulus money, which is expected to flow into the program. The program creates jobs for student workers in the summer months. Motion was made by Stuber, seconded by Jones and unanimously approved. Staff writer Tara Kaprowy can be reached by e-mail at tkaprowy@sentinel-echo.com.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Laurel County</th>
+       <td best="true">
+        <a onClick="goto(37.11067,-84.1178)">
+         <span style="white-space:nowrap">37.111,-84.118</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kentucky</th>
+       <td best="true">
+        <a onClick="goto(38.20042,-84.87762)">
+         <span style="white-space:nowrap">38.200,-84.878</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.59337,-87.61114)">
+         <span style="white-space:nowrap">39.593,-87.611</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-30.76143,151.44889)">
+         <span style="white-space:nowrap">-30.761,151.449</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.23333,19.4)">
+         <span style="white-space:nowrap">-28.233,19.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.76375,153.0046)">
+         <span style="white-space:nowrap">-29.764,153.005</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-35.42977,148.73112)">
+         <span style="white-space:nowrap">-35.430,148.731</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.634,152.83029)">
+         <span style="white-space:nowrap">-28.634,152.830</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.60843,-92.66127)">
+         <span style="white-space:nowrap">34.608,-92.661</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.26523,-86.63099)">
+         <span style="white-space:nowrap">46.265,-86.631</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.99042,152.86131)">
+         <span style="white-space:nowrap">-28.990,152.861</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.19931,-78.01767)">
+         <span style="white-space:nowrap">18.199,-78.018</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.52667,10.25411)">
+         <span style="white-space:nowrap">59.527,10.254</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.01417,-75.5975)">
+         <span style="white-space:nowrap">20.014,-75.597</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.15,-75.53333)">
+         <span style="white-space:nowrap">20.150,-75.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-22.58498,28.68365)">
+         <span style="white-space:nowrap">-22.585,28.684</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.16667,29.9)">
+         <span style="white-space:nowrap">-29.167,29.900</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.79619,20.76004)">
+         <span style="white-space:nowrap">-32.796,20.760</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.1174,26.6641)">
+         <span style="white-space:nowrap">-33.117,26.664</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.93139,31.10194)">
+         <span style="white-space:nowrap">-17.931,31.102</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.27534,120.90253)">
+         <span style="white-space:nowrap">14.275,120.903</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Department of Education</th>
+       <td best="true">
+        <a onClick="goto(38.88622,-77.01831)">
+         <span style="white-space:nowrap">38.886,-77.018</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.86383,151.21064)">
+         <span style="white-space:nowrap">-33.864,151.211</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.96944,61.85369)">
+         <span style="white-space:nowrap">30.969,61.854</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

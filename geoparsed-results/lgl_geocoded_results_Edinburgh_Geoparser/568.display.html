@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>'He will not be forgotten,Kate, that I promise you'. The remains of Stephen Carroll are carried in <span onClick="goto_name('Banbridge')" class="loc">Banbridge</span> yesterday 'To the love of my life. I will never forget you. I love you now and always, Kate' IT was just after 1.20pm when one simple act illustrated the truly seismic changes brought about by the North's peace process. And then, in the middle of a Northern Irish town and watched by Protestants and Catholics alike, he walked behind the coffin of a murdered policeman. Twelve years ago -- when the last Northern policeman was shot dead -- such a public tribute by a southern policing figure would have triggered a riot. Most children watching the sad procession yesterday never knew what it was like to live with the almost daily torrent of bombings and shootings. They do now. Many had heard a police wife tell in a radio interview how their 12-year-old son tearfully begged his father not to go to work this week. He didn't want him to get shot. Some of those who once followed a violent path are now in the North's government. Some are not, but they still came to <span onClick="goto_name('Banbridge')" class="loc">Banbridge</span> yesterday. They faced the TV cameras and appealed for the killings to stop and said there was no popular support for the dinosaurs still wedded to the past. The requiem Mass for Mr Carroll brought together a remarkable coalition of former terrorists, police officers, church leaders and politicians of all hues. <span onClick="goto_name('Banbridge')" class="loc">Banbridge</span> also turned out in force to say goodbye. Thousands lined the three-mile route from Mr Carroll's home to St Therese's church. A three-minute silence was held in the centre of the town and then the cortege passed, 18 officers walking ahead of the hearse, six motorcycle outriders ahead of them. A piper played a lament called the '<span onClick="goto_name('Flowers of the Forest')" class="loc">Flowers of the Forest</span>' and mourners wept as the hearse passed by. Amid the roses, carnations and lilies, a floral tribute had also been sent from <span onClick="goto_name('England')" class="loc">England</span> by the family of murdered soldier Sapper Patrick Azimkar. As well as cards from his own parents, son Shane, siblings and grandchildren, Mr Carroll's heartbroken widow Kate left her own simple tribute. It said: "To the love of my life. I will never forget you. I love you now and always, Kate." Then, she watched as her husband's casket, clad in a PSNI flag, was borne into the church by six fellow officers. "He will nor be forgotten Kate, I promise you," Mr Orde said, adding Mr Carroll (48) knew an unexpected violent act like this could one day happen given the hatred in some hearts. Canon Liam Stevenson, the <span onClick="goto_name('Banbridge parish')" class="loc">Banbridge parish</span> priest, told mourners the killing of Mr Carroll was designed to destabilise the peace process. The word patriot, he said, had been horribly abused. "The killers of Constable <span onClick="goto_name('Carroll')" class="loc">Carroll</span> have abused the term patriotism. "A perfectly laudable aspiration such as patriotism is robbed of its intrinsic value when it's allied to violence and death in pursuit of its objectives." Bishop McAreavey ended by sending a direct message to the killers: "You are greatly mistaken. Your way of thinking is backward looking. As soft rain began to fall outside, Bishop McAreavey's words were met by hope, tears and thunderous applause.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Banbridge</th>
+      </tr>
+      <tr>
+       <th>Flowers of the Forest</th>
+      </tr>
+      <tr>
+       <th>England</th>
+      </tr>
+      <tr>
+       <th>Banbridge parish</th>
+      </tr>
+      <tr>
+       <th>Carroll</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

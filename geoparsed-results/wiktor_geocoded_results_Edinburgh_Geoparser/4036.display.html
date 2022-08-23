@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Brooklyn is a suburb of Melbourne, Victoria, <span onClick="goto_name('Australia')" class="loc">Australia</span>, 10 km west of <span onClick="goto_name('Melbourne')" class="loc">Melbourne</span>'s central business district. Its local government areas are the <span onClick="goto_name('Cities of Brimbank')" class="loc">Cities of Brimbank</span> and <span onClick="goto_name('Hobsons Bay')" class="loc">Hobsons Bay</span>. At the 2011 Census, Brooklyn had a population of 1,640. In the 2011 census the population of Brooklyn was 1,640, approximately 49.5% females and 50.5% males. The median/average age of the people in Brooklyn is 37 years of age. 52.3% of people living in the suburb of Brooklyn were born in <span onClick="goto_name('Australia')" class="loc">Australia</span>. The other top responses for country of birth were 4.4% <span onClick="goto_name('Vietnam')" class="loc">Vietnam</span>, 4.1% <span onClick="goto_name('Italy')" class="loc">Italy</span>, 2.9% <span onClick="goto_name('China')" class="loc">China</span>, 2.8% <span onClick="goto_name('New Zealand')" class="loc">New Zealand</span>, 2.3% <span onClick="goto_name('Philippines')" class="loc">Philippines</span>, 2.1% <span onClick="goto_name('India')" class="loc">India</span>, 1.5% <span onClick="goto_name('Greece')" class="loc">Greece</span>, 1.4% <span onClick="goto_name('Poland')" class="loc">Poland</span>, 1.3% <span onClick="goto_name('South Eastern Europe')" class="loc">South Eastern Europe</span>, nfd, 1.3% <span onClick="goto_name('England')" class="loc">England</span>, 1.2% <span onClick="goto_name('Malta')" class="loc">Malta</span>, 1.0% <span onClick="goto_name('Germany')" class="loc">Germany</span>, 0.9% <span onClick="goto_name('Lebanon')" class="loc">Lebanon</span>, 0.9% <span onClick="goto_name('Indonesia')" class="loc">Indonesia</span>. 50.2% of people living in Brooklyn speak English only. The other top languages spoken are 6.3% Vietnamese, 6.3% Italian, 6.0% Language spoken at home not stated, 5.3% Other, 3.8% Cantonese, 3.0% Greek, 2.4% Mandarin, 2.1% Polish, 2.1% Arabic.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Australia</th>
+      </tr>
+      <tr>
+       <th>Melbourne</th>
+      </tr>
+      <tr>
+       <th>Cities of Brimbank</th>
+      </tr>
+      <tr>
+       <th>Hobsons Bay</th>
+      </tr>
+      <tr>
+       <th>Vietnam</th>
+      </tr>
+      <tr>
+       <th>Italy</th>
+      </tr>
+      <tr>
+       <th>China</th>
+      </tr>
+      <tr>
+       <th>New Zealand</th>
+      </tr>
+      <tr>
+       <th>Philippines</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Greece</th>
+      </tr>
+      <tr>
+       <th>Poland</th>
+      </tr>
+      <tr>
+       <th>South Eastern Europe</th>
+      </tr>
+      <tr>
+       <th>England</th>
+      </tr>
+      <tr>
+       <th>Malta</th>
+      </tr>
+      <tr>
+       <th>Germany</th>
+      </tr>
+      <tr>
+       <th>Lebanon</th>
+      </tr>
+      <tr>
+       <th>Indonesia</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

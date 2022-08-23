@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> is a town in <span onClick="goto_name('Teton County')" class="loc">Teton County</span>, <span onClick="goto_name('Montana')" class="loc">Montana</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 708 at the 2010 census. <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> is the self-proclaimed "Malting Barley Capital of the World" with 83,000 acres (336 km2) of irrigated cropland and 56,000 acres (227 km2) of non-irrigated cropland in production for the purpose of raising malt barley in the vicinity. <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> began as a station on the <span onClick="goto_name('Milwaukee')" class="loc">Milwaukee</span> and is between <span onClick="goto_name('Great Falls')" class="loc">Great Falls</span> and <span onClick="goto_name('Choteau')" class="loc">Choteau</span> and near <span onClick="goto_name('Freezeout')" class="loc">Freezeout</span> Lake, (from Cheney's Names on the Face of <span onClick="goto_name('Montana')" class="loc">Montana</span>, Mountain Press Publishing Company) where as many as 300,000 snow geese and 10,000 tundra swans gather in March. <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> serves as a trading center for the farmers of <span onClick="goto_name('Greenfield Bench')" class="loc">Greenfield Bench</span>. Irrigation now assures crops, but in earlier days a dry summer made the grass scarce and the name "Freeze-out Bench" was applied to the area. "<span onClick="goto_name('Greenfield Bench')" class="loc">Greenfield Bench</span>" and <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> are now descriptive of the hay and grain fields surrounding the town. (from Cheney’s Names on the Face of <span onClick="goto_name('Montana')" class="loc">Montana</span>, Mountain Press Publishing Company) Even though the federal government had opened this area of <span onClick="goto_name('Montana')" class="loc">Montana</span> to homesteading in 1862, not until 1909 did settlers really come into the <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> area when Congress liberalized this act allowing the settler 320 acres of free land instead of 160. It became apparent, however, that the small homesteads, 160 or 320 acres, made little sense in the vast and dry landscape of <span onClick="goto_name('Montana')" class="loc">Montana</span>. After the Bureau of Reclamation conducted a survey that showed a dam could be built in the Sun River Canyon and water for irrigation in <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span> area would be feasible were many more settlers attracted to <span onClick="goto_name('Fairfield')" class="loc">Fairfield</span>. The <span onClick="goto_name('Gibson')" class="loc">Gibson</span> Dam was completed in 1929. Today, Greenfield Irrigation District delivers water from <span onClick="goto_name('Gibson')" class="loc">Gibson</span> Dam to approximately 83,000 acres surrounding this community.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Fairfield</th>
+      </tr>
+      <tr>
+       <th>Teton County</th>
+      </tr>
+      <tr>
+       <th>Montana</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Milwaukee</th>
+      </tr>
+      <tr>
+       <th>Great Falls</th>
+      </tr>
+      <tr>
+       <th>Choteau</th>
+      </tr>
+      <tr>
+       <th>Freezeout</th>
+      </tr>
+      <tr>
+       <th>Greenfield Bench</th>
+      </tr>
+      <tr>
+       <th>Gibson</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

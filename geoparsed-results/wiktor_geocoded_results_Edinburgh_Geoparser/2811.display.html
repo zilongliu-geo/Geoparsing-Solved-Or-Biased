@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Newcastle')" class="loc">Newcastle</span> is a village in the rural <span onClick="goto_name('south west of Shropshire')" class="loc">south west of Shropshire</span>, <span onClick="goto_name('England')" class="loc">England</span>. It lies at the confluence of the <span onClick="goto_name('River Clun')" class="loc">River Clun</span> and the <span onClick="goto_name('Folly Brook')" class="loc">Folly Brook</span>, 3 miles west of the small town of <span onClick="goto_name('Clun')" class="loc">Clun</span>. The B4368 runs through the village, on its way between <span onClick="goto_name('Craven Arms')" class="loc">Craven Arms</span> in <span onClick="goto_name('Shropshire')" class="loc">Shropshire</span> to <span onClick="goto_name('Newtown')" class="loc">Newtown</span> in <span onClick="goto_name('Powys')" class="loc">Powys</span>. The village has a community hall, a campsite (<span onClick="goto_name('Clun')" class="loc">Clun</span> Valley Camping), a church and a pub (the "Crown Inn"). An association football club exists in the village, called <span onClick="goto_name('Newcastle A.F.C.')" class="loc">Newcastle A.F.C.</span> or Newcastle Football Club, whose home ground is the <span onClick="goto_name('Mill Field')" class="loc">Mill Field</span>, situated to the southwest of the village between the B-road and the <span onClick="goto_name('Folly Brook')" class="loc">Folly Brook</span>. Despite being based in <span onClick="goto_name('England')" class="loc">England</span> they play in the Mid <span onClick="goto_name('Wales')" class="loc">Wales</span> South League (part of the Welsh football league system) and were the League Champions in the 2011-12 season. They are currently sponsored by the Crown Inn. Another <span onClick="goto_name('Shropshire')" class="loc">Shropshire</span> village, also in the southwest of <span onClick="goto_name('Shropshire')" class="loc">Shropshire</span>, have a team playing in the same league: <span onClick="goto_name('Bucknell')" class="loc">Bucknell</span>. <span onClick="goto_name('Newcastle')" class="loc">Newcastle</span> on <span onClick="goto_name('Clun')" class="loc">Clun</span> is a civil parish which covers the village and surrounding countryside, reaching the border with <span onClick="goto_name('Wales')" class="loc">Wales</span> to the north. It is part of the remote and very rural <span onClick="goto_name('Clun Forest')" class="loc">Clun Forest</span>, part of the <span onClick="goto_name('Shropshire')" class="loc">Shropshire</span> Hills AONB. <span onClick="goto_name('Offa')" class="loc">Offa</span>'s <span onClick="goto_name('Dyke')" class="loc">Dyke</span> and <span onClick="goto_name('Offa')" class="loc">Offa</span>'s <span onClick="goto_name('Dyke')" class="loc">Dyke</span> Path run through the area. The parish forms part of the <span onClick="goto_name('Clun')" class="loc">Clun</span> electoral division of Shropshire Council.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Newcastle</th>
+      </tr>
+      <tr>
+       <th>south west of Shropshire</th>
+      </tr>
+      <tr>
+       <th>England</th>
+      </tr>
+      <tr>
+       <th>River Clun</th>
+      </tr>
+      <tr>
+       <th>Folly Brook</th>
+      </tr>
+      <tr>
+       <th>Clun</th>
+      </tr>
+      <tr>
+       <th>Craven Arms</th>
+      </tr>
+      <tr>
+       <th>Shropshire</th>
+      </tr>
+      <tr>
+       <th>Newtown</th>
+      </tr>
+      <tr>
+       <th>Powys</th>
+      </tr>
+      <tr>
+       <th>Newcastle A.F.C.</th>
+      </tr>
+      <tr>
+       <th>Mill Field</th>
+      </tr>
+      <tr>
+       <th>Wales</th>
+      </tr>
+      <tr>
+       <th>Bucknell</th>
+      </tr>
+      <tr>
+       <th>Clun Forest</th>
+      </tr>
+      <tr>
+       <th>Offa</th>
+      </tr>
+      <tr>
+       <th>Dyke</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([33.45122,-86.99666], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([33.45122,-86.99666],
+			  {
+			      title: "Hueytown",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hueytown"] = marker;
+  
+    var marker = L.marker([32.75041,-86.75026],
+			  {
+			      title: "Alabama",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([33.10391,-86.86419],
+			  {
+			      title: "University of Montevallo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([28.0106,-82.1184],
+			  {
+			      title: "Alabama",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([43.09645,-78.39086],
+			  {
+			      title: "Alabama",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([16.67024,-88.5204],
+			  {
+			      title: "Alabama",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-26.86667,26.58333],
+			  {
+			      title: "Alabama",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([22.24711,14.54289],
+			  {
+			      title: "Ang Amma",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([20.21089,13.6983],
+			  {
+			      title: "Alabama",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-27.42831,26.52367],
+			  {
+			      title: "Alabama",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-26.5,16.4],
+			  {
+			      title: "Alabama",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-23.23135,27.80511],
+			  {
+			      title: "Alabama",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([36.6067,-105.16862],
+			  {
+			      title: "Alabama",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-18.20007,29.88917],
+			  {
+			      title: "Alabama",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-34.52908,146.62035],
+			  {
+			      title: "Alabama",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([75.28333,-17.86667],
+			  {
+			      title: "Alabama",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([44.06148,12.58591],
+			  {
+			      title: "Alabama",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([33.52066,-86.80249],
+			  {
+			      title: "Birmingham",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([34.40844,-88.76922],
+			  {
+			      title: "Birmingham",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([36.90644,-88.22364],
+			  {
+			      title: "Birmingham",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([42.5467,-83.21132],
+			  {
+			      title: "Birmingham",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([37.07261,-81.81373],
+			  {
+			      title: "Birmingham",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.17535,-81.43734],
+			  {
+			      title: "Birmingham",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([41.33005,-82.36072],
+			  {
+			      title: "Birmingham",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.64784,-78.19529],
+			  {
+			      title: "Birmingham",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.93782,-86.10944],
+			  {
+			      title: "Birmingham",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.46865,-86.85279],
+			  {
+			      title: "Birmingham",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([39.90511,-75.59437],
+			  {
+			      title: "Birmingham",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.26421,-90.82097],
+			  {
+			      title: "Birmingham",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([39.16584,-94.45134],
+			  {
+			      title: "Birmingham",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([39.40916,-95.68248],
+			  {
+			      title: "Birmingham",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([40.87891,-91.94712],
+			  {
+			      title: "Birmingham",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([52.48142,-1.89983],
+			  {
+			      title: "Birmingham",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([52.48048,-1.89823],
+			  {
+			      title: "Birmingham",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([39.97595,-74.71016],
+			  {
+			      title: "Birmingham",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([50.96667,-102.93383],
+			  {
+			      title: "Birmingham",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+    var marker = L.marker([48.17065,-122.3646],
+			  {
+			      title: "Warm Beach",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Birmingham"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Six workers in the post office in <span onClick="goto_name('Hueytown')" class="loc">Hueytown</span>, <span onClick="goto_name('Alabama')" class="loc">Alabama</span> developed breathing problems and 23 were sent to the hospital after a chemical used in the manufacture of fishing lures leaked from a package. The post office, located five miles west of downtown <span onClick="goto_name('Birmingham')" class="loc">Birmingham</span>, <span onClick="goto_name('Alabama')" class="loc">Alabama</span>, was evacuated, and <span onClick="goto_name('Hueytown')" class="loc">Hueytown</span> firefighters in hazardous materials attire inspected the chemical. The chemical was found to have leaked from an inadequately designed package, evaporated quickly leaving a garlicky scent, and discolored the flooring tile in the post office. Workers complained of symptoms ranging from breathing difficulties to vomiting to burning in the throat. The chemical was later identified as "J.J.'s Magic," a yellow dye for soft plastic fishing lures which contains garlic oil as a fish attractant. The manufacturer confirmed that a two-ounce bottle of the product was sent to a customer in suburban <span onClick="goto_name('Birmingham')" class="loc">Birmingham</span> and speculated that the container may have cracked in transit.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Hueytown</th>
+       <td best="true">
+        <a onClick="goto(33.45122,-86.99666)">
+         <span style="white-space:nowrap">33.451,-86.997</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Alabama</th>
+       <td best="true">
+        <a onClick="goto(32.75041,-86.75026)">
+         <span style="white-space:nowrap">32.750,-86.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.10391,-86.86419)">
+         <span style="white-space:nowrap">33.104,-86.864</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.0106,-82.1184)">
+         <span style="white-space:nowrap">28.011,-82.118</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.09645,-78.39086)">
+         <span style="white-space:nowrap">43.096,-78.391</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.67024,-88.5204)">
+         <span style="white-space:nowrap">16.670,-88.520</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.86667,26.58333)">
+         <span style="white-space:nowrap">-26.867,26.583</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.24711,14.54289)">
+         <span style="white-space:nowrap">22.247,14.543</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.21089,13.6983)">
+         <span style="white-space:nowrap">20.211,13.698</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.42831,26.52367)">
+         <span style="white-space:nowrap">-27.428,26.524</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.5,16.4)">
+         <span style="white-space:nowrap">-26.500,16.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.23135,27.80511)">
+         <span style="white-space:nowrap">-23.231,27.805</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.6067,-105.16862)">
+         <span style="white-space:nowrap">36.607,-105.169</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.20007,29.88917)">
+         <span style="white-space:nowrap">-18.200,29.889</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.52908,146.62035)">
+         <span style="white-space:nowrap">-34.529,146.620</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(75.28333,-17.86667)">
+         <span style="white-space:nowrap">75.283,-17.867</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.06148,12.58591)">
+         <span style="white-space:nowrap">44.061,12.586</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Birmingham</th>
+       <td best="true">
+        <a onClick="goto(33.52066,-86.80249)">
+         <span style="white-space:nowrap">33.521,-86.802</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.40844,-88.76922)">
+         <span style="white-space:nowrap">34.408,-88.769</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.90644,-88.22364)">
+         <span style="white-space:nowrap">36.906,-88.224</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.5467,-83.21132)">
+         <span style="white-space:nowrap">42.547,-83.211</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.07261,-81.81373)">
+         <span style="white-space:nowrap">37.073,-81.814</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.17535,-81.43734)">
+         <span style="white-space:nowrap">40.175,-81.437</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.33005,-82.36072)">
+         <span style="white-space:nowrap">41.330,-82.361</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.64784,-78.19529)">
+         <span style="white-space:nowrap">40.648,-78.195</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.93782,-86.10944)">
+         <span style="white-space:nowrap">40.938,-86.109</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.46865,-86.85279)">
+         <span style="white-space:nowrap">40.469,-86.853</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.90511,-75.59437)">
+         <span style="white-space:nowrap">39.905,-75.594</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.26421,-90.82097)">
+         <span style="white-space:nowrap">40.264,-90.821</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.16584,-94.45134)">
+         <span style="white-space:nowrap">39.166,-94.451</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.40916,-95.68248)">
+         <span style="white-space:nowrap">39.409,-95.682</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.87891,-91.94712)">
+         <span style="white-space:nowrap">40.879,-91.947</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.48142,-1.89983)">
+         <span style="white-space:nowrap">52.481,-1.900</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.48048,-1.89823)">
+         <span style="white-space:nowrap">52.480,-1.898</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.97595,-74.71016)">
+         <span style="white-space:nowrap">39.976,-74.710</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.96667,-102.93383)">
+         <span style="white-space:nowrap">50.967,-102.934</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.17065,-122.3646)">
+         <span style="white-space:nowrap">48.171,-122.365</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

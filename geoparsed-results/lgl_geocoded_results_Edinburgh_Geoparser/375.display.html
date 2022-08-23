@@ -1,0 +1,991 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([43.70011,-79.4163], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([43.70011,-79.4163],
+			  {
+			      title: "Toronto",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([43.69655,-79.42909],
+			  {
+			      title: "Toronto",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([43.61681,-79.3663],
+			  {
+			      title: "Toronto Islands",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([43.60012,-79.66632],
+			  {
+			      title: "Toronto",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([-4.9,38.1],
+			  {
+			      title: "Toronto",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([-33.01357,151.59373],
+			  {
+			      title: "Toronto",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([39.71394,-89.62982],
+			  {
+			      title: "Toronto",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([39.7817,-87.49557],
+			  {
+			      title: "Toronto",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([-33,151.6],
+			  {
+			      title: "Toronto",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([40.46423,-80.60091],
+			  {
+			      title: "Toronto",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([22.78333,-82.5],
+			  {
+			      title: "Toronto",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([8.40396,-75.27907],
+			  {
+			      title: "Toronto",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([46.45012,-63.382],
+			  {
+			      title: "Toronto",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([41.90502,-90.86403],
+			  {
+			      title: "Toronto",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([38.00365,-92.52546],
+			  {
+			      title: "Toronto",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([44.57302,-96.64255],
+			  {
+			      title: "Toronto",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([37.79893,-95.94916],
+			  {
+			      title: "Toronto",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([7.96021,-74.92025],
+			  {
+			      title: "Toronto",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([54.66997,-1.69203],
+			  {
+			      title: "Toronto",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([-18.93333,32.65],
+			  {
+			      title: "Toronto",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Toronto"] = marker;
+  
+    var marker = L.marker([10.55,-61.08333],
+			  {
+			      title: "James Smart",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["James Stewart"] = marker;
+  
+    var marker = L.marker([49.25014,-84.49983],
+			  {
+			      title: "Ontario",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([34.06334,-117.65089],
+			  {
+			      title: "Ontario",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([41.07865,-90.30763],
+			  {
+			      title: "Ontario",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([36.98848,-78.48611],
+			  {
+			      title: "Ontario",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([-11.28333,-74.43333],
+			  {
+			      title: "Ontario",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([42.03582,-93.68161],
+			  {
+			      title: "Ontario",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([40.7595,-82.59017],
+			  {
+			      title: "Ontario",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([41.70227,-85.38248],
+			  {
+			      title: "Ontario",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([10.25753,-83.47352],
+			  {
+			      title: "Ontario",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([44.02655,-116.96294],
+			  {
+			      title: "Ontario",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([43.7258,-90.59152],
+			  {
+			      title: "Ontario",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([36.98757,-94.763],
+			  {
+			      title: "Ontario",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([43.2209,-77.28304],
+			  {
+			      title: "Ontario",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([40.10341,-80.0745],
+			  {
+			      title: "Ontario",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([-38.25534,-72.11133],
+			  {
+			      title: "Ontario",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([39.56666,-95.88221],
+			  {
+			      title: "Ontario",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([42.85285,-77.29982],
+			  {
+			      title: "Ontario",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([43.75012,-77.99951],
+			  {
+			      title: "Lake Ontario",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([44.24778,-79.09186],
+			  {
+			      title: "Ontario",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([22.91667,-81.31667],
+			  {
+			      title: "Ontario",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Ontario"] = marker;
+  
+    var marker = L.marker([29.68052,-82.69206],
+			  {
+			      title: "Thames",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([51.52361,0.11856],
+			  {
+			      title: "Thames",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([-37.13832,175.54011],
+			  {
+			      title: "Thames",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([-36.92621,-63.29354],
+			  {
+			      title: "Thames",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([-37.13333,175.55],
+			  {
+			      title: "Thames",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([51.46117,-0.93083],
+			  {
+			      title: "Thames Valley",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Thames"] = marker;
+  
+    var marker = L.marker([51.49763,0.50812],
+			  {
+			      title: "River Thames",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Thames"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Education minister would like to see boards share vacant spaces. Ontario's education minister said Friday she's ready to write regulations compelling school boards to share vacant space with other school boards and community partners. Kathleen Wynne said she would look to write these regulations as a response to recommendations from a report she commissioned on declining enrolment within the province's schools. "Closing or consolidating schools is one response to declining enrolment -- in some circumstances, the appropriate response," the report states. "However, many circumstances exist in which school closures are undesirable or even unworkable." Several of the report's recommendations focus on encouraging and even mandating school boards to seek out partnerships that would allow vacant space in schools to be used rather than remain empty and become a financial burden. "The (recommendations) that co-terminous boards be required to share or consider shared facilities -- I was looking for that kind of recommendation if the group deemed it appropriate and they have come through with that," Wynne said in a Friday phone interview from her constituency office in <span onClick="goto_name('Toronto')" class="loc">Toronto</span>. She said she was also encouraged by the recommendation school boards be required to solicit interest from potential community partners for excess space in their schools. "We're not just going to encourage this, but write regulations to say this is what should happen," Wynne said. "It's a matter of figuring out how to do it and the language of the regulations." She was also encouraged by a related recommendation the province look to use empty space in schools to provide its services before building or leasing space elsewhere. She said it would require action beyond her own ministry, but reinforced the concept of community hubs where Ontarians can access as many services as possible. The report was released by Wynne Friday, and contains 21 recommendations for the Ontario government to help school boards and communities understand and deal with the impact of fewer school-aged children in the province. The group recommends the province and all school boards do a better job of explaining what declining enrolment is and how it affects a school's ability to teach students the skills they need to be successful. It wants the province to mandate a single template for reporting changes in enrolment, and that school boards be required to start considering options for small and declining-enrolment schools before reaching the point where closure or consolidation is seen as the only option. Wynne said she was encouraged by the report's tone and the preference within its recommendations ensuring students are given the best possible learning environments and resources. "The whole point -- to have the programs in place for kids in schools is a critical one and that's why the charts and information included are very valuable to both boards and parent groups," Wynne said. "We can all get a bit more common understanding of the issue." Thames Valley District School Board chair <span onClick="goto_name('James Stewart')" class="loc">James Stewart</span> admitted in a weekend e-mail the devil on the implementation of the report's recommendations would be in the detail of any regulations Wynne issues. "Anything that lightens the load of the taxpayer and effectively helps our students is welcome in these times," Stewart wrote. The report contains extensive recommendations on changes to the province's per-pupil Education Funding Formula, which has been in place since 1998. It recommends shifting more funding -- for example for computers and technology -- from per-pupil to school-based criteria, clarifying and changing temporary declining enrolment funding currently given to school boards. The report states schools in <span onClick="goto_name('Ontario')" class="loc">Ontario</span> already have 68,000 fewer students in their desks than in September 1998, and projects schools will have 72,000 fewer students in by September 2012 than they do today. It was written by a working group of nine people led by Brant MPP Dave Levac and Renfrew County District School Board director of education Eleanor Newman. It also included participation from <span onClick="goto_name('Thames')" class="loc">Thames</span> Valley District School Board treasurer Brian Greene and Southwest Middlesex Mayor Doug Reycraft.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Toronto</th>
+       <td best="true">
+        <a onClick="goto(43.70011,-79.4163)">
+         <span style="white-space:nowrap">43.700,-79.416</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.69655,-79.42909)">
+         <span style="white-space:nowrap">43.697,-79.429</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.61681,-79.3663)">
+         <span style="white-space:nowrap">43.617,-79.366</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.60012,-79.66632)">
+         <span style="white-space:nowrap">43.600,-79.666</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-4.9,38.1)">
+         <span style="white-space:nowrap">-4.900,38.100</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.01357,151.59373)">
+         <span style="white-space:nowrap">-33.014,151.594</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.71394,-89.62982)">
+         <span style="white-space:nowrap">39.714,-89.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.7817,-87.49557)">
+         <span style="white-space:nowrap">39.782,-87.496</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33,151.6)">
+         <span style="white-space:nowrap">-33.000,151.600</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.46423,-80.60091)">
+         <span style="white-space:nowrap">40.464,-80.601</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.78333,-82.5)">
+         <span style="white-space:nowrap">22.783,-82.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(8.40396,-75.27907)">
+         <span style="white-space:nowrap">8.404,-75.279</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.45012,-63.382)">
+         <span style="white-space:nowrap">46.450,-63.382</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.90502,-90.86403)">
+         <span style="white-space:nowrap">41.905,-90.864</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.00365,-92.52546)">
+         <span style="white-space:nowrap">38.004,-92.525</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.57302,-96.64255)">
+         <span style="white-space:nowrap">44.573,-96.643</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.79893,-95.94916)">
+         <span style="white-space:nowrap">37.799,-95.949</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(7.96021,-74.92025)">
+         <span style="white-space:nowrap">7.960,-74.920</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.66997,-1.69203)">
+         <span style="white-space:nowrap">54.670,-1.692</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.93333,32.65)">
+         <span style="white-space:nowrap">-18.933,32.650</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>James Stewart</th>
+       <td best="true">
+        <a onClick="goto(10.55,-61.08333)">
+         <span style="white-space:nowrap">10.550,-61.083</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Ontario</th>
+       <td best="true">
+        <a onClick="goto(49.25014,-84.49983)">
+         <span style="white-space:nowrap">49.250,-84.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.06334,-117.65089)">
+         <span style="white-space:nowrap">34.063,-117.651</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.07865,-90.30763)">
+         <span style="white-space:nowrap">41.079,-90.308</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.98848,-78.48611)">
+         <span style="white-space:nowrap">36.988,-78.486</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-11.28333,-74.43333)">
+         <span style="white-space:nowrap">-11.283,-74.433</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.03582,-93.68161)">
+         <span style="white-space:nowrap">42.036,-93.682</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.7595,-82.59017)">
+         <span style="white-space:nowrap">40.760,-82.590</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.70227,-85.38248)">
+         <span style="white-space:nowrap">41.702,-85.382</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(10.25753,-83.47352)">
+         <span style="white-space:nowrap">10.258,-83.474</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.02655,-116.96294)">
+         <span style="white-space:nowrap">44.027,-116.963</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.7258,-90.59152)">
+         <span style="white-space:nowrap">43.726,-90.592</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.98757,-94.763)">
+         <span style="white-space:nowrap">36.988,-94.763</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.2209,-77.28304)">
+         <span style="white-space:nowrap">43.221,-77.283</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.10341,-80.0745)">
+         <span style="white-space:nowrap">40.103,-80.075</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-38.25534,-72.11133)">
+         <span style="white-space:nowrap">-38.255,-72.111</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.56666,-95.88221)">
+         <span style="white-space:nowrap">39.567,-95.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.85285,-77.29982)">
+         <span style="white-space:nowrap">42.853,-77.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.75012,-77.99951)">
+         <span style="white-space:nowrap">43.750,-78.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.24778,-79.09186)">
+         <span style="white-space:nowrap">44.248,-79.092</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.91667,-81.31667)">
+         <span style="white-space:nowrap">22.917,-81.317</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Thames</th>
+       <td best="true">
+        <a onClick="goto(29.68052,-82.69206)">
+         <span style="white-space:nowrap">29.681,-82.692</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.52361,0.11856)">
+         <span style="white-space:nowrap">51.524,0.119</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.13832,175.54011)">
+         <span style="white-space:nowrap">-37.138,175.540</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-36.92621,-63.29354)">
+         <span style="white-space:nowrap">-36.926,-63.294</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-37.13333,175.55)">
+         <span style="white-space:nowrap">-37.133,175.550</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.46117,-0.93083)">
+         <span style="white-space:nowrap">51.461,-0.931</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.49763,0.50812)">
+         <span style="white-space:nowrap">51.498,0.508</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

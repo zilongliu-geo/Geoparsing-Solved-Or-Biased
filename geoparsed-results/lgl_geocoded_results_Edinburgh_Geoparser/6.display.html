@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Controversial pastor picked for Mansfield patrol program. By Vickie Welborn vwelborn@gannett.com <span onClick="goto_name('Gannett')" class="loc">Gannett</span> March 24, 2009 MANSFIELD -- Mansfield Mayor Curtis McCoy wants to start a pastor on patrol program for the Mansfield Police Department and he's selected as his first candidate a self-described minister with a controversial past that includes time spent on the other side of the jail bars and troubles with the court system. The Rev. Roy Jones' most recent job was a convenience store clerk for which he had to obtain an alcoholic beverage control card so that he could sell alcoholic beverages. "This is something I'm trying to do to make a better relationship between the police and the citizens," McCoy said of Jones' appointment. Unlike a similar program run by the Shreveport Police Department where ministers volunteer their time to ride on patrol with officers, Mansfield's Pastor on Patrol won't depend upon volunteers - or at this point anyone beyond Jones. Jones will be paid $9 an hour and work 24 hours a week. Asked why he didn't use Shreveport's program as a model, McCoy answered, "I don't know what <span onClick="goto_name('Shreveport')" class="loc">Shreveport</span> does nor do I care to know what <span onClick="goto_name('Shreveport')" class="loc">Shreveport</span> does on that line. I only know what Mansfield is doing. "McCoy would not comment on Jones' checkered past or his ability to remain unbiased in situations involving the police and citizenry since he is on the city's payroll. "Based on his relationship in the community as far as knowing people, every time I go to church, I see him in a pulpit - I'm serious. I'm talking the honest God truth. &amp; If he's not pastoring, he's there as a guest. But he knows the people in the community, and I think over the years he has proven himself to be an asset. "Part-time employees can work six months before being presented to the Board of Aldermen. That's why Jones' official appointment was news to two Mansfield aldermen. Mitch Lewis and G.B. "Sonny" Hall were unaware of Jones' addition to the payroll. Lewis admitted that he was questioned over the weekend about Jones being seen last week in a patrol car with a police officer. "I talked to Roy today (at the council meeting)," Lewis said Monday night. "He said yes he was doing it, but he didn't go into it. He said he was pastor on patrol. He said he was trying to get involved with the youth on the weekend and stuff like, which I think is good, but &amp; I don't know. I think (McCoy's) intentions were good to try to set up that type of program. "<span onClick="goto_name('Added')" class="loc">Added</span> Hall: "Most true pastors volunteer their time to do that. "Jones, who was unseated in October 2007 from his first term on the <span onClick="goto_name('DeSoto Parish')" class="loc">DeSoto Parish</span> Police Jury, is a close friend of McCoy's. He's aided the mayor in his two election campaigns and frequently accompanies him to functions. Jones did not return a message left on his answering machine Monday. Jones grabbed his own headlines while on the parish governing body. He was consistently involved in employee issues and public criticism of the road department supervisor, including filing complaints with the state attorney general's office that were later deemed unfounded. The Mansfield resident got his own hand slapped in 2005 when the district attorney ordered him to reimburse the parish $175 for gravel he directed onto a private driveway. He has prior arrests for trespassing, issuing worthless checks, failure to appear in court for criminal neglect of family and for failing to report to court on issuing worthless check charges. While he spent time in the DeSoto Detention Center for his arrests, Jones has avoided jail sentences by paying off the insufficient funds and the late child support payments. McCoy said he would later evaluate the program and add a "white minister, too, because we want everyone to have someone they can talk to." Jones is black.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Gannett</th>
+      </tr>
+      <tr>
+       <th>Shreveport</th>
+      </tr>
+      <tr>
+       <th>Added</th>
+      </tr>
+      <tr>
+       <th>DeSoto Parish</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

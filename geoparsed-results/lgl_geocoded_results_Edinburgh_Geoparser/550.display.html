@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Council looks over ‘to do’ list. <span onClick="goto_name('Paris City')" class="loc">Paris City</span> Council asked the city manager to expand an 18-to-24-month bullet point strategic business plan presented at Monday night’s council meeting out 10 years and to meet with Paris Junior College president Dr. Pam Anglin and <span onClick="goto_name('Chamber of Commerce')" class="loc">Chamber of Commerce</span> president Pete Kampfer for assistance. The plan has been a point of contention between City Manager Kevin Carruth and some council members for the past year. District 6 Councilman Edwin Pickle was first to question the brevity of the plan followed by Councilman Steve Brown. The District 4 councilman said he was not consulted for input as referenced by Carruth’s statement in the council package that “most council members did not indicate a particular preference in format or content, however the consensus was a simple bullet of &#x91;to do’ list that would cover the next 18-24 months and could be utilized in planning for the FY 2009-2010 budget.” “I guess I am not part of the consensus, so it doesn’t matter,” Brown said. Pickle asked council members directly, “I just want to make sure there was a consensus and we are happy with a simple bullet or &#x91;to do’ list,” Pickle said. District 7 Councilwoman Rhonda Rogers said themanager’s plan “is an adequate beginning.” “I think we continue to develop a plan 10 years out,” she added. Rogers also expressed concern that she saw nothing from any departments about what is in future plans to address services to outlying areas, particularly for those taxpayers who have requested disannexation because of lack of city services. “I didn’t see what the different departments are going to do toward helping them with whatever city services they feel like they need,” Rogers said. “We’ve got to make them feel like they are part of the city.” Pickle recommended, as he said he had done in the past, that Anglin be consulted to help on the strategic plan. “Dr. Anglin agreed and expressed a desire to help work on a strategic plan for the city &#x97; not for PEDC; not for the Chamber; not for the county,” Pickle said. Mayor Jesse Freelen agreed that bringing Anglin into the equation “is not a bad idea at all.” Some long-term planning is needed but not necessary in every area of every department, District 2 Councilman Kevin Kear said. He cited airport development, wastewater treatment and water delivery as “some big infrastructure I think we do need to have a general plan about where we are going.” Freelen agreed that long-term planning in those areas would give future councils some type of guidelines as well as serve as a measurement tool to show “where we have been and where we are going.” Although Brown said he would have liked to have the bullet list presented Monday “18 months ago,” the councilman added, “From this you look at it and then you make your strategic plan. I like that &#x97; at least we have a start now.” Freelen asked Carruth to schedule a meeting with Anglin and Kampfer and to make regular reports on the planning process. In other business the council: received a favorable outside audit report for fiscal year ended Sept. 30 2008; rejected a disannexation request from three property owners; cancelled a May 9 election for unchallenged Districts 4, 5, and 7 incumbents; took favorable action on a Trail de Paris extension as well as a United Way early learning project on the trail; and, discussed the possibility of adding 10 hangars at Cox Field, estimated to cost $480,000. Council then spent a little more than an hour in executive session before reconvening the meeting and adjourning shortly afterwards. Pickle said prior to the meeting he had requested an executive session to discuss what is expected of the city manager, mainly in regard to the strategic planning process. Also in executive session, the council was to receive information about an incentive offer to a business prospect.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Paris City</th>
+      </tr>
+      <tr>
+       <th>Chamber of Commerce</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

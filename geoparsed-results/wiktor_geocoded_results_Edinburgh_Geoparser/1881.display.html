@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Salisbury')" class="loc">Salisbury</span> /ˈsɔːlzbəri/ SAULZ-ber-ee is a city in and the county seat of <span onClick="goto_name('Rowan County')" class="loc">Rowan County</span>, <span onClick="goto_name('North Carolina')" class="loc">North Carolina</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 33,663 in the 2010 Census (growing 27.8% from the previous Census in 2000). <span onClick="goto_name('Salisbury')" class="loc">Salisbury</span> is the home to famed <span onClick="goto_name('North Carolina')" class="loc">North Carolina</span> soft drink, Cheerwine, regional supermarket Food Lion, and the National Sportscasters and Sportswriters Association. It is one of only two cities in <span onClick="goto_name('North Carolina')" class="loc">North Carolina</span> to have gigabit capacity through its municipally-owned broadband system Fibrant. A press conference held September 3, 2015 at Catawba College announced Salisbury's Fibrant system is now capable of 10 gigabit capacity city-wide; believed to be the only city owned system in the world with this capacity. <span onClick="goto_name('Salisbury')" class="loc">Salisbury</span> has developed a strong record of historic preservation over the last few decades. It is the site of a noted prisoner of war camp during the American Civil War and has ten National Register historic districts. The city has many historic homes and commercial buildings dating from the 19th century and early 20th century, several of which are individually listed on the National Register of Historic Places. They include the: Bernhardt House, Boyden High School, Brooklyn-South Square Historic District, Maxwell Chambers House, Community Building, Eastover, Ellis Street Graded School Historic District, Fulton Heights Historic District, Griffith-Sowers House, Grimes Mill, Grubb-Sigmon-Weisiger House, Hambley-Wallace House, Archibald Henderson Law Office, J. C. Price High School, Kesler Manufacturing Co.-Cannon Mills Co. Plant No. 7 Historic District, Livingstone College Historic District, Napoleon Bonaparte McCanless House, Walter McCanless House, McNeely-Strachan House, Monroe Street School, Mount Zion Baptist Church, North Long Street-Park Avenue Historic District, North Main Street Historic District, <span onClick="goto_name('Salisbury Historic District')" class="loc">Salisbury Historic District</span>, <span onClick="goto_name('Salisbury National Cemetery')" class="loc">Salisbury National Cemetery</span>, <span onClick="goto_name('Salisbury Railroad Corridor Historic District')" class="loc">Salisbury Railroad Corridor Historic District</span>, <span onClick="goto_name('Salisbury Southern Railroad Passenger Depot')" class="loc">Salisbury Southern Railroad Passenger Depot</span>, Shaver Rental Houses District, John Steele House, and Calvin H. Wiley School.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Salisbury</th>
+      </tr>
+      <tr>
+       <th>Rowan County</th>
+      </tr>
+      <tr>
+       <th>North Carolina</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Salisbury Historic District</th>
+      </tr>
+      <tr>
+       <th>Salisbury National Cemetery</th>
+      </tr>
+      <tr>
+       <th>Salisbury Railroad Corridor Historic District</th>
+      </tr>
+      <tr>
+       <th>Salisbury Southern Railroad Passenger Depot</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

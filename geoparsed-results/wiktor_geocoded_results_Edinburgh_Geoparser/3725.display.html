@@ -1,0 +1,1516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([46.76678,-73.83248], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([46.76678,-73.83248],
+			  {
+			      title: "Lanaudière",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Lanaudière region"] = marker;
+  
+    var marker = L.marker([49.85012,-73.01583],
+			  {
+			      title: "Lanaudière",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Lanaudière region"] = marker;
+  
+    var marker = L.marker([46.81228,-71.21454],
+			  {
+			      title: "Québec",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([52.00017,-71.99907],
+			  {
+			      title: "Quebec",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([46.85258,-71.33082],
+			  {
+			      title: "Québec",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([46.82011,-71.20799],
+			  {
+			      title: "Quebec",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([41.79927,-71.88785],
+			  {
+			      title: "Quebec",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([41.66121,-72.77954],
+			  {
+			      title: "New Britain",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([36.75956,-81.50289],
+			  {
+			      title: "Quebec",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([35.14011,-82.87569],
+			  {
+			      title: "Quebec",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([35.81673,-85.56692],
+			  {
+			      title: "Quebeck",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([45.7266,-109.65935],
+			  {
+			      title: "Quebec",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([54.7884,-1.72465],
+			  {
+			      title: "Quebec",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([18.3485,-76.8821],
+			  {
+			      title: "Quebec",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([32.42681,-91.30289],
+			  {
+			      title: "Quebec",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([30.5107,-104.39964],
+			  {
+			      title: "Quebec",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([-28.16165,29.57462],
+			  {
+			      title: "Quebec",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([52.3,7.96667],
+			  {
+			      title: "Quebec",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Quebec"] = marker;
+  
+    var marker = L.marker([60.10867,-113.64258],
+			  {
+			      title: "Canada",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.79031,-56.76615],
+			  {
+			      title: "Cañada",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-24.07382,-57.0617],
+			  {
+			      title: "Cañada",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.90377,-57.36271],
+			  {
+			      title: "Cañada",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([39.20071,-2.1572],
+			  {
+			      title: "Cañada",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.0654,-57.11403],
+			  {
+			      title: "Cañada",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-7.33333,-41.7],
+			  {
+			      title: "Canada",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([22.86667,-82.05],
+			  {
+			      title: "Cañada",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([9.93764,-84.28166],
+			  {
+			      title: "Cañada",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-11.4,-66.96667],
+			  {
+			      title: "Canadá",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([20.53333,-75.53333],
+			  {
+			      title: "Cañada",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.45765,-57.11215],
+			  {
+			      title: "Cañada",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([9.90951,-84.1834],
+			  {
+			      title: "Cañada",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([20.58333,-75.51667],
+			  {
+			      title: "Cañada",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-27.28333,-65.08333],
+			  {
+			      title: "Cañada",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.52785,-55.99474],
+			  {
+			      title: "Cañada",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.10388,-56.21136],
+			  {
+			      title: "Canada",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-24.44499,-56.90662],
+			  {
+			      title: "Cañada",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.43058,-56.5238],
+			  {
+			      title: "Cañada",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([-25.95812,-56.96023],
+			  {
+			      title: "Cañada",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Canada"] = marker;
+  
+    var marker = L.marker([46.01948,-73.59042],
+			  {
+			      title: "Montcalm",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([45.96679,-74.49924],
+			  {
+			      title: "Montcalm",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([45.90007,-73.66587],
+			  {
+			      title: "Montcalm",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([45.90007,-73.66587],
+			  {
+			      title: "Montcalm",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([45.96944,-74.49591],
+			  {
+			      title: "Montcalm",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([45.96679,-74.49924],
+			  {
+			      title: "Montcalm",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([43.60007,-72.17037],
+			  {
+			      title: "Montcalm",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([37.35401,-81.2526],
+			  {
+			      title: "Montcalm",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([43.57195,4.3141],
+			  {
+			      title: "Montcalm",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([36.15841,7.14154],
+			  {
+			      title: "Tamlouka",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([48.65016,-82.14988],
+			  {
+			      title: "Montcalm",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([49.16499,-97.34008],
+			  {
+			      title: "Montcalm",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([43.31096,-85.15252],
+			  {
+			      title: "Montcalm",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([51.5147,-0.1599],
+			  {
+			      title: "Montcalm",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([-33.31929,148.72037],
+			  {
+			      title: "Montcalm",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Montcalm"] = marker;
+  
+    var marker = L.marker([19.682,145.4],
+			  {
+			      title: "Asuncion Island",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Assomption"] = marker;
+  
+    var marker = L.marker([46.85884,-71.19201],
+			  {
+			      title: "Beauport",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Beauport"] = marker;
+  
+    var marker = L.marker([16.41727,-61.51493],
+			  {
+			      title: "Beauport",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Beauport"] = marker;
+  
+    var marker = L.marker([77.52932,14.70099],
+			  {
+			      title: "Recherchefjorden",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Beauport"] = marker;
+  
+    var marker = L.marker([42.59871,-70.65782],
+			  {
+			      title: "Beauport",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Beauport"] = marker;
+  
+    var marker = L.marker([45.50884,-73.58781],
+			  {
+			      title: "Montreal",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([45.50525,-73.55136],
+			  {
+			      title: "Montreal",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([45.52662,-73.6527],
+			  {
+			      title: "Montréal",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([45.50008,-73.68248],
+			  {
+			      title: "Montréal",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([37.96893,-92.59212],
+			  {
+			      title: "Montreal",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([33.82427,-84.23659],
+			  {
+			      title: "Montreal",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([43.1998,2.14122],
+			  {
+			      title: "Montréal",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([41.28333,1.1],
+			  {
+			      title: "Mont-ral",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([23.95637,-74.49443],
+			  {
+			      title: "Montreal",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([44.40179,5.30039],
+			  {
+			      title: "Montréal-les-Sources",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([43.9502,0.20217],
+			  {
+			      title: "Montréal",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([47.54499,4.03547],
+			  {
+			      title: "Montréal",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([-7.45,-72.46667],
+			  {
+			      title: "Montreal",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([35.1176,-94.34855],
+			  {
+			      title: "Montreal",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([44.52862,4.29289],
+			  {
+			      title: "Montréal",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([46.428,-90.24601],
+			  {
+			      title: "Montreal",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([45.51675,-73.64918],
+			  {
+			      title: "Montréal",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([45.50008,-73.59918],
+			  {
+			      title: "Montréal",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([44.5284,4.2938],
+			  {
+			      title: "Montréal",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+    var marker = L.marker([19.38009,-70.534],
+			  {
+			      title: "Montreal",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Diocese of Montreal"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Saint-Esprit (French for "Holy Spirit") is a municipality in the <span onClick="goto_name('Lanaudière region')" class="loc">Lanaudière region</span> of <span onClick="goto_name('Quebec')" class="loc">Quebec</span>, <span onClick="goto_name('Canada')" class="loc">Canada</span>, part of the <span onClick="goto_name('Montcalm')" class="loc">Montcalm</span> <span onClick="goto_name('Regional County')" class="loc">Regional County</span> Municipality. It is located on both banks of the Saint-Esprit River, a tributary of the <span onClick="goto_name('L')" class="loc">L</span>'<span onClick="goto_name('Assomption')" class="loc">Assomption</span> River. The area's first settlers arrived at the end of 18th century and were mostly from <span onClick="goto_name('L')" class="loc">L</span>'Ange-Gardien, <span onClick="goto_name('Beauport')" class="loc">Beauport</span>, and Saint-Sulpice. Originally, the area was identified as the Rivière-Saint-Esprit or Grand-Saint-Esprit Concession. In 1808, the <span onClick="goto_name('Parish of Saint-Ours-du-Saint-Esprit')" class="loc">Parish of Saint-Ours-du-Saint-Esprit</span> was founded, however after 1838, the parish name was shortened to just Saint-Esprit to avoid confusion with another parish called Saint-Ours in the <span onClick="goto_name('Diocese of Montreal')" class="loc">Diocese of Montreal</span>. In 1852, its post office opened and in 1855, the Parish Municipality of Saint-Ours-du-Saint-Esprit was formed. A century later in 1956, it followed the parish by also shortening its name to Saint-Esprit. In 2000, the parish municipality changed its status and became the Municipality of Saint-Esprit. Because Saint-Esprit is surrounded by extensive plains, the local economy is characterized by agriculture. The main agricultural activities include tobacco and Sugar Maple cultivation, milk production, and breeding of lamb, pork and poultry.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lanaudière region</th>
+       <td best="true">
+        <a onClick="goto(46.76678,-73.83248)">
+         <span style="white-space:nowrap">46.767,-73.832</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.85012,-73.01583)">
+         <span style="white-space:nowrap">49.850,-73.016</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Quebec</th>
+       <td best="true">
+        <a onClick="goto(46.81228,-71.21454)">
+         <span style="white-space:nowrap">46.812,-71.215</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.00017,-71.99907)">
+         <span style="white-space:nowrap">52.000,-71.999</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.85258,-71.33082)">
+         <span style="white-space:nowrap">46.853,-71.331</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.82011,-71.20799)">
+         <span style="white-space:nowrap">46.820,-71.208</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79927,-71.88785)">
+         <span style="white-space:nowrap">41.799,-71.888</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.66121,-72.77954)">
+         <span style="white-space:nowrap">41.661,-72.780</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.75956,-81.50289)">
+         <span style="white-space:nowrap">36.760,-81.503</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.14011,-82.87569)">
+         <span style="white-space:nowrap">35.140,-82.876</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.81673,-85.56692)">
+         <span style="white-space:nowrap">35.817,-85.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.7266,-109.65935)">
+         <span style="white-space:nowrap">45.727,-109.659</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.7884,-1.72465)">
+         <span style="white-space:nowrap">54.788,-1.725</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.3485,-76.8821)">
+         <span style="white-space:nowrap">18.349,-76.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.42681,-91.30289)">
+         <span style="white-space:nowrap">32.427,-91.303</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.5107,-104.39964)">
+         <span style="white-space:nowrap">30.511,-104.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.16165,29.57462)">
+         <span style="white-space:nowrap">-28.162,29.575</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.3,7.96667)">
+         <span style="white-space:nowrap">52.300,7.967</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Canada</th>
+       <td best="true">
+        <a onClick="goto(60.10867,-113.64258)">
+         <span style="white-space:nowrap">60.109,-113.643</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.79031,-56.76615)">
+         <span style="white-space:nowrap">-25.790,-56.766</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.07382,-57.0617)">
+         <span style="white-space:nowrap">-24.074,-57.062</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.90377,-57.36271)">
+         <span style="white-space:nowrap">-25.904,-57.363</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.20071,-2.1572)">
+         <span style="white-space:nowrap">39.201,-2.157</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.0654,-57.11403)">
+         <span style="white-space:nowrap">-25.065,-57.114</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.33333,-41.7)">
+         <span style="white-space:nowrap">-7.333,-41.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.86667,-82.05)">
+         <span style="white-space:nowrap">22.867,-82.050</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.93764,-84.28166)">
+         <span style="white-space:nowrap">9.938,-84.282</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-11.4,-66.96667)">
+         <span style="white-space:nowrap">-11.400,-66.967</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.53333,-75.53333)">
+         <span style="white-space:nowrap">20.533,-75.533</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.45765,-57.11215)">
+         <span style="white-space:nowrap">-25.458,-57.112</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(9.90951,-84.1834)">
+         <span style="white-space:nowrap">9.910,-84.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.58333,-75.51667)">
+         <span style="white-space:nowrap">20.583,-75.517</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.28333,-65.08333)">
+         <span style="white-space:nowrap">-27.283,-65.083</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.52785,-55.99474)">
+         <span style="white-space:nowrap">-25.528,-55.995</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.10388,-56.21136)">
+         <span style="white-space:nowrap">-25.104,-56.211</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.44499,-56.90662)">
+         <span style="white-space:nowrap">-24.445,-56.907</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.43058,-56.5238)">
+         <span style="white-space:nowrap">-25.431,-56.524</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.95812,-56.96023)">
+         <span style="white-space:nowrap">-25.958,-56.960</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Montcalm</th>
+       <td best="true">
+        <a onClick="goto(46.01948,-73.59042)">
+         <span style="white-space:nowrap">46.019,-73.590</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.96679,-74.49924)">
+         <span style="white-space:nowrap">45.967,-74.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.90007,-73.66587)">
+         <span style="white-space:nowrap">45.900,-73.666</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.90007,-73.66587)">
+         <span style="white-space:nowrap">45.900,-73.666</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.96944,-74.49591)">
+         <span style="white-space:nowrap">45.969,-74.496</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.96679,-74.49924)">
+         <span style="white-space:nowrap">45.967,-74.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.60007,-72.17037)">
+         <span style="white-space:nowrap">43.600,-72.170</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.35401,-81.2526)">
+         <span style="white-space:nowrap">37.354,-81.253</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.57195,4.3141)">
+         <span style="white-space:nowrap">43.572,4.314</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.15841,7.14154)">
+         <span style="white-space:nowrap">36.158,7.142</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.65016,-82.14988)">
+         <span style="white-space:nowrap">48.650,-82.150</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.16499,-97.34008)">
+         <span style="white-space:nowrap">49.165,-97.340</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.31096,-85.15252)">
+         <span style="white-space:nowrap">43.311,-85.153</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.5147,-0.1599)">
+         <span style="white-space:nowrap">51.515,-0.160</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-33.31929,148.72037)">
+         <span style="white-space:nowrap">-33.319,148.720</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Regional County</th>
+      </tr>
+      <tr>
+       <th>Assomption</th>
+       <td best="true">
+        <a onClick="goto(19.682,145.4)">
+         <span style="white-space:nowrap">19.682,145.400</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Beauport</th>
+       <td best="true">
+        <a onClick="goto(46.85884,-71.19201)">
+         <span style="white-space:nowrap">46.859,-71.192</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.41727,-61.51493)">
+         <span style="white-space:nowrap">16.417,-61.515</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(77.52932,14.70099)">
+         <span style="white-space:nowrap">77.529,14.701</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.59871,-70.65782)">
+         <span style="white-space:nowrap">42.599,-70.658</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Parish of Saint-Ours-du-Saint-Esprit</th>
+      </tr>
+      <tr>
+       <th>Diocese of Montreal</th>
+       <td best="true">
+        <a onClick="goto(45.50884,-73.58781)">
+         <span style="white-space:nowrap">45.509,-73.588</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.50525,-73.55136)">
+         <span style="white-space:nowrap">45.505,-73.551</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.52662,-73.6527)">
+         <span style="white-space:nowrap">45.527,-73.653</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.50008,-73.68248)">
+         <span style="white-space:nowrap">45.500,-73.682</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.96893,-92.59212)">
+         <span style="white-space:nowrap">37.969,-92.592</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.82427,-84.23659)">
+         <span style="white-space:nowrap">33.824,-84.237</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.1998,2.14122)">
+         <span style="white-space:nowrap">43.200,2.141</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.28333,1.1)">
+         <span style="white-space:nowrap">41.283,1.100</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.95637,-74.49443)">
+         <span style="white-space:nowrap">23.956,-74.494</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.40179,5.30039)">
+         <span style="white-space:nowrap">44.402,5.300</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.9502,0.20217)">
+         <span style="white-space:nowrap">43.950,0.202</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.54499,4.03547)">
+         <span style="white-space:nowrap">47.545,4.035</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.45,-72.46667)">
+         <span style="white-space:nowrap">-7.450,-72.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.1176,-94.34855)">
+         <span style="white-space:nowrap">35.118,-94.349</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.52862,4.29289)">
+         <span style="white-space:nowrap">44.529,4.293</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.428,-90.24601)">
+         <span style="white-space:nowrap">46.428,-90.246</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.51675,-73.64918)">
+         <span style="white-space:nowrap">45.517,-73.649</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.50008,-73.59918)">
+         <span style="white-space:nowrap">45.500,-73.599</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.5284,4.2938)">
+         <span style="white-space:nowrap">44.528,4.294</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.38009,-70.534)">
+         <span style="white-space:nowrap">19.380,-70.534</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

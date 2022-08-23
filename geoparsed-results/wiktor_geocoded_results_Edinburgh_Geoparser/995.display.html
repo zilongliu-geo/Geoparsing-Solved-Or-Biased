@@ -1,0 +1,1238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([32.24761,-87.78952], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([32.24761,-87.78952],
+			  {
+			      title: "Marengo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Marengo County"] = marker;
+  
+    var marker = L.marker([32.75041,-86.75026],
+			  {
+			      title: "Alabama",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([43.09645,-78.39086],
+			  {
+			      title: "Alabama",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([28.0106,-82.1184],
+			  {
+			      title: "Alabama",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([33.10391,-86.86419],
+			  {
+			      title: "University of Montevallo",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([16.67024,-88.5204],
+			  {
+			      title: "Alabama",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-26.86667,26.58333],
+			  {
+			      title: "Alabama",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([22.24711,14.54289],
+			  {
+			      title: "Ang Amma",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([20.21089,13.6983],
+			  {
+			      title: "Alabama",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([36.6067,-105.16862],
+			  {
+			      title: "Alabama",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-27.42831,26.52367],
+			  {
+			      title: "Alabama",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-26.5,16.4],
+			  {
+			      title: "Alabama",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-23.23135,27.80511],
+			  {
+			      title: "Alabama",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-18.20007,29.88917],
+			  {
+			      title: "Alabama",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([-34.52908,146.62035],
+			  {
+			      title: "Alabama",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([75.28333,-17.86667],
+			  {
+			      title: "Alabama",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([44.06148,12.58591],
+			  {
+			      title: "Alabama",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Alabama"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([37.32959,-77.33109],
+			  {
+			      title: "Screamersville",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Screamersville"] = marker;
+  
+    var marker = L.marker([32.05709,-87.81418],
+			  {
+			      title: "Marengo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([38.36923,-86.34359],
+			  {
+			      title: "Marengo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([40.73117,-78.03112],
+			  {
+			      title: "Marengo",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([40.40089,-82.81073],
+			  {
+			      title: "Marengo",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([36.63848,-78.11944],
+			  {
+			      title: "Marengo",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([43.0259,-76.91052],
+			  {
+			      title: "Marengo",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([42.27143,-84.84859],
+			  {
+			      title: "Marengo",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([42.24863,-88.60843],
+			  {
+			      title: "Marengo",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([41.79806,-92.07074],
+			  {
+			      title: "Marengo",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([40.63862,-100.91043],
+			  {
+			      title: "Marengo",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([46.42245,-90.81685],
+			  {
+			      title: "Marengo",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([6.9,-73.6],
+			  {
+			      title: "Marengo",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([47.02571,-118.18857],
+			  {
+			      title: "Marengo",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([46.4407,-117.74881],
+			  {
+			      title: "Marengo",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([50.18333,5.33333],
+			  {
+			      title: "Marengo",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([51.48342,-109.78485],
+			  {
+			      title: "Marengo",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([36.51257,2.41382],
+			  {
+			      title: "Hadjout",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([-28.48339,-65.76269],
+			  {
+			      title: "Marengo",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([22.74639,-81.715],
+			  {
+			      title: "Maringo",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([-24.5609,-56.57917],
+			  {
+			      title: "Marengo",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Marengo"] = marker;
+  
+    var marker = L.marker([32.30625,-87.79807],
+			  {
+			      title: "Linden",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hohenlinden"] = marker;
+  
+    var marker = L.marker([33.72901,-89.16368],
+			  {
+			      title: "Hohenlinden",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hohenlinden"] = marker;
+  
+    var marker = L.marker([48.15612,11.99458],
+			  {
+			      title: "Hohenlinden",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hohenlinden"] = marker;
+  
+    var marker = L.marker([48.15,12],
+			  {
+			      title: "Hohenlinden",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hohenlinden"] = marker;
+  
+    var marker = L.marker([47.80396,9.1362],
+			  {
+			      title: "Hohenlinden",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Hohenlinden"] = marker;
+  
+    var marker = L.marker([51.5,10.5],
+			  {
+			      title: "Germany",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([31.79321,-87.2486],
+			  {
+			      title: "Buena Vista",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([34.89593,-83.46655],
+			  {
+			      title: "Germany",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([36.63147,-83.94659],
+			  {
+			      title: "Pearl",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([40.42035,-79.1167],
+			  {
+			      title: "Germany",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([38.46229,-85.54274],
+			  {
+			      title: "Germany",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([39.00285,-82.90545],
+			  {
+			      title: "Germany",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([39.19812,-84.28883],
+			  {
+			      title: "Camp Dennison",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([31.4399,-95.35078],
+			  {
+			      title: "Germany",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([55.41283,23.28758],
+			  {
+			      title: "Armonai",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([45.56683,-66.63217],
+			  {
+			      title: "Germany",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([52.3471,24.3085],
+			  {
+			      title: "Germany",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([41.95839,-79.01504],
+			  {
+			      title: "Lounsbury Corners",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([34.08618,-107.19642],
+			  {
+			      title: "Germany",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([24.45618,54.36728],
+			  {
+			      title: "Almāniyā",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([33.52092,36.27476],
+			  {
+			      title: "Almāniyā",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([25.25583,55.29577],
+			  {
+			      title: "Almāniyā",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Germany"] = marker;
+  
+    var marker = L.marker([14.32722,120.97739],
+			  {
+			      title: "Germany",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Germany"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Linden is a city in and the county seat of <span onClick="goto_name('Marengo County')" class="loc">Marengo County</span>, <span onClick="goto_name('Alabama')" class="loc">Alabama</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 2,123 at the 2010 census. Settled prior to 1818, the community was first known as <span onClick="goto_name('Screamersville')" class="loc">Screamersville</span>, due to the cry of wild animals that could be heard during the night. It became the county seat in 1819 and was then known as the Town of <span onClick="goto_name('Marengo')" class="loc">Marengo</span>. This was changed to <span onClick="goto_name('Hohenlinden')" class="loc">Hohenlinden</span> in 1823 to honor the county's earliest European settlers, French Bonapartist refugees to the Vine and Olive Colony. The name of <span onClick="goto_name('Hohenlinden')" class="loc">Hohenlinden</span> was chosen to commemorate a battle in 1800 at <span onClick="goto_name('Hohenlinden')" class="loc">Hohenlinden</span>, <span onClick="goto_name('Germany')" class="loc">Germany</span>, in which the French were victorious over the Austrians and Bavarians. The spelling was later simplified to Linden. Linden is located at 32°18′4″N 87°47′34″W (32.301154, -87.792650). According to the U.S. Census Bureau, the city has a total area of 3.6 square miles (9.3 km2), of which 3.6 square miles (9.3 km2) is land and 0.04 square miles (0.10 km2) (0.83%) is water. The city runs its own city-wide school system, Linden City Schools. It also has one private school, Marengo Academy, founded in 1969.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Marengo County</th>
+       <td best="true">
+        <a onClick="goto(32.24761,-87.78952)">
+         <span style="white-space:nowrap">32.248,-87.790</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Alabama</th>
+       <td best="true">
+        <a onClick="goto(32.75041,-86.75026)">
+         <span style="white-space:nowrap">32.750,-86.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.09645,-78.39086)">
+         <span style="white-space:nowrap">43.096,-78.391</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.0106,-82.1184)">
+         <span style="white-space:nowrap">28.011,-82.118</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.10391,-86.86419)">
+         <span style="white-space:nowrap">33.104,-86.864</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(16.67024,-88.5204)">
+         <span style="white-space:nowrap">16.670,-88.520</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.86667,26.58333)">
+         <span style="white-space:nowrap">-26.867,26.583</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.24711,14.54289)">
+         <span style="white-space:nowrap">22.247,14.543</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(20.21089,13.6983)">
+         <span style="white-space:nowrap">20.211,13.698</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.6067,-105.16862)">
+         <span style="white-space:nowrap">36.607,-105.169</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-27.42831,26.52367)">
+         <span style="white-space:nowrap">-27.428,26.524</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.5,16.4)">
+         <span style="white-space:nowrap">-26.500,16.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-23.23135,27.80511)">
+         <span style="white-space:nowrap">-23.231,27.805</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.20007,29.88917)">
+         <span style="white-space:nowrap">-18.200,29.889</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-34.52908,146.62035)">
+         <span style="white-space:nowrap">-34.529,146.620</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(75.28333,-17.86667)">
+         <span style="white-space:nowrap">75.283,-17.867</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.06148,12.58591)">
+         <span style="white-space:nowrap">44.061,12.586</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Screamersville</th>
+       <td best="true">
+        <a onClick="goto(37.32959,-77.33109)">
+         <span style="white-space:nowrap">37.330,-77.331</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Marengo</th>
+       <td best="true">
+        <a onClick="goto(32.05709,-87.81418)">
+         <span style="white-space:nowrap">32.057,-87.814</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.36923,-86.34359)">
+         <span style="white-space:nowrap">38.369,-86.344</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.73117,-78.03112)">
+         <span style="white-space:nowrap">40.731,-78.031</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.40089,-82.81073)">
+         <span style="white-space:nowrap">40.401,-82.811</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.63848,-78.11944)">
+         <span style="white-space:nowrap">36.638,-78.119</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.0259,-76.91052)">
+         <span style="white-space:nowrap">43.026,-76.911</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.27143,-84.84859)">
+         <span style="white-space:nowrap">42.271,-84.849</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.24863,-88.60843)">
+         <span style="white-space:nowrap">42.249,-88.608</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.79806,-92.07074)">
+         <span style="white-space:nowrap">41.798,-92.071</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.63862,-100.91043)">
+         <span style="white-space:nowrap">40.639,-100.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.42245,-90.81685)">
+         <span style="white-space:nowrap">46.422,-90.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.9,-73.6)">
+         <span style="white-space:nowrap">6.900,-73.600</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.02571,-118.18857)">
+         <span style="white-space:nowrap">47.026,-118.189</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.4407,-117.74881)">
+         <span style="white-space:nowrap">46.441,-117.749</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.18333,5.33333)">
+         <span style="white-space:nowrap">50.183,5.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.48342,-109.78485)">
+         <span style="white-space:nowrap">51.483,-109.785</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.51257,2.41382)">
+         <span style="white-space:nowrap">36.513,2.414</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.48339,-65.76269)">
+         <span style="white-space:nowrap">-28.483,-65.763</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.74639,-81.715)">
+         <span style="white-space:nowrap">22.746,-81.715</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-24.5609,-56.57917)">
+         <span style="white-space:nowrap">-24.561,-56.579</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hohenlinden</th>
+       <td best="true">
+        <a onClick="goto(32.30625,-87.79807)">
+         <span style="white-space:nowrap">32.306,-87.798</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.72901,-89.16368)">
+         <span style="white-space:nowrap">33.729,-89.164</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.15612,11.99458)">
+         <span style="white-space:nowrap">48.156,11.995</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.15,12)">
+         <span style="white-space:nowrap">48.150,12.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.80396,9.1362)">
+         <span style="white-space:nowrap">47.804,9.136</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Germany</th>
+       <td best="true">
+        <a onClick="goto(51.5,10.5)">
+         <span style="white-space:nowrap">51.500,10.500</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.79321,-87.2486)">
+         <span style="white-space:nowrap">31.793,-87.249</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.89593,-83.46655)">
+         <span style="white-space:nowrap">34.896,-83.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.63147,-83.94659)">
+         <span style="white-space:nowrap">36.631,-83.947</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.42035,-79.1167)">
+         <span style="white-space:nowrap">40.420,-79.117</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.46229,-85.54274)">
+         <span style="white-space:nowrap">38.462,-85.543</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.00285,-82.90545)">
+         <span style="white-space:nowrap">39.003,-82.905</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.19812,-84.28883)">
+         <span style="white-space:nowrap">39.198,-84.289</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.4399,-95.35078)">
+         <span style="white-space:nowrap">31.440,-95.351</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(55.41283,23.28758)">
+         <span style="white-space:nowrap">55.413,23.288</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.56683,-66.63217)">
+         <span style="white-space:nowrap">45.567,-66.632</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.3471,24.3085)">
+         <span style="white-space:nowrap">52.347,24.308</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.95839,-79.01504)">
+         <span style="white-space:nowrap">41.958,-79.015</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.08618,-107.19642)">
+         <span style="white-space:nowrap">34.086,-107.196</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.45618,54.36728)">
+         <span style="white-space:nowrap">24.456,54.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.52092,36.27476)">
+         <span style="white-space:nowrap">33.521,36.275</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.25583,55.29577)">
+         <span style="white-space:nowrap">25.256,55.296</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.32722,120.97739)">
+         <span style="white-space:nowrap">14.327,120.977</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

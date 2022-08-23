@@ -1,0 +1,816 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([51.77959,-2.18311], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([51.77959,-2.18311],
+			  {
+			      title: "Gloucestershire",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Gloucestershire"] = marker;
+  
+    var marker = L.marker([51.83333,-2.16667],
+			  {
+			      title: "Gloucestershire",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Gloucestershire"] = marker;
+  
+    var marker = L.marker([52.16045,-0.70312],
+			  {
+			      title: "England",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([54.48333,8.88333],
+			  {
+			      title: "England",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([52.21667,7.03333],
+			  {
+			      title: "England",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([35.88453,-94.668],
+			  {
+			      title: "England",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([59.26536,10.4806],
+			  {
+			      title: "England",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([40.84033,-82.23933],
+			  {
+			      title: "England",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([34.54426,-91.96903],
+			  {
+			      title: "England",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([61.23333,10.2],
+			  {
+			      title: "England",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([48.48581,-96.62811],
+			  {
+			      title: "Englund",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([61.33333,5.01667],
+			  {
+			      title: "England",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([63.4,13.01667],
+			  {
+			      title: "Ängland",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([63.31662,22.47928],
+			  {
+			      title: "England",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([6.59465,8.88173],
+			  {
+			      title: "England",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([59.117,5.9663],
+			  {
+			      title: "England",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([53,-2],
+			  {
+			      title: "England",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([62.80496,6.78423],
+			  {
+			      title: "England",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([60.98846,4.59514],
+			  {
+			      title: "England",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([-28.34492,23.61985],
+			  {
+			      title: "England",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([-28.29379,22.29347],
+			  {
+			      title: "England",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([14.32689,120.97685],
+			  {
+			      title: "England",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["England"] = marker;
+  
+    var marker = L.marker([51.68333,-2.16667],
+			  {
+			      title: "Cotswolds",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Cotswolds"] = marker;
+  
+    var marker = L.marker([22.50207,114.18026],
+			  {
+			      title: "Cotswolds",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Cotswolds"] = marker;
+  
+    var marker = L.marker([51.68139,-2.35333],
+			  {
+			      title: "Dursley",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Dursley"] = marker;
+  
+    var marker = L.marker([51.68136,-2.34404],
+			  {
+			      title: "Dursley",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Dursley"] = marker;
+  
+    var marker = L.marker([-29.78237,151.36205],
+			  {
+			      title: "Dursley",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Dursley"] = marker;
+  
+    var marker = L.marker([-40.85827,175.85021],
+			  {
+			      title: "Dursley",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Dursley"] = marker;
+  
+    var marker = L.marker([34.78984,-82.38623],
+			  {
+			      title: "Woodfields",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Woodfields"] = marker;
+  
+    var marker = L.marker([34.18096,-82.11901],
+			  {
+			      title: "Woodfields",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Woodfields"] = marker;
+  
+    var marker = L.marker([52.83333,-2.1],
+			  {
+			      title: "Hopton",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([52.53333,1.73333],
+			  {
+			      title: "Hopton",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([52.77572,-2.90979],
+			  {
+			      title: "Hopton",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([52.37293,0.92689],
+			  {
+			      title: "Hopton",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([52.37671,0.91995],
+			  {
+			      title: "Hopton",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([6.98926,81.19101],
+			  {
+			      title: "Hopton",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+    var marker = L.marker([53.09042,-1.61831],
+			  {
+			      title: "Hopton",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Hopton"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Cam is a large village and civil parish in <span onClick="goto_name('Gloucestershire')" class="loc">Gloucestershire</span>, <span onClick="goto_name('England')" class="loc">England</span>, situated in the <span onClick="goto_name('Cotswolds')" class="loc">Cotswolds</span>. The <span onClick="goto_name('Cotswold Way')" class="loc">Cotswold Way</span> runs less than a mile from the village. Its built-up area is contiguous with that of the town of <span onClick="goto_name('Dursley')" class="loc">Dursley</span>. Cam had 8,160 residents, with 3,575 households in the 2011 census. Cam actually has a larger population than neighbouring <span onClick="goto_name('Dursley')" class="loc">Dursley</span>, which is a town. There are 2 electoral wards in Cam. Their area and total population equate to that of the parish. The village has an identifiable centre, with several shops (including a pharmacy, a hardware store and funeral directors, three takeaways, a restaurant, a beauty salon, a combined Post Office and card shop, parish council offices, a few pubs including the Berkeley Arms and the Railway and a Tesco supermarket clustered loosely around St Bartholemew's Church. There are more businesses, including a pair of convenience stores scattered around the rest of the parish and a small industrial estate to the west of the village centre. Cam supports three state sector primary schools located in the <span onClick="goto_name('Woodfields')" class="loc">Woodfields</span>, <span onClick="goto_name('Hopton')" class="loc">Hopton</span> and <span onClick="goto_name('Everlands')" class="loc">Everlands</span> districts of the village. The nearest mainstream secondary school is Rednock, just across the parish boundary in <span onClick="goto_name('Dursley')" class="loc">Dursley</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Gloucestershire</th>
+       <td best="true">
+        <a onClick="goto(51.77959,-2.18311)">
+         <span style="white-space:nowrap">51.780,-2.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.83333,-2.16667)">
+         <span style="white-space:nowrap">51.833,-2.167</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>England</th>
+       <td best="true">
+        <a onClick="goto(52.16045,-0.70312)">
+         <span style="white-space:nowrap">52.160,-0.703</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(54.48333,8.88333)">
+         <span style="white-space:nowrap">54.483,8.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.21667,7.03333)">
+         <span style="white-space:nowrap">52.217,7.033</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.88453,-94.668)">
+         <span style="white-space:nowrap">35.885,-94.668</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.26536,10.4806)">
+         <span style="white-space:nowrap">59.265,10.481</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.84033,-82.23933)">
+         <span style="white-space:nowrap">40.840,-82.239</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.54426,-91.96903)">
+         <span style="white-space:nowrap">34.544,-91.969</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(61.23333,10.2)">
+         <span style="white-space:nowrap">61.233,10.200</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.48581,-96.62811)">
+         <span style="white-space:nowrap">48.486,-96.628</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(61.33333,5.01667)">
+         <span style="white-space:nowrap">61.333,5.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.4,13.01667)">
+         <span style="white-space:nowrap">63.400,13.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(63.31662,22.47928)">
+         <span style="white-space:nowrap">63.317,22.479</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.59465,8.88173)">
+         <span style="white-space:nowrap">6.595,8.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(59.117,5.9663)">
+         <span style="white-space:nowrap">59.117,5.966</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53,-2)">
+         <span style="white-space:nowrap">53.000,-2.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(62.80496,6.78423)">
+         <span style="white-space:nowrap">62.805,6.784</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(60.98846,4.59514)">
+         <span style="white-space:nowrap">60.988,4.595</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.34492,23.61985)">
+         <span style="white-space:nowrap">-28.345,23.620</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.29379,22.29347)">
+         <span style="white-space:nowrap">-28.294,22.293</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.32689,120.97685)">
+         <span style="white-space:nowrap">14.327,120.977</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cotswolds</th>
+       <td best="true">
+        <a onClick="goto(51.68333,-2.16667)">
+         <span style="white-space:nowrap">51.683,-2.167</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.50207,114.18026)">
+         <span style="white-space:nowrap">22.502,114.180</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Cotswold Way</th>
+      </tr>
+      <tr>
+       <th>Dursley</th>
+       <td best="true">
+        <a onClick="goto(51.68139,-2.35333)">
+         <span style="white-space:nowrap">51.681,-2.353</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.68136,-2.34404)">
+         <span style="white-space:nowrap">51.681,-2.344</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-29.78237,151.36205)">
+         <span style="white-space:nowrap">-29.782,151.362</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-40.85827,175.85021)">
+         <span style="white-space:nowrap">-40.858,175.850</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Woodfields</th>
+       <td best="true">
+        <a onClick="goto(34.78984,-82.38623)">
+         <span style="white-space:nowrap">34.790,-82.386</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.18096,-82.11901)">
+         <span style="white-space:nowrap">34.181,-82.119</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Hopton</th>
+       <td best="true">
+        <a onClick="goto(52.83333,-2.1)">
+         <span style="white-space:nowrap">52.833,-2.100</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.53333,1.73333)">
+         <span style="white-space:nowrap">52.533,1.733</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.77572,-2.90979)">
+         <span style="white-space:nowrap">52.776,-2.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.37293,0.92689)">
+         <span style="white-space:nowrap">52.373,0.927</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(52.37671,0.91995)">
+         <span style="white-space:nowrap">52.377,0.920</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(6.98926,81.19101)">
+         <span style="white-space:nowrap">6.989,81.191</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.09042,-1.61831)">
+         <span style="white-space:nowrap">53.090,-1.618</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Everlands</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Florence is a coastal city in <span onClick="goto_name('Lane County')" class="loc">Lane County</span>, in the <span onClick="goto_name('U.S.')" class="loc">U.S.</span> state of <span onClick="goto_name('Oregon')" class="loc">Oregon</span>. It lies at the mouth of the <span onClick="goto_name('Siuslaw River')" class="loc">Siuslaw River</span> on the <span onClick="goto_name('Pacific Ocean')" class="loc">Pacific Ocean</span> and about midway between <span onClick="goto_name('Newport')" class="loc">Newport</span> and <span onClick="goto_name('Coos Bay')" class="loc">Coos Bay</span> along <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Route 101. As of the 2010 census, the city had a total population of 8,466. The Florence area was originally inhabited by the <span onClick="goto_name('Siuslaw')" class="loc">Siuslaw</span> tribe of Native Americans. Some claim that the city was named after state senator A. B. Florence, who represented <span onClick="goto_name('Lane County')" class="loc">Lane County</span> from 1858 to 1860; another claim is that Florence was named after a French vessel that was wrecked at the mouth of the <span onClick="goto_name('Siuslaw River')" class="loc">Siuslaw River</span> on February 17, 1875. Florence is located on the Oregon Coast at the mouth of the <span onClick="goto_name('Siuslaw River')" class="loc">Siuslaw River</span> immediately north of <span onClick="goto_name('Oregon Dunes National Recreation Area')" class="loc">Oregon Dunes National Recreation Area</span>, at about the same latitude as Eugene, <span onClick="goto_name('Oregon')" class="loc">Oregon</span>. It is approximately midway between the other major central <span onClick="goto_name('Oregon')" class="loc">Oregon</span> coastal <span onClick="goto_name('cities of Newport')" class="loc">cities of Newport</span> and <span onClick="goto_name('Coos Bay')" class="loc">Coos Bay</span>. Florence annexed <span onClick="goto_name('Driftwood Shores')" class="loc">Driftwood Shores</span> hotel and conference center north of town in Heceta Beach in 2008. The unincorporated community of <span onClick="goto_name('Glenada')" class="loc">Glenada</span> lies just across the <span onClick="goto_name('Siuslaw')" class="loc">Siuslaw</span> on <span onClick="goto_name('U.S.')" class="loc">U.S.</span> Route 101 to the south of <span onClick="goto_name('Florence')" class="loc">Florence</span>, and the <span onClick="goto_name('city of Yachats')" class="loc">city of Yachats</span> is 26 miles (42 km) to the north.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Lane County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>Oregon</th>
+      </tr>
+      <tr>
+       <th>Siuslaw River</th>
+      </tr>
+      <tr>
+       <th>Pacific Ocean</th>
+      </tr>
+      <tr>
+       <th>Newport</th>
+      </tr>
+      <tr>
+       <th>Coos Bay</th>
+      </tr>
+      <tr>
+       <th>Siuslaw</th>
+      </tr>
+      <tr>
+       <th>Oregon Dunes National Recreation Area</th>
+      </tr>
+      <tr>
+       <th>cities of Newport</th>
+      </tr>
+      <tr>
+       <th>Driftwood Shores</th>
+      </tr>
+      <tr>
+       <th>Glenada</th>
+      </tr>
+      <tr>
+       <th>Florence</th>
+      </tr>
+      <tr>
+       <th>city of Yachats</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

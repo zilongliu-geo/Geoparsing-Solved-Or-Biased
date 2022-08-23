@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Brighton')" class="loc">Brighton</span> is a suburb in metro <span onClick="goto_name('Detroit')" class="loc">Detroit</span> located in the southeast portion of <span onClick="goto_name('Livingston County')" class="loc">Livingston County</span> in the <span onClick="goto_name('U.S.')" class="loc">U.S.</span> state of <span onClick="goto_name('Michigan')" class="loc">Michigan</span>. As of the 2010 census, the city population was 7,444. <span onClick="goto_name('Brighton')" class="loc">Brighton</span> forms part of the <span onClick="goto_name('South Lyon-Howell-Brighton Urban')" class="loc">South Lyon-Howell-Brighton Urban</span> Area. It is one of two incorporated cities in <span onClick="goto_name('Livingston County')" class="loc">Livingston County</span>, and incorporates land that was once part of <span onClick="goto_name('Brighton')" class="loc">Brighton</span>, <span onClick="goto_name('Green Oak')" class="loc">Green Oak</span> and <span onClick="goto_name('Genoa')" class="loc">Genoa</span> townships. <span onClick="goto_name('Brighton')" class="loc">Brighton</span> was established in 1832. It was incorporated as a village in 1867 and as a city in 1928. Time from <span onClick="goto_name('Brighton')" class="loc">Brighton</span> to: Major Thoroughfares I-96 <span onClick="goto_name('US')" class="loc">US</span> 23 Grand River Avenue <span onClick="goto_name('Brighton')" class="loc">Brighton</span> exhibits what is known as a continental climate biome. Within the heart of the <span onClick="goto_name('Great Lakes')" class="loc">Great Lakes</span> region, <span onClick="goto_name('Brighton')" class="loc">Brighton</span> weather ranges from warm summers with occasional thunderstorms to cold, dry winters with moderate to heavy snowfall. <span onClick="goto_name('Brighton')" class="loc">Brighton</span> has many parks nearby for fall foliage viewing including <span onClick="goto_name('Brighton Recreation Area')" class="loc">Brighton Recreation Area</span> and <span onClick="goto_name('Kensington Metro Park')" class="loc">Kensington Metro Park</span>. <span onClick="goto_name('Brighton')" class="loc">Brighton</span> area lakes are suitable for swimming from the standard Memorial Day to Labor Day schedule, and depending on yearly weather conditions, longer. The median income for a household in the city in 2009 was $47,668, and the median income for a family was $77,105. Males had a median income of $48,554 versus $30,877 for females. The per capita income for the city was $29,781. <span onClick="goto_name('Brighton')" class="loc">Brighton</span>'s surrounding townships and communities, such as <span onClick="goto_name('Brighton')" class="loc">Brighton</span> and <span onClick="goto_name('Genoa Township')" class="loc">Genoa Township</span>, have median household incomes in excess of $90,000, making it one of the more prosperous places in <span onClick="goto_name('Michigan')" class="loc">Michigan</span>. Additionally, about 3.0% of families and 5.1% of the population were below the poverty line, including 5.9% of those under age 18 and 5.2% of those age 65 or over in the 2000 census.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Brighton</th>
+      </tr>
+      <tr>
+       <th>Detroit</th>
+      </tr>
+      <tr>
+       <th>Livingston County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>Michigan</th>
+      </tr>
+      <tr>
+       <th>South Lyon-Howell-Brighton Urban</th>
+      </tr>
+      <tr>
+       <th>Green Oak</th>
+      </tr>
+      <tr>
+       <th>Genoa</th>
+      </tr>
+      <tr>
+       <th>US</th>
+      </tr>
+      <tr>
+       <th>Great Lakes</th>
+      </tr>
+      <tr>
+       <th>Brighton Recreation Area</th>
+      </tr>
+      <tr>
+       <th>Kensington Metro Park</th>
+      </tr>
+      <tr>
+       <th>Genoa Township</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

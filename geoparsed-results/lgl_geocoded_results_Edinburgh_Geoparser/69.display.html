@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Keeping track of every dollar. NOTICE: This is the final article in a series that looks back over the past couple of years at the accomplishments of the District 7 Board of Education and ahead to the anticipated challenges it faces. The day-to-day business operations, the working relationships with government entities and officials, and the financing of the school district are all critically important areas and the focus of today’s final article. When in April, 2007, taxpayers approved the $58.3 million referendum to build Albert Cassens Elementary, Goshen Elementary and make major renovations to EHS South and <span onClick="goto_name('Glen Carbon')" class="loc">Glen Carbon</span> Elementary, and convert the Alternative School to the new Worden Elementary, the Board of Education made some commitments to taxpayers that <span onClick="goto_name('Edwardsville District')" class="loc">Edwardsville District</span> 7 Superintendent Ed Hightower noted as two important financial achievements. “During the campaign, the Board of Education made a promise that the tax rate would not change, and as a matter of fact, it dropped slightly,” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said. “That’s been accomplished.” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> pointed out that the second promise the Board of Education had made was that the building bond component of the district’s tax rate would remain consistent for the 20 year term to payoff the $58.3 million. The board assured that the building bond rate would not increase or would be less from the then current rate of approximately .58. The current rate is at approximately .54 which <span onClick="goto_name('Hightower')" class="loc">Hightower</span> noted as a second achievement. <span onClick="goto_name('Hightower')" class="loc">Hightower</span> emphasized that the bond rate was at this lower rate due to conservative planning in regards to estimating the Equalized Assessed Valuation (EAV). The State of Illinois’ Web site defines the EAV as “the result of applying the state equalization factor to the assessed value of a parcel of property. Tax bills are then calculated by multiplying the EAV (after any deductions for homesteads) by the tax rate.” Although the district had seen EAV growth rates averaging between 11 and 12 percent, the board estimated a rate much lower to be conservative. The EAV growth rate is estimated at 8.5 percent for the 2008 levy but future years will be even lower. “The 2009 levy for the 2010-11 fiscal year will be at 7 percent and continue thereafter for the life of the bonds,” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said. “That’s pretty conservative. That’s all built in.” “When we set the 20 year issue up, we tried to be conservative,” Assistant Superintendent of Business Operations Dave Courtney said. “After the first couple of years, we had done an estimate on EAV that was at 7 percent rather than the 10, 11, 12, 13 percent that we were seeing before.” Courtney noted that by using the 7 percent figure “we were able to maintain a consistent rate on the entire 20 year term.” While speaking about financing, the topic of the district’s loss of revenue arose. When asked about the $1.5 million loss of revenue to the school district as the result of TIFs (Tax Increment Financing) as suggested by mayoral candidate Wesley Tippit in his door-to-door campaigning, <span onClick="goto_name('Hightower')" class="loc">Hightower</span> emphatically responded, “Let me just say that. . . it is misleading and it is totally inaccurate. It’s nowhere near $1.5 million dollars.” The <span onClick="goto_name('City of Edwardsville')" class="loc">City of Edwardsville</span> currently has three <span onClick="goto_name('TIF districts')" class="loc">TIF districts</span>: TIF I and TIF II in the downtown area, and TIF III at Gateway Commerce Center. The <span onClick="goto_name('Edwardsville City')" class="loc">Edwardsville City</span> Council approved in 2008 a fourth TIF plan for an area in downtown <span onClick="goto_name('Edwardsville')" class="loc">Edwardsville</span> from the intersection of East College to the intersection of Illinois Route 159 and Old Alton Edwardsville Road. To illustrate his point, <span onClick="goto_name('Hightower')" class="loc">Hightower</span> went on to explain that Courtney estimated a loss of only $66,000 for TIF I and about $54,000 for TIF II. In addition, Courtney provided estimates of losses to TIF III at approximately $127,000 and TIF IV is currently at about $3,000. <span onClick="goto_name('Hightower')" class="loc">Hightower</span> also felt the TIFs provided numerous benefits. “When you look at what has happened there (downtown) in the last 20 years,” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said. “Look at the development, look at the number of improvements that have been made and the number of people employed. That is adding a benefit to this community.” “It is so unfair that the school district would be used in this type of a campaign – it’s untrue," <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said. " When you consider all of the improvements that have been made and you ask yourself the question, ‘Has the quality of life improved? Has economic development improved in this area?’ The answer would be yes.” Another accomplishment of the board was its role in the construction of Governors’ <span onClick="goto_name('Parkway')" class="loc">Parkway</span> from 157 to District Drive and Glen Crossing Road in <span onClick="goto_name('Glen Carbon')" class="loc">Glen Carbon</span>. <span onClick="goto_name('Hightower')" class="loc">Hightower</span> stated that extending Governors’ <span onClick="goto_name('Parkway')" class="loc">Parkway</span> allowed 30 to 35 percent of the traffic to be diverted off of Goshen Road in addition to providing Vicksburg residents with another exit onto Governors’ <span onClick="goto_name('Parkway')" class="loc">Parkway</span>. He said that the new road allowed for a reduction in bus transportation in that area which was a savings to the district and that the new road improves traffic flow throughout the <span onClick="goto_name('city of Edwardsville')" class="loc">city of Edwardsville</span>. He also noted that the completed extension would soon allow for travel from 157 all the way to 143 near the Interstate 55 entrance ramp. <span onClick="goto_name('Hightower')" class="loc">Hightower</span> attributed the success of this project to a collaboration of many key individuals. “Mayor Gary Niebur has done an incredible job of leading and working collaboratively with the school district and Representative Jay Hoffman in getting the millions of dollars to complete Governors’ <span onClick="goto_name('Parkway')" class="loc">Parkway</span> from 157 all the way to 143,” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said. “Without collaboration, without working together, this could not have been done, and a great deal of credit goes to Mayor Gary Niebur and city officials for their hard work in getting this done.” According to <span onClick="goto_name('Hightower')" class="loc">Hightower</span>, the same group effort occurred in <span onClick="goto_name('Glen Carbon')" class="loc">Glen Carbon</span> in getting Glen Crossing complete. “We were able to work collaboratively with Mayor Jackstadt, the village trustees and Representative Hoffman was able to bring that money to the area,” he said. Noting that phase one of the project had been in the Village of <span onClick="goto_name('Glen Carbon')" class="loc">Glen Carbon</span>’s budget, but phase two was not, <span onClick="goto_name('Hightower')" class="loc">Hightower</span> added that, “If Goshen Elementary School, if Cassens Elementary School would not have been part of the two road construction projects, that money would not have been filtered to this area as expeditiously as it was.” Looking ahead at the challenges the Board of Education will face in the next two years, <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said that the major challenge is “the uncertainty at the state level and the impact that the national economy is having.” “The number two challenge will be, financially, that we keep focus, live within our means, and not be tempted to use our reserves as our primary bridge for funding day to day operations of the school district,” he said. “We must continue to hold the line, be fiscally responsible and do everything that we can to not impact student learning.” He further stated that the goals would be ”keeping class sizes where they are currently, not cutting teachers, keeping employees to the extent that we can, intact, and maintaining a three-year financial plan that will guide and lead the district without having to use our reserves – other than for the unanticipated occurrences that happens in the district.” Should the district be fortunate and receive stimulus funds, <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said that the district will be in a more stabilized position. But he also stressed that the current budget reductions to increase revenues were “not anything that any other responsible entity around the country should be doing at this time.” “We have an obligation and a responsibility of running the district like it’s a business with an understanding that we have an obligation to educate our students, and that we will do,” <span onClick="goto_name('Hightower')" class="loc">Hightower</span> said.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Glen Carbon</th>
+      </tr>
+      <tr>
+       <th>Edwardsville District</th>
+      </tr>
+      <tr>
+       <th>Hightower</th>
+      </tr>
+      <tr>
+       <th>City of Edwardsville</th>
+      </tr>
+      <tr>
+       <th>TIF districts</th>
+      </tr>
+      <tr>
+       <th>Edwardsville City</th>
+      </tr>
+      <tr>
+       <th>Edwardsville</th>
+      </tr>
+      <tr>
+       <th>Parkway</th>
+      </tr>
+      <tr>
+       <th>city of Edwardsville</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

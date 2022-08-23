@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([30.73905,-95.57228], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([30.73905,-95.57228],
+			  {
+			      title: "Walker",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([33.80333,-87.29736],
+			  {
+			      title: "Walker",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+    var marker = L.marker([34.73566,-85.30098],
+			  {
+			      title: "Walker",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Walker County"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Huntsville man taken into custody after standoff. A Huntsville man was taken into emergency mental health custody Friday afternoon after a three-hour standoff with police in a residential neighborhood. At 12:03 p.m. <span onClick="goto_name('Walker County')" class="loc">Walker County</span> dispatchers received a 911 call from a residence in the 1300 block of Avenue Q in Huntsville reporting a suicidal person. The call was made by an elderly woman who reported that her 48-year-old son had locked himself in his bedroom with a rifle and ammunition and was threatening to commit suicide. Officers from the Huntsville Police Department and the Sam Houston State University Police Department responded quickly to the scene and set up a perimeter around the residence. “UPD got several officers there very quickly,” said Lt. Wes Altom of the HPD’s Uniformed Services Division. “Some of their guys were on their way back from lunch when the call came in, and they were able to get there and help us out.” Along with UPD and HPD personnel, Texas Ranger Steve Jeter also responded to the scene and donned tactical gear to assist in securing the exterior of the residence as HPD officers attempted to make contact with the suspect. While officers from both departments worked to remove the suspect’s mother safely from the premises, Altom was able to make contact with the suspect by phone. “I made contact with him and talked with him a little bit,” Altom said. “Contact was sporadic at first. He would hang up, then he would call back. As that was going on we called in Lt. Kevin Lunsford and Sgt. David Collins to assist.” Collins, a trained crisis negotiator, was off-duty at the time of the call, but responded to the scene to establish contact with the suspect. Lunsford, who heads the HPD’s Support Services Division, established a tactical command and called in the department’s Special Response Team (SRT), an eight-officer tactical force specially trained to deal with crisis situations. As the SRT prepared to enter the residence, Collins worked to establish a relationship with the suspect. “You’ve got to build a rapport, but you also have to establish credibility,” Collins said. “You’ve got to be able to do this with sincerity. I was honest with him about what to expect and what we were going to do. He said he wanted some time to think about it.” While Collins continued negotiation with the suspect, the SRT entered the residence and took position outside the suspect’s room, an upstairs bedroom over a carport. “Basically they were outside of a locked door that was at the bottom of the stairs,” Altom said. “It’s a waiting game at that point. The main goal with involving SRT is to contain the suspect so that he doesn’t become a danger to others.” As the standoff continued, more precautions were taken to ensure contact with the suspect could be maintained. Knowing that the suspect was speaking to Collins from a cordless phone, officers were able to bring in a backup negotiation phone by running a phone chord from the SRT’s van to the home’s interior.Commanding officers also took precautions against possible injury, calling in specially trained tactical medics from <span onClick="goto_name('Huntsville–Walker County')" class="loc">Huntsville–Walker County</span> EMS. “Tactical medics are not armed, but they’re trained to be close to the action and they help with any immediate need,” Altom said. After nearly three hours of negotiations, at approximately 3:15 p.m., the suspect agreed to surrender himself to police. “Sgt. Collins got him to come down the stairs and unlock the door, and we took him into custody,” Altom said. “I had the opportunity to talk with him afterwards, and he was in very good spirits considering. He was just in a very bad place today, and he knows he needs to get some help.” Two rifles, a lever action and a single shot shotgun, were confiscated from the residence by police. It is unclear if the suspect was in possession of both rifles during the standoff. Police declined to identify the suspect due to the sensitivity of the incident and the fact that he was not charged with a crime. After being taken into custody, he was transported to Huntsville Memorial Hospital for a mental health evaluation. “At that point it will be decided if he’s going to be released or moved to a treatment facility,” Altom said. After a three-hour standoff from which everyone walked away safely, the HPD command staff was pleased with the performance of their officers. “The chief was on scene and commented on the radio at the conclusion that he thought we did a very good job,” Altom said. “It takes a team effort and communication to get a positive outcome and I think we did well. ”“The negotiations were great, and SRT took care of the takedown when the suspect was brought out,” Lunsford said. “It went very smoothly.”</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Walker County</th>
+       <td best="true">
+        <a onClick="goto(30.73905,-95.57228)">
+         <span style="white-space:nowrap">30.739,-95.572</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.80333,-87.29736)">
+         <span style="white-space:nowrap">33.803,-87.297</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.73566,-85.30098)">
+         <span style="white-space:nowrap">34.736,-85.301</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Huntsville–Walker County</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

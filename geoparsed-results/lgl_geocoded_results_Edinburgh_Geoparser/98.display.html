@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Teacher credited with saving life. Though students can be grateful for educators for many different reasons, Cambridge High Schooler Trevor Wilkinson has a special reason to thank science teacher Cliff Hoak. "I'd just want to say 'Thank you' to Mr. Hoak. He saved my life," said the 13-year-old seventh-grader. With Wilkinson choking on a rag and barely able to breath, Mr. Hoak used the Heimlich Maneuver to help dislodge the rag from the boy's throat. "I was in fourth period. It was free day in ATP (achievement test practice)," he said. "I asked (teacher Jennifer Carpenter) if I could go get my math so I could work on it in the free time, because I had homework. I was chewing on this rag and I was walking up the stairs and when I got to the top of the stairs close to my locker, I went to get a breath from chewing ... and it sucked into my wind pipe. At first I was calm. But I started panicking once I started running out of breath." "He was going out with his class when it happened," Wilkinson said. "He saw me and I got just enough breath to say I couldn't breath. He did the Heimlich two or three times. He couldn't get anything to work, so he went over to (Mr. Hoak's class) and knocked on his door and Mr. Hoak came rushing out and did the Heimlich on me." Though Hoak's efforts did not expel the rag -- a piece of cloth used to clean electronic devices, such as cell phones, iPods and eyeglasses -- the boy was able to swallow it and clear his airway. "I went to the doctor," Wilkinson said. "They couldn't take an X-ray because it was cloth. She checked my lungs and said it was OK." He said the rag would either dissolve or pass through his digestive system, according to his pediatrician. Named for American physician Dr. Henry Jay Heimlich, the Heimlich Maneuver involves the use of abdominal thrusts inward and upward, expelling air and forcing out an object lodged in the airway. Eric Stevens, paramedic with United Ambulance Service, was on hand at the school Friday to demonstrate to teacher Lisa Taylor's health students some of the techniques emergency medical personnel use to establish and maintain an open airway for a choking victim. "We started talking about severe burns and bleeding and we brought in choking due to the fact that there was a student in our school system that was choking," Taylor said. "And when I asked the kids if anyone had any classes on this, maybe three of the 25 students raised their hand. So I thought this was good to bring it to our class and to at least be experienced with it. I'm very thankful that United Ambulance Service came on such short notice to show us the proper procedures on what to do." Middle school students are not eligible for certification in the use of the Heimlich Maneuver, though that is available to high schoolers. "The kids around were concerned. The kids that were watching him ... they couldn't believe he was actually choking," she said. "I think some kids were crying and really emotional. (Hoak) acted calmly and quickly and was able to handle the situation. We're really pleased to have teachers who know what to do in that type of situation." "I was lucky I was in the right place at the right time," he said. "Mr. Hoak was calm about it. Thanks, Mr. Hoak!" Trevor Wilkinson is the son of Missy and Bill Wilkinson.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table></table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

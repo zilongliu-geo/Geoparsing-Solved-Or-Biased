@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Longmen')" class="loc">Longmen</span> (simplified Chinese: 龙门镇; traditional Chinese: 龍門鎮; pinyin: Lóngmén Zhèn) is a town of 7000 in <span onClick="goto_name('northwestern Zhejiang province')" class="loc">northwestern Zhejiang province</span>, <span onClick="goto_name('People_s Republic of China')" class="loc">People's Republic of China</span>, located 17 kilometres (11 mi) south of the <span onClick="goto_name('city of Fuyang')" class="loc">city of Fuyang</span>, which administers it. The town lies south of the <span onClick="goto_name('Fuchun')" class="loc">Fuchun</span> River, at the foothills of the Xianxia Range, and oversees 11 administrative villages. Over 90% of its people are surnamed Sun. According to tradition, the Suns of <span onClick="goto_name('Longmen')" class="loc">Longmen</span> are descendants of the third century warlord Sun Quan, who became emperor of the Three Kingdoms state of Wu. Sun Quan himself is said to have been born a short distance from <span onClick="goto_name('Longmen')" class="loc">Longmen</span>, on an islet in the <span onClick="goto_name('Fuchun')" class="loc">Fuchun</span> River. A 1939 genealogy traces their lineage continuously back twenty six generations to a Song Dynasty official. In the past, the Suns of <span onClick="goto_name('Longmen')" class="loc">Longmen</span> were divided into ten sub-lineages and held joint grand ceremonies honouring their ancestors every spring and autumn, but this practice stopped after 1949. Fifty years ago there were some sixty heritage buildings in <span onClick="goto_name('Longmen')" class="loc">Longmen</span>, and about half of those are still standing today. Among them are ancestral halls, homes, pagodas and memorial arches - most of which have a history of over three hundred years. These structures are good examples of classical southern architecture and feature intricate wood carvings from <span onClick="goto_name('Zhejiang')" class="loc">Zhejiang</span> folklore. The favourite decorative motifs used are from Three Kingdoms stories popular since the Song Dynasty. ` The local theatrical performances, called the "Bamboo Horse Dance" are unique for their portrayal of Sun Quan as a hero. In traditional Three Kingdoms folklore, Sun Quan is normally seen as an ambivalent and often frustrated leader who is time and again bested by Liu Bei and his cunning strategist Zhuge Liang. At <span onClick="goto_name('Longmen')" class="loc">Longmen</span>, the favourite plays are "Burning <span onClick="goto_name('Red Cliffs')" class="loc">Red Cliffs</span>", showing Sun Quan's defeat of <span onClick="goto_name('Cao Cao')" class="loc">Cao Cao</span> at the Battle of <span onClick="goto_name('Red Cliffs')" class="loc">Red Cliffs</span> and "Burning the Linked Encampments", showing Sun Quan's defeat of Liu Bei at the Battle of <span onClick="goto_name('Yiling')" class="loc">Yiling</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Longmen</th>
+      </tr>
+      <tr>
+       <th>northwestern Zhejiang province</th>
+      </tr>
+      <tr>
+       <th>People's Republic of China</th>
+      </tr>
+      <tr>
+       <th>city of Fuyang</th>
+      </tr>
+      <tr>
+       <th>Fuchun</th>
+      </tr>
+      <tr>
+       <th>Zhejiang</th>
+      </tr>
+      <tr>
+       <th>Red Cliffs</th>
+      </tr>
+      <tr>
+       <th>Cao Cao</th>
+      </tr>
+      <tr>
+       <th>Yiling</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([-18,178], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([-18,178],
+			  {
+			      title: "Fiji",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Fiji"] = marker;
+  
+    var marker = L.marker([24.26667,38.56667],
+			  {
+			      title: "Fiji",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Fiji"] = marker;
+  
+    var marker = L.marker([-18.14161,178.44149],
+			  {
+			      title: "Suva",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-18.09521,178.35295],
+			  {
+			      title: "Suva",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-18.13031,178.39694],
+			  {
+			      title: "Suva",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-13.22423,-176.1915],
+			  {
+			      title: "Suva",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-8.5547,159.84426],
+			  {
+			      title: "Suva",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-8.15691,159.60876],
+			  {
+			      title: "Suva",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([36.03799,138.11308],
+			  {
+			      title: "Suwa",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-9.53219,159.60446],
+			  {
+			      title: "Suva",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-11.98369,17.24683],
+			  {
+			      title: "Suva",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([44.5582,20.44076],
+			  {
+			      title: "Suva",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-7.06873,14.09938],
+			  {
+			      title: "Suva",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([43.54111,22.23528],
+			  {
+			      title: "Suva",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-8.08333,156.8],
+			  {
+			      title: "Suva",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([58.60835,7.94768],
+			  {
+			      title: "Suva",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Suva"] = marker;
+  
+    var marker = L.marker([-17.80309,177.41617],
+			  {
+			      title: "Nadi",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([-17.81992,177.40009],
+			  {
+			      title: "Nadi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([-8.35,160.78333],
+			  {
+			      title: "Nadi",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([14.11517,101.78189],
+			  {
+			      title: "Na Di",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([30.56492,77.6293],
+			  {
+			      title: "Nādi",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([30.1386,86.4267],
+			  {
+			      title: "Nadi",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([18.66667,33.7],
+			  {
+			      title: "Nadi",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([25.7115,101.766],
+			  {
+			      title: "Nadi",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([-28.84315,30.68346],
+			  {
+			      title: "Nadi",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([34.65559,73.39424],
+			  {
+			      title: "Nadi",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([-7.9225,110.94611],
+			  {
+			      title: "Nadi",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([23.55017,108.59925],
+			  {
+			      title: "Nadi",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([25.49346,74.31448],
+			  {
+			      title: "Nādi",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([34.75256,73.40373],
+			  {
+			      title: "Nadi",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([25.7043,101.962],
+			  {
+			      title: "Nadi",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([25.80701,75.2839],
+			  {
+			      title: "Nādi",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([31.47786,89.88211],
+			  {
+			      title: "Nadi",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([13.38579,77.69864],
+			  {
+			      title: "Nadi",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([14.19253,101.84557],
+			  {
+			      title: "Na Di",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+    var marker = L.marker([-28.73881,30.62161],
+			  {
+			      title: "Nadi",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Nadi"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>The number of laboratory-confirmed cases of H1N1 swine flu virus in <span onClick="goto_name('Fiji')" class="loc">Fiji</span> rose to 97 on Thursday. A further 16 cases were confirmed by the laboratory at Mataika House, one day after it had confirmed 8 cases to bring the total to 81. Both sets of cases were confirmed from batches of 24 samples sent for testing. The 8 cases confirmed on Wednesday were all men, 7 from <span onClick="goto_name('Suva')" class="loc">Suva</span> and 1 from <span onClick="goto_name('Nadi')" class="loc">Nadi</span>. All 16 of the cases confirmed on Thursday were from <span onClick="goto_name('Suva')" class="loc">Suva</span>, 8 men and 8 women. The spokesman for the Fiji Health Ministry, Iliesa Tora, reiterated the Fijian government's advice to the public, stating that as yet there have been no H1N1 cases in <span onClick="goto_name('Fiji')" class="loc">Fiji</span> that have incurred serious complications.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Fiji</th>
+       <td best="true">
+        <a onClick="goto(-18,178)">
+         <span style="white-space:nowrap">-18.000,178.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.26667,38.56667)">
+         <span style="white-space:nowrap">24.267,38.567</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Suva</th>
+       <td best="true">
+        <a onClick="goto(-18.14161,178.44149)">
+         <span style="white-space:nowrap">-18.142,178.441</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.09521,178.35295)">
+         <span style="white-space:nowrap">-18.095,178.353</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-18.13031,178.39694)">
+         <span style="white-space:nowrap">-18.130,178.397</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-13.22423,-176.1915)">
+         <span style="white-space:nowrap">-13.224,-176.191</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.5547,159.84426)">
+         <span style="white-space:nowrap">-8.555,159.844</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.15691,159.60876)">
+         <span style="white-space:nowrap">-8.157,159.609</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.03799,138.11308)">
+         <span style="white-space:nowrap">36.038,138.113</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-9.53219,159.60446)">
+         <span style="white-space:nowrap">-9.532,159.604</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-11.98369,17.24683)">
+         <span style="white-space:nowrap">-11.984,17.247</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.5582,20.44076)">
+         <span style="white-space:nowrap">44.558,20.441</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.06873,14.09938)">
+         <span style="white-space:nowrap">-7.069,14.099</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.54111,22.23528)">
+         <span style="white-space:nowrap">43.541,22.235</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.08333,156.8)">
+         <span style="white-space:nowrap">-8.083,156.800</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(58.60835,7.94768)">
+         <span style="white-space:nowrap">58.608,7.948</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Nadi</th>
+       <td best="true">
+        <a onClick="goto(-17.80309,177.41617)">
+         <span style="white-space:nowrap">-17.803,177.416</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-17.81992,177.40009)">
+         <span style="white-space:nowrap">-17.820,177.400</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-8.35,160.78333)">
+         <span style="white-space:nowrap">-8.350,160.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.11517,101.78189)">
+         <span style="white-space:nowrap">14.115,101.782</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.56492,77.6293)">
+         <span style="white-space:nowrap">30.565,77.629</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.1386,86.4267)">
+         <span style="white-space:nowrap">30.139,86.427</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.66667,33.7)">
+         <span style="white-space:nowrap">18.667,33.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.7115,101.766)">
+         <span style="white-space:nowrap">25.712,101.766</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.84315,30.68346)">
+         <span style="white-space:nowrap">-28.843,30.683</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.65559,73.39424)">
+         <span style="white-space:nowrap">34.656,73.394</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-7.9225,110.94611)">
+         <span style="white-space:nowrap">-7.923,110.946</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.55017,108.59925)">
+         <span style="white-space:nowrap">23.550,108.599</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.49346,74.31448)">
+         <span style="white-space:nowrap">25.493,74.314</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.75256,73.40373)">
+         <span style="white-space:nowrap">34.753,73.404</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.7043,101.962)">
+         <span style="white-space:nowrap">25.704,101.962</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.80701,75.2839)">
+         <span style="white-space:nowrap">25.807,75.284</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.47786,89.88211)">
+         <span style="white-space:nowrap">31.478,89.882</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(13.38579,77.69864)">
+         <span style="white-space:nowrap">13.386,77.699</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.19253,101.84557)">
+         <span style="white-space:nowrap">14.193,101.846</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-28.73881,30.62161)">
+         <span style="white-space:nowrap">-28.739,30.622</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

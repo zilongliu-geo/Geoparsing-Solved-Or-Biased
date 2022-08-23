@@ -1,0 +1,651 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([45.00458,-93.47688], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([45.00458,-93.47688],
+			  {
+			      title: "Hennepin",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Hennepin County"] = marker;
+  
+    var marker = L.marker([46.25024,-94.25055],
+			  {
+			      title: "Minnesota",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([44.55885,-95.98559],
+			  {
+			      title: "Minneota",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([31.31185,-83.91018],
+			  {
+			      title: "Minnesota",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([39.44934,-120.83106],
+			  {
+			      title: "Minnesota Flat",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([40.66209,-122.4889],
+			  {
+			      title: "Minnesota",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([-25.45698,23.39643],
+			  {
+			      title: "Minnesota",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Minnesota"] = marker;
+  
+    var marker = L.marker([39.76,-98.5],
+			  {
+			      title: "United States",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["United States"] = marker;
+  
+    var marker = L.marker([40.59528,-95.89667],
+			  {
+			      title: "Paul",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([17.11667,-25.01667],
+			  {
+			      title: "Paul",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([31.32017,-86.74385],
+			  {
+			      title: "Paul",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([42.60796,-113.78335],
+			  {
+			      title: "Paul",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([14.99261,-91.40947],
+			  {
+			      title: "Paúl",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([42.72177,-4.15916],
+			  {
+			      title: "Paúl",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([39.10113,-9.28457],
+			  {
+			      title: "Paul",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([40.20035,-7.63674],
+			  {
+			      title: "Paul",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([50.09022,-5.54683],
+			  {
+			      title: "Paul",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([39.14712,-9.06791],
+			  {
+			      title: "Paul",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([39.19004,-8.12863],
+			  {
+			      title: "Paul",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([39.03132,-9.30052],
+			  {
+			      title: "Paul",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([18.36667,-73.36667],
+			  {
+			      title: "Paul",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([39.5046,-8.21782],
+			  {
+			      title: "Paul",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([47.71762,-3.07996],
+			  {
+			      title: "Paul",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([19.30581,-72.42559],
+			  {
+			      title: "Paul",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([19.55,-72.46667],
+			  {
+			      title: "Paul",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([40.20519,-7.63721],
+			  {
+			      title: "Paul",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([50.08382,-5.55989],
+			  {
+			      title: "Paul",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+    var marker = L.marker([48.15012,-82.93307],
+			  {
+			      title: "Paul",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Paul metropolitan"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Rogers is a city in <span onClick="goto_name('Hennepin County')" class="loc">Hennepin County</span>, <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 8,597 at the 2010 census. However, the population increased to over 11,000 upon the annexing of surrounding Hassan Township in 2012. The population of Hassan Township was 2,600 in 2010, giving the current city a population base of 11,197 as of the census. The center of population of <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span> is located in Rogers [1]. The city is a northwest suburb of the Minneapolis–Saint <span onClick="goto_name('Paul metropolitan')" class="loc">Paul metropolitan</span> area. Located on either side of Interstate 94, with <span onClick="goto_name('Minnesota')" class="loc">Minnesota</span> State Highway 101 running north, Rogers has been teeming with growth for the past 20 years. The 2000-2010 (8,597) population growth rate was +139.6%. In the 1880s, John Rogers sold an acre of his land, then part of Hassan Township, to Great Northern Railroad for a dollar. The new depot provided a convenient stop for the rich timber resources of the area, and served as the beginning ground of a new community. When St. Martin Catholic Church and school were added, Rogers grew in local importance, consequently causing new businesses to be built and the town to be regarded as more of a local hub than other nearby communities such as Fletcher. In 1914, the city was incorporated.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Hennepin County</th>
+       <td best="true">
+        <a onClick="goto(45.00458,-93.47688)">
+         <span style="white-space:nowrap">45.005,-93.477</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Minnesota</th>
+       <td best="true">
+        <a onClick="goto(46.25024,-94.25055)">
+         <span style="white-space:nowrap">46.250,-94.251</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.55885,-95.98559)">
+         <span style="white-space:nowrap">44.559,-95.986</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.31185,-83.91018)">
+         <span style="white-space:nowrap">31.312,-83.910</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.44934,-120.83106)">
+         <span style="white-space:nowrap">39.449,-120.831</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.66209,-122.4889)">
+         <span style="white-space:nowrap">40.662,-122.489</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.45698,23.39643)">
+         <span style="white-space:nowrap">-25.457,23.396</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>United States</th>
+       <td best="true">
+        <a onClick="goto(39.76,-98.5)">
+         <span style="white-space:nowrap">39.760,-98.500</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Paul metropolitan</th>
+       <td best="true">
+        <a onClick="goto(40.59528,-95.89667)">
+         <span style="white-space:nowrap">40.595,-95.897</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(17.11667,-25.01667)">
+         <span style="white-space:nowrap">17.117,-25.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.32017,-86.74385)">
+         <span style="white-space:nowrap">31.320,-86.744</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.60796,-113.78335)">
+         <span style="white-space:nowrap">42.608,-113.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.99261,-91.40947)">
+         <span style="white-space:nowrap">14.993,-91.409</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.72177,-4.15916)">
+         <span style="white-space:nowrap">42.722,-4.159</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.10113,-9.28457)">
+         <span style="white-space:nowrap">39.101,-9.285</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.20035,-7.63674)">
+         <span style="white-space:nowrap">40.200,-7.637</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.09022,-5.54683)">
+         <span style="white-space:nowrap">50.090,-5.547</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.14712,-9.06791)">
+         <span style="white-space:nowrap">39.147,-9.068</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.19004,-8.12863)">
+         <span style="white-space:nowrap">39.190,-8.129</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.03132,-9.30052)">
+         <span style="white-space:nowrap">39.031,-9.301</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(18.36667,-73.36667)">
+         <span style="white-space:nowrap">18.367,-73.367</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.5046,-8.21782)">
+         <span style="white-space:nowrap">39.505,-8.218</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(47.71762,-3.07996)">
+         <span style="white-space:nowrap">47.718,-3.080</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.30581,-72.42559)">
+         <span style="white-space:nowrap">19.306,-72.426</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.55,-72.46667)">
+         <span style="white-space:nowrap">19.550,-72.467</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.20519,-7.63721)">
+         <span style="white-space:nowrap">40.205,-7.637</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.08382,-5.55989)">
+         <span style="white-space:nowrap">50.084,-5.560</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.15012,-82.93307)">
+         <span style="white-space:nowrap">48.150,-82.933</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

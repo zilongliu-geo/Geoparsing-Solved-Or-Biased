@@ -1,0 +1,1434 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([43.41667,11], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([43.41667,11],
+			  {
+			      title: "Tuscany",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Tuscany"] = marker;
+  
+    var marker = L.marker([51.12432,-114.24494],
+			  {
+			      title: "Tuscany",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Tuscany"] = marker;
+  
+    var marker = L.marker([40.63792,-111.8114],
+			  {
+			      title: "Tuscany",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Tuscany"] = marker;
+  
+    var marker = L.marker([-25.23884,26.17363],
+			  {
+			      title: "Tuscany",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Tuscany"] = marker;
+  
+    var marker = L.marker([28.334,-81.53525],
+			  {
+			      title: "Tuscany",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Tuscany"] = marker;
+  
+    var marker = L.marker([42.83333,12.83333],
+			  {
+			      title: "Italy",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([44.32514,78.98318],
+			  {
+			      title: "Yntaly",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([42.61174,-77.29192],
+			  {
+			      title: "Italy",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([32.18404,-96.88472],
+			  {
+			      title: "Italy",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([33.4485,-79.5409],
+			  {
+			      title: "Italy",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([38.11425,-82.60321],
+			  {
+			      title: "Louisa",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([24.52011,89.22808],
+			  {
+			      title: "Italy",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([-25.14531,46.76732],
+			  {
+			      title: "Italy",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([-32.38808,27.24801],
+			  {
+			      title: "Italy",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([33.52183,36.2805],
+			  {
+			      title: "Īţāliyā",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([24.45697,54.36648],
+			  {
+			      title: "Īţāliyā",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Italy"] = marker;
+  
+    var marker = L.marker([42.83129,11.58474],
+			  {
+			      title: "Santa Fiora",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Santa Fiora"] = marker;
+  
+    var marker = L.marker([42.83733,11.60274],
+			  {
+			      title: "Santa Fiora",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Santa Fiora"] = marker;
+  
+    var marker = L.marker([43.55989,12.11271],
+			  {
+			      title: "Santa Fiora",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Santa Fiora"] = marker;
+  
+    var marker = L.marker([42.76296,11.10941],
+			  {
+			      title: "Grosseto",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["province of Grosseto"] = marker;
+  
+    var marker = L.marker([42.83333,11.25],
+			  {
+			      title: "Provincia di Grosseto",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["province of Grosseto"] = marker;
+  
+    var marker = L.marker([42.77143,11.10793],
+			  {
+			      title: "Province of Grosseto",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["province of Grosseto"] = marker;
+  
+    var marker = L.marker([41.87097,8.96403],
+			  {
+			      title: "Grosseto-Prugna",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["province of Grosseto"] = marker;
+  
+    var marker = L.marker([42.76296,11.10941],
+			  {
+			      title: "Grosseto",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Grosseto"] = marker;
+  
+    var marker = L.marker([42.83333,11.25],
+			  {
+			      title: "Provincia di Grosseto",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Grosseto"] = marker;
+  
+    var marker = L.marker([42.77143,11.10793],
+			  {
+			      title: "Province of Grosseto",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Grosseto"] = marker;
+  
+    var marker = L.marker([41.87097,8.96403],
+			  {
+			      title: "Grosseto-Prugna",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Grosseto"] = marker;
+  
+    var marker = L.marker([42.79958,11.60208],
+			  {
+			      title: "Monte Calvo",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([41.09994,14.77188],
+			  {
+			      title: "Monte Calvo",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.28333,11.93333],
+			  {
+			      title: "Monte Calvo",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([43.36667,12.56667],
+			  {
+			      title: "Monte Foce",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.2,12.81667],
+			  {
+			      title: "Monte Calvo",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.38333,13.18333],
+			  {
+			      title: "Monte Calvo",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([41.76667,13.7],
+			  {
+			      title: "Monte Calvo",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([46.10135,11.26077],
+			  {
+			      title: "Monte Calvo",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([41.36667,13.33333],
+			  {
+			      title: "Monte Calvo",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([41.38084,13.76833],
+			  {
+			      title: "Monte Calvo",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.11667,14.48333],
+			  {
+			      title: "Monte Calvo",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([46.22067,10.45632],
+			  {
+			      title: "Monte Calvo",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([40.69874,15.09792],
+			  {
+			      title: "Monte Calvo",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([41.7269,15.77243],
+			  {
+			      title: "Monte Calvo",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([45.65953,13.82183],
+			  {
+			      title: "Monte Calvo",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([45.01722,14.13],
+			  {
+			      title: "Goli",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([40.93723,-8.43936],
+			  {
+			      title: "Monte Calvo",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.7218,0.87176],
+			  {
+			      title: "Monte Calvo",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.10891,-7.88316],
+			  {
+			      title: "Monte Calvo",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.63333,-8.61667],
+			  {
+			      title: "Monte Calvo",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Monte Calvo"] = marker;
+  
+    var marker = L.marker([42.97554,11.54722],
+			  {
+			      title: "Monte Amiata",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Monte Amiata"] = marker;
+  
+    var marker = L.marker([42.88769,11.62414],
+			  {
+			      title: "Monte Amiata",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Monte Amiata"] = marker;
+  
+    var marker = L.marker([43.38097,11.3061],
+			  {
+			      title: "Santo Stefano",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([42.85358,12.5928],
+			  {
+			      title: "Santo Stefano",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([43.95192,11.48673],
+			  {
+			      title: "Santo Stefano",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([43.9245,12.78131],
+			  {
+			      title: "Santo Stefano",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([43.33199,13.17048],
+			  {
+			      title: "Santo Stefano",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([42.26261,13.1743],
+			  {
+			      title: "Santo Stefano",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([42.12232,13.2261],
+			  {
+			      title: "Santo Stefano",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([42.97932,13.50619],
+			  {
+			      title: "Santo Stefano",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([45.08507,11.19498],
+			  {
+			      title: "Santo Stefano",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([44.32224,10.65343],
+			  {
+			      title: "Santo Stefano",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([46.13014,11.21463],
+			  {
+			      title: "Santo Stefano",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([40.9262,15.01163],
+			  {
+			      title: "Santo Stefano",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([46.38934,12.98082],
+			  {
+			      title: "Santo Stefano",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([46.7702,11.92189],
+			  {
+			      title: "Santo Stefano",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([45.49079,8.56936],
+			  {
+			      title: "Santo Stefano",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([44.95281,8.33678],
+			  {
+			      title: "Santo Stefano",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([44.45973,11.33145],
+			  {
+			      title: "Santo Stefano",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([39.34734,16.19898],
+			  {
+			      title: "Santo Stefano",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([39.32111,16.29715],
+			  {
+			      title: "Santo Stefano",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([38.52832,16.46285],
+			  {
+			      title: "Santo Stefano",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Santo Stefano"] = marker;
+  
+    var marker = L.marker([45.62554,11.07178],
+			  {
+			      title: "San Francesco",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Francesco"] = marker;
+  
+    var marker = L.marker([41.18717,15.05129],
+			  {
+			      title: "Benvenuto",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Benvenuto"] = marker;
+  
+    var marker = L.marker([-2.58333,-51.01667],
+			  {
+			      title: "Bevenuto",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Benvenuto"] = marker;
+  
+    var marker = L.marker([-26.12,27.96],
+			  {
+			      title: "Benvenuto",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Benvenuto"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Selva is a village in <span onClick="goto_name('Tuscany')" class="loc">Tuscany</span>, central <span onClick="goto_name('Italy')" class="loc">Italy</span>, administratively a frazione of the comune of <span onClick="goto_name('Santa Fiora')" class="loc">Santa Fiora</span>, <span onClick="goto_name('province of Grosseto')" class="loc">province of Grosseto</span>. At the time of the 2001 census its population amounted to 100. Selva is about 70 km from <span onClick="goto_name('Grosseto')" class="loc">Grosseto</span> and 7 km from <span onClick="goto_name('Santa Fiora')" class="loc">Santa Fiora</span>, and it is situated along the provincial road which links <span onClick="goto_name('Santa Fiora')" class="loc">Santa Fiora</span> to Castell'Azzara, at the slopes of <span onClick="goto_name('Monte Calvo')" class="loc">Monte Calvo</span>, one of the peaks of the massif of <span onClick="goto_name('Monte Amiata')" class="loc">Monte Amiata</span>. The village dates back to the Middle Ages and it is situated in the Bosco della Santissima Trinità Natural Reserve. According to legend, the convent of Selva keeps inside a "dragon skull": the monster (actually a crocodile) was killed by count Guido Sforza of <span onClick="goto_name('Santa Fiora')" class="loc">Santa Fiora</span> in the late 15th century and its skull preserved inside the church. Church of <span onClick="goto_name('Santo Stefano')" class="loc">Santo Stefano</span> (15th century), main parish church of the village, it was re-built in Romanesque Revival style in 1933. Convent of Santissima Trinità (15th centiry), it is annexed to the parish church and built by the Sforza family in 1488. It contains several Renaissance and Baroque paintings and frescoes: the most important one is the panel of Assunzione della Vergine con i santi Girolamo e <span onClick="goto_name('Francesco')" class="loc">Francesco</span> by artist Girolamo di <span onClick="goto_name('Benvenuto')" class="loc">Benvenuto</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Tuscany</th>
+       <td best="true">
+        <a onClick="goto(43.41667,11)">
+         <span style="white-space:nowrap">43.417,11.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(51.12432,-114.24494)">
+         <span style="white-space:nowrap">51.124,-114.245</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.63792,-111.8114)">
+         <span style="white-space:nowrap">40.638,-111.811</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.23884,26.17363)">
+         <span style="white-space:nowrap">-25.239,26.174</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.334,-81.53525)">
+         <span style="white-space:nowrap">28.334,-81.535</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Italy</th>
+       <td best="true">
+        <a onClick="goto(42.83333,12.83333)">
+         <span style="white-space:nowrap">42.833,12.833</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.32514,78.98318)">
+         <span style="white-space:nowrap">44.325,78.983</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.61174,-77.29192)">
+         <span style="white-space:nowrap">42.612,-77.292</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.18404,-96.88472)">
+         <span style="white-space:nowrap">32.184,-96.885</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.4485,-79.5409)">
+         <span style="white-space:nowrap">33.449,-79.541</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.11425,-82.60321)">
+         <span style="white-space:nowrap">38.114,-82.603</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.52011,89.22808)">
+         <span style="white-space:nowrap">24.520,89.228</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.14531,46.76732)">
+         <span style="white-space:nowrap">-25.145,46.767</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-32.38808,27.24801)">
+         <span style="white-space:nowrap">-32.388,27.248</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.52183,36.2805)">
+         <span style="white-space:nowrap">33.522,36.281</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.45697,54.36648)">
+         <span style="white-space:nowrap">24.457,54.366</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Santa Fiora</th>
+       <td best="true">
+        <a onClick="goto(42.83129,11.58474)">
+         <span style="white-space:nowrap">42.831,11.585</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.83733,11.60274)">
+         <span style="white-space:nowrap">42.837,11.603</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.55989,12.11271)">
+         <span style="white-space:nowrap">43.560,12.113</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>province of Grosseto</th>
+       <td best="true">
+        <a onClick="goto(42.76296,11.10941)">
+         <span style="white-space:nowrap">42.763,11.109</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.83333,11.25)">
+         <span style="white-space:nowrap">42.833,11.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.77143,11.10793)">
+         <span style="white-space:nowrap">42.771,11.108</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.87097,8.96403)">
+         <span style="white-space:nowrap">41.871,8.964</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Grosseto</th>
+       <td best="true">
+        <a onClick="goto(42.76296,11.10941)">
+         <span style="white-space:nowrap">42.763,11.109</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.83333,11.25)">
+         <span style="white-space:nowrap">42.833,11.250</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.77143,11.10793)">
+         <span style="white-space:nowrap">42.771,11.108</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.87097,8.96403)">
+         <span style="white-space:nowrap">41.871,8.964</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Monte Calvo</th>
+       <td best="true">
+        <a onClick="goto(42.79958,11.60208)">
+         <span style="white-space:nowrap">42.800,11.602</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.09994,14.77188)">
+         <span style="white-space:nowrap">41.100,14.772</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.28333,11.93333)">
+         <span style="white-space:nowrap">42.283,11.933</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.36667,12.56667)">
+         <span style="white-space:nowrap">43.367,12.567</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.2,12.81667)">
+         <span style="white-space:nowrap">42.200,12.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.38333,13.18333)">
+         <span style="white-space:nowrap">42.383,13.183</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.76667,13.7)">
+         <span style="white-space:nowrap">41.767,13.700</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.10135,11.26077)">
+         <span style="white-space:nowrap">46.101,11.261</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.36667,13.33333)">
+         <span style="white-space:nowrap">41.367,13.333</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.38084,13.76833)">
+         <span style="white-space:nowrap">41.381,13.768</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.11667,14.48333)">
+         <span style="white-space:nowrap">42.117,14.483</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.22067,10.45632)">
+         <span style="white-space:nowrap">46.221,10.456</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.69874,15.09792)">
+         <span style="white-space:nowrap">40.699,15.098</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.7269,15.77243)">
+         <span style="white-space:nowrap">41.727,15.772</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.65953,13.82183)">
+         <span style="white-space:nowrap">45.660,13.822</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.01722,14.13)">
+         <span style="white-space:nowrap">45.017,14.130</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.93723,-8.43936)">
+         <span style="white-space:nowrap">40.937,-8.439</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.7218,0.87176)">
+         <span style="white-space:nowrap">42.722,0.872</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.10891,-7.88316)">
+         <span style="white-space:nowrap">42.109,-7.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.63333,-8.61667)">
+         <span style="white-space:nowrap">42.633,-8.617</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Monte Amiata</th>
+       <td best="true">
+        <a onClick="goto(42.97554,11.54722)">
+         <span style="white-space:nowrap">42.976,11.547</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.88769,11.62414)">
+         <span style="white-space:nowrap">42.888,11.624</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Santo Stefano</th>
+       <td best="true">
+        <a onClick="goto(43.38097,11.3061)">
+         <span style="white-space:nowrap">43.381,11.306</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.85358,12.5928)">
+         <span style="white-space:nowrap">42.854,12.593</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.95192,11.48673)">
+         <span style="white-space:nowrap">43.952,11.487</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.9245,12.78131)">
+         <span style="white-space:nowrap">43.925,12.781</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.33199,13.17048)">
+         <span style="white-space:nowrap">43.332,13.170</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.26261,13.1743)">
+         <span style="white-space:nowrap">42.263,13.174</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.12232,13.2261)">
+         <span style="white-space:nowrap">42.122,13.226</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.97932,13.50619)">
+         <span style="white-space:nowrap">42.979,13.506</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.08507,11.19498)">
+         <span style="white-space:nowrap">45.085,11.195</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.32224,10.65343)">
+         <span style="white-space:nowrap">44.322,10.653</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.13014,11.21463)">
+         <span style="white-space:nowrap">46.130,11.215</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(40.9262,15.01163)">
+         <span style="white-space:nowrap">40.926,15.012</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.38934,12.98082)">
+         <span style="white-space:nowrap">46.389,12.981</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.7702,11.92189)">
+         <span style="white-space:nowrap">46.770,11.922</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.49079,8.56936)">
+         <span style="white-space:nowrap">45.491,8.569</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.95281,8.33678)">
+         <span style="white-space:nowrap">44.953,8.337</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.45973,11.33145)">
+         <span style="white-space:nowrap">44.460,11.331</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.34734,16.19898)">
+         <span style="white-space:nowrap">39.347,16.199</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.32111,16.29715)">
+         <span style="white-space:nowrap">39.321,16.297</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.52832,16.46285)">
+         <span style="white-space:nowrap">38.528,16.463</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Francesco</th>
+       <td best="true">
+        <a onClick="goto(45.62554,11.07178)">
+         <span style="white-space:nowrap">45.626,11.072</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Benvenuto</th>
+       <td best="true">
+        <a onClick="goto(41.18717,15.05129)">
+         <span style="white-space:nowrap">41.187,15.051</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-2.58333,-51.01667)">
+         <span style="white-space:nowrap">-2.583,-51.017</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-26.12,27.96)">
+         <span style="white-space:nowrap">-26.120,27.960</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

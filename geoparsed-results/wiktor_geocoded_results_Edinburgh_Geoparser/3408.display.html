@@ -1,0 +1,1150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([24,121], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([24,121],
+			  {
+			      title: "Taiwan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([24.15114,120.70541],
+			  {
+			      title: "Taiwan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([22.82107,111.62993],
+			  {
+			      title: "Dawan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([32.32812,118.76384],
+			  {
+			      title: "Taiwan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([23.20917,120.18722],
+			  {
+			      title: "Dawan",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([23.83847,120.96614],
+			  {
+			      title: "Formosa",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Taiwan"] = marker;
+  
+    var marker = L.marker([22.48208,112.88338],
+			  {
+			      title: "Sanyi",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([23.0162,110.156],
+			  {
+			      title: "Sanyi",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([25.56368,114.77656],
+			  {
+			      title: "Sanyi",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([32.2597,119.30105],
+			  {
+			      title: "Sanyi",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([31.08593,118.53722],
+			  {
+			      title: "Sanyi",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([32.36643,119.75005],
+			  {
+			      title: "Sanyi",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([33.09917,116.46361],
+			  {
+			      title: "Sanyi",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([32.08389,120.19406],
+			  {
+			      title: "Sanyi",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([30.79283,108.26172],
+			  {
+			      title: "Sanyi",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([34.93306,107.79723],
+			  {
+			      title: "Sanyi",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([33.96738,106.76427],
+			  {
+			      title: "Sanyi",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([39.46848,115.62205],
+			  {
+			      title: "Sanyi",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([39.245,117.14972],
+			  {
+			      title: "Sanyi",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([41.4101,113.16156],
+			  {
+			      title: "Sanyi",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([35.25031,105.10143],
+			  {
+			      title: "Sanyi",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([45.3,125.13333],
+			  {
+			      title: "Sanyi",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([24.9483,98.4969],
+			  {
+			      title: "Sanyi",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([42.45243,124.97843],
+			  {
+			      title: "Sanyi",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([29.7272,108.379],
+			  {
+			      title: "Sanyi",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([43.2271,117.346],
+			  {
+			      title: "Sanyi",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Sanyi"] = marker;
+  
+    var marker = L.marker([23.51956,112.50739],
+			  {
+			      title: "Sanjiao",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([22.39938,113.17193],
+			  {
+			      title: "Sanjiao",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([32.20828,118.92328],
+			  {
+			      title: "Sanjiao",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([23.628,120.4991],
+			  {
+			      title: "Sanjiao",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([30.33558,120.27964],
+			  {
+			      title: "Sanjiao",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([19.67194,109.71695],
+			  {
+			      title: "Sanjiao",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([24.74583,121.75943],
+			  {
+			      title: "Sanjiao",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([32.10532,121.21012],
+			  {
+			      title: "Sanjiao",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([35.06644,112.24774],
+			  {
+			      title: "Sanjiao",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([35.4502,111.28933],
+			  {
+			      title: "Sanjiao",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([30.175,122.18361],
+			  {
+			      title: "Sanjiao",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([36.29318,112.11117],
+			  {
+			      title: "Sanjiao",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([31.60089,106.40453],
+			  {
+			      title: "Sanjiao",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([36.43333,112.13333],
+			  {
+			      title: "Sanjiao",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([36.63333,111.81667],
+			  {
+			      title: "Sanjiao",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([37.95,113.58333],
+			  {
+			      title: "Sanjiao",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([29.65646,103.98496],
+			  {
+			      title: "Sanjiao",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([38.37639,112.49194],
+			  {
+			      title: "Sanjiao",
+			      icon: 18 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 18 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(18 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([29.68112,102.39908],
+			  {
+			      title: "Sanjiao",
+			      icon: 19 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 19 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(19 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([31.77173,100.9988],
+			  {
+			      title: "Sanjiao",
+			      icon: 20 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 20 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(20 == 1)
+    markers_by_name["Sanjiao"] = marker;
+  
+    var marker = L.marker([22.6336,108.997],
+			  {
+			      title: "Huoyan",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([29.59027,108.66845],
+			  {
+			      title: "Huoyan",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([29.23657,109.31486],
+			  {
+			      title: "Huoyan",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([31.56047,108.62964],
+			  {
+			      title: "Huoyan",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([34.0818,111.08904],
+			  {
+			      title: "Huoyan",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([28.269,106.464],
+			  {
+			      title: "Huoyan",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Huoyan"] = marker;
+  
+    var marker = L.marker([25.63556,116.63296],
+			  {
+			      title: "Shengxingcun",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Shengxing"] = marker;
+  
+    var marker = L.marker([24.38776,120.78252],
+			  {
+			      title: "Shengxing",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Shengxing"] = marker;
+  
+    var marker = L.marker([24.3836,120.8562],
+			  {
+			      title: "Shengxing",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Shengxing"] = marker;
+  
+    var marker = L.marker([48.93215,124.26886],
+			  {
+			      title: "Shengxing",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Shengxing"] = marker;
+  
+    var marker = L.marker([24.39508,120.76914],
+			  {
+			      title: "Shengxing",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Shengxing"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Sanyi Township (Chinese: 三義鄉; pinyin: Sānyì Xiāng) is a rural township in <span onClick="goto_name('southern Miaoli County')" class="loc">southern Miaoli County</span>, <span onClick="goto_name('Taiwan')" class="loc">Taiwan</span>. It is famous for its mudiao (woodcarving) industry earning it the name the Woodcarving Kingdom of <span onClick="goto_name('Taiwan')" class="loc">Taiwan</span> (台灣木雕王國). <span onClick="goto_name('Sanyi')" class="loc">Sanyi</span> is located in the mountains of northwestern <span onClick="goto_name('Taiwan')" class="loc">Taiwan</span>. On its northeastern boundary is <span onClick="goto_name('Sanjiao')" class="loc">Sanjiao</span> Mountain at 567 meters, and to the east lies <span onClick="goto_name('Huoyan')" class="loc">Huoyan</span> Mountain at 602 meters. Early exploitation of the Sanyi township area was for timber and hides. Later tung oil was extracted from the abundant tung trees and camphor from the camphor trees. Concurrently the wood carving industry developed. At one point over 80% of local families were employed in wood carving. At the end of the 20th century <span onClick="goto_name('Sanyi')" class="loc">Sanyi</span> began developing a tourist industry. <span onClick="goto_name('Shengxing')" class="loc">Shengxing</span> Station, completed in 1905 and was the highest station (402 meters) in <span onClick="goto_name('Taiwan')" class="loc">Taiwan</span> built along the "Old Mountain Railway". It was built entirely of wood, using wooden pegs and no nails and took five years to complete. The last train stopped at the station on 23 September 1987, because the steep route of the "Old Mountain Railway" could not accommodate the newer, larger trains. Nearby is a 726-meter train tunnel built in 1905. It has successfully withstood a large number of earthquakes, including the quake of 21 September 1999 (921). At the tunnel entrance are some old troop barracks where during World War II local troops were stationed to protect the railway.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>southern Miaoli County</th>
+      </tr>
+      <tr>
+       <th>Taiwan</th>
+       <td best="true">
+        <a onClick="goto(24,121)">
+         <span style="white-space:nowrap">24.000,121.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.15114,120.70541)">
+         <span style="white-space:nowrap">24.151,120.705</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.82107,111.62993)">
+         <span style="white-space:nowrap">22.821,111.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.32812,118.76384)">
+         <span style="white-space:nowrap">32.328,118.764</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.20917,120.18722)">
+         <span style="white-space:nowrap">23.209,120.187</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.83847,120.96614)">
+         <span style="white-space:nowrap">23.838,120.966</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Sanyi</th>
+       <td best="true">
+        <a onClick="goto(22.48208,112.88338)">
+         <span style="white-space:nowrap">22.482,112.883</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.0162,110.156)">
+         <span style="white-space:nowrap">23.016,110.156</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(25.56368,114.77656)">
+         <span style="white-space:nowrap">25.564,114.777</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.2597,119.30105)">
+         <span style="white-space:nowrap">32.260,119.301</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.08593,118.53722)">
+         <span style="white-space:nowrap">31.086,118.537</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.36643,119.75005)">
+         <span style="white-space:nowrap">32.366,119.750</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.09917,116.46361)">
+         <span style="white-space:nowrap">33.099,116.464</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.08389,120.19406)">
+         <span style="white-space:nowrap">32.084,120.194</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.79283,108.26172)">
+         <span style="white-space:nowrap">30.793,108.262</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.93306,107.79723)">
+         <span style="white-space:nowrap">34.933,107.797</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.96738,106.76427)">
+         <span style="white-space:nowrap">33.967,106.764</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.46848,115.62205)">
+         <span style="white-space:nowrap">39.468,115.622</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.245,117.14972)">
+         <span style="white-space:nowrap">39.245,117.150</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.4101,113.16156)">
+         <span style="white-space:nowrap">41.410,113.162</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.25031,105.10143)">
+         <span style="white-space:nowrap">35.250,105.101</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.3,125.13333)">
+         <span style="white-space:nowrap">45.300,125.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.9483,98.4969)">
+         <span style="white-space:nowrap">24.948,98.497</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.45243,124.97843)">
+         <span style="white-space:nowrap">42.452,124.978</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.7272,108.379)">
+         <span style="white-space:nowrap">29.727,108.379</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.2271,117.346)">
+         <span style="white-space:nowrap">43.227,117.346</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Sanjiao</th>
+       <td best="true">
+        <a onClick="goto(23.51956,112.50739)">
+         <span style="white-space:nowrap">23.520,112.507</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(22.39938,113.17193)">
+         <span style="white-space:nowrap">22.399,113.172</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.20828,118.92328)">
+         <span style="white-space:nowrap">32.208,118.923</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(23.628,120.4991)">
+         <span style="white-space:nowrap">23.628,120.499</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.33558,120.27964)">
+         <span style="white-space:nowrap">30.336,120.280</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(19.67194,109.71695)">
+         <span style="white-space:nowrap">19.672,109.717</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.74583,121.75943)">
+         <span style="white-space:nowrap">24.746,121.759</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.10532,121.21012)">
+         <span style="white-space:nowrap">32.105,121.210</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.06644,112.24774)">
+         <span style="white-space:nowrap">35.066,112.248</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(35.4502,111.28933)">
+         <span style="white-space:nowrap">35.450,111.289</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(30.175,122.18361)">
+         <span style="white-space:nowrap">30.175,122.184</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.29318,112.11117)">
+         <span style="white-space:nowrap">36.293,112.111</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.60089,106.40453)">
+         <span style="white-space:nowrap">31.601,106.405</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.43333,112.13333)">
+         <span style="white-space:nowrap">36.433,112.133</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(36.63333,111.81667)">
+         <span style="white-space:nowrap">36.633,111.817</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.95,113.58333)">
+         <span style="white-space:nowrap">37.950,113.583</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.65646,103.98496)">
+         <span style="white-space:nowrap">29.656,103.985</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(38.37639,112.49194)">
+         <span style="white-space:nowrap">38.376,112.492</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.68112,102.39908)">
+         <span style="white-space:nowrap">29.681,102.399</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.77173,100.9988)">
+         <span style="white-space:nowrap">31.772,100.999</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Huoyan</th>
+       <td best="true">
+        <a onClick="goto(22.6336,108.997)">
+         <span style="white-space:nowrap">22.634,108.997</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.59027,108.66845)">
+         <span style="white-space:nowrap">29.590,108.668</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(29.23657,109.31486)">
+         <span style="white-space:nowrap">29.237,109.315</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.56047,108.62964)">
+         <span style="white-space:nowrap">31.560,108.630</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(34.0818,111.08904)">
+         <span style="white-space:nowrap">34.082,111.089</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(28.269,106.464)">
+         <span style="white-space:nowrap">28.269,106.464</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Shengxing</th>
+       <td best="true">
+        <a onClick="goto(25.63556,116.63296)">
+         <span style="white-space:nowrap">25.636,116.633</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.38776,120.78252)">
+         <span style="white-space:nowrap">24.388,120.783</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.3836,120.8562)">
+         <span style="white-space:nowrap">24.384,120.856</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.93215,124.26886)">
+         <span style="white-space:nowrap">48.932,124.269</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(24.39508,120.76914)">
+         <span style="white-space:nowrap">24.395,120.769</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

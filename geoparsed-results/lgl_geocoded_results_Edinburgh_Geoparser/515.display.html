@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Election Day voting lines are smooth sailing. Voters turned out early and in force Tuesday on both sides of the <span onClick="goto_name('Chattahoochee River')" class="loc">Chattahoochee River</span>, helping spread out election crowds and keeping lines relatively short as the day wore on. "It was a lot busier this morning than in the past election, but I don't ever remember there being a slowdown like this in the afternoon," Sharon Ware, polling manager at the Blackmon Road Middle School precinct, said about mid-afternoon. Approximately 600 voters had moved through the lines there by that time. Volunteers at several voting precincts in <span onClick="goto_name('Columbus')" class="loc">Columbus</span> reported 50 or more voters waiting for them in the dark to open their doors at least an hour before the official poll starts polls opened. Matrid Perdue, chief inspector at the Central Activities Center precinct in <span onClick="goto_name('Phenix City')" class="loc">Phenix City</span>, estimated more than 100 were in line as her polls precinct opened at 8 a.m. EST. "They were from the front door all the way down the sidewalk to the street," she said. There were no problems, Perdue said, with nearly 1,800 votes being cast at the precinct by about 4 p.m. She predicted the total there might reach 2,200 before the day was done. "We have had no disgruntlements," she said. "Everyone's been very, very nice. No one has complained. No one has fussed." Part of the heavy morning turnout in <span onClick="goto_name('Phenix City')" class="loc">Phenix City</span> may have been caused by fact that because <span onClick="goto_name('Alabama')" class="loc">Alabama</span> does not have advance voting like <span onClick="goto_name('Georgia')" class="loc">Georgia</span>. <span onClick="goto_name('Alabama')" class="loc">Alabama</span> also still uses paper ballots that are tallied electronically by voting boxes. Columbus election officials said last week that more than 38,000 voters in the city had cast votes early. The city's voting system is completely computerized. Mac Jones of <span onClick="goto_name('Phenix City')" class="loc">Phenix City</span>, after casting votes voting with his wife, Rosie, said he expected lines to be long there. He was pleasantly surprised at the smooth flow despite the crowds coming and going around him. "Perhaps it is Barack; everybody's excited about that," Jones said of the enthusiastic turnout for an election that pitted Barack Obama, the nation's first black major party presidential candidate, against John McCain, whose running mate, Sarah Palin, was vying Tuesday to be the country's first female vice president. "It's going to be history one way or the other." One of the largest opening crowds appeared to be at Rothschild Middle School. When poll manager Sandy Dowdell drove up to the school at 5:30 a.m., he was surprised to see about 50 people standing in line. Some of them brought folding chairs and blankets. By the time the precinct opened at 7 a.m., there were about 250 in line, he said. From 7-10:30 a.m. things were very the precinct was busy, he said. But election planners had many tools an answer to ease the crunch. "People were saying how orderly and organized it was," Dowdell said. "There were a lot of first-time voters. I know there were three 18-year-olds voting for the first time. Their mothers brought them." Because the voter turnout was predicted to be huge this year, each precinct set up queue lines similar to those at amusement parks.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Chattahoochee River</th>
+      </tr>
+      <tr>
+       <th>Columbus</th>
+      </tr>
+      <tr>
+       <th>Phenix City</th>
+      </tr>
+      <tr>
+       <th>Alabama</th>
+      </tr>
+      <tr>
+       <th>Georgia</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

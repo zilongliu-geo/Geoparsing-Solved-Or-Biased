@@ -1,0 +1,671 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([50.8111,20.4671], 8);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+    var marker = L.marker([50.8111,20.4671],
+			  {
+			      title: "Gmina Chęciny",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["district of Gmina Chęciny"] = marker;
+  
+    var marker = L.marker([52,20],
+			  {
+			      title: "Poland",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([44.06063,-70.39367],
+			  {
+			      title: "Poland",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([48.19776,-97.21841],
+			  {
+			      title: "Poland",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([39.44421,-86.95085],
+			  {
+			      title: "Poland",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([31.16713,-92.27569],
+			  {
+			      title: "Poland",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([44.44361,-87.82621],
+			  {
+			      title: "Poland",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([41.02423,-80.6148],
+			  {
+			      title: "Poland",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([48.93342,-90.11685],
+			  {
+			      title: "Poland",
+			      icon: 8 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 8 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(8 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([43.22562,-75.06127],
+			  {
+			      title: "Poland",
+			      icon: 9 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 9 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(9 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([41.67815,-73.01094],
+			  {
+			      title: "Terryville",
+			      icon: 10 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 10 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(10 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([32.85958,-84.41575],
+			  {
+			      title: "Roland",
+			      icon: 11 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 11 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(11 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([45.06681,-76.5494],
+			  {
+			      title: "Poland",
+			      icon: 12 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 12 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(12 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([37.91894,-89.7376],
+			  {
+			      title: "Poland",
+			      icon: 13 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 13 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(13 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([-25.47593,23.0701],
+			  {
+			      title: "Poland",
+			      icon: 14 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 14 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(14 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([33.51873,36.28726],
+			  {
+			      title: "Būlūnyā",
+			      icon: 15 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 15 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(15 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([39.76563,-79.94534],
+			  {
+			      title: "Poland Mines",
+			      icon: 16 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 16 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(16 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([14.32581,120.9775],
+			  {
+			      title: "Poland",
+			      icon: 17 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 17 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(17 == 1)
+    markers_by_name["Poland"] = marker;
+  
+    var marker = L.marker([50.87033,20.62752],
+			  {
+			      title: "Kielce",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Kielce"] = marker;
+  
+    var marker = L.marker([50.8541,20.6155],
+			  {
+			      title: "Kielce",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Kielce"] = marker;
+  
+    var marker = L.marker([50.85419,20.61557],
+			  {
+			      title: "Kielce",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Kielce"] = marker;
+  
+    var marker = L.marker([49.47844,17.81533],
+			  {
+			      title: "Kelč",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Kielce"] = marker;
+  
+    var marker = L.marker([48.69096,9.14062],
+			  {
+			      title: "Europe",
+			      icon: 1 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 1 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(1 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([46.7967,9.82167],
+			  {
+			      title: "Europe",
+			      icon: 2 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 2 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(2 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([33.51355,36.29511],
+			  {
+			      title: "Europe",
+			      icon: 3 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 3 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(3 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([42.8609,74.61555],
+			  {
+			      title: "Europe",
+			      icon: 4 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 4 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(4 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([45.73713,7.32137],
+			  {
+			      title: "Europe",
+			      icon: 5 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 5 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(5 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([53.41363,58.94281],
+			  {
+			      title: "Europe",
+			      icon: 6 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 6 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(6 == 1)
+    markers_by_name["Europe"] = marker;
+  
+    var marker = L.marker([43.5333,3.9833],
+			  {
+			      title: "Europe",
+			      icon: 7 == 1 ? green_icon : red_icon,
+    
+			      zIndexOffset: 1000 - 7 * 20
+			  });
+    marker.addTo(map);
+    markers.push(marker);
+    if(7 == 1)
+    markers_by_name["Europe"] = marker;
+  
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Mosty [ˈmɔstɨ] is a village in the administrative <span onClick="goto_name('district of Gmina Chęciny')" class="loc">district of Gmina Chęciny</span>, within <span onClick="goto_name('Kielce County')" class="loc">Kielce County</span>, Świętokrzyskie Voivodeship, in south-central <span onClick="goto_name('Poland')" class="loc">Poland</span>. It lies approximately 6 kilometres (4 mi) south-west of Chęciny and 19 km (12 mi) south-west of the regional capital <span onClick="goto_name('Kielce')" class="loc">Kielce</span>. The village has a population of 130. Mosty’s underdevelopment is caused partially by the fact that for many years the area was planned to be flooded and become Morze Chęcińskie (Chęciny Sea), an artificial lake that would cover the village and its surroundings. The idea emerged in 1930s and, if successful, it would have been the biggest artificial lake (reservoir) in <span onClick="goto_name('Europe')" class="loc">Europe</span>. Due to this project, only in 2005 proved unprofitable and aborted, there was no investment in the area. Until today, many houses still do not have running water and the village was connected to the electricity line in 1970s. 2. Baran, P. (2014, June 31). Wieś Mosty w Gminie Chęciny zmieni swojr oblicze.Echo Dnia. Retrieved from http://www.echodnia.eu/swietokrzyskie/wiadomosci/powiat-kielecki/art/8068106,wies-mosty-w-gminie-checiny-zmieni-swoje-oblicze,id,t.html</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>district of Gmina Chęciny</th>
+       <td best="true">
+        <a onClick="goto(50.8111,20.4671)">
+         <span style="white-space:nowrap">50.811,20.467</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kielce County</th>
+      </tr>
+      <tr>
+       <th>Poland</th>
+       <td best="true">
+        <a onClick="goto(52,20)">
+         <span style="white-space:nowrap">52.000,20.000</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.06063,-70.39367)">
+         <span style="white-space:nowrap">44.061,-70.394</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.19776,-97.21841)">
+         <span style="white-space:nowrap">48.198,-97.218</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.44421,-86.95085)">
+         <span style="white-space:nowrap">39.444,-86.951</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(31.16713,-92.27569)">
+         <span style="white-space:nowrap">31.167,-92.276</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(44.44361,-87.82621)">
+         <span style="white-space:nowrap">44.444,-87.826</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.02423,-80.6148)">
+         <span style="white-space:nowrap">41.024,-80.615</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(48.93342,-90.11685)">
+         <span style="white-space:nowrap">48.933,-90.117</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.22562,-75.06127)">
+         <span style="white-space:nowrap">43.226,-75.061</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(41.67815,-73.01094)">
+         <span style="white-space:nowrap">41.678,-73.011</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(32.85958,-84.41575)">
+         <span style="white-space:nowrap">32.860,-84.416</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.06681,-76.5494)">
+         <span style="white-space:nowrap">45.067,-76.549</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(37.91894,-89.7376)">
+         <span style="white-space:nowrap">37.919,-89.738</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(-25.47593,23.0701)">
+         <span style="white-space:nowrap">-25.476,23.070</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.51873,36.28726)">
+         <span style="white-space:nowrap">33.519,36.287</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(39.76563,-79.94534)">
+         <span style="white-space:nowrap">39.766,-79.945</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(14.32581,120.9775)">
+         <span style="white-space:nowrap">14.326,120.978</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Kielce</th>
+       <td best="true">
+        <a onClick="goto(50.87033,20.62752)">
+         <span style="white-space:nowrap">50.870,20.628</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.8541,20.6155)">
+         <span style="white-space:nowrap">50.854,20.616</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(50.85419,20.61557)">
+         <span style="white-space:nowrap">50.854,20.616</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(49.47844,17.81533)">
+         <span style="white-space:nowrap">49.478,17.815</span>
+        </a>
+       </td>
+      </tr>
+      <tr>
+       <th>Europe</th>
+       <td best="true">
+        <a onClick="goto(48.69096,9.14062)">
+         <span style="white-space:nowrap">48.691,9.141</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(46.7967,9.82167)">
+         <span style="white-space:nowrap">46.797,9.822</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(33.51355,36.29511)">
+         <span style="white-space:nowrap">33.514,36.295</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(42.8609,74.61555)">
+         <span style="white-space:nowrap">42.861,74.616</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(45.73713,7.32137)">
+         <span style="white-space:nowrap">45.737,7.321</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(53.41363,58.94281)">
+         <span style="white-space:nowrap">53.414,58.943</span>
+        </a>
+       </td>
+       <td best="false">
+        <a onClick="goto(43.5333,3.9833)">
+         <span style="white-space:nowrap">43.533,3.983</span>
+        </a>
+       </td>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

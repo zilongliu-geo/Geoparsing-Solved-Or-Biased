@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Kujang')" class="loc">Kujang</span> (Odia: କୁଜଙ୍ଗ) is a town in Odisha, <span onClick="goto_name('India')" class="loc">India</span>. <span onClick="goto_name('Kujang')" class="loc">Kujang</span> is also known as the gateway of <span onClick="goto_name('Paradip')" class="loc">Paradip</span> industrial area. Business is the main view on people's eyes of Kujang.As <span onClick="goto_name('Paradeep')" class="loc">Paradeep</span> is going to be an emerging industrial hub, <span onClick="goto_name('Kujang')" class="loc">Kujang</span> is the best place for Residencial purpose. Literacy rate of <span onClick="goto_name('Kujang')" class="loc">Kujang</span> is around 83%, higher than national average of 74.04%. It is at 5  meter height to the see level, is surrounded by blocks of <span onClick="goto_name('Tirtol')" class="loc">Tirtol</span>, <span onClick="goto_name('Erasama')" class="loc">Erasama</span>, Mahakalpara, <span onClick="goto_name('Neighbouring District')" class="loc">Neighbouring District</span> of Kendrapara.Kujang is also having approximate 5 km coast line to <span onClick="goto_name('Bay of Bengal')" class="loc">Bay of Bengal</span>. The town situated on the bank of the river <span onClick="goto_name('Mahanadi')" class="loc">Mahanadi</span>. <span onClick="goto_name('Kujang')" class="loc">Kujang</span> became a part of <span onClick="goto_name('Jagatsinghpur district')" class="loc">Jagatsinghpur district</span> that formed in 1993. Before that, it was part of the old <span onClick="goto_name('Cuttack District')" class="loc">Cuttack District</span>. It has a great culture since kingdom era.King Shandha is famous as ruler of ancient Kujang.Narayana Beerabara Samanta is known as <span onClick="goto_name('Gandhi')" class="loc">Gandhi</span> of Kujang.He started "Salt march" also known as "Labana Satyagraha" in <span onClick="goto_name('Kujang')" class="loc">Kujang</span> inspired by Father of Nation Mahatma <span onClick="goto_name('Gandhi')" class="loc">Gandhi</span>. The railway line from <span onClick="goto_name('Cuttack')" class="loc">Cuttack</span> links <span onClick="goto_name('Kujang')" class="loc">Kujang</span>. The nearest railway station from <span onClick="goto_name('Kujang')" class="loc">Kujang</span> town is <span onClick="goto_name('Badabandha')" class="loc">Badabandha</span> Station which is near about 5 km from <span onClick="goto_name('Kujang')" class="loc">Kujang</span>. Train service is not frequent; it is better to go by bus. There is frequent bus service available from <span onClick="goto_name('Cuttack')" class="loc">Cuttack</span>, <span onClick="goto_name('Bhubaneswar')" class="loc">Bhubaneswar</span>, <span onClick="goto_name('Puri')" class="loc">Puri</span>, <span onClick="goto_name('Rourkela')" class="loc">Rourkela</span> and Kolkata. <span onClick="goto_name('Kujang')" class="loc">Kujang</span> is only 70 km from <span onClick="goto_name('Cuttack')" class="loc">Cuttack</span> and 92 km from state capital <span onClick="goto_name('Bhubaneswar')" class="loc">Bhubaneswar</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Kujang</th>
+      </tr>
+      <tr>
+       <th>India</th>
+      </tr>
+      <tr>
+       <th>Paradip</th>
+      </tr>
+      <tr>
+       <th>Paradeep</th>
+      </tr>
+      <tr>
+       <th>Tirtol</th>
+      </tr>
+      <tr>
+       <th>Erasama</th>
+      </tr>
+      <tr>
+       <th>Neighbouring District</th>
+      </tr>
+      <tr>
+       <th>Bay of Bengal</th>
+      </tr>
+      <tr>
+       <th>Mahanadi</th>
+      </tr>
+      <tr>
+       <th>Jagatsinghpur district</th>
+      </tr>
+      <tr>
+       <th>Cuttack District</th>
+      </tr>
+      <tr>
+       <th>Gandhi</th>
+      </tr>
+      <tr>
+       <th>Cuttack</th>
+      </tr>
+      <tr>
+       <th>Badabandha</th>
+      </tr>
+      <tr>
+       <th>Bhubaneswar</th>
+      </tr>
+      <tr>
+       <th>Puri</th>
+      </tr>
+      <tr>
+       <th>Rourkela</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

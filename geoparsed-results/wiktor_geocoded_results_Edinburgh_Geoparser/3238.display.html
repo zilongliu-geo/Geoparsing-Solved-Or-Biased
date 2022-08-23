@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> (simplified Chinese: 辽源; traditional Chinese: 遼源; pinyin: Liáoyuán) is a prefecture-level city in <span onClick="goto_name('Jilin province')" class="loc">Jilin province</span>, <span onClick="goto_name('People_s Republic of China')" class="loc">People's Republic of China</span>. It is bounded on the west and south by <span onClick="goto_name('Tieling')" class="loc">Tieling</span> of <span onClick="goto_name('Liaoning province')" class="loc">Liaoning province</span>, west and north by <span onClick="goto_name('Siping')" class="loc">Siping</span>, and east by <span onClick="goto_name('Tonghua')" class="loc">Tonghua</span> and <span onClick="goto_name('Jilin City')" class="loc">Jilin City</span>. <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> lies some 100 km (62 mi) south of <span onClick="goto_name('Changchun')" class="loc">Changchun</span>, the provincial capital. Covering an area of 5,125 km2 (1,979 sq mi), <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> is the smallest among the prefecture-level divisions of <span onClick="goto_name('Jilin')" class="loc">Jilin</span>. <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> has a total population of 1,176,645 in the prefecture, while the urban area has a population of 462,233. <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> was an imperial hunting ground during the Qing Dynasty, going by the name Shengjing Paddock (盛京圍場). Ordinary citizens were prohibited from entering this region until late 1800s, when waves of immigrants from <span onClick="goto_name('Hebei')" class="loc">Hebei</span>, <span onClick="goto_name('Shandong')" class="loc">Shandong</span> and <span onClick="goto_name('Henan')" class="loc">Henan</span> began to populate <span onClick="goto_name('Manchuria')" class="loc">Manchuria</span> (see Chuang Guandong). In 1902, Qing government established <span onClick="goto_name('Xi')" class="loc">Xi</span>
+     <span onClick="goto_name('_')" class="loc">'</span>
+     <span onClick="goto_name('an')" class="loc">an</span> County (西安縣) in this region, which became today's <span onClick="goto_name('Xi')" class="loc">Xi</span>
+     <span onClick="goto_name('_')" class="loc">'</span>
+     <span onClick="goto_name('an')" class="loc">an</span> District. The discovery of coal underground shortly afterwards brought prosperity to the city. Between 1931 and 1945, <span onClick="goto_name('Xi')" class="loc">Xi</span>
+     <span onClick="goto_name('_')" class="loc">'</span>
+     <span onClick="goto_name('an')" class="loc">an</span> was an important coal-mining city in Manchukuo and also the place where American Army General Jonathan M. Wainwright was held as a prisoner. During the Chinese Civil War after World War II, <span onClick="goto_name('Xi')" class="loc">Xi</span>
+     <span onClick="goto_name('_')" class="loc">'</span>
+     <span onClick="goto_name('an')" class="loc">an</span> was a focal point of the intense fighting between the Communist and Nationalist forces until the summer of 1947 when it was permanently captured by the Communist force. The city was renamed <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> (literally the source of the <span onClick="goto_name('East Liao River')" class="loc">East Liao River</span>) in 1952 as the former name conflicted with that of the much larger <span onClick="goto_name('city of Xi')" class="loc">city of Xi</span>'an in <span onClick="goto_name('Shaanxi province')" class="loc">Shaanxi province</span>. As a county-level city, <span onClick="goto_name('Liaoyuan')" class="loc">Liaoyuan</span> was under Siping Prefecture's jurisdiction till 1983, when it became a prefecture-level city, administering two districts and two counties.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Liaoyuan</th>
+      </tr>
+      <tr>
+       <th>Jilin province</th>
+      </tr>
+      <tr>
+       <th>People's Republic of China</th>
+      </tr>
+      <tr>
+       <th>Tieling</th>
+      </tr>
+      <tr>
+       <th>Liaoning province</th>
+      </tr>
+      <tr>
+       <th>Siping</th>
+      </tr>
+      <tr>
+       <th>Tonghua</th>
+      </tr>
+      <tr>
+       <th>Jilin City</th>
+      </tr>
+      <tr>
+       <th>Changchun</th>
+      </tr>
+      <tr>
+       <th>Jilin</th>
+      </tr>
+      <tr>
+       <th>Hebei</th>
+      </tr>
+      <tr>
+       <th>Shandong</th>
+      </tr>
+      <tr>
+       <th>Henan</th>
+      </tr>
+      <tr>
+       <th>Manchuria</th>
+      </tr>
+      <tr>
+       <th>Xi</th>
+      </tr>
+      <tr>
+       <th>an</th>
+      </tr>
+      <tr>
+       <th>East Liao River</th>
+      </tr>
+      <tr>
+       <th>city of Xi</th>
+      </tr>
+      <tr>
+       <th>Shaanxi province</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

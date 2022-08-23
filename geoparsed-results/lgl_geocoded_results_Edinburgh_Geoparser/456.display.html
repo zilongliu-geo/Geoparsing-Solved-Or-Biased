@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Flood uses Lincoln portrayer to illustrate talk. When author Bracelen Flood speaks, he rarely has a Lincoln impersonator to use as a prop. However, as the author addressed a crowd of more than 220 Wednesday evening in the Grand Reading Room of Eastern Kentucky University’s library, Flood called upon living history portrayer Bob Coffey to illustrate a scene depicted in his latest book, “1864: Lincoln at the Gates of History.” When the 12,000-man force of Confederate Gen. Jubal Early threatened the capital, coming to within five miles of the White House, Lincoln visited the capital’s defenders at <span onClick="goto_name('Fort Stevens')" class="loc">Fort Stevens</span>, about five miles from the White House. Climbing upon the fort’s parapet, the 6-foot, 4-inch Lincoln, wearing his trademark stovepipe hat, presented a 7-foot silhouette at which Confederate snipers could aim. To illustrate, Flood asked Coffey to stand. The <span onClick="goto_name('Rockcastle County')" class="loc">Rockcastle County</span> resident is the same height as Lincoln and almost the same age as the president was in 1864. Wearing a stovepipe hat, Coffey appeared giant-like to the audience. In contrast, the average Union soldier’s height was only 5 feet, 6 inches. Lincoln probably is the only <span onClick="goto_name('U.S.')" class="loc">U.S.</span> president to come under war-time fire while in office, Flood said. Captured Confederates later said their snipers recognized Lincoln’s unmistakable profile, but all of their bullets missed the president who would be felled by an assassin’s bullet the following year after the soldiers’ guns had fallen silent. Lincoln lived long enough, however, to stiffen the nation’s resolve in the face of military disasters, win re-election and see the Union to victory, Flood said. “How did Lincoln get his reputation for honesty?” a questioner asked after Flood’s address. Alluding to scandals of the past 35 years that have sent three Illinois governors to prison and led to another’s indictment and impeachment, “It’s not that hard for an Illinois politician to acquire a reputation for honesty,” Flood said to much laughter. An elementary school student asked Flood what he found most interesting about Lincoln. The president set aside three hours every day for citizens to meet him in his office, Flood said. “He would see about 50 people each day in the order they arrived, regardless of who they were,” the author said. Lincoln also had every letter sent to him answered, and penned a few answers himself. Those gestures allowed visitors from all over the country, even from as far as <span onClick="goto_name('California')" class="loc">California</span>, to see “There was a real person in the White House who care about them,” Flood said. That helped stiffened the nation’s spine when many in the North were ready to give up on the war, he said. Flood’s presentation took place in the library where he has researched four books over the past 35 years. “I am (in the Library) so much of the time that I regard the staff as my friends,” Flood wrote in the acknowledgments of the Lincoln book. The nationally acclaimed writer has worked in some of the nation’s largest and most prestigious libraries, including the <span onClick="goto_name('Library of Congress')" class="loc">Library of Congress</span>, the Harvard University library and the New York Public Library. “What I have (at EKU) makes me competitive with people working in any university or large public library anywhere in the country,” he said Wednesday. “I’ve worked in a room at New York Public Library reserved for writers, called the Frederick Lewis Allen Writers’ Room,” the Manhattan native and Harvard graduate said. “I can tell you what I have (at EKU) works better for me than what I had at 42nd Street and Fifth Avenue (in New <span onClick="goto_name('York City')" class="loc">York City</span>).” To express his gratitude to the library, Flood said he agreed to serve as president of the Friends of the EKU Libraries in 2006-08. “He was the leader who spearheaded the revitalization of the group,” said Carrie Cooper, dean of EKU’s libraries. “We began with a handful of supporters from years past and now have nearly 200 members of our friends group thanks to Bracelen’s leadership.” Cooper said her staff feels privileged to assist a writer of Flood’s caliber and is inspired his dedication to his work. “He is in the library many days as soon as the doors open and often doesn’t leave until late into the evening,” she said. “He eats lunch with our staff, celebrates their achievements, both personally and professionally, and has made many dear friends within our organization.” Co-sponsored by the Friends of Madison County Public Library and Friends of the EKU Libraries, Wednesday’s event also featured an exhibit of Civil War documents, including a Lincoln letter from the university’s archives, a pass the president signed for a <span onClick="goto_name('Kentucky')" class="loc">Kentucky</span> civilian to go through Union lines at <span onClick="goto_name('Louisville')" class="loc">Louisville</span> and a parole for a Union soldier and member of the Kentucky Home Guard who was captured at the Battle of <span onClick="goto_name('Richmond')" class="loc">Richmond</span>. Bill Robinson can be reached at brobinson@richmondregister.com or at 624-6622. Author Bracelen Flood answers a question Wednesday night about his latest book, "1864: Lincoln at the Gates of History," during a presentation in the Grand Reading Room of the EKU library as part of a Lincoln bicentennial celebration.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Fort Stevens</th>
+      </tr>
+      <tr>
+       <th>Rockcastle County</th>
+      </tr>
+      <tr>
+       <th>U.S.</th>
+      </tr>
+      <tr>
+       <th>California</th>
+      </tr>
+      <tr>
+       <th>Library of Congress</th>
+      </tr>
+      <tr>
+       <th>York City</th>
+      </tr>
+      <tr>
+       <th>Kentucky</th>
+      </tr>
+      <tr>
+       <th>Louisville</th>
+      </tr>
+      <tr>
+       <th>Richmond</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

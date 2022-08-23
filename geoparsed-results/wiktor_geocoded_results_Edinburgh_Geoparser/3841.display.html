@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('York County')" class="loc">York County</span> is a county located in the state of <span onClick="goto_name('Maine')" class="loc">Maine</span>, in the <span onClick="goto_name('United States')" class="loc">United States</span>. As of the 2010 census, the population was 197,131, making it the second-most populous county in <span onClick="goto_name('Maine')" class="loc">Maine</span>. <span onClick="goto_name('Its county')" class="loc">Its county</span> seat is Alfred. Founded in 1636, it is the oldest county in <span onClick="goto_name('Maine')" class="loc">Maine</span> and one of the oldest in the <span onClick="goto_name('United States')" class="loc">United States</span>. <span onClick="goto_name('York County')" class="loc">York County</span> is part of the Portland–South <span onClick="goto_name('Portland')" class="loc">Portland</span>, <span onClick="goto_name('ME')" class="loc">ME</span> Metropolitan Statistical Area. In the 1650s the nearby <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span> <span onClick="goto_name('Bay Colony')" class="loc">Bay Colony</span> asserted territorial claims over what is now southern <span onClick="goto_name('Maine')" class="loc">Maine</span>, and by 1658 had completely absorbed what is now southwestern <span onClick="goto_name('Maine')" class="loc">Maine</span> into <span onClick="goto_name('York County')" class="loc">York County</span>, <span onClick="goto_name('Massachusetts')" class="loc">Massachusetts</span>. The first known and recorded deed for a purchase of land in <span onClick="goto_name('York County')" class="loc">York County</span> is in 1668, when Francis Small traded goods with the Newichewannock tribe of this area. Their Chief Wesumbe, also known as Captain Sandy, was friendly with Small and warned him of a plot against his life. A group of renegade tribesmen planned on murdering Small instead of paying him with the furs that were owed to him. Small escaped after watching his house in what is now Cornish, <span onClick="goto_name('Maine')" class="loc">Maine</span>, burn to the ground. Small returned and rebuilt. The Chief made up the loss by selling Small all the lands bounded by the Great and Little Ossipee Rivers, the <span onClick="goto_name('Saco River')" class="loc">Saco River</span>, and the <span onClick="goto_name('New Hampshire')" class="loc">New Hampshire</span> border. Known now as the five Ossipee towns, the tract included all of <span onClick="goto_name('Limington')" class="loc">Limington</span>, <span onClick="goto_name('Limerick')" class="loc">Limerick</span>, <span onClick="goto_name('Cornish')" class="loc">Cornish</span> (formerly named Francisborough), <span onClick="goto_name('Newfield')" class="loc">Newfield</span> and <span onClick="goto_name('Parsonsfield')" class="loc">Parsonsfield</span>.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>York County</th>
+      </tr>
+      <tr>
+       <th>Maine</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Its county</th>
+      </tr>
+      <tr>
+       <th>Portland</th>
+      </tr>
+      <tr>
+       <th>ME</th>
+      </tr>
+      <tr>
+       <th>Massachusetts</th>
+      </tr>
+      <tr>
+       <th>Bay Colony</th>
+      </tr>
+      <tr>
+       <th>Saco River</th>
+      </tr>
+      <tr>
+       <th>New Hampshire</th>
+      </tr>
+      <tr>
+       <th>Limington</th>
+      </tr>
+      <tr>
+       <th>Limerick</th>
+      </tr>
+      <tr>
+       <th>Cornish</th>
+      </tr>
+      <tr>
+       <th>Newfield</th>
+      </tr>
+      <tr>
+       <th>Parsonsfield</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

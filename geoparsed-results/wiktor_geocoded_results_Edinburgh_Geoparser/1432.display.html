@@ -1,0 +1,254 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('El Bosque')" class="loc">El Bosque</span>, <span onClick="goto_name('Chiapas')" class="loc">Chiapas</span> is a town and one of the 122 Municipalities of <span onClick="goto_name('Chiapas')" class="loc">Chiapas</span>, in southern <span onClick="goto_name('Mexico')" class="loc">Mexico</span>. It covers an area of 241 km2. As of 2012, the municipality had a total population of 30 642, The origins of the town date back to 1712, when it was founded by people of San Juan Chamula, specifically from the place known as Muken. On November 13, 1915, when the state was divided into 12 departments, <span onClick="goto_name('El Bosque')" class="loc">El Bosque</span> was part of <span onClick="goto_name('Simojovel')" class="loc">Simojovel</span>. This municipality was originally called <span onClick="goto_name('San Juan Bautista')" class="loc">San Juan Bautista</span>, but on February 13, 1934, the Governor of <span onClick="goto_name('Chiapas')" class="loc">Chiapas</span>, Victórico Ramos Grajales, decreed that its name was now <span onClick="goto_name('El Bosque')" class="loc">El Bosque</span>. This was due to the anticlerical campaign happening at the time. When the 59 free municipalities were created, <span onClick="goto_name('El Bosque')" class="loc">El Bosque</span> was left with two delegations: Plátanos and <span onClick="goto_name('San Pablo')" class="loc">San Pablo</span>. During the Zapatista movement in January 1994, some communities of the municipality joined him. The municipality is between <span onClick="goto_name('Bochil')" class="loc">Bochil</span> and <span onClick="goto_name('Simojovel')" class="loc">Simojovel</span> city, and includes the following communities: <span onClick="goto_name('Altagracia')" class="loc">Altagracia</span>, <span onClick="goto_name('Argentina')" class="loc">Argentina</span>, <span onClick="goto_name('Argentina')" class="loc">Argentina</span> 2, Álvaro Obregón, <span onClick="goto_name('Buena Vista')" class="loc">Buena Vista</span>, Carmen Guayabal Dos, Chabajebal, Chichaltic el Limón, Chiyaltic, <span onClick="goto_name('El Bosque')" class="loc">El Bosque</span>, <span onClick="goto_name('El Carrizal')" class="loc">El Carrizal</span>, El Jardín, <span onClick="goto_name('El Mangal')" class="loc">El Mangal</span>, El Mojón, <span onClick="goto_name('El Naranjal')" class="loc">El Naranjal</span>, <span onClick="goto_name('El Palmar')" class="loc">El Palmar</span>, <span onClick="goto_name('El Pedregal')" class="loc">El Pedregal</span>, <span onClick="goto_name('El Vergel')" class="loc">El Vergel</span>, <span onClick="goto_name('Florencia')" class="loc">Florencia</span>, <span onClick="goto_name('La Bonanza')" class="loc">La Bonanza</span>, La Gloria Chikinchén, <span onClick="goto_name('La Trinidad')" class="loc">La Trinidad</span>, <span onClick="goto_name('Las Delicias')" class="loc">Las Delicias</span>, <span onClick="goto_name('Los')" class="loc">Los</span> Ángeles, Mercedes la Ilusión, Naptic, Niquidámbar, Nueva Jerusalén, Nueva Ucrania, <span onClick="goto_name('Ocotal')" class="loc">Ocotal</span>, Plátanos, <span onClick="goto_name('Pozo Verde')" class="loc">Pozo Verde</span>, Sabinotic, San Andrés la <span onClick="goto_name('Laguna')" class="loc">Laguna</span>, <span onClick="goto_name('San Antonio')" class="loc">San Antonio</span>, <span onClick="goto_name('San Antonio')" class="loc">San Antonio</span> el <span onClick="goto_name('Brillante')" class="loc">Brillante</span>, <span onClick="goto_name('San Cayetano')" class="loc">San Cayetano</span>, <span onClick="goto_name('San Francisco')" class="loc">San Francisco</span>, San Isidro Uno, <span onClick="goto_name('San Miguel')" class="loc">San Miguel</span>, San Norberto, San Pedro Nichtalucum, <span onClick="goto_name('Tierra Caliente')" class="loc">Tierra Caliente</span>, Unión Progreso, Unión Tierra Tzotzil.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>El Bosque</th>
+      </tr>
+      <tr>
+       <th>Chiapas</th>
+      </tr>
+      <tr>
+       <th>Mexico</th>
+      </tr>
+      <tr>
+       <th>Simojovel</th>
+      </tr>
+      <tr>
+       <th>San Juan Bautista</th>
+      </tr>
+      <tr>
+       <th>San Pablo</th>
+      </tr>
+      <tr>
+       <th>Bochil</th>
+      </tr>
+      <tr>
+       <th>Altagracia</th>
+      </tr>
+      <tr>
+       <th>Argentina</th>
+      </tr>
+      <tr>
+       <th>Buena Vista</th>
+      </tr>
+      <tr>
+       <th>El Carrizal</th>
+      </tr>
+      <tr>
+       <th>El Mangal</th>
+      </tr>
+      <tr>
+       <th>El Naranjal</th>
+      </tr>
+      <tr>
+       <th>El Palmar</th>
+      </tr>
+      <tr>
+       <th>El Pedregal</th>
+      </tr>
+      <tr>
+       <th>El Vergel</th>
+      </tr>
+      <tr>
+       <th>Florencia</th>
+      </tr>
+      <tr>
+       <th>La Bonanza</th>
+      </tr>
+      <tr>
+       <th>La Trinidad</th>
+      </tr>
+      <tr>
+       <th>Las Delicias</th>
+      </tr>
+      <tr>
+       <th>Los</th>
+      </tr>
+      <tr>
+       <th>Ocotal</th>
+      </tr>
+      <tr>
+       <th>Pozo Verde</th>
+      </tr>
+      <tr>
+       <th>Laguna</th>
+      </tr>
+      <tr>
+       <th>San Antonio</th>
+      </tr>
+      <tr>
+       <th>Brillante</th>
+      </tr>
+      <tr>
+       <th>San Cayetano</th>
+      </tr>
+      <tr>
+       <th>San Francisco</th>
+      </tr>
+      <tr>
+       <th>San Miguel</th>
+      </tr>
+      <tr>
+       <th>Tierra Caliente</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

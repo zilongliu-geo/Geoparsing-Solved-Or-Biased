@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>Auburn is a city in and the county seat of <span onClick="goto_name('Androscoggin County')" class="loc">Androscoggin County</span>, <span onClick="goto_name('Maine')" class="loc">Maine</span>, <span onClick="goto_name('United States')" class="loc">United States</span>. The population was 23,055 at the 2010 census. It is one of two principal cities of and included in the Lewiston-Auburn, <span onClick="goto_name('Maine metropolitan')" class="loc">Maine metropolitan</span> <span onClick="goto_name('New England')" class="loc">New England</span> city and town area and the Lewiston-Auburn, <span onClick="goto_name('Maine Metropolitan')" class="loc">Maine Metropolitan</span> Statistical Area (which is part of the Portland-Lewiston-South <span onClick="goto_name('Portland')" class="loc">Portland</span>, <span onClick="goto_name('Maine')" class="loc">Maine</span> combined statistical area). Auburn and Lewiston (directly across the <span onClick="goto_name('Androscoggin')" class="loc">Androscoggin</span> River) are known locally as the <span onClick="goto_name('Twin Cities')" class="loc">Twin Cities</span> or Lewiston-Auburn (L-A). The area was originally part of the Pejepscot Purchase, land bought in 1714 by a consortium from <span onClick="goto_name('Boston')" class="loc">Boston</span> and <span onClick="goto_name('Portsmouth')" class="loc">Portsmouth</span> following the Treaty of <span onClick="goto_name('Portsmouth')" class="loc">Portsmouth</span>, which brought peace between the Abenaki Indians and English settlements. In 1736, however, the Massachusetts General Court granted a large section of the land to veterans of the 1690 Battle of <span onClick="goto_name('Quebec')" class="loc">Quebec</span>. Conflicting claims led to prolonged litigation; consequently, settlement was delayed until after the French and Indian Wars. Auburn was first settled in 1786 as part of <span onClick="goto_name('Bakerstown')" class="loc">Bakerstown</span>, renamed <span onClick="goto_name('Poland')" class="loc">Poland</span> when it was incorporated by the Massachusetts General Court in 1795. It was then part of <span onClick="goto_name('Minot')" class="loc">Minot</span>, set off from <span onClick="goto_name('Poland')" class="loc">Poland</span> and incorporated in 1802. Auburn would itself be set off and incorporated on February 24, 1842. The name was apparently inspired by "Auburn", a village (real or fictitious) featured in the 1770 poem "The Deserted Village" by Oliver Goldsmith. Originally part of <span onClick="goto_name('Cumberland County')" class="loc">Cumberland County</span>, the town became county seat of <span onClick="goto_name('Androscoggin County')" class="loc">Androscoggin County</span> at its creation in 1854. By annexing land from towns around it, including part of <span onClick="goto_name('Poland')" class="loc">Poland</span> in 1852, <span onClick="goto_name('Minot')" class="loc">Minot</span> in 1873, and all of <span onClick="goto_name('Danville')" class="loc">Danville</span> (first called <span onClick="goto_name('Pejepscot')" class="loc">Pejepscot</span>) in 1867, Auburn grew geographically into one of <span onClick="goto_name('Maine')" class="loc">Maine</span>'s largest municipalities. Incorporated a city in 1868, Auburn in 1917 would be the first city in the state to adopt a council-manager form of government.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Androscoggin County</th>
+      </tr>
+      <tr>
+       <th>Maine</th>
+      </tr>
+      <tr>
+       <th>United States</th>
+      </tr>
+      <tr>
+       <th>Maine metropolitan</th>
+      </tr>
+      <tr>
+       <th>New England</th>
+      </tr>
+      <tr>
+       <th>Maine Metropolitan</th>
+      </tr>
+      <tr>
+       <th>Portland</th>
+      </tr>
+      <tr>
+       <th>Androscoggin</th>
+      </tr>
+      <tr>
+       <th>Twin Cities</th>
+      </tr>
+      <tr>
+       <th>Boston</th>
+      </tr>
+      <tr>
+       <th>Portsmouth</th>
+      </tr>
+      <tr>
+       <th>Quebec</th>
+      </tr>
+      <tr>
+       <th>Bakerstown</th>
+      </tr>
+      <tr>
+       <th>Poland</th>
+      </tr>
+      <tr>
+       <th>Minot</th>
+      </tr>
+      <tr>
+       <th>Cumberland County</th>
+      </tr>
+      <tr>
+       <th>Danville</th>
+      </tr>
+      <tr>
+       <th>Pejepscot</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Sanhe')" class="loc">Sanhe</span> (Chinese: 三河; pinyin: Sānhé Shì) is a county-level city administered by Langfang prefecture in <span onClick="goto_name('eastern Hebei province')" class="loc">eastern Hebei province</span>, <span onClick="goto_name('People_s Republic of China')" class="loc">People's Republic of China</span>. The name of the city literally means "<span onClick="goto_name('Three Rivers')" class="loc">Three Rivers</span>". <span onClick="goto_name('Sanhe')" class="loc">Sanhe</span> has 10 towns and 395 villages within those towns. <span onClick="goto_name('Sanhe city')" class="loc">Sanhe city</span>, <span onClick="goto_name('Dachang')" class="loc">Dachang</span> <span onClick="goto_name('Hui')" class="loc">Hui</span> <span onClick="goto_name('Autonomous County')" class="loc">Autonomous County</span> and <span onClick="goto_name('Xianghe County')" class="loc">Xianghe County</span> form the Sanhe Exclave, an exclave of <span onClick="goto_name('Hebei province')" class="loc">Hebei province</span> surrounded by the <span onClick="goto_name('Beijing')" class="loc">Beijing</span> and <span onClick="goto_name('Tianjin')" class="loc">Tianjin</span> municipalities. <span onClick="goto_name('Sanhe')" class="loc">Sanhe</span> has 10 towns: <span onClick="goto_name('Juyang')" class="loc">Juyang</span> (泃阳镇), <span onClick="goto_name('Liqizhuang')" class="loc">Liqizhuang</span> (李旗庄镇), <span onClick="goto_name('Yangzhuang')" class="loc">Yangzhuang</span> (杨庄镇), <span onClick="goto_name('Huangzhuang')" class="loc">Huangzhuang</span> (皇庄镇), <span onClick="goto_name('Xinji')" class="loc">Xinji</span> (新集镇), <span onClick="goto_name('Duanjialing')" class="loc">Duanjialing</span> (段甲岭镇), Huangshizhuang (黄土庄镇), <span onClick="goto_name('Gaolou')" class="loc">Gaolou</span> (高楼镇), Qixinzhuang (齐心庄镇), <span onClick="goto_name('Yanjiao')" class="loc">Yanjiao</span> (燕郊镇) In February, 2013 German television crew from ARD was attacked by a group of men in vehicles and their van driven off the road after filming in <span onClick="goto_name('Sanhe')" class="loc">Sanhe</span>. The windshield of the van was broken with baseball bats. One of the vehicles involved in the attack was identified as belong to the local Communist party boss. The crew taken into custody and questioned for 16 hours then released. The men from <span onClick="goto_name('Sanhe')" class="loc">Sanhe</span> said they were offended because the crew did not ask for permission to film.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Sanhe</th>
+      </tr>
+      <tr>
+       <th>eastern Hebei province</th>
+      </tr>
+      <tr>
+       <th>People's Republic of China</th>
+      </tr>
+      <tr>
+       <th>Three Rivers</th>
+      </tr>
+      <tr>
+       <th>Sanhe city</th>
+      </tr>
+      <tr>
+       <th>Dachang</th>
+      </tr>
+      <tr>
+       <th>Hui</th>
+      </tr>
+      <tr>
+       <th>Autonomous County</th>
+      </tr>
+      <tr>
+       <th>Xianghe County</th>
+      </tr>
+      <tr>
+       <th>Hebei province</th>
+      </tr>
+      <tr>
+       <th>Beijing</th>
+      </tr>
+      <tr>
+       <th>Tianjin</th>
+      </tr>
+      <tr>
+       <th>Juyang</th>
+      </tr>
+      <tr>
+       <th>Liqizhuang</th>
+      </tr>
+      <tr>
+       <th>Yangzhuang</th>
+      </tr>
+      <tr>
+       <th>Huangzhuang</th>
+      </tr>
+      <tr>
+       <th>Xinji</th>
+      </tr>
+      <tr>
+       <th>Duanjialing</th>
+      </tr>
+      <tr>
+       <th>Gaolou</th>
+      </tr>
+      <tr>
+       <th>Yanjiao</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>

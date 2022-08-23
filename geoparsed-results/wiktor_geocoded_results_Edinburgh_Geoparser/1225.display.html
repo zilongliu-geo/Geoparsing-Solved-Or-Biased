@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <link crossorigin="" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" rel="stylesheet"></link>
+  <script crossorigin="" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+    var markers_by_name = {};
+    
+    var green_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    var red_icon = new L.Icon({
+	iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
+	shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+    });
+
+    function load() {
+
+        map = L.map('map');
+    
+    
+	map.setView([10,0], 2);
+      
+
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+	
+	  attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a>',
+	
+	    tileSize: 512,
+	    maxZoom: 18,
+	    zoomOffset: -1,
+	    id: 'mapbox/streets-v11',
+	    accessToken: 'unset'
+	}).addTo(map);
+	    
+	
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+	map.flyTo([x,y]);
+    }
+
+    function goto_name(name) {
+        if(markers_by_name.hasOwnProperty(name))
+    	    map.flyTo(markers_by_name[name].getLatLng());
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getLatLng();
+        if(l.lat == lastlat && l.lng == lastlng)
+        {
+//            alert("match: " + l.lat + "," + l.lng + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat;
+        lastlng = l.lng;
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getLatLng();
+    var lat = latlng.lat, lng = latlng.lng;
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var newlatlng = new L.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setLatLng(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat + "   " + lng + " -> " + newlatlng.lng);
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getLatLng(), l2 = m2.getLatLng();
+    if(l1.lat == l2.lat)
+        return l1.lng - l2.lng;
+    else
+        return l1.lat - l2.lat;
+}
+//]]>
+      </script>
+  <style>
+	#map   {width: 100%; height: 500px}
+        #text  {width: 50%; float: left; background-color: #BBCCAA; margin: 20px;}
+        #list  {margin-left: 50%; overflow: scroll;}
+        .loc   {background-color: #E0FFE8;}
+	table  {border-collapse: collapse; empty-cells: show;}
+	tr     {border: 1px solid black;}
+	th,td  {padding:  3px;}
+	td[best="true"]  {color: green;}
+	td[best="false"] {color: red;}
+      </style>
+ </head>
+ <body onload="load()">
+  <div onload="load()" id="map"></div>
+  <div id="lower">
+   <div id="text">
+<p>
+     <span onClick="goto_name('Jamestown')" class="loc">Jamestown</span>, also known as Webersvallei ("Weber's Valley"), is a quiet rural settlement on the southern outskirts of <span onClick="goto_name('Stellenbosch')" class="loc">Stellenbosch</span> in the Cape <span onClick="goto_name('Winelands District')" class="loc">Winelands District</span> of the Western Cape province of <span onClick="goto_name('South Africa')" class="loc">South Africa</span>. It is situated next to Blaauwklippen Vineyards, on the eastern side of route R44 from <span onClick="goto_name('Stellenbosch')" class="loc">Stellenbosch</span> to <span onClick="goto_name('Somerset West')" class="loc">Somerset West</span> and the Strand coastal resort. The main access from the R44 is via Webersvallei Road, the main road in <span onClick="goto_name('Jamestown')" class="loc">Jamestown</span> with watererven – long, narrow agricultural plots on the south bank of <span onClick="goto_name('Blouklip')" class="loc">Blouklip</span> River – on the north side of the road and residential plots on the south side of the road. Over time, <span onClick="goto_name('Jamestown')" class="loc">Jamestown</span> has transformed from a subsistence farming village into a primarily residential area as residents have sought work elsewhere in order to survive. A heritage committee was established in 2010 to document the history of <span onClick="goto_name('Jamestown')" class="loc">Jamestown</span> for the benefit of future generations, to restore old buildings and to facilitate increased involvement in local festivals and commemorative events. The village was named after James Rattray (1859–1938), a <span onClick="goto_name('Stellenbosch')" class="loc">Stellenbosch</span> businessman who owned a butchery in <span onClick="goto_name('Dorp')" class="loc">Dorp</span> Street. He was the grandson of Scottish teacher James Rattray (c. 1795–1864) who immigrated to the <span onClick="goto_name('Cape Colony')" class="loc">Cape Colony</span> in 1822, one of several British people recruited to the colony by Scottish missionary George Thom at the request of the governor Lord Charles Somerset. In 1902 Rattray and Rhenish missionary Jacob Weber (1856–1937), who was born in <span onClick="goto_name('Lennep')" class="loc">Lennep</span> in <span onClick="goto_name('Germany')" class="loc">Germany</span> and sent to <span onClick="goto_name('Stellenbosch')" class="loc">Stellenbosch</span> in 1882, acquired a portion of the Blaauwklippen farm. The land was divided into plots and sold to coloured families, and most of the associated debt was paid off within twenty years. Street names such as Everbearing, Festival, Nared, <span onClick="goto_name('Pajaro')" class="loc">Pajaro</span>, <span onClick="goto_name('Rolinda')" class="loc">Rolinda</span>, Tiobelle, Titan, <span onClick="goto_name('Torrey')" class="loc">Torrey</span>, Tribute and Whiteheart in the residential area are based on strawberry varieties, after the main crop grown there since 1902. Other crops grown there include beans, lettuce, potatoes and tomatoes.</p>
+</div>
+   <div id="list">
+    <div id="instr">
+     <p>
+            Click on a lat/long to centre the map there.
+	  </p>
+    </div>
+    <div id="table">
+     <table>
+      <tr>
+       <th>Jamestown</th>
+      </tr>
+      <tr>
+       <th>Stellenbosch</th>
+      </tr>
+      <tr>
+       <th>Winelands District</th>
+      </tr>
+      <tr>
+       <th>South Africa</th>
+      </tr>
+      <tr>
+       <th>Somerset West</th>
+      </tr>
+      <tr>
+       <th>Blouklip</th>
+      </tr>
+      <tr>
+       <th>Dorp</th>
+      </tr>
+      <tr>
+       <th>Cape Colony</th>
+      </tr>
+      <tr>
+       <th>Lennep</th>
+      </tr>
+      <tr>
+       <th>Germany</th>
+      </tr>
+      <tr>
+       <th>Pajaro</th>
+      </tr>
+      <tr>
+       <th>Rolinda</th>
+      </tr>
+      <tr>
+       <th>Torrey</th>
+      </tr>
+     </table>
+    </div>
+   </div>
+  </div>
+ </body>
+</html>
